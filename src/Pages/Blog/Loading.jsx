@@ -1,21 +1,22 @@
 import { useContext } from "react"
-import { AppContext } from "../App"
-import '../Pages/Blog/Blog.css'
+import { AppContext } from "../../App"
+import './Blog.css'
 
 export const Loading = () => {
     const { mediumScreen, smallScreen } = useContext(AppContext)
     return(
         <div className="m-9 p-9">
-            <div className={`m-auto h-full ${smallScreen ? ' my-4' : 'w-11/12'} flex items-between  rounded-xl bg-gray-900 z-10 relative`} style={{
+            <div className={`m-auto h-full ${smallScreen ? ' my-4' : 'w-11/12'} flex items-between overflow-hidden rounded-xl bg-gray-900 z-10 relative`} style={{
                     height: mediumScreen ? 100+'%' : 70+'vh',
                     width: smallScreen ? 90+'%' : 350+'px'
                 }}>
-                    <div className="lines absolute">
-                        <p className="absolute bg-gray-600 transition-all duration-200 blogLoad" style={{
-                            height: 80+'vh',
-                            width: 10+'px',
+                        <p className="absolute top-0 transition-all duration-200 blogLoad" style={{
+                            height: 100+'%',
+                            width: 100+'%',
                         }}></p>
-                    </div>
+                        
+                    {/* <div className="lines absolute">
+                    </div> */}
                                     
                     <div className="flex flex-col justify-between h-full w-full bg-blue-10">
                         <div className={`flex ${mediumScreen ? 'items-center' : ''} h-4/5 w-full bg-gray-800 rounded-t-xl`} style={{

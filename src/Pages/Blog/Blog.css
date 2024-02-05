@@ -11,17 +11,19 @@
 
 
 .blogLoad{
-    animation: slide 0.5s ease-in-out infinite;
-    /* display: none; */
-    left: 20%
+    animation: slide 1s ease-in-out infinite;
 }
 
 
-/* @keyframes slide {
-    from{
-        left: -20%
+
+@keyframes slide {
+    0%{
+        background-color: rgba(0, 0, 0, 0.1);
     }
-    to{
-        right: -20%
+    50%{
+        background-color: rgba(0, 0, 0, 0.4);
     }
-} */
+    100%{
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}

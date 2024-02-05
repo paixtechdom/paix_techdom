@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useState } from "react"
 import { useContext, useEffect } from "react"
 import { Link } from "react-router-dom"
@@ -6,12 +7,34 @@ import { Blogs } from "../../assets/Constants"
 import { Button } from "../../Components/Button"
 import { Parallax } from "../../Components/Parallax"
 
-export const BlogSection = ({setBg, bgValue, setSection, sectionValue, setIcon, iconValue}) => {
-    // const [ blogs, setBlogs ] = useState([])
+export const BlogSection = ({setBg, bgValue, setSection, sectionValue, setIcon, iconValue, searchParameter, setLoadingBlogs, setSearchedBlogs, searchedBlogs }) => {
+    // const [ Blogs, setBlogs ] = useState([])
+    const { mediumScreen, smallScreen, dbLocation } = useContext(AppContext)
 
     useEffect(() =>{
         document.addEventListener('scroll', handleScroll)
+        // fetchBlogs()
+        Blogs.forEach((blog) =>{
+            if(blog.title.toLowerCase().includes(searchParameter.toLowerCase()) || blog.desc.toLowerCase().includes(searchParameter.toLowerCase())){
+                setSearchedBlogs(searchedBlogs + 1)
+                setTimeout(() => {
+                    setLoadingBlogs(false)
+                    console.log(searchParameter)
+                }, 2000);
+            }
+        })
     }, [])
+
+    // const fetchBlogs = () => {
+    //     try {
+    //         axios.get(`${dbLocation}/blogs.php/get/${sectionValue}`).then(function(response){
+    //             console.log(response.data)
+    //         })
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    
     
     const handleScroll = () =>{
         // if(currentBlog < Blogs.length - 1){
@@ -29,7 +52,6 @@ export const BlogSection = ({setBg, bgValue, setSection, sectionValue, setIcon, 
             }
     }
 
-    const { mediumScreen, smallScreen } = useContext(AppContext)
     return(
         <div id="" className={`${bgValue+'class'} my-9 py-9 flex flex-col justify-center items-center gap-9 text-gray-300 bg-blue-00`}>
             <div className={`flex flex-wrap items-center justify-center mb-5 gap-9 
@@ -38,9 +60,12 @@ export const BlogSection = ({setBg, bgValue, setSection, sectionValue, setIcon, 
             {/* ${ smallScreen ? 'flex flex-col gap-9' : mediumScreen ? 'w-11/12 grid grid-cols-2 gap-y-9' : ' grid grid-cols-3 w-10/12 gap-y-9'}  */}
                 {
                     Blogs?.map((blog, key) => (
-                        blog.section == sectionValue &&
-                        <Parallax id={blog.title.replaceAll(' ', '-')} key={key}>
-                        <Link to={`${blog.id}`} key={key} className={`m-auto h-full ${smallScreen ? ' my-4' : 'w-11/12'} flex items-between  rounded-xl shadow-lg bg-blue-60 border-white border-top-none z-10`} style={{
+                        (!searchParameter == '' ? 
+                        blog.title.toLowerCase().includes(searchParameter.toLowerCase()) || blog.desc.toLowerCase().includes(searchParameter.toLowerCase()) 
+                        :
+                        blog.section == sectionValue) &&
+                        // <Parallax id={blog.title.replaceAll(' ', '-')} key={key}>
+                        <div to={`${blog.id}`} key={key} className={`m-auto h-full ${smallScreen ? ' my-4' : 'w-11/12'} flex items-between  rounded-xl shadow-lg bg-blue-60 border-white border-top-none z-10`} style={{
                             height: mediumScreen ? 100+'%' : 70+'vh',
                             width: smallScreen ? 90+'%' : 350+'px'
                         }}>
@@ -77,11 +102,11 @@ export const BlogSection = ({setBg, bgValue, setSection, sectionValue, setIcon, 
                                         </div>
                                     </div>
                                 </div>
-                            </Link>
-                                </Parallax>
+                            </div>
+                        // </Parallax> 
 
                     ))
-                }
+                } 
             </div>
             <div className="w-full flex justify-center">
                 <Link to='/Blog'  className={`z-10 rounded-xl h-full ${ smallScreen ? 'w-11/12' : mediumScreen ? 'w-8/12' : !mediumScreen ? 'w-5/12' : '' }  font small-lg border-white text-white py-3 flex items-center gap-1 justify-center`}> SHOW MORE <i className="bi bi-chevron-down text-xl"></i>

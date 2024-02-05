@@ -13,7 +13,8 @@ export const RecentBlogs = ({no, showReadMore}) => {
                 {
                     Blogs.map((blog, key) => (
                         key < no &&
-                        <Link to={`Blog/${blog.id}`} key={key} className={` h-full ${smallScreen ? 'w-10/12 my-4' : 'w-11/12'} overflow-hidden flex py- rounded-2xl shadow-lg `} style={{
+                        // <Link to={`Blog/${blog.id}`} key={key} className={` h-full ${smallScreen ? 'w-10/12 my-4' : 'w-11/12'} overflow-hidden flex py- rounded-2xl shadow-lg `} style={{
+                        <div key={key} className={` h-full ${smallScreen ? 'w-10/12 my-4' : 'w-11/12'} overflow-hidden flex py- rounded-2xl shadow-lg `} style={{
                             height: mediumScreen ? 100+'%' : 70+'vh'
                         }}>
                                 <Parallax id='blog' key={key}>
@@ -51,7 +52,7 @@ export const RecentBlogs = ({no, showReadMore}) => {
                                 </div>
                                 {/* <h3>{blog.title}</h3> */}
                                 </Parallax>
-                            </Link>
+                            </div>
 
                     ))
                 }

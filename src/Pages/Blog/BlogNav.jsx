@@ -55,7 +55,7 @@ export const BlogNav = ({focusSearch}) =>{
                             height: 70+'px'
                         }} onClick={() =>setShowNav(false)}>
                             
-                                <p className={`text-blue font-bold logo text-2xl`}>Paix Blog</p>
+                                <p className={`text-blue font-bold logo text-2xl`}>Paix</p>
                         </Link>
                         {mediumScreen ?
                         <div className='flex items-center gap-3'>

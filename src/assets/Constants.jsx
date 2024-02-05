@@ -1,11 +1,7 @@
 
-// import person from './img/images_(17)-transformed.png'
 import person from './img/person.jpg'
 import education from './img/image.jpg'
-// import project from './img/project.jpg'
-// import shoe from './img/images_(14)-m2eSJKcDoL-transformed.png'
 import shoe from './img/images_(15)-transformed.png'
-// import shoe from './img/shoe.jpg'
 import organization from './img/organization.jpg'
 import blog from './img/images (6).jpeg'
 import img5 from './img/design.jpeg'
@@ -450,7 +446,7 @@ const BlogNavs = [
 
 const Blogs = [
     {
-        title: 'Dolorum 1 ignissimos cumque fuga qui quibusdam quia',
+        title: 'Tech 1 ignissimos cumque fuga qui quibusdam quia',
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '12 July, 2023',
         img: img5,
@@ -467,7 +463,7 @@ const Blogs = [
         
     },
     {
-        title: 'Dolorum 2 optio tempore voluptas quia',
+        title: 'Career 2 optio tempore voluptas quia',
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '13 Aug, 2023',
         img: img6,
@@ -485,7 +481,7 @@ const Blogs = [
         
     },
     {
-        title: 'Dolorum 3 optio tempore voluptas dignissimos cu',
+        title: 'Tools 3 optio tempore voluptas dignissimos cu',
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '14 Sept, 2023',
         id: 'blog3',
@@ -503,7 +499,7 @@ const Blogs = [
         
     },
     {
-        title: 'Dolorum 4 optio tempore voluptcumq',
+        title: 'Education 4 optio tempore voluptcumq',
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '15 Oct, 2023',
         id: 'blog4',
@@ -520,7 +516,7 @@ const Blogs = [
 
     },
     {
-        title: 'Dolorum 5 optio temp voluptacu',
+        title: 'Techie 5 optio temp voluptacu',
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '14 Sept, 2023',
         id: 'blog3',
@@ -538,7 +534,7 @@ const Blogs = [
         
     },
     {
-        title: 'Dolorum 6 optio tempore voluptas dignissimos cumq',
+        title: 'Toolsie 6 optio tempore voluptas dignissimos cumq',
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '15 Oct, 2023',
         id: 'blog4',
@@ -567,15 +563,15 @@ const BlogTypes = [
         bg: 'black'
     },
     {
-        title: 'Career',
-        icon: ' person-badge-fill',
-        bg: 'red-900'
-    },
-    {
         title: 'Education',
         icon: 'book-fill',
         bg: 'blue-900'
-    }
+    },
+    {
+        title: 'Career',
+        icon: ' person-badge-fill',
+        bg: 'gray-900'
+    },
 ]
 export { Navs, AfterHero, numbers, ourOfffers , AboutInfo, ServicesInfo, ContactInfo, Prices, Blogs, Testimonials, BlogNavs, BlogTypes }
 

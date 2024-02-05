@@ -24,6 +24,7 @@ const Layout = () =>{
   const [ alertType, setAlertType ] = useState('')
   const [ subject, setSubject ] = useState('')
   const [ isScrollTopZero, setIsScrollTopZero ] = useState(true)
+  const  dbLocation = 'http://localhost:80/paixAPI'
   
   useEffect(() =>{
       document.addEventListener('scroll', handleScroll)
@@ -81,7 +82,7 @@ const Layout = () =>{
 
   return(
     <div className='app '>
-      <AppContext.Provider value={{currentNav, setCurrentNav, smallScreen, mediumScreen , showALert, setShowAlert, alertMessage, setAlertMessage, setAlertType, subject, setSubject, showNavBar, setShowNavBar, isScrollTopZero, setIsScrollTopZero}}>
+      <AppContext.Provider value={{currentNav, setCurrentNav, smallScreen, mediumScreen , showALert, setShowAlert, alertMessage, setAlertMessage, setAlertType, subject, setSubject, showNavBar, setShowNavBar, isScrollTopZero, setIsScrollTopZero, dbLocation}}>
 
 
           <div className='d-flex w-full'>

@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useEffect, useRef } from "react"
 import { useContext } from "react"
 import { useState } from "react"
@@ -5,10 +6,10 @@ import { useParams } from "react-router"
 import { Link } from "react-router-dom"
 import { AppContext } from "../../App"
 import { Blogs, BlogTypes } from "../../assets/Constants"
-import { Loading } from "../../Components/Loading"
 import './Blog.css'
 import { BlogNav } from "./BlogNav"
 import { BlogSection } from "./BlogSection"
+import { Loading } from "./Loading"
 import { RecentBlogs } from "./RecentBlogs"
 
 export const Blog = () => {
@@ -17,10 +18,12 @@ export const Blog = () => {
     const [ bg, setBg ] = useState('')
     const [ section, setSection ] = useState('')
     const [ icon, setIcon ] = useState('')
-    const [loadingBlogs, setLoadingBlogs ] = useState(true)
+    const [loadingBlogs, setLoadingBlogs ] = useState(false)
     const [ searchParameter, setSearchParameter ] = useState('')
+    const [ searchedBlogs, setSearchedBlogs ] = useState(0)
+    // const [ defaultBlogs, setDefaultBlogs ] = useState([])
     const searchRef = useRef()
-    const { mediumScreen, smallScreen, setShowNavBar } = useContext(AppContext)
+    const { mediumScreen, smallScreen, setShowNavBar, dbLocation } = useContext(AppContext)
 
     useEffect(() => {
         setBlog(Blogs[currentBlog])
@@ -37,8 +40,6 @@ export const Blog = () => {
             setCurrentBlog(currentBlog == Blogs.length - 1 ? 0 : currentBlog + 1 )
         }
     }
-
-
     const id = useParams()
 
     useEffect(() =>{
@@ -61,15 +62,49 @@ export const Blog = () => {
     const focusSearch = () => {
         searchRef.current.focus()
     }
-
+    
     useEffect(() => {  
        setBlog(Blogs[0])
         document.documentElement.scrollTop = 0
+        // fetchBlogs()
+        
     }, [])
+    // const fetchBlogs = () => {
+    //     try {
+    //         axios.get(`${dbLocation}/blogs.php/get`).then(function(response){
+    //             console.log(response.data)
+    //         })
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    
+    useEffect(()=>{
+        if(searchedBlogs > 0){
+            
+        }
+    },[searchedBlogs])
+
+    useEffect(() => {
+        if(!searchParameter == ''){
+            setLoadingBlogs(true)
+            // setLoadingBlogs(false)
+        }else{
+        }
+    }, [searchParameter])
+    const handleSearch = (e) => {
+        setSearchParameter(e.target.value)
+
+        // setLoadingBlogs(true)
+        // setTimeout(() => {
+        //     setLoadingBlogs(false)
+        // }, 2000);
+        // console.log(searchedBlogs)
+    }
     return(
         <>
         <BlogNav focusSearch={focusSearch}/>
-        {/* <div className="flex justify-center w-full blogHero overflow-hidden bg-blue-00">
+        <div className="flex justify-center w-full blogHero overflow-hidden bg-blue-00">
             <div className={`mt-9 flex ${mediumScreen ? 'h-auto flex-col' : 'w-11/12 h-screen'} justify-between items-center my- py-9 bg-blue-00`}>
           
                 <div className={`flex flex-col items-start justify-center gap-9 ${mediumScreen ? 'w-full h-screen' : 'w-full h-full'} bg-blue-00`}>
@@ -79,7 +114,7 @@ export const Blog = () => {
                             <p className="bg-gray-100 small text-gray-800 w-fit p-2 rounded-r-xl">LATEST BLOGS</p>
                         </div>
                         <div className={`flex items-center justify-between overflow-hidden bg-blue-5 h-full ${smallScreen ? '' : 'absolute'} ${mediumScreen ? 'w-full' : 'w-full'} `}>
-                            <img src={Blogs[1].img} alt={blog.title+"'s image"} className={`w-full ${smallScreen ? '' : 'rounded-t-xl`'}`} />
+                            <img src={Blogs[currentBlog].img} alt={blog.title+"'s image"} className={`w-full ${smallScreen ? '' : 'rounded-t-xl`'}`} />
 
                         </div>
 
@@ -117,7 +152,7 @@ export const Blog = () => {
 
                     </Link>    
                 </div>    
-                Blogs slide
+                {/* Blogs slide */}
                 <div className={`flex justify-center relative items-start relative ${mediumScreen ? 'w-full h-2/6 mt-9' : 'w-3/12 h-auto '} bg-blue-00`}>
 
                     <div className={`absolute left-0 flex justify-center items-center h-full w-full ${mediumScreen ? '-9' : ''}`}>
@@ -166,7 +201,7 @@ export const Blog = () => {
     
             </div>
 
-        </div> */}
+        </div>
         
         {/* Overlay and light */}
         <div className="w-full h-full">
@@ -183,15 +218,14 @@ export const Blog = () => {
                
             </div>
         </div>
-        
-        <div id="search" className="pt-9 mt-9 z-20">
+         
+         <div id="search" className="pt-9 mt-9 z-20">
             <div className={`search w-full flex justify-center mt-9 pt-9`}>
                 <div className={`border-blue-lg flex ${mediumScreen ? 'w-11/12' : 'w-7/12'} overflow-hidden rounded-full`} style={{
                     outline: '2px solid white'
                 }}>
                     <input type="text" placeholder="Search Blogs" className={`w-full outline-none p-3 px-6 bg-transparent ${bg == '' ? '' : 'text-gray-200'}`} ref={searchRef} value={searchParameter} onChange={(e) => {
-                        setSearchParameter(e.target.value)
-                        setLoadingBlogs(true)
+                    handleSearch(e)
                     }}/>
                     <i className={`bi bi-search text-xl bg-gray-90 cursor-pointer ${bg == '' ? 'text-black' : 'text-white'} rounded-full flex justify-center items-center ${mediumScreen ? 'px-5' : 'p-5'}`} 
                     onClick={() => {
@@ -199,29 +233,24 @@ export const Blog = () => {
                     }}></i>
                 </div>
             </div>
-        </div>
-        {
-            !loadingBlogs ?
-            <>
-                {
-                    BlogTypes.map((type, key) => (
-                        <BlogSection key={key} setBg={setBg} bgValue={type.bg} setSection={setSection} sectionValue={type.title} setIcon={setIcon} iconValue={type.icon}/>
+        </div> 
+            {/* {loadingBlogs ?
+                <div className="flex items-center justify-center">
+                    <Loading />
+                    <Loading />
+                </div> :''  }      */}
 
-                    ))
-                }
-                </> : 
-                    <div className="flex items-center justify-center">
-                        <Loading />
-                    </div>
-                    // BlogTypes.map((type, key) => (
-                    //     type.title.toLowerCase().includes(searchParameter.toLowerCase()) &&
-                    //     <BlogSection key={key} setBg={setBg} bgValue={type.bg} setSection={setSection} sectionValue={type.title} setIcon={setIcon} iconValue={type.icon}/>
+            {
+                // searchParameter == '' ?
+                BlogTypes.map((type, key) => (
+                    <BlogSection key={key} setBg={setBg} bgValue={type.bg} setSection={setSection} sectionValue={type.title} setIcon={setIcon} iconValue={type.icon} searchParameter={searchParameter} setLoadingBlogs={setLoadingBlogs} setSearchedBlogs={setSearchedBlogs} searchedBlogs={searchedBlogs}/>
+                    
+                ))
+                //     :
+                    // <BlogSection setBg={setBg} bgValue={'black'} setSection={setSection} sectionValue={searchParameter} setIcon={setIcon} iconValue={'search'} searchParameter={searchParameter} setLoadingBlogs={setLoadingBlogs} setSearchedBlogs={setSearchedBlogs} searchedBlogs={searchedBlogs}/>
+            }
 
-                    // ))
-                
-        }
-
-        <div className={`flex items-center justify-center my-9 py-9 text-white ${bg == '' ? 'bg-blue' : ''}`}>
+         <div className={`flex items-center justify-center my-9 py-9 text-white ${bg == '' ? 'bg-blue' : ''}`}>
             <form action="" className={`flex  items-center justify-center gap-4 flex-col ${mediumScreen ? 'w-full' : 'w-10/12'}`}>
 
                 <h3 className="text-xl"> <i className="bi bi-bell"></i> Suscribe to our email whatever</h3>
@@ -242,7 +271,7 @@ export const Blog = () => {
                 </div>
             </form>
 
-        </div>
+        </div> 
         </>
     )
 }
