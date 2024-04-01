@@ -1,16 +1,14 @@
-import { useState, createContext, useEffect } from 'react'
+import React, { useState, createContext, useEffect } from 'react'
 import { createBrowserRouter, RouterProvider, Outlet, Link } from 'react-router-dom';
+
 import { Home } from './Pages/Home/Home'
 import { Navbar } from './Components/Sections/Navbar'
 import './index.css'
 import { Alert } from './Components/Alert'
 import { Footer } from './Components/Sections/Footer';
-import { About } from './Pages/About/About';
-import { Contact } from './Pages/Contact/Contact';
-import { Services } from './Pages/Services/Services';
-import { Pricing } from './Pages/Pricing/Pricing';
 import { Blog } from './Pages/Blog/Blog';
 import { ABlog } from './Pages/Blog/ABlog';
+// const Home = React.lazy(() => import('./Pages/Home/Home'))
 
 export const AppContext = createContext()
 
@@ -28,12 +26,6 @@ const Layout = () =>{
   
   useEffect(() =>{
       document.addEventListener('scroll', handleScroll)
-      // if(document.documentElement.scroll){
-      //   document.documentElement.scrollTop = document.documentElement.scrollTop + 1
-      //   console.log('scroll')
-      // }else{
-      //   document.documentElement.scrollTop = document.documentElement.scrollTop
-      // }
   }, [])
 
   const handleScroll = () =>{
@@ -44,7 +36,6 @@ const Layout = () =>{
     }
   }
 
-  
   useEffect(() =>{
     setInterval(() => {
       const mediaQuery = window.matchMedia('(max-width:950px)');
@@ -79,12 +70,12 @@ const Layout = () =>{
     
   }, [])
   
-
   return(
-    <div className='app '>
+    <div className='app bg-gray-100'>
+
       <AppContext.Provider value={{currentNav, setCurrentNav, smallScreen, mediumScreen , showALert, setShowAlert, alertMessage, setAlertMessage, setAlertType, subject, setSubject, showNavBar, setShowNavBar, isScrollTopZero, setIsScrollTopZero, dbLocation}}>
 
-
+        
           <div className='d-flex w-full'>
             {
               showNavBar ?
@@ -112,7 +103,11 @@ const router = createBrowserRouter([
     children:[
       {
         path: '/',
-        element: <Home />
+        element: 
+        
+        // <React.Suspense fallback={<div>Loading...</div>}>
+          <Home />
+        // </React.Suspense>
       },
       {
         path: '/Blog/:id',

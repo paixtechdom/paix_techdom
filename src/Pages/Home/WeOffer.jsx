@@ -26,14 +26,14 @@ export const WeOffer = () => {
  
     return(
         <div id='Services' className='section flex justify-center items-center w-full my-9 py-9 bg-blue'> 
-            <div className={`flex flex-col ${mediumScreen ? 'w-11/12' : 'w-10/12'} mt-9 py-9`}>
+            <div className={`flex flex-col ${mediumScreen ? 'w-11/12' : 'w-9/12'} mt-9 py-9 z-20`}>
                 <Parallax id={'offerNav'}>
                 <div className=" nav flex w-full justify-center border-bottom-orange">
                         <div className="flex w-full justify-between borde ounded-xl overflow-hidden items-center">
 
                     {
                         ourOfffers.map((offer, key) => (
-                            <div key={key} className={`p-2 flex flex-col items-center w-full justify-center cursor-pointer rounded-x text-gray-200 rounded-xl ${currentOffer == key ? '' : ''}`} onClick={() => setCurrentOffer(key)}
+                            <div key={key} className={`p-2 flex flex-col items-center w-full justify-center cursor-pointer rounded-x text-gray-200 rounded-xl  ${currentOffer == key ? '' : ''} hover:opacity-60 active:opacity-60`} onClick={() => setCurrentOffer(key)}
                             style={{
                                 backgroundColor : currentOffer == key ? 'rgb(0,0,0, 0.4)' : ''
                             }}>
@@ -54,15 +54,15 @@ export const WeOffer = () => {
                         {
                             ourOfffers.map((offer, key) => (
 
-                                <div key={key} className={`flex w-full text-gray-100 my-3 mt-6 ${mediumScreen ? 'flex-wrap' : ''}`}>
-                                    <div className={` ${mediumScreen ? 'w-full' : 'w-10/12'} px- flex flex-col gap-4 small-lg`}>
+                                <div key={key} className={`flex w-full text-gray-100 my-3 mt-6  text-gray-200 ${mediumScreen ? 'flex-wrap' : ''}`}>
+                                    <div className={` ${mediumScreen ? 'w-full' : 'w-9/12'} px- flex flex-col gap-4 small-lg`}>
                                         <Parallax id={'offerdesc'}>
                                             <div className='text-'>
                                             <p>{offer.desc}</p>
                                             </div>
 
                                         </Parallax>
-                                        <div className='flex gap-1 text-xl w-fit font-bold text-gray-100'>
+                                        <div className='flex gap-1 text-xl w-fit font-bold text-gray-300'>
                                             <p>{offer.wedo} </p> <i className="text-lg bi bi-hand-index-fill" style={{
                                                 transform: 'rotateZ(180deg) translateY(-2px)'
                                             }}></i>
@@ -73,7 +73,7 @@ export const WeOffer = () => {
                                                 {
                                                     offer.subOffers.map((subOffer, key) => (
                                                         <div className="flex gap-2 items-center" key={key}>
-                                                            <i className={`text-blue flex items-center justify-center rounded-full bg-gray-50 shadow-lg bi bi-check`} style={{
+                                                            <i className={`text-blue flex items-center justify-center rounded-full bg-gray-200 shadow-lg bi bi-check`} style={{
                                                                 width: 20+'px',
                                                                 height: 20+'px',
                                                             }}></i>
@@ -85,12 +85,18 @@ export const WeOffer = () => {
 
                                         </Parallax>
                                         <div className='flex gap-2 w-full justify-ed'>
-                                        <a href='#Contact' className='text-right rounded-full p-3 px-5 font-bold bg-orange text-black small'>
-                                        GET STARTED</a>    
+                                        <div className='text-right rounded-full p-3 px-5 font-bold bg-orange text-black small cursor-pointer noBgButton transition-all duration-1000' onClick={() => {
+                                            document.querySelector('#Contact').scrollIntoView({
+                                                behavior: 'smooth'
+                                            })
+                                        }}>
+                                        GET STARTED</div>    
                                         </div>
                                     </div>
                                     <div className={`animateHeroImg bg-gray-80 flex items-center justify-center ${mediumScreen ? 'my-9 w-full' : ' scale-12 w-8/12'}`}>
-                                        <img src={offer.img} alt="" />
+                                        <Parallax id='offerimg'>
+                                        <img src={offer.img} alt={offer.name+"'s Image"} />
+                                        </Parallax>
                                     </div>
                                 </div>
                             ))

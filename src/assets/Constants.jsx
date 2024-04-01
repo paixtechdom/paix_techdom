@@ -1,9 +1,12 @@
 
 import person from './img/person.jpg'
-import education from './img/image.jpg'
-import shoe from './img/images_(15)-transformed.png'
-import organization from './img/organization.jpg'
-import blog from './img/images (6).jpeg'
+// import education from './img/image.jpg'
+import education from './img/examImg.png'
+import estore from './img/estore.png'
+import businessImg from './img/businessImg.png'
+import portfolioImg from './img/portfolioImg.png'
+
+import blog from './img/blogImg.png'
 import img5 from './img/design.jpeg'
 import img6 from './img/images (9).jpeg'
 import img7 from './img/maintenance.jpeg'
@@ -36,11 +39,11 @@ const Navs = [
         icon:'tags',
         link:'Pricing',
     },
-    {
-        name:'Blog',
-        icon: 'file-earmark-richtext',
-        link:'Blog',
-    },
+    // {
+    //     name:'Blog',
+    //     icon: 'file-earmark-richtext',
+    //     link:'Blog',
+    // },
     {
         name:'Contact',
         icon:'telephone',
@@ -56,12 +59,12 @@ const AboutInfo = {
         {
             text: 'e-store',
             color: 'text-orange-400',
-            img: shoe
+            img: estore
         },
         {
             text: 'business',
             color: 'text-blue-400',
-            img: organization
+            img: businessImg
             // buy and sell img
         },
         {
@@ -72,7 +75,7 @@ const AboutInfo = {
         {
             text: 'portfolio',
             color: 'text-green-400',
-            img: person
+            img: portfolioImg
         },
         {
             text: 'online learning',
@@ -118,25 +121,25 @@ const numbers = [
     {
         title: 'years',
         img: 'clock-history',
-        no: 3,
+        no: 4,
         speed: 200
     },
     {
         title: 'Clients',
         img: 'people',
-        no: 50,
+        no: 25,
         speed: 50
     },
     {
         title: 'projects',
         img: 'journal-text',
-        no: 20,
+        no: 38,
         speed: 100
     },
     {
         title: 'Partners',
         img: 'person-plus',
-        no: 500,
+        no: 7,
         speed: 10
     },
 ]
@@ -239,28 +242,28 @@ const ContactInfo = [
 
 const Testimonials = [
     {
-        name: 'Mr Olamide',
-        organization: 'Eduaid Consult',
-        comment: "Empower your team or yourself with our specialized training and tutoring services. Whether you're looking to master web development or SEO strategies, our experts provide hands-on guidance and knowledge transfer to help you succeed in the digital landscape",
-        rating: 4
-    },
-    {
-        name: 'Mr No idea',
-        organization: 'Food eating company',
-        comment: "Empower your team or yourself with our specialized training and tutoring services. Whether you're looking to master web development or SEO strategies, our experts provide hands-on guidance and knowledge transfer to help you succeed in the digital landscape",
+        name: 'Mr Wheels Tim',
+        // organization: 'Eduaid Consult',
+        comment: "Outstanding service! Working with Paix Techdom was a breeze. They delivered exacty what we needed for our website redesign, and the results were beyond our expectations. Highly recommend their expertise for anyone in need of a top-notch website",
         rating: 5
     },
     {
-        name: 'Timothy Akanbi',
-        organization: 'Christ Liberty Assembly',
-        comment: "Empower your team or yourself with our specialized training and tutoring services. Whether you're looking to master web development or SEO strategies, our experts provide hands-on guidance and knowledge transfer to help you succeed in the digital landscape",
-        rating: 4
+        name: 'Mr Oweils',
+        organization: 'Saculiet NIG ENT',
+        comment: "Paix Techdom took our ideas and turned them into a beautifully designed and fully functional website. Their communication throughout the process was excellent, and they were always quick to address any concerns or changes",
+        rating: 4.5
     },
     {
-        name: 'Four Mr So and so',
-        organization: 'Food eating company',
-        comment: "Empower your team or yourself with our specialized training and tutoring services. Whether you're looking to master web development or SEO strategies, our experts provide hands-on guidance and knowledge transfer to help you succeed in the digital landscape",
-        rating: 4.2
+        name: 'Bryan Tane',
+        organization: 'Christ Liberty Assembly',
+        comment: "Timely delivery and regular updates compliments their service. Paix Techdom is highly recommended. Thank you for your hard work and dedication",
+        rating: 5
+    },
+    {
+        name: 'Joshua Olukunle (Dr.)', 
+        organization: '',
+        comment: "Little did I know that my business leads could increase significantly until I met Paix Techdom. Their service and promptness is at a top level. They were able to capture my vision perfectly and translate it into a website that reflects my brand identity",
+        rating: 5
     },
 ]
 const Prices = [
@@ -301,7 +304,7 @@ const Prices = [
             'Enhanced security measures',
             'Priority support and maintenance'
             ],
-        price: 1000,
+        price: 1200,
         // price: 2500,
     },
 ]

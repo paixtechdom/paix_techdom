@@ -131,7 +131,7 @@ a{
 .smaller{
     font-size: 10px;
 }
-.line-lg{
+p, .line-lg{
     line-height: 25px;
 }
 .h-90{

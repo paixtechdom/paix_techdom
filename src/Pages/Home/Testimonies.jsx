@@ -12,7 +12,7 @@ export const Testimonies = () => {
     useEffect(() => {
         const int = setInterval(() => {
             slide()
-        }, 4000);
+        }, 10000);
         return () => clearInterval(int)
     }, [index])
 
@@ -25,35 +25,46 @@ export const Testimonies = () => {
     }
     return(
         <div className="sectio my-9 py-9 flex flex-col items-center ">
-            <Title title={'Testimonies'} icon={'tags'}/>
+            {/* <Title title={'Our clients said'} icon={'tags'}/> */}
+            <Title title={'Reviews'} icon={'tags'}/>
 
             <div className="overflow-hidden w-full pb-9 relative">
-                <Parallax id='sls'>
                 <div className="flex transiton-all duration-1000 bg-gray-10" style={{
                     width: Testimonials.length*100+'vw',
                     transform: `translate(-${index * 100}vw)`
                 }}>
                     {
                         Testimonials.map((testi, key) => (
-                            <div key={key} className="w-11/12 flex justify-center items-center text-center" style={{
+                            <Parallax key={key} id='sls'>
+                            <div className="w-11/12 flex justify-center items-center text-center" style={{
                                 width: 100+'vw' 
                             }}>
-                                    <div className={`flex flex-col gap-4 rounded-xl shadow-lg relative overflow-hidden p-7 ${mediumScreen ? 'w-11/12 mb-4' : 'w-7/12'} relative `}>
-                                    <div className="absolute top-0 left-0 bg-blue rounded-br-full z-10" style={{
-                                        height: 35+'px',
-                                        width: 35+'px',
-                                    }}> </div>
-                                    <div className="absolute top-0 left-0 bg-blue-900 rounded-br-full" style={{
-                                        height: 55+'px',
-                                        width: 55+'px',
-                                    }}></div>
+                                    <div className={`flex flex-col gap-4 rounded-b- xl items-center shadow-2xl relative overflow-hidden p-7 pt-9 ${mediumScreen ? 'w-11/12 mb-4' : 'w-7/12'} relative `}>
+                                       
+                                        <>
+                                            <div className="absolute bottom-0 right-0 bg-blue rounded-tl-full z-20" style={{
+                                                height: 35+'px',
+                                                width: 35+'px',
+                                            }}> </div>
+                                            <div className="absolute bottom-0 right-0 bg-blue-900 rounded-tl-full z-10" style={{
+                                                height: 55+'px',
+                                                width: 55+'px',
+                                            }}></div>
+                                            <div className="absolute bottom-0 right-0 bg-blue-400 rounded-tl-full" style={{
+                                                height: 75+'px',
+                                                width: 75+'px',
+                                            }}></div>
+                                            <i className= "absolute top-0 left-2 text-7xl bi bi-quote  z-20 text-blue"></i>
 
-                                        <div className="absolute right-0 m-1 mx-6">
-                                        </div>
-                                        <div className="flex flex-col gap-">
                                             
-                                            <h3 className="text-lg">{testi.name}</h3>
-                                            <h4 className="text-gray-600 font-bold small">{testi.organization}</h4>
+                                        </>
+
+                                        <p className="small-lg text-gray-900 line-lg w-10/12 pt-5">
+                                        <Parallax id='slfs'>
+                                            {testi.comment}
+                                        </Parallax>
+                                        </p>
+                                        <div className="flex flex-col gap-">
                                             <div className="flex justify-center gap-2 text-orange-600 text-lg">
                                                 <i className={`bi bi-star${
                                                     testi.rating > 0.99 ? '-fill' : testi.rating > 0 ? '-half' : ''
@@ -71,18 +82,20 @@ export const Testimonies = () => {
                                                     testi.rating > 4.99 ? '-fill' : testi.rating > 4 ? '-half' : ''
                                                 }`}></i>
                                             </div>
+                                            
+                                            <h3 className="text-lg">{testi.name}</h3>
+                                            <h4 className="text-gray-600 font-bold small">{testi.organization}</h4>
 
                                         </div>
-                                        <p className="small-lg text-gray-900 line-lg">{testi.comment}</p>
 
                                     </div>
 
                             </div>
+                        </Parallax>
                         ))
                     }
 
                 </div>
-                </Parallax>
                 <div className="flex justify-center gap-3 mt-5"> 
                     {
                         Testimonials.map((p, key) => (

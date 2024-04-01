@@ -23,7 +23,7 @@ export const ABlog = () => {
     }, [])
     return(
         <div className="w-full flex justify-center my-9 py-9">
-            {/* <div className={`h-screen mt-9 pt-9 flex flex-col items-center justify-cente ${mediumScreen ? 'w-11/12' : 'w-10/12'}`}>
+            {/* <div className={`h-screen mt-9 pt-9 flex flex-col items-center justify-cente ${mediumScreen ? 'w-11/12' : 'w-9/12'}`}>
                 <i className="bi bi-info-circle-fill text-5xl text-blue"></i>
                 <h3 className="mt-4 font-bold">Blog page is under construction</h3>
                 <Link to='/' className="underline mt-4 text-blue-600">click to return to the Home page</Link>

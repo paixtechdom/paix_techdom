@@ -41,7 +41,7 @@ export const AfterHeroComponent = ({reason, i}) => {
             </div>
             {
                 showDesc ?
-                <div className={`p-3 small-lg text-justify ${descClass}`} >
+                <div className={`p-3 small-lg text-justify ${descClass} text-gray-900`} >
 
                     {reason.desc}
                 </div> : ''

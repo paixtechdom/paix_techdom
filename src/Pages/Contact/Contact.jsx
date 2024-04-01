@@ -22,6 +22,7 @@ export const Contact = () => {
     const [ isTypingMessage, setIsTypingMessage ] = useState(true)
 
     useEffect(() => {
+        
         setIsTypingName(name.length < 1 ? false : true)
         setIsTypingEmail(email.length < 1 ? false : true)
         setIsTypingSubject(subject.length < 1 ? false : true)
@@ -85,18 +86,18 @@ export const Contact = () => {
 
             <Title title={'Contact Us'} icon={'telephone'}/>
            
-            <div className={` justify-center ${mediumScreen ? 'w-11/12 flex flex-col  items-center' : 'grid grid-cols-2 w-10/12'}`}>
-                    <div className={`flex ${mediumScreen ? 'border-gray-300 border w-11/12 items-center justify-between px-2' : 'flex-col w-11/12'} rounded-3xl  `}>
+            <div className={`justify-center ${mediumScreen ? 'w-11/12 flex flex-col  items-center justify-center ' : 'grid grid-cols-2 w-9/12 items-center'}`}>
+                    <div className={`flex ${mediumScreen ? 'border-gray-300 shadow-lg border w-11/12 items-center justify-between px-2' : 'flex-col w-11/12'} rounded-3xl  `}>
                         {
                             ContactInfo.map((info, key) => (
                                 <Parallax id='icons'  key={key}z>
                                 <a className={`flex ${mediumScreen ? 'flex-col' : 'gap-4'} items-center justify-start p-2 x-9 text-2xl`} 
                                 href={info.link}>
-                                    <p className={`flex items-center justify-center rounded-full   ${ mediumScreen ? 'text-blue' : 'shadow-lg bg-blue text-white'}`} style={{
+                                    <p className={`flex items-center justify-center rounded-full   ${ mediumScreen ? 'text-blue' : 'shadow-lg bg-blue-fade text-blue'}`} style={{
                                         width: !mediumScreen ? 60+'px' : '',
                                         height: !mediumScreen ? 60+'px' : ''
                                     }}>
-                                        <i className={`bi bi-${info.icon} `} ></i>
+                                        <i className={`bi bi-${info.icon} scale-75 md:scale-100`} ></i>
 
                                     </p>
                                     {
@@ -112,9 +113,9 @@ export const Contact = () => {
                 <form className="flex justify-center w-full " onSubmit={handleSubmit}>
                 <div className="w-11/12 my-4">
                         <Parallax id='name'>
-                            <div className="mb-5 relative">
-                                <label className={`absolute left-3 text-gray-600 ${isTypingName ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}> Full Name</label>
-                                <input type="text" className="w-full bg-transparent  outline-none my-1 border-gray-300 border rounded-xl p-4  text-sm " id="fullname" 
+                            <div className="mb-4 md:mb-2 relative">
+                                <label className={`absolute left-4 text-gray-600 ${isTypingName ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}> Full Name</label>
+                                <input type="text" className="w-full bg-transparent  outline-none my-1 border-gray-300 shadow-lg border rounded-xl p-4  text-sm " id="fullname" 
                                 // placeholder='Full Name' 
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
@@ -127,9 +128,9 @@ export const Contact = () => {
                             </div>
                         </Parallax>
                         <Parallax id='email'>
-                            <div className="mb-5 relative">
-                                <label className={`absolute left-3 text-gray-600 ${isTypingEmail ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}>Your Email</label>
-                                <input type="email" className="w-full bg-transparent  outline-none my-1 border-gray-300 border rounded-xl p-4  text-sm " 
+                            <div className="mb-4 md:mb-2 relative">
+                                <label className={`absolute left-4 text-gray-600 ${isTypingEmail ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}>Your Email</label>
+                                <input type="email" className="w-full bg-transparent  outline-none my-1 border-gray-300 shadow-lg border rounded-xl p-4  text-sm " 
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
@@ -137,9 +138,9 @@ export const Contact = () => {
                             </div>
                         </Parallax>
                         <Parallax id='subject'>
-                            <div className="mb-5 relative">
-                                <label  className={`absolute left-3 text-gray-600 ${isTypingSubject ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}> Subject</label>
-                                <input type="text" className="w-full bg-transparent  outline-none my-1 border-gray-300 border rounded-xl p-4  text-sm "  
+                            <div className="mb-4 md:mb-2 relative">
+                                <label  className={`absolute left-4 text-gray-600 ${isTypingSubject ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}> Subject</label>
+                                <input type="text" className="w-full bg-transparent  outline-none my-1 border-gray-300 shadow-lg border rounded-xl p-4  text-sm "  
                                 value={subject}
                                 onChange={(e) => setSubject(e.target.value)}
                                 required
@@ -147,9 +148,9 @@ export const Contact = () => {
                             </div>
                         </Parallax>
                         <Parallax id='message'>
-                            <div className="mb-5 relative">
-                                <label className={`absolute left-3 text-gray-600 ${isTypingMessage ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}> Message</label>
-                                <textarea name="" id="" className='w-full bg-transparent  outline-none my-1 border-gray-300 border rounded-xl p-4 py-4 text-sm '  required  style={{
+                            <div className="mb-4 md:mb-2 relative">
+                                <label className={`absolute left-4 text-gray-600 ${isTypingMessage ? '-top-1  -translate-y-2 small' : 'small top-6 ' }  transition-all duration-100`}> Message</label>
+                                <textarea name="" id="" className='w-full bg-transparent  outline-none my-1 border-gray-300 shadow-lg border rounded-xl p-4 py-4 text-sm '  required  style={{
                                     maxHeight: 100+'px',
                                     minHeight: 100+'px'
                                 }}
@@ -163,7 +164,7 @@ export const Contact = () => {
                             </div>
                         </Parallax>
                         <Parallax id='send'>
-                            <button className="w-full border-gray-300 border text-blue cursor-pointer outline-none my-1 border-gray-300 border rounded-xl p-3 text-xl">
+                            <button className="w-full bg-blue shadow-lg border text-gray-100 cursor-pointer outline-none my-1  rounded-xl p-3 text-xl">
                             {isLoading? 
                                 <p className="flex items-center justify-center">
                                     

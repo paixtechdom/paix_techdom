@@ -9,12 +9,12 @@ export const RecentBlogs = ({no, showReadMore}) => {
     const { mediumScreen, smallScreen } = useContext(AppContext)
     return(
         <div id="Blog" className="section my-9 py-9 flex flex-col justify-center items-center gap-9">
-            <div className={`flex items-center justify-center mb-5 ${ smallScreen ? 'flex flex-col gap-9' : mediumScreen ? 'w-11/12 grid grid-cols-2 gap-y-9' : ' grid grid-cols-3 w-10/12 gap-y-9'} `}>
+            <div className={`flex items-center justify-center mb-5 ${ smallScreen ? 'flex flex-col gap-9' : mediumScreen ? 'w-11/12 grid grid-cols-2 gap-y-9' : ' grid grid-cols-3 w-9/12 gap-y-9'} `}>
                 {
                     Blogs.map((blog, key) => (
                         key < no &&
-                        // <Link to={`Blog/${blog.id}`} key={key} className={` h-full ${smallScreen ? 'w-10/12 my-4' : 'w-11/12'} overflow-hidden flex py- rounded-2xl shadow-lg `} style={{
-                        <div key={key} className={` h-full ${smallScreen ? 'w-10/12 my-4' : 'w-11/12'} overflow-hidden flex py- rounded-2xl shadow-lg `} style={{
+                        // <Link to={`Blog/${blog.id}`} key={key} className={` h-full ${smallScreen ? 'w-9/12 my-4' : 'w-11/12'} overflow-hidden flex py- rounded-2xl shadow-lg `} style={{
+                        <div key={key} className={` h-full ${smallScreen ? 'w-9/12 my-4' : 'w-11/12'} overflow-hidden flex py- rounded-2xl shadow-lg `} style={{
                             height: mediumScreen ? 100+'%' : 70+'vh'
                         }}>
                                 <Parallax id='blog' key={key}>

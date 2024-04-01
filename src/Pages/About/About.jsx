@@ -1,8 +1,9 @@
 import { Parallax } from "../../Components/Parallax"
 import { Title } from "../../Components/Title"
-import { AboutInfo } from "../../assets/Constants"
+import { AboutInfo, AfterHero } from "../../assets/Constants"
 import { useContext } from "react"
 import { AppContext } from "../../App"
+import { AfterHeroComponent } from "../Home/AfterHeroComponent"
 
 export const About = () =>{
     const { mediumScreen } = useContext(AppContext)
@@ -11,40 +12,47 @@ export const About = () =>{
         
             {/* <Title title={'About'} icon={'person'}/> */}
  
-            <div className={`flex bg-cente relative ${mediumScreen ? 'w-11/12' : 'w-10/12'}`}>
+            <div className={`flex bg-cente relative ${mediumScreen ? 'w-11/12' : 'w-9/12'}`}>
                 
                 <div className="flex flex-wrap flex-col z-10">
                    
                     <Parallax id='AboutText'>
-                    <b className="text-3xl font-bold text-gray-800">{AboutInfo.title}</b>
-                    <p className=" small-lg mb-2  text-justify">{AboutInfo.p1}</p>
-                    <p className=" small-lg  text-justify">{AboutInfo.p2}</p>
-
+                    <p className=" small-lg my-3 text-justify text-gray-900"> <span className="text-lg font-bold text-gray-800">{AboutInfo.title}</span> {AboutInfo.p1}</p>
+                    </Parallax>
+                    <Parallax id='AboutText2'>
+                    <p className=" small-lg  text-justify text-gray-900">{AboutInfo.p2}</p>
                     </Parallax>
 
-                    {/* <h2 className="text-xl font-bold mt-5 text-gray-800">{AboutInfo.question}</h2> */}
+
+                    <Parallax id='wehelp'>
                     <h2 className="text-xl font-bold mt-5 text-gray-800">We help you </h2>
-                    {/* <div>
+                    </Parallax>
+                    <div  className={`flex justify-center `}>
+
+                        <div className={`w-full flex flex-col justify-between my-9 gap-5`} style={{
+                        }}>
+
                         {
-                            AboutInfo.reasons.map((reason, key) => (
-                                <Parallax key={key} id={`${reason.title.split(' ').join('')}`}>
-                                <div className=' my-3 flex'>
-                                    <i className="bi bi-hand-index mr-3 rotate-90  w-1/12 h-fit mt-1"></i>
-                                   
-                                    <div>
-
-                                    <h2 className="font-bold text-lg text-gray-800">
-                                        {reason.title}
-                                    </h2>
-
-                                        <p className="pl- small-lg  text-justify">{reason.desc}</p>
-                                    </div>
-                                </div>
-                                 </Parallax>
+                            AfterHero.map((reason, key) => (
+                                <Parallax key={key} id={reason.title.split(" ").join('').toLowerCase()}>
+                                
+                                    <AfterHeroComponent reason={reason} i={key}/>
+                                </Parallax>
                             ))
                         }
-                    </div> */}
-                     
+
+                        </div>
+                    </div>
+                    <div className={`flex justify-start`}>
+                        <div className={`z-10 rounded-full h-full w-fit noBgButton  font-bold  bg-orange  button px-6 py-3 text-black small cursor-pointer transition-all duration-1000`} onClick={() => {
+                            document.querySelector('#Contact').scrollIntoView({
+                                behavior: 'smooth'
+                            })
+                        }}>
+                            GET STARTED
+                        </div> 
+                            
+                    </div>                     
                 </div>
 
             </div>

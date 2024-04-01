@@ -57,7 +57,7 @@ export const BlogSection = ({setBg, bgValue, setSection, sectionValue, setIcon, 
             <div className={`flex flex-wrap items-center justify-center mb-5 gap-9 
             ${ smallScreen ? 'gap-3' : mediumScreen ? 'w-11/12' : ''} 
             bg-blue-20`}>
-            {/* ${ smallScreen ? 'flex flex-col gap-9' : mediumScreen ? 'w-11/12 grid grid-cols-2 gap-y-9' : ' grid grid-cols-3 w-10/12 gap-y-9'}  */}
+            {/* ${ smallScreen ? 'flex flex-col gap-9' : mediumScreen ? 'w-11/12 grid grid-cols-2 gap-y-9' : ' grid grid-cols-3 w-9/12 gap-y-9'}  */}
                 {
                     Blogs?.map((blog, key) => (
                         (!searchParameter == '' ? 

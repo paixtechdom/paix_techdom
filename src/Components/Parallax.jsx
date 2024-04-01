@@ -6,7 +6,7 @@ export const Parallax = (props) => {
     useEffect(() =>{
         
         const pos = document.querySelector(`#${props.id}`).getBoundingClientRect()
-        if(pos.top < 600){
+        if(pos.top < 900){
             setIsPosMatch(true)
         }      
         
@@ -15,7 +15,7 @@ export const Parallax = (props) => {
         const element = document.querySelector(`#${props.id}`)
         if(element){
             let pos = element.getBoundingClientRect()
-            if(pos.top < 600){
+            if(pos.top < 900){
                 setIsPosMatch(true)
             }  
 

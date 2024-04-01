@@ -135,7 +135,7 @@ export const BlogNav = ({focusSearch}) =>{
                 
 
                 </div>
-                <div className={`${mediumScreen ? 'w-11/12' : 'w-10/12'} flex justify-cente absolute`} style={{
+                <div className={`${mediumScreen ? 'w-11/12' : 'w-9/12'} flex justify-cente absolute`} style={{
                         zIndex: 8000,
                     }}>
 

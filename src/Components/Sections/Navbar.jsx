@@ -6,7 +6,7 @@ import '../../assets/Animation.css'
 import { useState } from 'react'
 import { Navs } from '../../assets/Constants'
 import { useEffect } from 'react'
-import { ScrollTo } from '../../assets/Func'
+import { Parallax } from '../../Components/Parallax'
 
 export const Navbar = ({mediumScreen, smallScreen}) =>{
     const [ showNav, setShowNav ] = useState(false)
@@ -47,7 +47,7 @@ export const Navbar = ({mediumScreen, smallScreen}) =>{
     return(
         <>
             <nav className='flex flex-col items-center w-full py-2 text-white fixed top-0 left-0 navbar'>
-                <div className={`flex rounded-full ${mediumScreen ? 'w-11/12 ' : 'w-10/12'} ${!isScrollTopZero && !mediumScreen ? 'shadow-lg' : ''}`}>
+                <div className={`flex rounded-full ${mediumScreen ? 'w-11/12 ' : 'w-9/12'} ${!isScrollTopZero && !mediumScreen ? 'shadow-lg' : ''}`}>
 
                     <div className={`w-full ${!isScrollTopZero && mediumScreen ? 'shadow-lg' : ''} flex justify-between items-center relative  transition-all duration-250 ${isScrollTopZero ? 'bg-blue' : ' px-9'} ${mediumScreen ? ' rounded-full px-6' : 'bg-gray-100 rounded-l-full '} backdrop-blur-2xl`}>
                         <Link to='/' className='bg-blu flex items-center justify-center rounded-full w-6/12' style={{
@@ -77,8 +77,18 @@ export const Navbar = ({mediumScreen, smallScreen}) =>{
                         px-3 py-4   ${isScrollTopZero ? 'bg-blue' : 'bg-gray-100'}`}>
                             {
                                 Navs.map((nav, key) =>(
-                                    key == 4 ?
-                                    <Link id='navLink' key={key}  to={`${nav.link}`} className={`flex ${isScrollTopZero ? 'text-gray-300' : 'text-blue'} p-2 items-center rounded ${mediumScreen? 'gap-3': 'flex-col'}`}>
+                                    <div id='navLink' key={key}  
+                                    className={`flex ${isScrollTopZero ? 'text-gray-300' : 'text-blue'} p-2 items-center rounded ${mediumScreen? 'gap-3': 'flex-col'} hover:scale-90 transition-scale duration-500 cursor-pointer`} 
+                                    onClick={() => {
+                                            const element = document.querySelector(`#${nav.link}`)
+
+                                            element.scrollIntoView({
+                                                behavior: 'smooth'
+
+                                            })
+                                        }}
+                                    >
+
                                     
                                         {
                                             mediumScreen ? 
@@ -86,41 +96,17 @@ export const Navbar = ({mediumScreen, smallScreen}) =>{
                                         }
 
                                         <p className={`px-1  small  ${mediumScreen ? '' : 'font-bold '} ${currentNav == key ? 'text-gray-400' : mediumScreen ? 'text-white' :  'text-whit'}`}>{nav.name}</p>
-                                    </Link> : 
-                                    key < Navs.length - 1 ?
-                                    <a href={`#${nav.link}`} id='navLink' key={key} className={`flex ${isScrollTopZero ? 'text-gray-300' : 'text-blue'} p-2 items-center rounded ${mediumScreen? 'gap-3': 'flex-col'}`} onClick={() => {
-                                        // ScrollTo(document.documentElement.scrollTop, nav.link)
-                                    }}>
-                                    
-                                        {
-                                            mediumScreen ? 
-                                            <i className={`bi bi-${nav.icon}-fill   rounded-full ${mediumScreen ? 'px-3 py-2 text-' : 'text-2xl text-blue'}  ${currentNav == key ? 'text-gray-400' : mediumScreen ? 'text-white' :  'text-whit'}`}></i> : ''
-                                        }
-
-                                        <p className={`px-1  small  ${mediumScreen ? '' : 'font-bold '} ${currentNav == key ? 'text-gray-400' : mediumScreen ? 'text-white' :  'text-whit'}`}>{nav.name}</p>
-                                    </a> : ''
+                                    </div> 
+                                   
                                 ))
                             }
-                            {
-                                Navs.map((nav, key) =>(
-                                    key >= Navs.length - 1 &&
-                                    <a id='navLink' key={key}  href={`#${nav.link}`} className={`flex e rounded-full px-3 p-2 items-center ${mediumScreen? 'text-black gap-3': 'bg- text-black flex-col'}`}>
-                                    
-                                        {
-                                            mediumScreen ? 
-                                            <i className={`bi bi-${nav.icon}-fill   rounded-full ${mediumScreen ? 'px-3 py-2 ' : 'text-2xl'}  ${currentNav == key ? 'text-gray-400' : mediumScreen ? 'text-white' :  'text-whit'}  text-`} ></i> : ''
-                                        }
-
-                                        <p className={`px-1 small bg-orange rounded-full p-2 px-7 ${mediumScreen ? '' : 'font-bold'}  ${currentNav == key ? 'text-gray-600' : ''}`}>{nav.name}</p>
-                                    </a>
-                                ))
-                            }
+                       
                         </div>
                     </div>
                 
 
                 </div>
-                <div className={`${mediumScreen ? 'w-11/12' : 'w-10/12'} flex justify-cente absolute`} style={{
+                <div className={`${mediumScreen ? 'w-11/12' : 'w-9/12'} flex justify-cente absolute`} style={{
                         zIndex: 8000,
                     }}>
 

@@ -16,7 +16,7 @@ import img2 from '../../assets/img/client-portal.png'
 import { Testimonies } from './Testimonies'
 import { RecentBlogs } from '../Blog/RecentBlogs'
 import { Numbers } from './Numbers'
-
+import { FloatingObject } from '../../Components/FloatingObject'
 
 export const Home = () => {
     const { smallScreen, mediumScreen, setShowNavBar } = useContext(AppContext)
@@ -51,21 +51,26 @@ export const Home = () => {
 
         <>
         
-        <div id='Home' className={`section relative flex bg-bl ${mediumScreen ? 'h-auto' : 'h-screen'} overflow-hidde flex-col items-center justify-center bg-fixed bg-no-repeat  small-lg`}>
+        <div id='Home' className={`section overflow-hidden relative flex ${mediumScreen ? 'h-auto' : 'h-screen'} flex-col items-center justify-center  small-lg`}>
+            <FloatingObject s={50} text={'Website'}/>
+            <FloatingObject s={35} text={'Your'}/>
+            <FloatingObject s={35} text={'Get'}/>
+            <FloatingObject s={15} text={'Now'}/>
             <div className="absolute bg-blue border-black w-full top-0 h-ful rounded-b-3xl" style={{
                 height: 90+'%',
-                paddingTop: smallScreen ?  5+'vh' : mediumScreen ?  15+'vh' : ''
+                paddingTop: smallScreen ?  5+'vh' : mediumScreen ?  15+'vh' : '',
+                
             }}>
 
             </div>
                
-            <div className={`flex items-center ${mediumScreen ? 'flex-col' : ' h-4/'} justify-between  w-10/12 h-full bg-blue400`} style={{
+            <div className={`flex items-center ${mediumScreen ? 'flex-col' : ''} justify-between  w-11/12 md:w-9/12 h-full `} style={{
                 height: 80+'%',
-                marginTop: mediumScreen ?  20+'vh' : ''
+                marginTop: mediumScreen ?  20+'vh' : '',
             }}>
-                <div className={`flex flex-col justify-cente text-white z-10 bg-blue600 ${mediumScreen ? 'items-center text-center' : 'w-7/12 items-start text-left '}`}>
+                <div className={`flex flex-col justify-cente text-white z-10 bg- ${mediumScreen ? 'items-center text-center' : 'w-7/12 items-start text-left '}`}>
 
-                    <h1 className={`${smallScreen ? 'text-4xl' : 'text-4xl'} text-gray-100 font-bold mt-3`} >
+                    <h1 className={`${smallScreen ? 'text-4xl' : 'text-5xl'} text-gray-100 font-bold mt-3`} >
                         <b className=''>
                             {
                             //    AboutInfo.homePageHeader
@@ -79,12 +84,12 @@ export const Home = () => {
                             
                         </b>
                         <b className={`h-fit mt-2 overflow-hidden bg-blue-40 w-fit flex ${mediumScreen ? 'text-center m-auto' : ''}`} style={{
-                            height: smallScreen ? 2.5+'rem' : 2.5+'rem'
+                            height: smallScreen ? 2.5+'rem' : 3+'rem'
                         }}>
                             <b className={`transition-all duration-1000  ${mediumScreen ? 'justify-center' : 'flex flex-col items-start'} `} style={{
                                 transform: 
                                 smallScreen ? `translateY(-${forNo * 2.5}rem)` : 
-                                `translateY(-${forNo * 2.5}rem)`  ,
+                                `translateY(-${forNo * 3}rem)`  ,
                                 
                             }}>
                                 {
@@ -106,14 +111,19 @@ export const Home = () => {
                     </h1>
                     <Parallax id={'hero'} >
                         
-                        <p className="mt-3 mb-6 text-gray-100">
+                        <p className="mt-3 mb-6 text-gray-200">
                         {AboutInfo.homePageIntro}
                         </p>
                     </Parallax>
                     <div className='flex justify-center'>
-                        <a href={'#Contact'} className={`z-10 rounded-full h-full w-fit noBgButton  font-bold  bg-orange  button px-6 py-3 text-black small`}>
+                        <div className={`z-10 cursor-pointer rounded-full h-full w-fit noBgButton  font-bold  bg-orange  button px-6 py-3 text-black small transition-all duration-1000`} onClick={() => {
+                            const element = document.querySelector('#Contact')
+                            element.scrollIntoView({
+                                behavior: 'smooth'
+                            })
+                        }}>
                             GET STARTED
-                        </a> 
+                        </div> 
                        
                     </div>
                 </div>
@@ -144,28 +154,7 @@ export const Home = () => {
         <Numbers />
         <div id='About' className='section flex flex-col items-center'>
             <About AboutInfo={AboutInfo}/>
-            <div  className={`flex justify-center ${mediumScreen ? 'w-11/12' : 'w-10/12'}`}>
-
-                <div className={`w-full flex flex-col justify-between my-9 gap-5`} style={{
-                }}>
-
-                {
-                    AfterHero.map((reason, key) => (
-                        <Parallax key={key} id={reason.title.split(" ").join('').toLowerCase()}>
-                        
-                            <AfterHeroComponent reason={reason} i={key}/>
-                        </Parallax>
-                    ))
-                }
-
-                </div>
-            </div>
-            <div className={`flex justify-start ${mediumScreen ? 'w-11/12' : 'w-10/12'}`}>
-                <a href={'#Contact'} className={`z-10 rounded-full h-full w-fit noBgButton  font-bold  bg-orange  button px-6 py-3 text-black small`}>
-                    GET STARTED
-                </a> 
-                       
-            </div>
+            
 
         </div>
 
@@ -175,7 +164,7 @@ export const Home = () => {
         <Pricing /> 
         <ImageAndText id={'wrig'} title={'Client-centric approach'} desc={"Your success is our success. We prioritize understanding your unique goals and challenges, tailoring our services to suit your specific needs. Collaboration is at the heart of what we do."} img={img2}/>
 
-        <RecentBlogs no={3} showReadMore={true}/>
+        {/* <RecentBlogs no={3} showReadMore={true}/> */}
         </>
     )
 }

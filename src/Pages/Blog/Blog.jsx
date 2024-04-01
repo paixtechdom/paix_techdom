@@ -104,7 +104,7 @@ export const Blog = () => {
     return(
         <>
         <BlogNav focusSearch={focusSearch}/>
-        <div className="flex justify-center w-full blogHero overflow-hidden bg-blue-00">
+        <div className="flex justify-center w-full blogHero overflow-hidden bg-blue">
             <div className={`mt-9 flex ${mediumScreen ? 'h-auto flex-col' : 'w-11/12 h-screen'} justify-between items-center my- py-9 bg-blue-00`}>
           
                 <div className={`flex flex-col items-start justify-center gap-9 ${mediumScreen ? 'w-full h-screen' : 'w-full h-full'} bg-blue-00`}>

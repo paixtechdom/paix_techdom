@@ -15,7 +15,7 @@
     scale: 0.9
 }
 .animateParallax{
-    animation: animateParallax 1s ease-in-out;
+    animation: animateParallax 1.5s ease-in-out;
 }
 .showDesc{
     transition: all 0.3s ease-in-out;
@@ -91,11 +91,13 @@
 }
 @keyframes animateParallax {
     from{
-        top: 200px;
+        top: 400px;
         opacity: 0;
+        scale: 0.2;
     }
     to{
         top: 0px;
         opacity: 1;
+        scale: 1;
     }
 }
