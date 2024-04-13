@@ -38,16 +38,19 @@ export const Pricing = () => {
                                     
                                 </>
 
-                                <div className={`flex flex-col ${key == 2 || key == 0 ? 'bg-blue text-white' : 'bg-orange ' } p-5 py-9`}>
+                                <div className={`flex flex-co l items-center ${key == 2 || key == 0 ? 'bg-blue text-white' : 'bg-orange ' } p-5 py-9 gap-4 justify-center`}>
                                     
+                                        <p className="font-bold text-4xl">
+                                            {/* {price.price} */}
+                                            <i className={`bi bi-${price.icon}`}></i>
+                                        </p>
                                     <h2 className="text-center font-bol text-2xl">{price.title}</h2>
-                                    <div className="text- flex items-star justify-center ">
-                                        <p className="text-l">$</p> 
-                                        <p className="font-bold text-3xl">{price.price}</p>
-                                        <div className={`flex items-end   ${key == 2 || key == 0 ? 'text-gray-300' : 'text-gray-900' }`}>
+                                    {/* <div className="text- flex items-star justify-center "> */}
+                                        {/* <p className="text-l">$</p>  */}
+                                        {/* <div className={`flex items-end   ${key == 2 || key == 0 ? 'text-gray-300' : 'text-gray-900' }`}>
                                             <p>/project (min price)</p>
-                                        </div>
-                                    </div>
+                                        </div> */}
+                                    {/* </div> */}
 
                                 </div>
                          

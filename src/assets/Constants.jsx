@@ -269,6 +269,7 @@ const Testimonials = [
 const Prices = [
     {
         title: 'Basic Plan',
+        icon: 'star',
         features: [
             'Responsive and mobile-friendly website design',
             'Search Engine Optimization (SEO)',
@@ -283,6 +284,7 @@ const Prices = [
     },
     {
         title: 'Standard Plan',
+        icon: 'diamond',
         features: [
             'All features from the Basic Plan',
             'Customized design to match brand identity',
@@ -296,6 +298,7 @@ const Prices = [
     },
     {
         title: 'Premium Plan',
+        icon: 'gem',
         features: [
             'All features from the Standard Plan',
             'Unlimited pages and content options',
