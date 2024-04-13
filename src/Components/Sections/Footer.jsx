@@ -32,7 +32,7 @@ export const Footer = () => {
 
         </div>            
             <div className="bg-blue p-3 py-9 flex justify-center items-center text-white text-center border-top-white">
-                <p>&copy; Copyright <strong className='text-xl'> Paix Techdom </strong></p>
+                <p>&copy; Copyright {new Date().getFullYear()} <strong className='text-xl'> Paix Techdom </strong></p>
              
 
             </div>
