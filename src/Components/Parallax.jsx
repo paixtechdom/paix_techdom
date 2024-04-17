@@ -1,18 +1,18 @@
 import { useState } from "react"
 import { useEffect } from "react"
 
-export const Parallax = (props) => {
+export const Parallax = ({id, children, className}) => {
     const [ isPosMatch, setIsPosMatch ] = useState(false)
     useEffect(() =>{
         
-        const pos = document.querySelector(`#${props.id}`).getBoundingClientRect()
+        const pos = document.querySelector(`#${id}`).getBoundingClientRect()
         if(pos.top < 900){
             setIsPosMatch(true)
         }      
         
     }, [])
     const handleScroll = () => {
-        const element = document.querySelector(`#${props.id}`)
+        const element = document.querySelector(`#${id}`)
         if(element){
             let pos = element.getBoundingClientRect()
             if(pos.top < 900){
@@ -29,13 +29,9 @@ export const Parallax = (props) => {
     }, [])
 
     return(
-        <div id={props.id} className="parallaxParent relative">
-            {/* <h1 className={`w-fit text-3xl text-center font-bold transition-all duration-500  ${isPosMatch ? 'bg-blue text-white' : ''}`}>
-                Parallax
-            </h1> */}
-
-            <div className={`relative  transition-all duration-500 ${isPosMatch ? 'animateParallax ' : 'opacity-0'}`}>
-                {props.children}
+        <div id={id} className={`parallaxParent relative `}>
+            <div className={`relative  transition-all duration-500 ${isPosMatch ? 'animateParallax ' : 'opacity-0'} ${className}`}>
+                {children}
             </div>
         </div>
     )

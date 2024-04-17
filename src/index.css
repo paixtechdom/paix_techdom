@@ -140,3 +140,10 @@ p, .line-lg{
 .logo{
     font-family: monospace;
 }
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

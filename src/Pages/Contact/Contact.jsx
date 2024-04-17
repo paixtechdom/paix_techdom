@@ -7,7 +7,7 @@ import { useEffect } from "react"
 import { Parallax } from "../../Components/Parallax"
 
 
-export const Contact = () => {
+const Contact = () => {
     const { setShowAlert, setAlertMessage, setAlertType, smallScreen, subject, setSubject, mediumScreen, isScrollTopZero } = useContext(AppContext)
 
     const [ name, setName ] = useState('')
@@ -191,3 +191,6 @@ export const Contact = () => {
         </div>
     )
 }
+
+
+export default Contact

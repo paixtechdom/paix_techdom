@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom'
 import { AppContext } from '../../App'
 import { Navs } from '../../assets/Constants'
 import logo from '../../assets/img/logoBlue2.png'
-import { Contact } from '../../Pages/Contact/Contact'
 import { Parallax } from '../Parallax'
 
-export const Footer = () => {
+const Footer = () => {
     const { mediumScreen, currentNav } = useContext(AppContext)
     return(
         <>
 
-        <Contact />
         <div className=" w-full flex justify-center bg-blue text-white">
            <div className={`${mediumScreen ? 'w-11/12' : 'w-9/12'}  px-3 flex flex-col items-center gap-6 my-8 z-20`}>
                 <p className="text-2xl w-full font-bold">Quick Links</p>
@@ -39,3 +37,6 @@ export const Footer = () => {
         </>
     )
 }
+
+
+export default Footer

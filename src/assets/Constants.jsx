@@ -44,13 +44,45 @@ const Navs = [
     //     icon: 'file-earmark-richtext',
     //     link:'Blog',
     // },
-    {
-        name:'Contact',
-        icon:'telephone',
-        link:'Contact',
-    },
+    // {
+    //     name:'Contact',
+    //     icon:'telephone',
+    //     link:'Contact',
+    // },
 ]
 
+const HeroContent = [
+    {   
+        header: 'Paix for your Estore',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        color: 'text-orange-400',
+        img: estore
+    },
+    {
+        header: 'Paix for your Business',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        color: 'text-blue-400',
+        img: businessImg
+    },
+    {
+        header: 'Paix for your Blog',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        color: 'text-yellow-300',
+        img: blog
+    },
+    {
+        header: 'Paix for your Portfolio',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        color: 'text-green-400',
+        img: portfolioImg
+    },
+    {
+        header: 'Paix for your Education',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        color: 'text-red-400',
+        img: education
+    },
+]
 const AboutInfo = {
     homePageBeforeHeader: "You're just in time & at the right place...",
     // homePageHeader: 'Ready to elevate your digital journey?',
@@ -144,34 +176,40 @@ const numbers = [
     },
 ]
 
-const AfterHero = [
+const Gain = [
     {
+        id: 'ground',
         title: 'Gain ground in your niche',
         icon: 'people',
         desc: 'A website developed by us positions your business as a leader in its field, excelling at what it does best.'
     },
     {
+        id: 'leads',
         title: 'Generate more leads',
         icon: 'people',
         desc: 'Your website becomes a powerful tool to capture interest, drawing in a larger audience and increasing potential customer inquiries.'
     },
     {
+        id: 'awareness',
         title: 'Grow your awareness',
         icon: 'people',
         desc: 'Through a strategically designed website, more people become acquainted with and recognize your brand, enhancing overall awareness.'
     },
     {
+        id: 'clients',
         title: 'Gain access to more clients',
         icon: 'people',
         desc: 'Your website serves as a gateway to connect with new customers, enabling the expansion of your business reach and clientele.'
     },
     {
+        id: 'grant',
         title: 'Grab more grant oppurtunities',
         icon: 'hold',
         desc: ' With an impactful online presence, your chances of securing additional support or funding for your projects are heightened.'
     },
     
     {
+        id: 'wings',
         title: 'Grow your wings',
         icon: 'people',
         desc: 'Our website development ensures that your business not only grows but soars to new heights, achieving success in exciting and dynamic ways.'
@@ -579,7 +617,7 @@ const BlogTypes = [
         bg: 'gray-900'
     },
 ]
-export { Navs, AfterHero, numbers, ourOfffers , AboutInfo, ServicesInfo, ContactInfo, Prices, Blogs, Testimonials, BlogNavs, BlogTypes }
+export { Navs, Gain, numbers, ourOfffers , AboutInfo, ServicesInfo, ContactInfo, Prices, Blogs, Testimonials, BlogNavs, BlogTypes, HeroContent }
 
 
 

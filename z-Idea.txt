@@ -5,3 +5,24 @@ creating an affliate account
 our clients, who our services is for, services includes consultancy
 
 sliding effect for the scrolling and slide for the #links
+
+
+
+Design my website
+    home page : 
+        hero
+        values
+        intro
+
+    school projects
+
+    about
+
+    services
+
+    get a quote
+
+
+    flyers: 
+        facebook ad - 1
+        whatsapp - 3

@@ -2,15 +2,16 @@ import { useEffect } from 'react'
 import './Float.css'
 import { useState } from 'react'
 
-export const FloatingObject = ({text}) => {
+export const FloatingObject = ({className, speed}) => {
     
-    const [ pos, setPos ] = useState({ x: 150, y: 150 })
+    const [ pos, setPos ] = useState({ x: -10, y: -10 })
 
 
     useEffect(() => {
+        moveObj()    
         const interval = setInterval(() => {
             moveObj()    
-        }, 5000);
+        }, (speed*1000));
 
         return(() => clearInterval(interval))
     }, [])
@@ -31,20 +32,16 @@ export const FloatingObject = ({text}) => {
         
     }
     return(
-            <div className={`absolute animate animation-all duration-[7s] animate-pulse inset-3 z-50 rounded-full text-gray-100 p-2 flex items-center justify-center cursor-pointer text-[15px] text-gray-400 w-fit h-fit active:animate-ping `} style={{
+            <div className={`absolute animate animation-all duration-[10s] animate-pulse inset-3 z-50 rounded-full bg-blue-400 bg-opacity-30 flex items-center justify-center cursor-pointer ${className} active:animate-ping`} style={{
                 top: pos.y+'%',
                 left: pos.x+'%',
-                zIndex: 300
-                // height: s+'px',
-                // width: s+'px',
             }}
             onClick={() => {
                 const e = document.querySelector('#Contact')
                 e.scrollIntoView({
-                    behavior: 'smooth'
+                    // behavior: 'smooth'
                 })
             }}>
-              {text}
             </div>
 
     )

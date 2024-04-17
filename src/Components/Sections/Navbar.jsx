@@ -1,18 +1,19 @@
 import { Link } from 'react-router-dom'
-import logoWhite from '../../assets/img/logoWhite2.png'
-import logoLabelWhite from '../../assets/img/logoLabelWhite.png'
-import logoLabelBlue from '../../assets/img/logoLabelBlue.png'
+import logo from '../../assets/img/logoLabelWhite.png'
 import '../../assets/Animation.css'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Navs } from '../../assets/Constants'
 import { useEffect } from 'react'
 import { Parallax } from '../../Components/Parallax'
+import { Button } from '../Button'
+import { AppContext } from '../../App'
 
-export const Navbar = ({mediumScreen, smallScreen}) =>{
-    const [ showNav, setShowNav ] = useState(false)
+const Navbar = () =>{
+    const { currentNav, setCurrentNav } = useContext(AppContext)
     const [ posWidth, setPosWidth ] = useState(0)
-    const [ currentNav, setCurrentNav ] = useState(0)
+    const [ showNav, setShowNav ] = useState(false)
     const [ isScrollTopZero, setIsScrollTopZero ] = useState(true)
+
 
 
     document.querySelectorAll('#navLink').forEach((a) => {
@@ -46,82 +47,35 @@ export const Navbar = ({mediumScreen, smallScreen}) =>{
     
     return(
         <>
-            <nav className='flex flex-col items-center w-full py-2 text-white fixed top-0 left-0 navbar'>
-                <div className={`flex rounded-full ${mediumScreen ? 'w-11/12 ' : 'w-9/12'} ${!isScrollTopZero && !mediumScreen ? 'shadow-lg' : ''}`}>
-
-                    <div className={`w-full ${!isScrollTopZero && mediumScreen ? 'shadow-lg' : ''} flex justify-between items-center relative  transition-all duration-250 ${isScrollTopZero ? 'bg-blue' : ' px-9'} ${mediumScreen ? ' rounded-full px-6' : 'bg-gray-100 rounded-l-full '} backdrop-blur-2xl`}>
-                        <Link to='/' className='bg-blu flex items-center justify-center rounded-full w-6/12' style={{
-                            width: 70+'px',
-                            height: 70+'px'
-                        }} onClick={() =>setShowNav(false)}>
-                            
-                                <p className={`${isScrollTopZero ? 'text-white' : 'text-blue'} font-bold logo text-2xl`}>Paix</p>
-                        </Link>
-                        {mediumScreen ?
-                        <div className={`text-2xl h-10 w-9 p-2 bg-blue flex justify-center items-center w-min rounded-full cursor-pointer `} onClick={() => {
-                            setShowNav(!showNav)
-                        }} style={{
-                            width: 40+'px',
-                            height: 40+'px'
-                        }}>
-                            <p className={`bi bi-${showNav ? 'chevron-up' : 'justify'}`}></p>
-                        </div>
-                    : ''} 
-                    
+           <nav className='w-full center  bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] fixed min-h-[8vh] md:min-h-[13vh] top-0 left-0 z-50 border-b border-blue-900'>
+                <div className="w-11/12 lg:w-10/12 xl:w-9/12 flex justify-between">
+                    <div className="logo text-2xl w-2/12">
+                        <img src={logo} alt="" className='w-9/12 md:w-7/12 lg:w-5/12'/>
                     </div>
-                    <div className={`flex ${mediumScreen ? 'absolute w-full ' : 'w-5/12'}  right-0  flex justify-center ${isScrollTopZero && mediumScreen ? 'borber-bottom-white' : ''} ${showNav ? 'slideInNav' : 'slideOutNav'}`} style={{
-                        top: showNav ? 100+'%' : -600+'%'
-                    }}>
 
-                        <div className={`flex   ${mediumScreen ? 'bg-blue w-11/12  flex-col rounded-3xl' : 'backdrop-blur-2xl flex-row w-full rounded-r-full justify-end items-center bg-gray-100'} 
-                        px-3 py-4   ${isScrollTopZero ? 'bg-blue' : 'bg-gray-100'}`}>
-                            {
-                                Navs.map((nav, key) =>(
-                                    <div id='navLink' key={key}  
-                                    className={`flex ${isScrollTopZero ? 'text-gray-300' : 'text-blue'} p-2 items-center rounded ${mediumScreen? 'gap-3': 'flex-col'} hover:scale-90 transition-scale duration-500 cursor-pointer`} 
-                                    onClick={() => {
-                                            const element = document.querySelector(`#${nav.link}`)
+                    <i className={`bi bi-${showNav ? 'x-lg' : 'list'} cursor-pointer md:hidden text-2xl`} onClick={e => setShowNav(!showNav)}></i>
 
-                                            element.scrollIntoView({
-                                                behavior: 'smooth'
-
-                                            })
-                                        }}
-                                    >
-
-                                    
-                                        {
-                                            mediumScreen ? 
-                                            <i className={`bi bi-${nav.icon}-fill   rounded-full ${mediumScreen ? 'px-3 py-2 text-' : 'text-2xl text-blue'}  ${currentNav == key ? 'text-gray-400' : mediumScreen ? 'text-white' :  'text-whit'}`}></i> : ''
-                                        }
-
-                                        <p className={`px-1  small  ${mediumScreen ? '' : 'font-bold '} ${currentNav == key ? 'text-gray-400' : mediumScreen ? 'text-white' :  'text-whit'}`}>{nav.name}</p>
-                                    </div> 
-                                   
-                                ))
-                            }
-                       
+                    <div className={`${showNav ? 'left-0' : '-left-[100vw] md:left-0'} transition-all duration-1000 absolute py-9 md:py-0 bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] md:from-transparent w-full md:w-fit top-[8vh]  md:top-0 md:relative flex flex-col md:flex-row gap-9 items-center border-b border-blue-900 md:border-b-0`}>
+                        {
+                            Navs.map((nav, i) => (
+                                <Link className={`flex w-11/12 md:w-fit gap-2 items-center ${currentNav == i ? 'text-blue-500 border-b border-blue-900' : ''} hover:text-blue-400 hover:border-b hover:border-blue-400`} onClick={e => setCurrentNav(i)}>
+                                    <i className={`bi bi-${nav.icon}-fill`}></i>
+                                    <p className="text-sm">
+                                        {nav.name}
+                                    </p>
+                                </Link>
+                            ))
+                        }
+                        <div className="w-11/12 md:w-fit">
+                            <Button className={'w-fit'} text={'Contact Us'} icon={'telephone-fill'}/>
                         </div>
+
                     </div>
-                
-
                 </div>
-                <div className={`${mediumScreen ? 'w-11/12' : 'w-9/12'} flex justify-cente absolute`} style={{
-                        zIndex: 8000,
-                    }}>
-
-                        <div className="bg-blue flex justify-end transition-all duration-200 rounded" style={{
-                            width: posWidth+'%',
-                            height: 5+'px'
-                        }}>
-                            <i className="bi bi-person-fill right-0 transition-all duration-200 text-blue " style={{
-                                left: posWidth+'%',
-                                fontSize: 20+'px',
-                                textShadow: '0px 0px 1px white'
-                            }}></i>
-                        </div>
-                </div>
-            </nav>
+           </nav>
         </>
     )
 }
+
+
+export default  Navbar

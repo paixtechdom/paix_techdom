@@ -1,14 +1,24 @@
-import React, { useState, createContext, useEffect } from 'react'
+import React, { useState, createContext, useEffect, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider, Outlet, Link } from 'react-router-dom';
 
-import { Home } from './Pages/Home/Home'
-import { Navbar } from './Components/Sections/Navbar'
+
 import './index.css'
 import { Alert } from './Components/Alert'
-import { Footer } from './Components/Sections/Footer';
 import { Blog } from './Pages/Blog/Blog';
 import { ABlog } from './Pages/Blog/ABlog';
-// const Home = React.lazy(() => import('./Pages/Home/Home'))
+import { Loader } from './Components/Loader';
+const Navbar = React.lazy(() => delayLoad(import('./Components/Sections/Navbar')))
+const Footer = React.lazy(() => delayLoad(import('./Components/Sections/Footer')))
+const Home = React.lazy(() => delayLoad(import('./Pages/Home/Home')))
+const Contact = React.lazy(() => delayLoad(import('./Pages/Contact/Contact')))
+
+
+
+function delayLoad(promise) {
+  return new Promise(resolve => {
+    setTimeout(resolve, 2000);
+  }).then(() => promise);
+}
 
 export const AppContext = createContext()
 
@@ -22,6 +32,7 @@ const Layout = () =>{
   const [ alertType, setAlertType ] = useState('')
   const [ subject, setSubject ] = useState('')
   const [ isScrollTopZero, setIsScrollTopZero ] = useState(true)
+
   const  dbLocation = 'http://localhost:80/paixAPI'
   
   useEffect(() =>{
@@ -36,59 +47,28 @@ const Layout = () =>{
     }
   }
 
-  useEffect(() =>{
-    setInterval(() => {
-      const mediaQuery = window.matchMedia('(max-width:950px)');
-      setMediumScreen(mediaQuery.matches);
-      
-      const handleMediaQueryChange = (event) =>{
-        setMediumScreen(event.matches)
-      }
-      mediaQuery.addEventListener('change', handleMediaQueryChange)
-      
-      
-      return () =>{
-        mediaQuery.removeEventListener('change', handleMediaQueryChange)
-      }
-    }, 200);
-
-    setInterval(() => {
-
-      const mediaQuery = window.matchMedia('(max-width:550px)');
-      setSmallScreen(mediaQuery.matches);
-      
-      const handleMediaQueryChange = (event) =>{
-        setSmallScreen(event.matches)
-      }
-      mediaQuery.addEventListener('change', handleMediaQueryChange)
-      
-      
-      return () =>{
-        mediaQuery.removeEventListener('change', handleMediaQueryChange)
-      }
-    }, 200);
-    
-  }, [])
   
   return(
-    <div className='app bg-gray-100'>
+    <div className='app bg-gray-100 text-gray-100'>
 
       <AppContext.Provider value={{currentNav, setCurrentNav, smallScreen, mediumScreen , showALert, setShowAlert, alertMessage, setAlertMessage, setAlertType, subject, setSubject, showNavBar, setShowNavBar, isScrollTopZero, setIsScrollTopZero, dbLocation}}>
 
         
-          <div className='d-flex w-full'>
-            {
-              showNavBar ?
-              <Navbar mediumScreen={mediumScreen} smallScreen={smallScreen}/>
-               : ''
-            }
+          <div className='d-flex w-full bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)]'>
+
+            <Suspense fallback={<></>}>
+              <Navbar />
+            </Suspense>
+              
             <Outlet />
            
             {
               showALert ? 
               <Alert alertMessage={alertMessage} alertType={alertType} setShowAlert={setShowAlert}/> : ''
             }
-            <Footer />
+            <Suspense fallback={<></>}>
+              <Footer />
+            </Suspense>
           </div>
      
       </AppContext.Provider>
@@ -105,9 +85,9 @@ const router = createBrowserRouter([
         path: '/',
         element: 
         
-        // <React.Suspense fallback={<div>Loading...</div>}>
+        <React.Suspense fallback={<Loader />}>
           <Home />
-        // </React.Suspense>
+        </React.Suspense>
       },
       {
         path: '/Blog/:id',
@@ -129,10 +109,13 @@ const router = createBrowserRouter([
       //   path: '/Pricing',
       //   element: <Pricing />
       // },
-      // {
-      //   path: '/Contact',
-      //   element: <Contact />
-      // },
+      {
+        path: '/Contact',
+        element: 
+          <Suspense fallback={<Loader />}>
+            <Contact />
+          </Suspense>
+      },
       {
         path: '/*',
         element: <h4 className='parent' style={{
