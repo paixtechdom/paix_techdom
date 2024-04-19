@@ -3,8 +3,8 @@ import { useEffect } from "react"
 
 export const Parallax = ({id, children, className}) => {
     const [ isPosMatch, setIsPosMatch ] = useState(false)
+
     useEffect(() =>{
-        
         const pos = document.querySelector(`#${id}`).getBoundingClientRect()
         if(pos.top < 900){
             setIsPosMatch(true)
@@ -29,7 +29,7 @@ export const Parallax = ({id, children, className}) => {
     }, [])
 
     return(
-        <div id={id} className={`parallaxParent relative `}>
+        <div id={id} className={`parallaxParent relative`}>
             <div className={`relative  transition-all duration-500 ${isPosMatch ? 'animateParallax ' : 'opacity-0'} ${className}`}>
                 {children}
             </div>

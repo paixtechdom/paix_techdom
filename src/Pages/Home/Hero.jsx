@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react"
-import { FloatingObject } from "../../Components/FloatingObject"
 import { HeroContent } from '../../assets/Constants'
 import { Button } from "../../Components/Button"
 
 
 
-export const Hero = () => {
+const Hero = () => {
     const [ currentSlide, setCurrentSlide ] = useState(0)
     const [startX, setStartX ] = useState(0)
     const sliderRef = useRef(null)
@@ -36,8 +35,6 @@ export const Hero = () => {
 
     return(
         <div className="relative center w-full h-screen  overflow-hidden">
-            <HeroBg />
-
             <div className="absolute hidden lg:block lg:flex flex w-full justify-between items-center z-20">
 
                 <div className="bi bi-chevron-left text-5xl text-gray-300 cursor-pointer h-[250px] center rounded-full w-[100px] lg:w-[150px] p-6 rounded-r-3xl transition-all duration-1000 hover:bg-black hover:bg-opacity-20"  onClick={() => setCurrentSlide(currentSlide == 0 ? HeroContent.length - 1 : prev => prev - 1)}></div>
@@ -63,162 +60,6 @@ export const Hero = () => {
     )
 }
 
-
-const HeroBg = () => {
-    return(
-        <div className="h-full absolute top-0 left-0 w-full center bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] overflow-hidden">
-            <>
-            <>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-
-           
-            </>
-            <>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-
-           
-            </>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-            <FloatingObject text={'.'} speed={1} className={'h-[1px] w-[1px]'}/>
-            <FloatingObject text={'.'} className={'text-5xl h-[2px] w-[2px]'} speed={10}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={15}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[4px] w-[4px]'} speed={20}/>
-            <FloatingObject text={'.'} className={'text-9xl h-[3px] w-[3px]'} speed={25}/>
-
-           
-            </>
-   
-
-        </div>
-    )
-}
 
 const XlSlider = ({currentSlide}) => {
     return(
@@ -316,3 +157,6 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
         </div>
     )
 }
+
+
+export { Hero}

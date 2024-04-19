@@ -1,14 +1,15 @@
 import React, { useState, createContext, useEffect, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider, Outlet, Link } from 'react-router-dom';
-
-
 import './index.css'
 import { Alert } from './Components/Alert'
 import { Blog } from './Pages/Blog/Blog';
 import { ABlog } from './Pages/Blog/ABlog';
-import { Loader } from './Components/Loader';
+import { Loader } from './Pages/Components/Loader';
+import { HeroBg } from './Components/HeroBg';
+import { PageNotFound } from './Pages/PageNotFound';
 const Navbar = React.lazy(() => delayLoad(import('./Components/Sections/Navbar')))
 const Footer = React.lazy(() => delayLoad(import('./Components/Sections/Footer')))
+const About = React.lazy(() => delayLoad(import('./Pages/About/About')))
 const Home = React.lazy(() => delayLoad(import('./Pages/Home/Home')))
 const Contact = React.lazy(() => delayLoad(import('./Pages/Contact/Contact')))
 
@@ -59,6 +60,7 @@ const Layout = () =>{
             <Suspense fallback={<></>}>
               <Navbar />
             </Suspense>
+            <HeroBg />
               
             <Outlet />
            
@@ -89,18 +91,21 @@ const router = createBrowserRouter([
           <Home />
         </React.Suspense>
       },
-      {
-        path: '/Blog/:id',
-        element: <ABlog />
-      },
-      {
-        path: '/Blog/',
-        element: <Blog />
-      },
       // {
-      //   path: '/About',
-      //   element: <About />
+      //   path: '/Blog/:id',
+      //   element: <ABlog />
       // },
+      // {
+      //   path: '/Blog/',
+      //   element: <Blog />
+      // },
+      {
+        path: '/About',
+        element: 
+          <Suspense fallback={<Loader />}>
+            <About />
+          </Suspense>
+      },
       // {
       //   path: '/Services',
       //   element: <Services />
@@ -118,10 +123,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/*',
-        element: <h4 className='parent' style={{
-          marginTop: 100+'px',
-          marginLeft: 50+'px'
-        }}>Page not found <Link to='/'>return to the home page</Link></h4>
+        element: <PageNotFound />
       }
     ]
   }

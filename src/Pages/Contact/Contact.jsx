@@ -1,4 +1,4 @@
-import { Title } from "../../Components/Title"
+import { Title } from "../Components/Title"
 import { ContactInfo } from "../../assets/Constants"
 import { useContext, useState } from "react"
 import { AppContext } from "../../App"

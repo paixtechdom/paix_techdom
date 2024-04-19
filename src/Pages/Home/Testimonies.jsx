@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 import { Testimonials } from "../../assets/Constants"
 import { Parallax } from "../../Components/Parallax";
-import { Title } from "../../Components/Title";
+import { Title } from "../Components/Title";
 
 export const Testimonies = () => {
     const [ index, setIndex ] = useState(0)

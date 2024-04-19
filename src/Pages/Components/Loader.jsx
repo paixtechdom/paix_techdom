@@ -9,7 +9,7 @@ export const Loader = () => {
 
     }, [])
     return(
-        <div className="fixed bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] center w-full h-screen top-0 left-0 flex-col">
+        <div className="fixed bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] center w-full h-screen top-0 left-0 flex-col z-50">
             <div className="animate-spin center border border-gray-100 h-[100px] w-[100px] rounded-full">
                 <div className="animate-spin center bg-blue-900 h-[60px] w-[95px] rounded-full bg-gradient-to-l from-[rgba(0,0,80)] via-[rgba(220,220,225,0.6)] to-[rgba(0,0,80)]">
                     

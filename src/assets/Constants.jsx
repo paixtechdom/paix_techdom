@@ -17,7 +17,7 @@ const Navs = [
     {
         name:'Home',
         icon:'house',
-        link:'Home',
+        link:'',
     },
     {
         name:'About',
@@ -44,11 +44,11 @@ const Navs = [
     //     icon: 'file-earmark-richtext',
     //     link:'Blog',
     // },
-    // {
-    //     name:'Contact',
-    //     icon:'telephone',
-    //     link:'Contact',
-    // },
+    {
+        name:'Contact',
+        icon:'telephone',
+        link:'Contact',
+    },
 ]
 
 const HeroContent = [
