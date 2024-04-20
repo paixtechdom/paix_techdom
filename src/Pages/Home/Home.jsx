@@ -24,6 +24,12 @@ const Home = () => {
 
         <Numbers />        
 
+        what you will "GAIN" should be in Home
+        our mission, vision, value, story, belief and customer questions - about
+        our services
+        our contact
+        pricing
+
         <ImageAndText id={'ahsf'} title={'Get a new website now or create a new design for your existing website'} desc={'Find out how far a beautiful website can take YOUR business'} img={img1} iconText={'Get Your website now'} icon={'arrow-down'} />
     
         <Gain AboutInfo={AboutInfo}/>

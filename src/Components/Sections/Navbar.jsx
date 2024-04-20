@@ -58,7 +58,7 @@ const Navbar = () =>{
                     <div className={`${showNav ? 'left-0' : '-left-[100vw] md:left-0'} transition-all duration-1000 absolute py-9 md:py-0 bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] md:from-transparent w-full md:w-fit top-[8vh]  md:top-0 md:relative flex flex-col md:flex-row gap-9 items-center border-b border-blue-900 md:border-b-0`}>
                         {
                             Navs.map((nav, i) => (
-                                <Link key={i} to={`/${nav.link}`} className={`flex w-11/12 md:w-fit gap-2 items-center ${currentNav == i ? 'text-blue-500 border-b border-blue-900' : ''} hover:text-blue-400 hover:border-b hover:border-blue-400`} onClick={e => {
+                                <Link key={i} to={`/${nav.link}`} className={`flex w-11/12 md:w-fit gap-2 items-center ${currentNav == i ? 'text-blue-500 border-b border-blue-900' : ''} hover:text-blue-600 hover:border-b hover:border-blue-400`} onClick={e => {
                                     setCurrentNav(i)
                                     setShowNav(false)
                                     }}>

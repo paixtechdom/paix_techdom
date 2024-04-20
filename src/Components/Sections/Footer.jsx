@@ -15,7 +15,7 @@ const Footer = () => {
            <div className={`w-11/12 lg:w-10/12 xl:w-9/12 px-3 flex flex-col items-center gap-6 my-8 z-20`}>
 
                 <div className="w-full flex justify-start flex-col gap-4 items-start">
-                     <p className="text-2xl w-full lg:w-4/12 font-bold text-blue-400">Quick Links</p>
+                     <p className="text-2xl w-full lg:w-4/12 font-bold text-blue-600">Quick Links</p>
 
                     <div className="flex items-center justify-start gap-5 w-full">
                         {
@@ -33,7 +33,7 @@ const Footer = () => {
                 </div>
                 {
                     Navs.map((nav, i) => (
-                        <Link key={i} to={`/${nav.link}`} className={`flex w-full gap-2 items-center ${currentNav == i ? 'text-blue-500 border-b border-blue-900' : ''} hover:text-blue-400 hover:border-b hover:border-blue-400`} onClick={e => setCurrentNav(i)}>
+                        <Link key={i} to={`/${nav.link}`} className={`flex w-full gap-2 items-center ${currentNav == i ? 'text-blue-500 border-b border-blue-900' : ''} hover:text-blue-600 hover:border-b hover:border-blue-400`} onClick={e => setCurrentNav(i)}>
                         <i className={`bi bi-${nav.icon}-fill`}></i>
                         <p className="text-sm">
                             {nav.name}

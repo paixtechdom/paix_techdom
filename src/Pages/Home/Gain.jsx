@@ -15,7 +15,7 @@ return(
                 Gaain.map((reason, i) => (
                     <Parallax key={i} id={reason.id} className='flex flex-col border border-blue-900 p-9 rounded-xl gap-2  heading-relaxed tracking-wide' index={i}>
                         <i className="bi bi-check-circle-fill text-5xl bg-blue-900 text-gray-100 w-fit rounded-full center mb-3"></i>
-                        <p className="text-blue-400">{reason.title}</p>
+                        <p className="text-blue-600">{reason.title}</p>
                         <p className="text-sm text-gray-200">{reason.desc}</p>
                     </Parallax>
                 ))

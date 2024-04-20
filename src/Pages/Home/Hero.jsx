@@ -76,7 +76,7 @@ const XlSlider = ({currentSlide}) => {
                             HeroContent.map((content, i) => (
                                 <div key={i} className="flex flex-col h-screen justify-center gap-4">
 
-                                    <h1 className="text-5xl text-blue-400">{content.header}</h1>
+                                    <h1 className="text-5xl text-blue-600">{content.header}</h1>
                                     <div className="text-gray-20 text-sm tracking-wide leading-relaxed ">{content.text}</div>
                                     <Button text={'Get A Quoute'} className="w-fit" icon={'card-checklist'}/>
 
@@ -126,7 +126,7 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
                         HeroContent.map((content, i) => (
                             <div key={i} className="flex flex-col  justify-center w-[100vw] gap-4">
 
-                                <h1 className="text-5xl text-blue-400 w-11/12">{content.header}</h1>
+                                <h1 className="text-5xl text-blue-600 w-11/12">{content.header}</h1>
                                 <div className="text-gray-20 text-sm tracking-wide leading-relaxed w-11/12">{content.text}</div>
                                 <Button text={'Get Your Website Now'} className="w-fit" icon={'card-checklist'}/>
 

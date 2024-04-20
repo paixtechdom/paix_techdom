@@ -84,37 +84,6 @@ const HeroContent = [
     },
 ]
 const AboutInfo = {
-    homePageBeforeHeader: "You're just in time & at the right place...",
-    // homePageHeader: 'Ready to elevate your digital journey?',
-    homePageHeader: 'Website development company for your',
-    homePageHeaderFor: [
-        {
-            text: 'e-store',
-            color: 'text-orange-400',
-            img: estore
-        },
-        {
-            text: 'business',
-            color: 'text-blue-400',
-            img: businessImg
-            // buy and sell img
-        },
-        {
-            text: 'blog',
-            color: 'text-yellow-300',
-            img: blog
-        },
-        {
-            text: 'portfolio',
-            color: 'text-green-400',
-            img: portfolioImg
-        },
-        {
-            text: 'online learning',
-            color: 'text-red-400',
-            img: education
-        },
-    ],
     homePageIntro : "Scale up your website and transform your ideas into captivating online experiences. Unleash the power of innovative web solutions with Paix Techdom.",
     // Let's create something exceptional,
 
@@ -216,6 +185,14 @@ const Gain = [
     },
 ]
 
+const ValuesInfo = [
+    {
+        title: '',
+        desc: '',
+        image: ''
+    }
+]
+
 const ServicesInfo = [
     {
         title: 'Website Development',
@@ -248,108 +225,6 @@ const ServicesInfo = [
         icon: 'award'
     }
 ]
-
-const ContactInfo = [
-    {
-        title: 'Whatsapp',
-        icon: 'whatsapp',
-        link: 'https://api.whatsapp.com/send?phone=2347063730930'
-    },
-    {
-        title: 'Email',
-        icon: 'envelope',
-        link: 'mailto:paixtechdom@gmail.com'
-    },
-    {
-        title: 'Phone',
-        icon: 'telephone',
-        link: 'tel:+2347063730930'
-    },
-
-    {
-        title: 'Facebook',
-        icon: 'facebook',
-        link: 'https://www.facebook.com/profile.php?id=1000091611065721'
-    },
-    {
-        title: 'Instagram',
-        icon: 'instagram',
-        link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
-    },
-]
-
-const Testimonials = [
-    {
-        name: 'Mr Wheels Tim',
-        // organization: 'Eduaid Consult',
-        comment: "Outstanding service! Working with Paix Techdom was a breeze. They delivered exacty what we needed for our website redesign, and the results were beyond our expectations. Highly recommend their expertise for anyone in need of a top-notch website",
-        rating: 5
-    },
-    {
-        name: 'Mr Oweils',
-        organization: 'Saculiet NIG ENT',
-        comment: "Paix Techdom took our ideas and turned them into a beautifully designed and fully functional website. Their communication throughout the process was excellent, and they were always quick to address any concerns or changes",
-        rating: 4.5
-    },
-    {
-        name: 'Bryan Tane',
-        organization: 'Christ Liberty Assembly',
-        comment: "Timely delivery and regular updates compliments their service. Paix Techdom is highly recommended. Thank you for your hard work and dedication",
-        rating: 5
-    },
-    {
-        name: 'Joshua Olukunle (Dr.)', 
-        organization: '',
-        comment: "Little did I know that my business leads could increase significantly until I met Paix Techdom. Their service and promptness is at a top level. They were able to capture my vision perfectly and translate it into a website that reflects my brand identity",
-        rating: 5
-    },
-]
-const Prices = [
-    {
-        title: 'Basic Plan',
-        icon: 'star',
-        features: [
-            'Responsive and mobile-friendly website design',
-            'Search Engine Optimization (SEO)',
-            'Up to 5 pages',
-            'Contact form integration',
-            'Social media integration',
-            'Standard Security measures',
-            '1 year free maintenance'
-        ],
-        price: 250,
-        // price: 550,
-    },
-    {
-        title: 'Standard Plan',
-        icon: 'diamond',
-        features: [
-            'All features from the Basic Plan',
-            'Customized design to match brand identity',
-            'Up to 15 pages with additional content options (e.g portfolio, blog)',
-            'Content management system (WordPress)',
-            'Basic e-commerce functionality (up to 20 products)',
-            'Performance optimization',
-        ],
-        // price: 1200,
-        price: 700,
-    },
-    {
-        title: 'Premium Plan',
-        icon: 'gem',
-        features: [
-            'All features from the Standard Plan',
-            'Unlimited pages and content options',
-            'E-commerce functionality for unlimited products',
-            'Custom web applications or features',
-            'Enhanced security measures',
-            'Priority support and maintenance'
-            ],
-        price: 1200,
-        // price: 2500,
-    },
-]
-
 const ourOfffers = [
     {
         name: 'Design',
@@ -455,6 +330,113 @@ const ourOfffers = [
         ]
     }
 ]
+
+
+const ContactInfo = [
+    {
+        title: 'Whatsapp',
+        icon: 'whatsapp',
+        link: 'https://api.whatsapp.com/send?phone=2347063730930'
+    },
+    {
+        title: 'Email',
+        icon: 'envelope',
+        link: 'mailto:paixtechdom@gmail.com'
+    },
+    {
+        title: 'Phone',
+        icon: 'telephone',
+        link: 'tel:+2347063730930'
+    },
+
+    {
+        title: 'Facebook',
+        icon: 'facebook',
+        link: 'https://www.facebook.com/profile.php?id=1000091611065721'
+    },
+    {
+        title: 'Instagram',
+        icon: 'instagram',
+        link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
+    },
+]
+
+const Testimonials = [
+    {
+        name: 'Mr Wheels Tim',
+        // organization: 'Eduaid Consult',
+        comment: "Outstanding service! Working with Paix Techdom was a breeze. They delivered exacty what we needed for our website redesign, and the results were beyond our expectations. Highly recommend their expertise for anyone in need of a top-notch website",
+        rating: 5
+    },
+    {
+        name: 'Mr Oweils',
+        organization: 'Saculiet NIG ENT',
+        comment: "Paix Techdom took our ideas and turned them into a beautifully designed and fully functional website. Their communication throughout the process was excellent, and they were always quick to address any concerns or changes",
+        rating: 4.5
+    },
+    {
+        name: 'Bryan Tane',
+        organization: 'Christ Liberty Assembly',
+        comment: "Timely delivery and regular updates compliments their service. Paix Techdom is highly recommended. Thank you for your hard work and dedication",
+        rating: 5
+    },
+    {
+        name: 'Joshua Olukunle (Dr.)', 
+        organization: '',
+        comment: "Little did I know that my business leads could increase significantly until I met Paix Techdom. Their service and promptness is at a top level. They were able to capture my vision perfectly and translate it into a website that reflects my brand identity",
+        rating: 5
+    },
+]
+const Prices = [
+    {
+        title: 'Basic Plan',
+        icon: 'star',
+        features: [
+            'Responsive and mobile-friendly website design',
+            'Search Engine Optimization (SEO)',
+            'Up to 5 pages',
+            'Contact form integration',
+            'Social media integration',
+            'Standard Security measures',
+            '1 year free maintenance'
+        ],
+        price: 250,
+        // price: 550,
+    },
+    {
+        title: 'Standard Plan',
+        icon: 'diamond',
+        features: [
+            'All features from the Basic Plan',
+            'Customized design to match brand identity',
+            'Up to 15 pages with additional content options (e.g portfolio, blog)',
+            'Content management system (WordPress)',
+            'Basic e-commerce functionality (up to 20 products)',
+            'Performance optimization',
+        ],
+        // price: 1200,
+        price: 700,
+    },
+    {
+        title: 'Premium Plan',
+        icon: 'gem',
+        features: [
+            'All features from the Standard Plan',
+            'Unlimited pages and content options',
+            'E-commerce functionality for unlimited products',
+            'Custom web applications or features',
+            'Enhanced security measures',
+            'Priority support and maintenance'
+            ],
+        price: 1200,
+        // price: 2500,
+    },
+]
+
+
+
+
+
 const BlogNavs = [
     {
         name:'Home',
@@ -617,7 +599,7 @@ const BlogTypes = [
         bg: 'gray-900'
     },
 ]
-export { Navs, Gain, numbers, ourOfffers , AboutInfo, ServicesInfo, ContactInfo, Prices, Blogs, Testimonials, BlogNavs, BlogTypes, HeroContent }
+export { Navs, Gain, numbers, ourOfffers , AboutInfo, ServicesInfo, ContactInfo, Prices, Blogs, Testimonials, BlogNavs, BlogTypes, HeroContent, ValuesInfo }
 
 
 
