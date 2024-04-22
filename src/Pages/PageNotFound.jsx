@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom"
 import { Parallax } from "../Components/Parallax"
+import { useEffect } from "react"
 
 export const PageNotFound = () => {
+    useEffect(() => {
+      document.documentElement.scrollTop = 0 
+    }, [])
+
     return(
       <Parallax id={'dlknxlgdksa'}>
 

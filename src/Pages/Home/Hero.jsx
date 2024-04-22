@@ -148,7 +148,7 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
                     {
                         HeroContent.map((content, i) => (
                             <div key={i} className="flex flex-col  justify-start items-start w-[100vw] gap-4 h-fit">
-                                <img src={content.img} alt="" className="w-full h-fit rounded-xl"/>
+                                <img src={content.img} alt="" className="w-full h-fit rounded-xl "/>
                             </div>
                         ))
                     }

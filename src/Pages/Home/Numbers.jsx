@@ -40,18 +40,11 @@ const No = ({no}) => {
     return(
         <div className={`center m-auto flex-col gap-2 shadow-lg transition-all duration-1000 hover:scale-90 p -9 relative h-[16ch] w-[16ch]`}>
             
-            <div className="w-full h-full rounded-tl-[10ch] rounded-br-[10ch] border border-blue-900 absolute top-0 left-0 rotate-[45deg]">
-
-                <div className="absolute bottom-2 left-2 bg-blue-900 rounded-tr-full z-20 h-2 w-2 rounded-full">
-                </div>
-                <div className="absolute top-2 right-2 bg-blue-900 rounded-tr-full z-20 h-2 w-2 rounded-full">
-                </div>
-                
-            </div>
+            <div className="w-full h-full rounded-tl-[10ch] rounded-br-[10ch] border border-blue-900 absolute top-0 left-0 rotate-[45deg]"></div>
             
             <Parallax id={no.title}>
 
-                <p className='text-3xl text-blue-400'>{newNo}+</p>
+                <p className='text-3xl text-blue-400 text-center'>{newNo}+</p>
                 <div className='flex items-center text-gray-300 gap-2 my-2 text-sm'>
                     <i className={`bi bi-${no.img} text-2xl`}></i>
                     <p >{no.title}</p>

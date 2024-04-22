@@ -7,9 +7,11 @@ import { ABlog } from './Pages/Blog/ABlog';
 import { Loader } from './Pages/Components/Loader';
 import { HeroBg } from './Components/HeroBg';
 import { PageNotFound } from './Pages/PageNotFound';
+
 const Navbar = React.lazy(() => delayLoad(import('./Components/Sections/Navbar')))
 const Footer = React.lazy(() => delayLoad(import('./Components/Sections/Footer')))
 const About = React.lazy(() => delayLoad(import('./Pages/About/About')))
+const Services = React.lazy(() => delayLoad(import('./Pages/Services/Services')))
 const Home = React.lazy(() => delayLoad(import('./Pages/Home/Home')))
 const Contact = React.lazy(() => delayLoad(import('./Pages/Contact/Contact')))
 
@@ -106,10 +108,10 @@ const router = createBrowserRouter([
             <About />
           </Suspense>
       },
-      // {
-      //   path: '/Services',
-      //   element: <Services />
-      // },
+      {
+        path: '/Services',
+        element: <Services />
+      },
       // {
       //   path: '/Pricing',
       //   element: <Pricing />

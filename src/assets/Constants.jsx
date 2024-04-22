@@ -149,83 +149,112 @@ const Gain = [
     {
         id: 'ground',
         title: 'Gain ground in your niche',
-        icon: 'people',
+        icon: 'check-circle-fill',
         desc: 'A website developed by us positions your business as a leader in its field, excelling at what it does best.'
     },
     {
         id: 'leads',
         title: 'Generate more leads',
-        icon: 'people',
+        icon: 'check-circle-fill',
         desc: 'Your website becomes a powerful tool to capture interest, drawing in a larger audience and increasing potential customer inquiries.'
     },
     {
         id: 'awareness',
         title: 'Grow your awareness',
-        icon: 'people',
+        icon: 'check-circle-fill',
         desc: 'Through a strategically designed website, more people become acquainted with and recognize your brand, enhancing overall awareness.'
     },
     {
         id: 'clients',
         title: 'Gain access to more clients',
-        icon: 'people',
+        icon: 'check-circle-fill',
         desc: 'Your website serves as a gateway to connect with new customers, enabling the expansion of your business reach and clientele.'
     },
     {
         id: 'grant',
         title: 'Grab more grant oppurtunities',
-        icon: 'hold',
+        icon: 'check-circle-fill',
         desc: ' With an impactful online presence, your chances of securing additional support or funding for your projects are heightened.'
     },
     
     {
         id: 'wings',
         title: 'Grow your wings',
-        icon: 'people',
+        icon: 'check-circle-fill',
         desc: 'Our website development ensures that your business not only grows but soars to new heights, achieving success in exciting and dynamic ways.'
     },
 ]
 
 const ValuesInfo = [
     {
-        title: '',
-        desc: '',
-        image: ''
-    }
+        title: 'You First',
+        desc: "Your needs are our focus. We're here to ensure you're satisfied every step of the way.",
+        icon: 'people-fill',
+        id: 'slnd'
+    },
+    {
+        title: 'Empowering Your Online Presence',
+        desc: "We give you the tools and knowledge to thrive online, putting you in control.",
+        icon: 'lightning-fill',
+        id: 'slndsojvpa'
+    },
+    {
+        title: 'Partnering for Success',
+        desc: "We work hand in hand, respecting your insights, to achieve remarkable results.",
+        icon: 'lightbulb-fill',
+        id: 'sasvknlav'
+    },
+    {
+        title: 'Growing Together',
+        desc: "We're committed to continuous improvement, adapting to your needs as we grow together",
+        icon: 'sort-up-alt',
+        id: 'aldmvlkw'
+    },
+
 ]
 
 const ServicesInfo = [
     {
+        id: 'sfnflan',
         title: 'Website Development',
         desc: 'Elevate your online presence with our expert website development services. We craft visually stunning and user-friendly websites tailored to your brand, ensuring a seamless digital experience for your audience.',
         icon: 'laptop'
     },
     {
-        title: 'Web Apps',
+        id: 'vslnakawj',
+        title: 'Mobile Applications',
         desc: 'Experience the power of interactive web applications with our customized solutions. From dynamic forms to real-time updates, we leverage cutting-edge technologies to enhance user engagement and functionality on your website',
         icon: 'phone'
     },
     {
+        id: 'knvjnoqldnd',
         title: 'SEO (Search Engine Optimization)',
         desc: "Boost your online visibility and climb the search engine ranks. Our SEO services optimize your websites's content and structure, driving organic traffic and ensuring that your business stands out in the digital landscape.",
         icon: 'search'
     },
     {
+        id: 'vlmlknosnf',
         title: 'Website Maintenance',
         desc: 'Secure the longetivity of your online presence with our comprehensive website maintenance services. We handle updates, security patches, and performance enhancements, allowing you to focus on your business while we take care of the technical details.',
         icon: 'wrench'
     },
     {
+        id: 'pwrnnfninw',
         title: 'E-Commerce solutions',
         desc: 'Unleash the potential of online selling with our tailored e-commerce solutions. We create robust, secure and user-friendly online stores that not only showcase your products but also provide a seamless and secure shopping experience for your customers.',
         icon: 'shop'
     },
     {
+        id: 'siinnqien',
         title: 'Training and Tutoring',
         desc: "Empower your team or yourself with our specialized training and tutoring services. Whether you're looking to master web development or SEO strategies, our experts provide hands-on guidance and knowledge transfer to help you succeed in the digital landscape.",
         icon: 'award'
     }
 ]
+
+
 const ourOfffers = [
+    // what you stand to gain
     {
         name: 'Design',
         desc: 'Our design services are tailored to elevate your brand and captivate your audience. Our commitment is to bring your vision to life through thoughtful and ijmpactful design solutions that set your business apart in a crowded digital landscape',
@@ -433,6 +462,38 @@ const Prices = [
     },
 ]
 
+const Questions = [
+    {   
+        id: 'queswopr',
+        icon: 'patch-question-fill',
+        title: 'How long does it take to get a website?',
+        desc: 'Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+    },
+    {
+        id: 'queswrrrer',
+        icon: 'patch-question-fill',
+        title: '2 How long does it take to get a website?',
+        desc: '2 Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+    },
+    {
+        id: 'qwefwfef',
+        icon: 'patch-question-fill',
+        title: '3 How long does it take to get a website?',
+        desc: '3 Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+    },
+    {
+        id: 'qfwdsd',
+        icon: 'patch-question-fill',
+        title: '4 How long does it take to get a website?',
+        desc: '4 Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+    },
+    {
+        id: 'waldsd',
+        icon: 'patch-question-fill',
+        title: '5 How long does it take to get a website?',
+        desc: '5 Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+    },
+ ]
 
 
 
@@ -599,7 +660,7 @@ const BlogTypes = [
         bg: 'gray-900'
     },
 ]
-export { Navs, Gain, numbers, ourOfffers , AboutInfo, ServicesInfo, ContactInfo, Prices, Blogs, Testimonials, BlogNavs, BlogTypes, HeroContent, ValuesInfo }
+export { Navs, Gain, numbers, ourOfffers , AboutInfo, ServicesInfo, ContactInfo, Prices, Blogs, Testimonials, BlogNavs, BlogTypes, HeroContent, ValuesInfo, Questions }
 
 
 

@@ -8,27 +8,17 @@ import { Parallax } from "../../Components/Parallax"
 
 
 const Contact = () => {
-    const { setShowAlert, setAlertMessage, setAlertType, smallScreen, subject, setSubject, mediumScreen, isScrollTopZero } = useContext(AppContext)
-
+    const { setShowAlert, setAlertMessage, setAlertType, subject, setSubject, mediumScreen, isScrollTopZero } = useContext(AppContext)
     const [ name, setName ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ message, setMessage ] = useState('')
     const [ nameError, setNameError ] = useState(false)
     const [ messageError, setMessageError ] = useState(false) 
     const [ isLoading, setIsLoading ] = useState(false) 
-    const [ isTypingName, setIsTypingName ] = useState(true)
-    const [ isTypingEmail, setIsTypingEmail ] = useState(true)
-    const [ isTypingSubject, setIsTypingSubject ] = useState(true)
-    const [ isTypingMessage, setIsTypingMessage ] = useState(true)
 
     useEffect(() => {
-        
-        setIsTypingName(name.length < 1 ? false : true)
-        setIsTypingEmail(email.length < 1 ? false : true)
-        setIsTypingSubject(subject.length < 1 ? false : true)
-        setIsTypingMessage(message.length < 1 ? false : true)
-        
-    }, [name, message, email, subject])
+        document.documentElement.scrollTop = 0
+    }, [])
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
@@ -86,7 +76,7 @@ const Contact = () => {
 
             <Title title={'Contact Us'} icon={'telephone'}/>
            
-            <div className={`justify-center ${mediumScreen ? 'w-11/12 flex flex-col  items-center justify-center ' : 'grid grid-cols-2 w-9/12 items-center'}`}>
+            <div className={`center w-11/12 flex-col  lg:grid lg:grid-cols-2 items-center `}>
                     <div className={`flex ${mediumScreen ? 'border-gray-300 shadow-lg border w-11/12 items-center justify-between px-2' : 'flex-col w-11/12'} rounded-3xl  `}>
                         {
                             ContactInfo.map((info, key) => (
@@ -111,74 +101,56 @@ const Contact = () => {
                     </div>
 
                 <form className="flex justify-center w-full " onSubmit={handleSubmit}>
-                <div className="w-11/12 my-4">
-                        <Parallax id='name'>
-                            <div className="mb-4 md:mb-2 relative">
-                                <label className={`absolute left-4 text-gray-600 ${isTypingName ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}> Full Name</label>
-                                <input type="text" className="w-full bg-transparent  outline-none my-1 border-gray-300 shadow-lg border rounded-xl p-4  text-sm " id="fullname" 
-                                // placeholder='Full Name' 
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required 
-                                />
-                                {
-                                    nameError ? 
-                                    <p className="text-red-900 small-lg text-center">Name is too short</p> : ''
-                                }
-                            </div>
-                        </Parallax>
-                        <Parallax id='email'>
-                            <div className="mb-4 md:mb-2 relative">
-                                <label className={`absolute left-4 text-gray-600 ${isTypingEmail ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}>Your Email</label>
-                                <input type="email" className="w-full bg-transparent  outline-none my-1 border-gray-300 shadow-lg border rounded-xl p-4  text-sm " 
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                />
-                            </div>
-                        </Parallax>
-                        <Parallax id='subject'>
-                            <div className="mb-4 md:mb-2 relative">
-                                <label  className={`absolute left-4 text-gray-600 ${isTypingSubject ? '-top-1  -translate-y-2 small' : 'small top-6' }  transition-all duration-100`}> Subject</label>
-                                <input type="text" className="w-full bg-transparent  outline-none my-1 border-gray-300 shadow-lg border rounded-xl p-4  text-sm "  
-                                value={subject}
-                                onChange={(e) => setSubject(e.target.value)}
-                                required
-                                />
-                            </div>
-                        </Parallax>
-                        <Parallax id='message'>
-                            <div className="mb-4 md:mb-2 relative">
-                                <label className={`absolute left-4 text-gray-600 ${isTypingMessage ? '-top-1  -translate-y-2 small' : 'small top-6 ' }  transition-all duration-100`}> Message</label>
-                                <textarea name="" id="" className='w-full bg-transparent  outline-none my-1 border-gray-300 shadow-lg border rounded-xl p-4 py-4 text-sm '  required  style={{
-                                    maxHeight: 100+'px',
-                                    minHeight: 100+'px'
-                                }}
-                                value={message}
-                                onChange={(e) => setMessage(e.target.value)}
-                                ></textarea>
-                                {
-                                    messageError ? 
-                                    <p className="text-red-900 small-lg text-center">Message is too short</p> : ''
-                                }
-                            </div>
-                        </Parallax>
-                        <Parallax id='send'>
-                            <button className="w-full bg-blue shadow-lg border text-gray-100 cursor-pointer outline-none my-1  rounded-xl p-3 text-xl">
-                            {isLoading? 
-                                <p className="flex items-center justify-center">
-                                    
-                                <i className="text-xl bi bi-arrow-clockwise animate-spin mx-2"></i>
-                                Sending Message...
-                                </p>
-                            : 
-                                <>
-                                Send Message
-                                <i className="bi bi-chevron-right mx-2"></i>
-                                </>
+                <div className="w-11/12 my-4 flex flex-col gap-7">
+                    <Parallax id={'formname'} className={'w-full'}>
+                        <FormInput label={'Name'} icon={'person-fill'} value={name} setValue={setName} type={'text'}/>
+                        {
+                            nameError ? 
+                            <p className="text-red-600 p-2 px-4">Name is too short</p> : ''
+                        }
+                    </Parallax>
+                    <Parallax id={'formemail'} className={'w-full'}>
+                        <FormInput label={'Email'} icon={'envelope-fill'} value={email} setValue={setEmail} type={'email'}/>
+                    </Parallax>
+
+                    <Parallax id={'forsubject'} className={'w-full'}>
+                        <FormInput label={'Subject'} icon={'file-text'} value={subject} setValue={setSubject} type={'text'}/>
+                        
+                    </Parallax>
+
+
+                    <Parallax id={'formmessage'} className={'w-full'}>
+                        <div className="flex w-full relative text-gray-100">
+                        <label htmlFor="" className="bg-black absolute text-sm left-3 -top-3 px-4 flex items-center gap-3">
+                        <i className={`bi bi-chat-dots-fill `}></i> 
+                        
+                        Message
+                        </label>
+
+                        <div className="flex border border-purple-900 rounded-2xl shadow-lg center w-full overflow-hidden text-sm">
+                            <textarea type='text' placeholder="" className="bg-black bg-opacity-70 w-full p-3 pt-5 px-6 outline-none  focus:initial" value={message} onChange={(e) => setMessage(e.target.value)} required></textarea>
+                            
+                        </div>                
+                        </div>
+
+                        {
+                            messageError ? 
+                            <p className="text-red-600 p-2 px-4">Message is too short</p> : ''
+                        }
+                    </Parallax>
+
+                    <Parallax id={'formsubmit'} className={'w-full'}>
+                        <button type="submit" disabled={isLoading} className={`bg-black  border border-purple-900 text-gray-200 rounded-2xl w-full  transition-all duration-1000 gap-3 text-xl p-3 center cursor-pointer hover:scale-90 focus:initial`}>
+                            {
+                                isLoading ? 'Sending...' : 'Send Message'
                             }
-                            </button>
-                        </Parallax>
+                            {
+                                isLoading ? '' : 
+                            <i className="bi bi-cursor-fill"></i>
+                            }
+
+                        </button>
+                    </Parallax>
                 </div>
 
 
@@ -192,5 +164,26 @@ const Contact = () => {
     )
 }
 
+
+
+const FormInput = ({label, icon, value, setValue, type}) => {
+    return(
+        <div className="flex flex-col w-full relative text-gray-100 text-sm z-0 gap-4">
+        <label htmlFor="" className="bg-transparent px-4 flex items-center gap-3">
+        {
+            icon !== '' ? 
+            <i className={`bi bi-${icon}`}></i> : ''
+        } 
+        {label} 
+            </label>
+
+        <div className="flex border border-purple-900 rounded-2xl shadow-lg center w-full overflow-hidden">
+            <input type={type} placeholder="" className="bg-transparent bg-opacity-70 w-full p-3 pt-5 px-6 outline-none focus:initial" value={value} onChange={(e) => setValue(e.target.value)} required/>
+            
+
+        </div>
+    </div>
+        )
+}
 
 export default Contact

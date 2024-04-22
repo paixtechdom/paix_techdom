@@ -1,18 +1,18 @@
+import { Parallax } from '../../Components/Parallax'
 import { ValuesInfo } from '../../assets/Constants'
+import { GridSlider } from '../Components/GridSlider'
 
 
 export const Values = () => {
     return(
-        <div className="center mt-[9ch]">
-            <div className="w-11/12 lg:10/12 xl:w-9/12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
-                {
-                    ValuesInfo.map((value, i) => (
-                        <div className="flex flex-col">
-
-                        </div>
-                    ))
-                }    
-            </div>           
+        <div id='Values' className="center flex-col pt-[9ch]">
+            <div className="w-11/12 lg:10/12 xl:w-9/12 grid grid-cols-1 md:grid-cols-2">
+                <Parallax id={'values'}>
+                    <div className="text-blue-600 text-3xl">Our Values</div>
+                </Parallax>
+                    
+            </div>     
+            <GridSlider data={ValuesInfo}/>
         </div>
     )
 }
