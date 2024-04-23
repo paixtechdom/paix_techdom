@@ -24,7 +24,7 @@ const Hero = () => {
 
     useEffect(() => {
         const int = setInterval(() => {
-            slide()
+            // slide()
         }, 4000);
         return () => clearInterval(int)
     }, [currentSlide])
@@ -76,9 +76,9 @@ const XlSlider = ({currentSlide}) => {
                             HeroContent.map((content, i) => (
                                 <div key={i} className="flex flex-col h-screen justify-center gap-4">
 
-                                    <h1 className="text-5xl text-blue-600">{content.header}</h1>
+                                    <h1 className="text-4xl text-blue-600">{content.header}</h1>
                                     <div className="text-gray-20 text-sm tracking-wide leading-relaxed ">{content.text}</div>
-                                    <Button text={'Get A Quoute'} className="w-fit" icon={'card-checklist'}/>
+                                    <Button text={'Get Your Website Now'} className="w-fit" icon={'card-checklist'}/>
 
                                 </div>
                             ))
@@ -126,7 +126,7 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
                         HeroContent.map((content, i) => (
                             <div key={i} className="flex flex-col  justify-center w-[100vw] gap-4">
 
-                                <h1 className="text-5xl text-blue-600 w-11/12">{content.header}</h1>
+                                <h1 className="text-3xl text-blue-600 w-11/12">{content.header}</h1>
                                 <div className="text-gray-20 text-sm tracking-wide leading-relaxed w-11/12">{content.text}</div>
                                 <Button text={'Get Your Website Now'} className="w-fit" icon={'card-checklist'}/>
 
@@ -140,7 +140,7 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
             
             <div className="overflow-hidden w-full flex justify-end max-h-72 md:max-h-84 items-start rounded-xl">
 
-                <div className={`flex transition-all duration-1000 h-fit`} style={{
+                <div className={`flex flex-row-reverse transition-all duration-1000 h-fit`} style={{
                         width: HeroContent.length*100+'vw',
                         transform: `translatex(${currentSlide}00vw)`
                 }}>

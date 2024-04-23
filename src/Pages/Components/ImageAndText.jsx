@@ -7,7 +7,7 @@ export const ImageAndText = ({id, title, desc, img, className, iconText, icon, s
     const navigate = useNavigate()
     return(
         
-        <div id={id} className='flex justify-center my-[12ch] pt-[9ch] text-gray-100 h-fit -90 items-center border-t border-blue-900'>
+        <div id={id} className='flex justify-center my-[12ch]  text-gray-100 h-fit -90 items-center border-t border-blue-900'>
             
             <div className={`center ${className ? className : 'flex-col lg:flex-row'} w-11/12 lg:w-10/12 xl:w-9/12 gap-[7ch]`}>
                 <div className={`flex flex-col gap-4 lg:w-7/12`}>

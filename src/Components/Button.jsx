@@ -10,7 +10,7 @@ const Button = ({text, className, icon, func, showIcon, setShowNav}) => {
     }, [showIcon])
 
     return(
-        <div className={`cursor-pointer text-sm p-1 center transition-all duration-500 px-4 border border-gray-400 h-fit rounded-xl rounded-tr-[20px] ${className} flex gap-3 overflow-hidden text-white`} 
+        <div className={`cursor-pointer text-sm p-1 center transition-all duration-500 px-4 border border-blue-900 h-fit rounded-xl rounded-tr-[20px] ${className} flex gap-3 overflow-hidden bg-[rgba(0,0,35)]`} 
             onClick={() => {
                 func()
                 setShowNav(false)

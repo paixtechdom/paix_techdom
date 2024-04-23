@@ -19,7 +19,7 @@ export const PagesHero = ({image, header, text, scrollTo, button}) => {
                     </div>
                     {
                         button == false ? '' :
-                        <Button text={'Read more'} icon={'arrow-down'} className={'w-fit'} func={() => {
+                        <Button text={button ? button : 'Read more'} icon={'arrow-down'} className={'w-fit'} func={() => {
                             document.querySelector(`#${scrollTo}`).scrollIntoView({
                                 behavior: 'smooth'
                             })

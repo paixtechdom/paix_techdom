@@ -20,12 +20,12 @@ const Navs = [
         link:'',
     },
     {
-        name:'About',
+        name:'About Us',
         icon:'person',
         link:'About',
     },
     {
-        name:'Services',
+        name:'Our Services',
         icon:'hdd-stack',
         link:'Services',
     },
@@ -45,33 +45,35 @@ const Navs = [
     //     link:'Blog',
     // },
     {
-        name:'Contact',
+        name:'Contact Us',
         icon:'telephone',
         link:'Contact',
     },
 ]
 
 const HeroContent = [
+    {
+        // header: 'Are you a business owner desiring more leads?',
+        header: 'Ever lost an oppurtunity due not having a website?',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        color: 'text-blue-400',
+        img: businessImg
+    },
     {   
-        header: 'Paix for your Estore',
+        // header: 'Are you in need of an online store?',
+        header: 'Paix Techdom is the right plug for your online presence',
         text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
         color: 'text-orange-400',
         img: estore
     },
     {
-        header: 'Paix for your Business',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
-        color: 'text-blue-400',
-        img: businessImg
-    },
-    {
-        header: 'Paix for your Blog',
+        header: 'In need of your platform to share your thoughts?',
         text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
         color: 'text-yellow-300',
         img: blog
     },
     {
-        header: 'Paix for your Portfolio',
+        header: 'We are not in for portfolios',
         text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
         color: 'text-green-400',
         img: portfolioImg
@@ -147,12 +149,6 @@ const numbers = [
 
 const Gain = [
     {
-        id: 'ground',
-        title: 'Gain ground in your niche',
-        icon: 'check-circle-fill',
-        desc: 'A website developed by us positions your business as a leader in its field, excelling at what it does best.'
-    },
-    {
         id: 'leads',
         title: 'Generate more leads',
         icon: 'check-circle-fill',
@@ -172,9 +168,15 @@ const Gain = [
     },
     {
         id: 'grant',
-        title: 'Grab more grant oppurtunities',
+        title: 'Grab more oppurtunities',
         icon: 'check-circle-fill',
-        desc: ' With an impactful online presence, your chances of securing additional support or funding for your projects are heightened.'
+        desc: ' With an impactful online presence, your chances of securing oppurtunities such as additional support or funding for your projects are heightened.'
+    },
+    {
+        id: 'ground',
+        title: 'Gain ground in your niche',
+        icon: 'check-circle-fill',
+        desc: 'A website developed by us positions your business as a leader in its field, excelling at what it does best.'
     },
     
     {
@@ -216,15 +218,15 @@ const ValuesInfo = [
 const ServicesInfo = [
     {
         id: 'sfnflan',
-        title: 'Website Development',
+        title: 'Website Design',
         desc: 'Elevate your online presence with our expert website development services. We craft visually stunning and user-friendly websites tailored to your brand, ensuring a seamless digital experience for your audience.',
         icon: 'laptop'
     },
     {
         id: 'vslnakawj',
-        title: 'Mobile Applications',
+        title: 'Website Development',
         desc: 'Experience the power of interactive web applications with our customized solutions. From dynamic forms to real-time updates, we leverage cutting-edge technologies to enhance user engagement and functionality on your website',
-        icon: 'phone'
+        icon: 'tools'
     },
     {
         id: 'knvjnoqldnd',

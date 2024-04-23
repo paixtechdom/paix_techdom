@@ -10,9 +10,13 @@ import { PageNotFound } from './Pages/PageNotFound';
 
 const Navbar = React.lazy(() => delayLoad(import('./Components/Sections/Navbar')))
 const Footer = React.lazy(() => delayLoad(import('./Components/Sections/Footer')))
+
+
+// ************************PAGES***************
+const Home = React.lazy(() => delayLoad(import('./Pages/Home/Home')))
 const About = React.lazy(() => delayLoad(import('./Pages/About/About')))
 const Services = React.lazy(() => delayLoad(import('./Pages/Services/Services')))
-const Home = React.lazy(() => delayLoad(import('./Pages/Home/Home')))
+const Pricing = React.lazy(() => delayLoad(import('./Pages/Pricing/Pricing')))
 const Contact = React.lazy(() => delayLoad(import('./Pages/Contact/Contact')))
 
 
@@ -115,10 +119,12 @@ const router = createBrowserRouter([
               <Services />
           </Suspense>
       },
-      // {
-      //   path: '/Pricing',
-      //   element: <Pricing />
-      // },
+      {
+        path: '/Pricing',
+        element: <Suspense fallback={<></>}>
+            <Pricing />
+          </Suspense>
+      },
       {
         path: '/Contact',
         element: 
