@@ -11,7 +11,7 @@ const Footer = () => {
     return(
         <>
 
-        <div className=" w-full flex justify-center text-white border-t border-blue-900">
+        <div className=" w-full flex justify-center text-white border-t border-blue-900 mt-[10vh]">
            <div className={`w-11/12 lg:w-10/12 xl:w-9/12 px-3 flex flex-col items-center gap-6 my-8 z-20`}>
 
                 <div className="w-full flex justify-start flex-col gap-4 items-start">
@@ -41,7 +41,7 @@ const Footer = () => {
                     </Link>
                     ))
                 }
-                 <div className="w-full md:w-fit">
+                 <div className="w-full">
                     <Button className={'w-fit'} text={'Get started now'} icon={'telephone-fill'}/>
                 </div>
 

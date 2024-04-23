@@ -19,7 +19,7 @@ const Contact = React.lazy(() => delayLoad(import('./Pages/Contact/Contact')))
 
 function delayLoad(promise) {
   return new Promise(resolve => {
-    setTimeout(resolve, 2000);
+    setTimeout(resolve, 0);
   }).then(() => promise);
 }
 
@@ -110,7 +110,10 @@ const router = createBrowserRouter([
       },
       {
         path: '/Services',
-        element: <Services />
+        element: 
+          <Suspense fallback={<Loader />}>
+              <Services />
+          </Suspense>
       },
       // {
       //   path: '/Pricing',

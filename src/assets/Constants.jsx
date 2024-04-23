@@ -362,32 +362,35 @@ const ourOfffers = [
 
 
 const ContactInfo = [
+
     {
-        title: 'Whatsapp',
         icon: 'whatsapp',
         link: 'https://api.whatsapp.com/send?phone=2347063730930'
     },
     {
-        title: 'Email',
+        title: 'paixtechdom@gmail.com',
         icon: 'envelope',
         link: 'mailto:paixtechdom@gmail.com'
     },
-    {
-        title: 'Phone',
+      {
+        title: '+2347063730930',
         icon: 'telephone',
         link: 'tel:+2347063730930'
     },
 
     {
-        title: 'Facebook',
         icon: 'facebook',
         link: 'https://www.facebook.com/profile.php?id=1000091611065721'
     },
     {
-        title: 'Instagram',
         icon: 'instagram',
         link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
     },
+    {
+        icon: 'twitter',
+        link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
+    },
+  
 ]
 
 const Testimonials = [
