@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useContext, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { AppContext } from "../../App"
-import { Blogs } from "../../assets/Constants"
+import { Blogs } from "../../assets/BlogInfo"
 import { Button } from "../../Components/Button"
 import { Parallax } from "../../Components/Parallax"
 

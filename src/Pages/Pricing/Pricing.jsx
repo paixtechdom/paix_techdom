@@ -1,10 +1,12 @@
-import { Prices } from "../../assets/Constants"
+import { Prices, Questions } from "../../assets/Constants"
 import { useContext, useEffect } from "react"
 import { AppContext } from "../../App"
 import { Parallax } from "../../Components/Parallax"
 import { Link } from "react-router-dom"
 import { PagesHero } from "../Components/PagesHero"
 import image from '../../assets/img/about.jpeg'
+import { Packages } from "./Packages"
+import { FAQ } from "../Components/FAQ"
 
 
 const Pricing = () => {
@@ -17,17 +19,26 @@ const Pricing = () => {
 
 
     return(
-        <div id="Pricing" className="flex flex-col overflow-hidden w-full pt-9">
+        <div id="Pricing" className="flex-col overflow-hidden w-full pt-9 center">
             
             <PagesHero 
                 image={image} 
                 header={'Pricing'} 
-                text={['Explore our our packages and choose that which suits your prupose']} 
+                text={[
+                    'Explore our our packages and choose that which suits your prupose',
+                    "We offer range of prices for Small (Basic), Medium (Standard) and Large scale (Premium) projects, all varying based on the functionality of the websites and also based on the number or free additionals each package contains"
+                ]} 
                 scrollTo={'packages'} 
                 button={'Explore'}
             />
+            <Parallax id="packages" className={'w-full center pb-[7vh] pt-[15vh]'}>
+                <div  className="center w-11/12 lg:w-10/12 xl:w-9/12">
+                    <Packages />
+                </div>
+            </Parallax>
+            
 
-            <div id="packages" className=""></div>
+            <FAQ />
 
         </div>
     )

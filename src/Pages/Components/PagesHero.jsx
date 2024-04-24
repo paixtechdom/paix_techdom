@@ -3,10 +3,10 @@ import { Parallax } from "../../Components/Parallax"
 
 export const PagesHero = ({image, header, text, scrollTo, button}) => {
     return(
-        <Parallax id='abouthero' className={'w-[100vw] h-fit  lg:h-[90vh] center relative '}>
+        <Parallax id='abouthero' className={'w-[100vw] h-fit  lg:min-h-[70vh] center relative '}>
 
-            <div className="flex flex-col lg:flex-row w-[90%] lg:w-10/12 xl:w-9/12 justify-between items-center h-full z-10 gap-9 overflow-hid den relative">
-                <div className="flex flex-col w-full lg:w-8/12 z-20 gap-4 pt-[9ch]"> 
+            <div className="flex flex-col lg:flex-row w-[90%] lg:w-10/12 xl:w-9/12 justify-between items-center h-full z-10 gap-9 overflow-hid den relative pt-[5ch]">
+                <div className="flex flex-col justify-center w-full lg:w-8/12 z-20 gap-4"> 
                     <h1 className="text-5xl text-blue-600">
                         {header}
                     </h1>
@@ -28,8 +28,11 @@ export const PagesHero = ({image, header, text, scrollTo, button}) => {
                 </div>
 
                     
-                <div className="flex center w-full lg:w-5/12 z-10">
-                    <img src={image} alt="About Paix Techdom Image" className="h-fit w-9/12 lg:full z-0 top-0 right-0  rounded-tl-[25px] rounded-bl-[150px] rounded-tr-[150px] rounded-br-[25px]"/>
+                <div className="flex center w-full lg:w-5/12 z-10 relative">
+                    <div className="absolute w-full h-full border border-blue-900 border-2 rounded-3xl -bottom-[15px] -right-[15px] scale-90">
+
+                    </div>
+                    <img src={image} alt="About Paix Techdom Image" className="h-fit w-full z-0 top-0 right-0 rounded-3xl scale-90 -translate-x-[10px] -translate-y-[10px]"/>
                 </div>
             </div>    
 

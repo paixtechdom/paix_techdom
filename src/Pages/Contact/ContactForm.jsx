@@ -116,7 +116,7 @@ export const ContactForm = () => {
             </Parallax>
 
             <Parallax id={'formsubmit'} className={'w-full'}>
-                <button type="submit" disabled={isLoading} className={`bg-transparent bg-opacity-70 w-full p-3 pt-5 px-6 outline-none border border-blue-900 text-gray-200 rounded-2xl w-full transition-all duration-1000 gap-3 text-xl p-3 center cursor-pointer hover:scale-90 focus:initial`}>
+                <button type="submit" disabled={isLoading} className={` bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)]  w-full p-3 pt-5 px-6 outline-none border border-blue-900 text-blue-600 rounded-2xl w-full transition-all duration-1000 gap-3 text-xl p-3 center cursor-pointer hover:scale-90 focus:initial`}>
                     {
                         isLoading ? 'Sending...' : 'Send Message'
                     }

@@ -1,6 +1,5 @@
 
 import person from './img/person.jpg'
-// import education from './img/image.jpg'
 import education from './img/examImg.png'
 import estore from './img/estore.png'
 import businessImg from './img/businessImg.png'
@@ -50,93 +49,57 @@ const Navs = [
         link:'Contact',
     },
 ]
-
+// TARGET AUDIENCE - those who need website for online presence or to redesign
+//                 - those who need a custom solution
 const HeroContent = [
     {
-        // header: 'Are you a business owner desiring more leads?',
-        header: 'Ever lost an oppurtunity due not having a website?',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        // header: 'Are clients really scarce?',
+        header: 'Ready to scale up your business with digital automations?',
+        // text: ['Are you ready to leave the stage of not getting new clients?', 
+        text: [
+            'Are you ready bring your business to light and leave the stage of not getting new clients?', 
+            'Let us to handle your online presence and experience a drastic increase in your revenue.'
+        ],
         color: 'text-blue-400',
         img: businessImg
     },
     {   
-        // header: 'Are you in need of an online store?',
-        header: 'Paix Techdom is the right plug for your online presence',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        header: 'Try out our free packages',
+        text: ['Start now and get access to free addiional packages all for your business and organization to generate more leads and revenue.'],
         color: 'text-orange-400',
         img: estore
     },
     {
-        header: 'In need of your platform to share your thoughts?',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
+        header: 'Try out a website tailored for your brand',
+        text: ['We adhere to developing a website whose design, content and functionality is tailored to your needs.'],
         color: 'text-yellow-300',
         img: blog
     },
     {
-        header: 'We are not in for portfolios',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
-        color: 'text-green-400',
+        header: 'Missing business oppurtunities like grants and more?',
+        text: ['Start now to get more oppurtunities attracted to your organization.'],
+        color: 'text-red-400',
         img: portfolioImg
     },
-    {
-        header: 'Paix for your Education',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, voluptatum pariatur! Tenetur hic explicabo et iure facilis totam laboriosam saepe!',
-        color: 'text-red-400',
-        img: education
-    },
 ]
-const AboutInfo = {
-    homePageIntro : "Scale up your website and transform your ideas into captivating online experiences. Unleash the power of innovative web solutions with Paix Techdom.",
-    // Let's create something exceptional,
-
-    title: 'Welcome to Paix Techdom',
-    p1: ' where innovation meets expertise in the ever-evolving realm of web development. Founded on the belief that a strong digital presence is the cornerstone of success, we embark on a mission to transform visions into interactive, cutting-edge realities.',
-    p2: 'At Paix Techdom, we pride ourselves on being architects of the digital landscape, weaving together code, creativity, and commitment to deliver unparalleled web solutions. Our journey is fueled by a passion for pushing boundaries, embracing challenges, and staying at the forefront of technological advancements.',
-    question: 'Why Choose Paix Techdom?',
-    
-    reasons: [
-        {
-            title: 'End-to-End Solutions',
-            desc: "From conceptualization to deployment and beyond, we offer end-to-end web development solutions. Whether you're a startup looking for a digital presence or an enterprise aiming for a technological overhaul, we've got you covered."
-        },
-        {
-            title: 'Innovation at the Core',
-            desc: "Innovation is not just a buzzword for us; it's a commitment. We leverage the latest technologies and industry best practices to create solutions that not only meet but exceed expectations."
-        },
-        {
-            title: 'Client-Centric Approach',
-            desc: 'Your success is our success. We prioritize understanding your unique goals and challenges, tailoring our services to suit your specific needs. Collaboration is at the heart of what we do.'
-        },
-        {
-            title: 'Expertise That Matters',
-            desc: 'Our team of seasoned developers, designers, and strategists brings a wealth of experience to every project. From responsive websites to complex web applications, we thrive on turning concepts into dynamic, functional realities.',
-        },
-        {
-            title: 'Transparent Communication',
-            desc: 'Communication is key in any successful partnership. We value transparency, keeping you informed at every stage of the development process. Your feedback guides us, ensuring the final product aligns seamlessly with your vision.'
-        }
-    ],
-    footTitle: 'Join Us on the Digital Frontier',
-    pfoot: "As we continue to navigate the ever-changing digital landscape, Paix Techdom remains committed to crafting digital excellence. Join us on this journey, where your ideas meet our expertise, and together, we build the digital future. Let's innovate, inspire, and transform the way the world experiences the web."
-}
 
 const numbers = [
     {
         title: 'years',
         img: 'clock-history',
-        no: 4,
+        no: 3,
         speed: 200
     },
     {
         title: 'Clients',
         img: 'people',
-        no: 25,
+        no: 15,
         speed: 50
     },
     {
         title: 'projects',
         img: 'journal-text',
-        no: 38,
+        no: 15,
         speed: 100
     },
     {
@@ -196,7 +159,7 @@ const ValuesInfo = [
     },
     {
         title: 'Empowering Your Online Presence',
-        desc: "We give you the tools and knowledge to thrive online, putting you in control.",
+        desc: "We give you the tools and knowledge to thrive in the digital space, putting you in control.",
         icon: 'lightning-fill',
         id: 'slndsojvpa'
     },
@@ -208,7 +171,7 @@ const ValuesInfo = [
     },
     {
         title: 'Growing Together',
-        desc: "We're committed to continuous improvement, adapting to your needs as we grow together",
+        desc: "We're committed to continuous improvement, adapting to your needs as we grow your revenue together.",
         icon: 'sort-up-alt',
         id: 'aldmvlkw'
     },
@@ -388,10 +351,10 @@ const ContactInfo = [
         icon: 'instagram',
         link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
     },
-    {
-        icon: 'twitter',
-        link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
-    },
+    // {
+    //     icon: 'twitter',
+    //     link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
+    // },
   
 ]
 
@@ -427,14 +390,15 @@ const Prices = [
         icon: 'star',
         features: [
             'Responsive and mobile-friendly website design',
+            'Customized design to match brand identity',
             'Search Engine Optimization (SEO)',
-            'Up to 5 pages',
+            'Up to 10 pages',
             'Contact form integration',
             'Social media integration',
-            'Standard Security measures',
+            'Standard free Security measures',
             '1 year free maintenance'
         ],
-        price: 250,
+        price: 300,
         // price: 550,
     },
     {
@@ -442,14 +406,14 @@ const Prices = [
         icon: 'diamond',
         features: [
             'All features from the Basic Plan',
-            'Customized design to match brand identity',
             'Up to 15 pages with additional content options (e.g portfolio, blog)',
             'Content management system (WordPress)',
             'Basic e-commerce functionality (up to 20 products)',
             'Performance optimization',
+            'Priority support and maintenance'
         ],
         // price: 1200,
-        price: 700,
+        price: 850,
     },
     {
         title: 'Premium Plan',
@@ -460,9 +424,8 @@ const Prices = [
             'E-commerce functionality for unlimited products',
             'Custom web applications or features',
             'Enhanced security measures',
-            'Priority support and maintenance'
             ],
-        price: 1200,
+        price: 1400,
         // price: 2500,
     },
 ]
@@ -472,7 +435,7 @@ const Questions = [
         id: 'queswopr',
         icon: 'patch-question-fill',
         title: 'How long does it take to get a website?',
-        desc: 'Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+        desc: 'A minimum of three days, but it also depends on the complexity of the project and how quick you provide the requirements.'
     },
     {
         id: 'queswrrrer',
@@ -503,169 +466,8 @@ const Questions = [
 
 
 
-const BlogNavs = [
-    {
-        name:'Home',
-        icon:'house',
-        link:'',
-    },
-    {
-        name:'Tech',
-        icon:'person',
-        link:'About',
-    },
-    {
-        name:'Career',
-        icon:'hdd-stack',
-        link:'Services',
-    },
-    {
-        name:'Tools',
-        icon:'tags',
-        link:'Pricing',
-    },
-    {
-        name:'Lifestyle',
-        icon: 'file-earmark-richtext',
-        link:'Blog',
-    },
-    {
-        name:'Contact',
-        icon:'telephone',
-        link:'Contact',
-    },
-]
 
-const Blogs = [
-    {
-        title: 'Tech 1 ignissimos cumque fuga qui quibusdam quia',
-        desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
-        date: '12 July, 2023',
-        img: img5,
-        id: 'latestBlog',
-        content: [
-            'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
-            'Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.',
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.'
-        ],
-        noComments: 24,
-        noLikes: 200,
-        section: 'Tech'
-        
-    },
-    {
-        title: 'Career 2 optio tempore voluptas quia',
-        desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
-        date: '13 Aug, 2023',
-        img: img6,
-        id: 'blog2',
-        content: [
-            'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
-            'Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.',
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.'
-        ],
-        noComments: 24,
-        noLikes: 200,
-        section: 'Career'
-                
-        
-    },
-    {
-        title: 'Tools 3 optio tempore voluptas dignissimos cu',
-        desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
-        date: '14 Sept, 2023',
-        id: 'blog3',
-        img: img7,
-        content: [
-            'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
-            'Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.',
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.'
-        ],
-        noComments: 24,
-        noLikes: 200,
-        section: 'Tools'
-        
-        
-    },
-    {
-        title: 'Education 4 optio tempore voluptcumq',
-        desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
-        date: '15 Oct, 2023',
-        id: 'blog4',
-        img: img8,
-        content: [
-            'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
-            'Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.',
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.'
-        ],
-        noComments: 24,
-        noLikes: 200,
-        section: 'Education'
-
-    },
-    {
-        title: 'Techie 5 optio temp voluptacu',
-        desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
-        date: '14 Sept, 2023',
-        id: 'blog3',
-        img: img7,
-        content: [
-            'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
-            'Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.',
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.'
-        ],
-        noComments: 24,
-        noLikes: 200,
-        section: 'Tech'
-        
-        
-    },
-    {
-        title: 'Toolsie 6 optio tempore voluptas dignissimos cumq',
-        desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
-        date: '15 Oct, 2023',
-        id: 'blog4',
-        img: img8,
-        content: [
-            'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
-            'Aut iste neque ut illum qui perspiciatis similique recusandae non. Fugit autem dolorem labore omnis et. Eum temporibus fugiat voluptate enim tenetur sunt omnis.',
-            'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.'
-        ],
-        noComments: 24,
-        noLikes: 200,
-        section: 'Tools'
-
-    },
-]
-const BlogTypes = [
-    {
-        title: 'Tech',
-        icon: 'gear-fill',
-        bg: 'blue'
-    },
-    {
-        title: 'Tools',
-        icon: 'tools',
-        bg: 'black'
-    },
-    {
-        title: 'Education',
-        icon: 'book-fill',
-        bg: 'blue-900'
-    },
-    {
-        title: 'Career',
-        icon: ' person-badge-fill',
-        bg: 'gray-900'
-    },
-]
-export { Navs, Gain, numbers, ourOfffers , AboutInfo, ServicesInfo, ContactInfo, Prices, Blogs, Testimonials, BlogNavs, BlogTypes, HeroContent, ValuesInfo, Questions }
+export { Navs, Gain, numbers, ourOfffers , ServicesInfo, ContactInfo, Prices, Testimonials, HeroContent, ValuesInfo, Questions }
 
 
 

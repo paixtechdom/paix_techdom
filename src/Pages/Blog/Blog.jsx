@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useParams } from "react-router"
 import { Link } from "react-router-dom"
 import { AppContext } from "../../App"
-import { Blogs, BlogTypes } from "../../assets/Constants"
+import { Blogs, BlogTypes } from "../../assets/BlogInfo"
 import './Blog.css'
 import { BlogNav } from "./BlogNav"
 import { BlogSection } from "./BlogSection"

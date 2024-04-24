@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/img/logoLabelWhite.png'
 import '../../assets/Animation.css'
 import { useContext, useState } from 'react'
@@ -10,7 +10,7 @@ import { AppContext } from '../../App'
 
 const Navbar = () =>{
     const { currentNav, setCurrentNav } = useContext(AppContext)
-    const [ posWidth, setPosWidth ] = useState(0)
+    const navigate = useNavigate()
     const [ showNav, setShowNav ] = useState(false)
     const [ isScrollTopZero, setIsScrollTopZero ] = useState(true)
 
@@ -27,21 +27,12 @@ const Navbar = () =>{
     }, [])
     
     const handleScroll = () =>{
-        const pageHeight = document.documentElement.scrollHeight - window.innerHeight
-        const currentPos = window.scrollY
-        setPosWidth(currentPos / pageHeight * 100 < 2 ? 2 : currentPos / pageHeight * 100)
         if(document.documentElement.scrollTop > 200){
             setIsScrollTopZero(false)
         }else{
             setIsScrollTopZero(true)
         }
 
-        document.querySelectorAll('.section').forEach((parent, i) =>{
-            const pos = parent.getBoundingClientRect()
-            if( pos.top > -10 && pos.top < 100) {
-                setCurrentNav(i)
-            } 
-        })
 
     }
     
@@ -70,7 +61,12 @@ const Navbar = () =>{
                             ))
                         }
                         <div className="w-11/12 lg:w-fit">
-                            <Button className={'w-fit'} text={'Get started now'} icon={'chevron-right'}/>
+                            <Button className={'w-fit'} text={'Get started now'} icon={'cursor-fill'}
+                            func={() => {
+                                navigate('/Contact')
+                                setShowNav(false)
+                            }}
+                            />
                         </div>
 
                     </div>
