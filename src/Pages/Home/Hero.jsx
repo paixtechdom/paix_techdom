@@ -49,8 +49,8 @@ const Hero = () => {
                 <XlSlider currentSlide={currentSlide} />
                 <SmSlider currentSlide={currentSlide} sliderRef={sliderRef} handleTouchEnd={handleTouchEnd} handleTouchStart={handleTouchStart}/>
 
-            <div className="center absolute top-[90vh] z-20">
-                <div className="center  gap-3 bg-blue-900 border border-blue-900 bg-opacity-30 p-4 rounded-full px-9">
+            <div className="center absolute top-[80vh] md:top-[90vh] z-20">
+                <div className="center gap-3 bg-blue-900 border border-blue-900 bg-opacity-30 p-4 rounded-full px-9">
                     {
                         HeroContent.map((i, j) => (
                             <p key={j} className={`${currentSlide == j ? 'h-4 lg:h-5 w-4 lg:w-5 bg-blue-900' : 'w-3 h-3 bg-white'} border border-blue-900 rounded-full transition-all duration-500 cursor-pointer`} onClick={() => setCurrentSlide(j)}></p>
@@ -79,7 +79,7 @@ const XlSlider = ({currentSlide}) => {
                                 <div key={i} className="flex flex-col h-screen justify-center gap-4">
 
                                     <h1 className="text-4xl text-blue-600">{content.header}</h1>
-                                    <div className="text-gray-20 text-sm tracking-wide leading-relaxed flex flex-col gap-3">{
+                                    <div className="text-gray-300  tracking-wide leading-relaxed flex flex-col gap-3">{
                                         content.text.map((cont, i) => (
                                             <p key={i}>{cont}</p>
                                         ))
@@ -134,7 +134,7 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
                             <div key={i} className="flex flex-col  justify-center w-[100vw] gap-4">
 
                                 <h1 className="text-3xl text-blue-600 w-[85%]">{content.header}</h1>
-                                <div className="text-gray-20 text-sm tracking-wide leading-relaxed w-[90%]">{content.text}</div>
+                                <div className="text-gray-300  tracking-wide leading-relaxed w-[90%]">{content.text}</div>
                                 <Button text={'start now'} className="w-fit" icon={'cursor-fill'}/>
 
                             </div>

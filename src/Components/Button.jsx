@@ -35,7 +35,7 @@ const Button = ({text, className, icon, func, showIcon, setShowNav}) => {
 
 const IconButton = ({icon, func, className}) => {
     return(
-        <i className={`bi bi-${icon} ${className} bg-gray-900 cursor-pointer text-xl transition-all duration-1000 center p-6 border border-purple-600 h-10 w-10 rounded rounded-tl-[15px] text-purple-200`} 
+        <i className={`bi bi-${icon} ${className} cursor-pointer text-xl transition-all duration-1000 center p-6 border  border border-blue-900 bg-[rgba(0,0,35)] h-10 w-10 rounded-xl rounded-tl-[25px] text-blue-300`} 
         onClick={() => func()}
         ></i>
     )

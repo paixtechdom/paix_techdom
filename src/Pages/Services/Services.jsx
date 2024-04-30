@@ -6,6 +6,7 @@ import { ServiceList } from "./ServiceList"
 import { AppContext } from "../../App"
 import { useContext, useEffect } from "react"
 import { FAQ } from "../Components/FAQ"
+import { BreadCrumbs } from "../Components/BreadCrumbs"
 
 
 const Services = () =>{
@@ -19,6 +20,8 @@ const Services = () =>{
         <div className="bg-blue-fade flex flex-col items-center  overflow-hidden pt-9">
                     
             <PagesHero image={image} header={'What we do'} text={['We are a digital company dedicated to ensure organizations, startups, small, medium and large size companies are equipped with the right for the online presence and activities', 'illo recusandae saepe accusantium ipsum nihil excepturi inventore, quae modi dignissimos.']} scrollTo={'servicelist'}/>
+
+            <BreadCrumbs links={['Home', 'Our Services']}/>
 
            
             <ServiceList />

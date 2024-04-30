@@ -11,6 +11,7 @@ import { Testimonies } from './Testimonies'
 import { Numbers } from './Numbers'
 import { Hero } from './Hero'
 import { GridSlider } from '../Components/GridSlider'
+import { Steps } from './Steps'
 
 const Home = () => {
     const { setCurrentNav } = useContext(AppContext)
@@ -27,7 +28,7 @@ const Home = () => {
 
         <ImageAndText 
             id={'ahsf'} 
-            title={'Start now to scale up your awareness'} 
+            title={'Start now to scale up your digital awareness'} 
             desc={['Get a new website now or redesign your existing website, scale up your awareness, generate nore leads and increase your revenue']} 
             img={img1} 
             iconText={'Start Now'} 
@@ -38,6 +39,8 @@ const Home = () => {
         <GridSlider 
             data={Gain}
         />
+
+        <Steps />
 
         <ImageAndText 
             id={'secondwhikadbjcob'} 

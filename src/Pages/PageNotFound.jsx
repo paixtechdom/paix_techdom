@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { Parallax } from "../Components/Parallax"
 import { useEffect } from "react"
 
-export const PageNotFound = () => {
+const PageNotFound = () => {
     useEffect(() => {
       document.documentElement.scrollTop = 0 
     }, [])
@@ -17,8 +17,10 @@ export const PageNotFound = () => {
             Page not found 
           </p>
 
-          <Link className='mt-9 text-white bg-blue p-3 text-sm px-8 rounded-xl ' to='/'>Return to the Home Page <i className="bi bi-house-fill ml-2"></i></Link>
+          <Link className='mt-9 text-white border border-blue-900 bg-[rgba(0,0,35)] p-3 text-sm px-8 rounded-xl ' to='/'>Return to the Home Page <i className="bi bi-house-fill ml-2"></i></Link>
         </div>
       </Parallax>
     )
 }
+
+export default PageNotFound

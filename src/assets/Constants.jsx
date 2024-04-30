@@ -15,17 +15,17 @@ import img8 from './img/image.jpg'
 const Navs = [
     {
         name:'Home',
-        icon:'house',
+        icon:'house-fill',
         link:'',
     },
     {
         name:'About Us',
-        icon:'person',
+        icon:'person-fill',
         link:'About',
     },
     {
         name:'Our Services',
-        icon:'hdd-stack',
+        icon:'hdd-stack-fill',
         link:'Services',
     },
     // {
@@ -35,7 +35,7 @@ const Navs = [
     // },
     {
         name:'Pricing',
-        icon:'tags',
+        icon:'tags-fill',
         link:'Pricing',
     },
     // {
@@ -44,10 +44,15 @@ const Navs = [
     //     link:'Blog',
     // },
     {
-        name:'Contact Us',
-        icon:'telephone',
-        link:'Contact',
+        name:'Get a Quote',
+        icon:'card-list',
+        link:'Quote',
     },
+    // {
+    //     name:'Contact Us',
+    //     icon:'telephone',
+    //     link:'Contact',
+    // },
 ]
 // TARGET AUDIENCE - those who need website for online presence or to redesign
 //                 - those who need a custom solution
@@ -93,7 +98,7 @@ const numbers = [
     {
         title: 'Clients',
         img: 'people',
-        no: 15,
+        no: 13,
         speed: 50
     },
     {
@@ -121,32 +126,32 @@ const Gain = [
         id: 'awareness',
         title: 'Grow your awareness',
         icon: 'check-circle-fill',
-        desc: 'Through a strategically designed website, more people become acquainted with and recognize your brand, enhancing overall awareness.'
+        desc: 'Through a strategically designed website (SEO Optimized), more people become acquainted with and recognize your brand, enhancing overall awareness.'
     },
     {
         id: 'clients',
         title: 'Gain access to more clients',
         icon: 'check-circle-fill',
-        desc: 'Your website serves as a gateway to connect with new customers, enabling the expansion of your business reach and clientele.'
+        desc: 'Your website serves as a gateway to connect with new customers, enabling the expansion of your business reach and clients.'
     },
     {
         id: 'grant',
         title: 'Grab more oppurtunities',
         icon: 'check-circle-fill',
-        desc: ' With an impactful online presence, your chances of securing oppurtunities such as additional support or funding for your projects are heightened.'
+        desc: 'With an impactful online presence, your chances of securing oppurtunities such as additional support or funding for your projects are heightened.'
     },
     {
         id: 'ground',
         title: 'Gain ground in your niche',
         icon: 'check-circle-fill',
-        desc: 'A website developed by us positions your business as a leader in its field, excelling at what it does best.'
+        desc: 'Position your digitally as a leader in its field, excelling at what it does best.'
     },
     
     {
         id: 'wings',
         title: 'Grow your wings',
         icon: 'check-circle-fill',
-        desc: 'Our website development ensures that your business not only grows but soars to new heights, achieving success in exciting and dynamic ways.'
+        desc: 'We ensure your business not only grows but soars to new heights, achieving success in exciting and dynamic ways.'
     },
 ]
 
@@ -182,7 +187,7 @@ const ServicesInfo = [
     {
         id: 'sfnflan',
         title: 'Website Design',
-        desc: 'Elevate your online presence with our expert website development services. We craft visually stunning and user-friendly websites tailored to your brand, ensuring a seamless digital experience for your audience.',
+        desc: 'Our design services are tailored to elevate your brand and captivate your audience. Our commitment is to bring your vision to life through thoughtful and impactful design solutions that set your business apart in a crowded digital landscape.',
         icon: 'laptop'
     },
     {
@@ -214,114 +219,6 @@ const ServicesInfo = [
         title: 'Training and Tutoring',
         desc: "Empower your team or yourself with our specialized training and tutoring services. Whether you're looking to master web development or SEO strategies, our experts provide hands-on guidance and knowledge transfer to help you succeed in the digital landscape.",
         icon: 'award'
-    }
-]
-
-
-const ourOfffers = [
-    // what you stand to gain
-    {
-        name: 'Design',
-        desc: 'Our design services are tailored to elevate your brand and captivate your audience. Our commitment is to bring your vision to life through thoughtful and ijmpactful design solutions that set your business apart in a crowded digital landscape',
-        img: img5,
-        icon: 'house-fill',
-        wedo: 'We design',
-        subOffers: [
-            {
-                name: 'websites that match your brand identity',
-                icon: 'phone'
-            },
-            {
-                name: 'Mobile First Designs',
-                icon: 'phone'
-            },
-            {
-                name: 'Responsive designs',
-                icon: 'laptop'
-            },
-            {
-                name: 'Redesign existing websites',
-                icon: 'telephone'
-            }
-        ]
-    },
-    {
-        name: 'Development',
-        desc: 'Experience the power of interactive web applications with our customized solutions. From dynamic forms to real-time updates, we leverage cutting-edge technologies to enhance user engagement and functionality on your website',
-        img: img6,
-        icon: 'person-fill',
-        wedo: 'We develop',
-        subOffers: [
-            {
-                name: 'Website and web apps',
-                icon: 'laptop'
-            },
-            {
-                name: 'E-Commerce Solutions',
-                icon: 'shop'
-            },
-           
-            {
-                name: 'Portfilio, Blogs, e.t.c ',
-                icon: 'file'
-            },
-            {
-                name: 'Custom websites',
-                icon: 'phone'
-            },
-           
-        ]
-    },
-    {
-        name: 'Maintenance',
-        desc: 'Secure the longetivity of your online presence with our comprehensive website maintenance services. We handle SEO updates, security patches, and performance enhancements, allowing you to focus on your business while we take care of the technical details.',
-        img: img7,
-        icon: 'gear',
-        wedo: 'We offer',
-        subOffers: [
-            {
-                name: 'SEO (Search Engine Optimization)',
-                icon: 'search'
-            },
-            {
-                name: 'Customer support',
-                icon: 'people'
-            },
-            {
-                name: '24/7 Technical Suppport',
-                icon: 'clock'
-            },
-            {
-                name: 'Web maintenance',
-                icon: 'wrench'
-            },
-        ]
-    },
-    {
-        name: 'Training',
-        desc: "Empower your team or yourself with our specialized training and tutoring services. Whether you're looking to master web development or SEO strategies, our experts provide hands-on guidance and knowledge transfer to help you succeed in the digital landscape.",
-        img: img8,
-        icon: 'award',
-        wedo: 'We give training on',
-        subOffers: [
-            {
-                name: 'Web design',
-                icon: 'instagram'
-            },
-            {
-                name: 'Web development (frontend)',
-                icon: 'instagram'
-            },
-            {
-                name: 'web development basics',
-                icon: 'instagram'
-            },
-            // {
-            //     name: 'Education',
-            //     icon: 'instagram'
-            // },
-         
-        ]
     }
 ]
 
@@ -435,13 +332,13 @@ const Questions = [
         id: 'queswopr',
         icon: 'patch-question-fill',
         title: 'How long does it take to get a website?',
-        desc: 'A minimum of three days, but it also depends on the complexity of the project and how quick you provide the requirements.'
+        desc: 'A minimum of three days, but it also depends on the complexity of the project and how quick you provide the requirements to get started.'
     },
     {
         id: 'queswrrrer',
         icon: 'patch-question-fill',
-        title: '2 How long does it take to get a website?',
-        desc: '2 Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+        title: 'What do I gain from having a website?',
+        desc: 'A website is a powerful tool used for various purposes, ranging from getting your business or organization to '
     },
     {
         id: 'qwefwfef',
@@ -467,7 +364,7 @@ const Questions = [
 
 
 
-export { Navs, Gain, numbers, ourOfffers , ServicesInfo, ContactInfo, Prices, Testimonials, HeroContent, ValuesInfo, Questions }
+export { Navs, Gain, numbers, ServicesInfo, ContactInfo, Prices, Testimonials, HeroContent, ValuesInfo, Questions }
 
 
 

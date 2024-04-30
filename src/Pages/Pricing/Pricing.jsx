@@ -7,6 +7,7 @@ import { PagesHero } from "../Components/PagesHero"
 import image from '../../assets/img/about.jpeg'
 import { Packages } from "./Packages"
 import { FAQ } from "../Components/FAQ"
+import { BreadCrumbs } from "../Components/BreadCrumbs"
 
 
 const Pricing = () => {
@@ -31,6 +32,9 @@ const Pricing = () => {
                 scrollTo={'packages'} 
                 button={'Explore'}
             />
+            <BreadCrumbs links={['Home', 'Pricing']}/>
+
+
             <Parallax id="packages" className={'w-full center pb-[7vh] pt-[15vh]'}>
                 <div  className="center w-11/12 lg:w-10/12 xl:w-9/12">
                     <Packages />

@@ -6,6 +6,7 @@ import lady from '../../assets/img/lady 2.png'
 import { Parallax } from "../../Components/Parallax"
 import { ImageAndText } from "../Components/ImageAndText"
 import { Values } from "./Values"
+import { BreadCrumbs } from "../Components/BreadCrumbs"
 
 const About = () => {
     const { setCurrentNav } = useContext(AppContext)
@@ -29,6 +30,7 @@ const About = () => {
                     'We are a digital company dedicated to ensuring you as an organization, startup, small, medium and large size company are equipped with the right website for growing awareness generating and nurturing leads. ',
                     'We are also devoted to developing custom website which serves various purposes based on your preference, need and problem to be solved.']} 
                 scrollTo={'Values'}/>
+                <BreadCrumbs links={['Home', 'About Us']}/>
             
             <Values />
                 

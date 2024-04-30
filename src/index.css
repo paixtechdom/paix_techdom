@@ -12,16 +12,6 @@
 }
 
 
-body{
-    /* max-width: 695px; */
-}
-.navbar{
-    /* max-width: 695px; */
-}
-h1, h2{
-    /* font-family:monospace; */
-}
-
 .navbar{
     z-index: 199;
     
@@ -30,125 +20,16 @@ h1, h2{
     z-index: 198;
 
 }
-:root{
-    /* --blue: #1b1f8a; */
-    --blue: #040646;
-    --bluefade: #04064672;
-    /* --black: #333333; */
-    --black: #111010;
-    --orange: #f29b31;
-    /* --orange: #f2210b; */
-}
-.bg-black{
-    background-color: var(--black);
-}
-.bg-orange{
-    background-color: var(--orange);
-}
-.border-black{
-    border: 1px solid var(--black);
-}
 
-.bg-blue-fade{
-    background-color: #04064608;
-}
-
-.bg-blue-light{
-    background-color: #0406467c;
-}
-.bg-blue{
-    /* background-color: #; */
-    background-color: var(--blue);
-}
-.border-white{
-    border: 1px solid white;
-}
-.border-top-white{
-    border-top: 1px solid white;
-}
-.border-top-none{
-    border-top: none;
-}
-.borber-bottom-white{
-    border-bottom: 1px solid white;
-}
-.border-top-blue{
-    border-top: 1px solid var(--blue);
-}
-.border-bottom-blue{
-    border-bottom: 1px solid var(--blue);
-}
-.border-bottom-orange{
-    border-bottom: 1px solid var(--orange);
-}
-.outline-blue{
-    outline: 7px solid var(--blue);
-}
-.text-blue{
-    color: var(--blue);
-}
-.text-blue-fade{
-    color: var(--bluefade);
-}
-.text-orange{
-    color: var(--orange);
-}
-.border-blue{
-    border: 1px solid var(--blue);
-}
-.border-blue-lg{
-    border: 2px solid var(--blue);
-}
-button, a{
-    transition: all 0.4s ease-in-out;
-}
-button.bg-blue:hover, .button.bg-blue:hover, a.bg-blue:hover{
-    background-color: transparent;
-    color: var(--black);
-    border: 1px solid var(--blue);
-}
-
-.noBgButton:hover {
-    background-color: var(--blue);
-    color: white;
-}
-.bg-gray{
-    background-color: #808080;
-}
-a{
-    text-decoration: none;
-}
-.bg-fade{
-    background-color: rgba(0, 0, 0, 0.409);
-}
-.text-fade{
-    opacity: 0.5;
-}
-.shadow-bottom{
-    box-shadow: 0px 2px 6px 0.05px rgba(0, 0, 0, 0.471);
-}
-.small{
-    font-size: 12px;
-}
-.small-lg{
-    font-size: 15px;
-}
-.smaller{
-    font-size: 10px;
-}
-p, .line-lg{
-    line-height: 25px;
-}
 .h-90{
     height: 87%
 }
-.logo{
-    font-family: monospace;
-}
+
 
 .center{
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 

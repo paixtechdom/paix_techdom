@@ -3,13 +3,12 @@
     width: 100%;
     height: 100vh;
     top: 0%;
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+    background: rgba(0,0,10,0.7);
     display: flex;
     align-items: center;
     justify-content: center;
 }   
 .alert{
-    background-color: white;
     height: 50vh;
     /* width: 50%; */
     display: flex;
@@ -19,23 +18,16 @@
     gap: 20px;
 }
 
-.alert button{
-    transition: all 0.3s ease-in-out;
-}
-
-.success{
-    background-color: rgb(3, 104, 3);
+button.success{
+    border: 1px solid rgb(3, 104, 3);
 }
 div.success{
     outline: 15px solid rgb(3, 104, 3, 0.5);
 }
-.error{
-    background-color: rgb(165, 7, 7);
+button.error{
+    border: 1px solid rgb(165, 7, 7);
 }
 div.error{
     outline: 15px solid rgb(165, 7, 7, 0.3);
 
-}
-.alert button:hover{
-    border: 1px solid black !important;
 }

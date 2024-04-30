@@ -53,15 +53,15 @@ const Navbar = () =>{
                                     setCurrentNav(i)
                                     setShowNav(false)
                                     }}>
-                                    <i className={`bi bi-${nav.icon}-fill lg:hidden xl:block`}></i>
-                                    <p className="text-sm">
+                                    <i className={`bi bi-${nav.icon} lg:hidden xl:block`}></i>
+                                    <p className="md:text-sm">
                                         {nav.name}
                                     </p>
                                 </Link>
                             ))
                         }
                         <div className="w-11/12 lg:w-fit">
-                            <Button className={'w-fit'} text={'Get started now'} icon={'cursor-fill'}
+                            <Button className={'w-fit'} text={'Contact Us'} icon={'telephone-fill'}
                             func={() => {
                                 navigate('/Contact')
                                 setShowNav(false)

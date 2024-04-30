@@ -8,6 +8,7 @@ import { Parallax } from "../../Components/Parallax"
 import { PagesHero } from "../Components/PagesHero"
 import image from '../../assets/img/about.jpeg'
 import { ContactForm } from "./ContactForm"
+import { BreadCrumbs } from "../Components/BreadCrumbs"
 
 
 
@@ -16,7 +17,7 @@ const Contact = () => {
  
 
     useEffect(() => {
-        setCurrentNav(4)
+        setCurrentNav(5)
         document.documentElement.scrollTop = 0
     }, [])
 
@@ -27,8 +28,12 @@ const Contact = () => {
 
         <PagesHero image={image} header={'Get in touch with us'} text={['Contact us to get started with your premium oackage coupled with many free supplements to generate more leads for your business']} scrollTo={'Values'} button={false}/>
 
+        <BreadCrumbs links={['Home', 'Contact Us']}/>
 
-            <div className={`center w-11/12 lg:w-10/12 xl:w-9/12  flex-col  items-center mt-[15vh] lg:mt-5 text-white`}>
+
+
+
+            <div className={`center w-11/12 lg:w-10/12 xl:w-9/12  flex-col  items-center mt-[15vh] lg:mt-9 text-white`}>
                     <div className="flex items-end flex-col w-11/12 mb-[5vh] gap-4">
                         {
                             ContactInfo.map((contact, i) => (

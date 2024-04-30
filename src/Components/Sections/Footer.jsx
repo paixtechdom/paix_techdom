@@ -1,13 +1,16 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../App'
 import { ContactInfo, Navs } from '../../assets/Constants'
 import logo from '../../assets/img/logoBlue2.png'
 import { Parallax } from '../Parallax'
 import { Button } from '../Button'
 
+
+
 const Footer = () => {
     const { currentNav, setCurrentNav } = useContext(AppContext)
+    const navigate = useNavigate()
     return(
         <>
         <Parallax id={'ljfkjbdkf'}  className="w-full border-t border-blue-900 mt-[10vh]">
@@ -30,15 +33,17 @@ const Footer = () => {
                 <h3 className="text-2xl text-blue-600">
                     Paix Techdom
                 </h3>
-                <p className='text-sm tracking-wide leading-relaxed'>
+                <p className='tracking-wide leading-relaxed text-gray-300'>
                     We are a digital company dedicated to ensure organizations, startups, small, medium and large size companies are equipped with the right for the online presence and activities
                 </p>
                 <div className="w-full">
-                    <Button className={'w-fit'} text={'Get started now'} icon={'telephone-fill'}/>
+                    <Button className={'w-fit'} text={'Get started now'} icon={'telephone-fill'} func={() => {
+                        navigate('/Contact')
+                    }}/>
                 </div>
             </div>
 
-            <div className={`w-full lg:w-5/12 px-3 flex flex-col items-center gap-6 my-8 z-20`}>
+            <div className={`w-full lg:w-5/12 px-3 flex flex-col items-center lg:items-end gap-6 my-8 z-20`}>
 
                     <div className="w-full flex justify-center lg:justify-end gap-4 items-start">
                         <p className="text-2xl w-fit  font-bold text-blue-600">Quick Links</p>
@@ -47,16 +52,19 @@ const Footer = () => {
                     </div>
                     {
                         Navs.map((nav, i) => (
-                            <Link key={i} to={`/${nav.link}`} className={`flex w-full justify-center lg:justify-end gap-2 items-center ${currentNav == i ? 'text-blue-500 border-b border-blue-900' : ''} hover:text-blue-600 hover:border-b hover:border-blue-400`} onClick={
+                            <Link key={i} to={`/${nav.link}`} className={`flex w-fit justify-center lg:justify-end gap-2 items-center ${currentNav == i ? 'text-blue-600 border-b border-blue-900' : 'text-gray-300'} hover:text-blue-600 hover:border-b hover:border-blue-400`} onClick={
                                 e => setCurrentNav(i)
                             }>
-                            <i className={`bi bi-${nav.icon}-fill`}></i>
-                            <p className="text-sm">
+                            <i className={`bi bi-${nav.icon}`}></i>
+                            <p className="">
                                 {nav.name}
                             </p>
                         </Link>
                         ))
                     }
+                    <Button className={'w-fit'} text={'Contact Us'} icon={'telephone-fill'} func={() => {
+                        navigate('/Contact')
+                    }}/>
 
             </div>
            </div>
