@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react"
 import { AppContext } from "../../App" 
 import { PagesHero } from "../Components/PagesHero"
-import image from '../../assets/img/about.jpeg'
-import lady from '../../assets/img/lady 2.png'
-import { Parallax } from "../../Components/Parallax"
+import compass from '../../assets/img/compass.png'
+import brainstorm from '../../assets/img/brainstorm.png'
+import globe from '../../assets/img/globe.png'
+import tool from '../../assets/img/tool.png'
 import { ImageAndText } from "../Components/ImageAndText"
 import { Values } from "./Values"
 import { BreadCrumbs } from "../Components/BreadCrumbs"
@@ -24,11 +25,11 @@ const About = () => {
     return(
         <div className="flex flex-col overflow-hidden w-full pt-9">
             <PagesHero 
-                image={image} 
+                image={compass} 
                 header={'About Paix Techdom'} 
                 text={[
-                    'We are a digital company dedicated to ensuring you as an organization, startup, small, medium and large size company are equipped with the right website for growing awareness generating and nurturing leads. ',
-                    'We are also devoted to developing custom website which serves various purposes based on your preference, need and problem to be solved.']} 
+                    'At Paix Techdom, we are committed to empowering organizations, startups, and companies of all sizes with the perfect website solutions to enhance awareness, generate leads, and foster growth.',
+                    'With a dedicated focus on custom website development, we tailor our services to address your unique preferences, needs, and challenges.']} 
                 scrollTo={'Values'}/>
                 <BreadCrumbs links={['Home', 'About Us']}/>
             
@@ -36,12 +37,12 @@ const About = () => {
                 
 
             <ImageAndText 
-                img={image} 
+                img={brainstorm} 
                 title={'Our Story'} 
                 desc={[
                     'Paix Techdom was born out of the desire and passion to equip you as an organization, startup, small, medium or large size company with one of the critical tools for thriving not only digitally but in our physical world.',
                     
-                   'We believe in your dreams and goals and we are ready to contribute our all to bringing such dreams to life and achieving such goals'
+                   'We believe in your dreams and goals and we are ready to contribute our all to bringing such dreams to life and achieving such goals.'
                 ]} 
                 id={'sfndjbgslsnlk'} 
                 iconText={'Learn more'} 
@@ -50,10 +51,10 @@ const About = () => {
                 />
                 
             <ImageAndText 
-                img={image} 
+                img={globe} 
                 title={'Our Vision'} 
                 desc={[
-                    'We aim to be a top leading Tech Company worldwide, providing endless robust and innovative solutions to all'
+                    'We aim to be a top leading Tech Company worldwide, providing endless robust and innovative solutions to all.'
                 ]} 
                 id={'ourvision'} 
                 iconText={'Learn more'}  
@@ -63,7 +64,7 @@ const About = () => {
             />
 
             <ImageAndText 
-                img={image} 
+                img={tool} 
                 title={'Our Mission'} 
                 desc={[
                     'To equip organizations, startups, small, medium and large size companies with digital solutions needed to scale up, optimize and automate their business'

@@ -7,33 +7,32 @@ const steps = [
     {
         icon: 'pencil-fill',
         title: 'Identifying your needs',
-        desc: "We define and identify your needs in relation to your brand, products, services and target audience."
+        desc: "WWe begin by understanding your brand, products, services, and target audience to define your unique requirements."
     },
     {
         icon: 'search',
         title: 'Research',
-        desc: "We then then conduct a comprehensive research tailored to the above parameters or factore"
+        desc: "Next, we conduct thorough research tailored to your specific parameters, ensuring we gather valuable insights to inform our strategy."
     },
     {
         icon: 'credit-card-2-front-fill',
         title: 'Creating a prototype',
-        desc: "Based on the research we create and compile a list of possible designs appealing to your and your target audience"
+        desc: "Based on our research findings, we develop prototypes showcasing potential designs that resonate with both you and your target audience."
     },
     {
         icon: 'columns-gap',
         title: 'Design',
-        desc: "We then begin the design phase with the right and specific structure for you, ensuring the colors, font, font size, images and more are communicating your message to your audience."
+        desc: "Once the prototype is approved, we dive into the design phase, crafting a visually appealing website structure that effectively communicates your message. We pay close attention to details such as colors, fonts, and imagery."
     },
     {
         icon: 'code-slash',
         title: 'Development',
-        desc: "In case of a need beyond design such as a custom website (for a specific purpose, blogs, eccomerce and more), we proceed to the development phase ensuring all functionalities are appropriately in place"
+        desc: "For more complex needs like custom websites or e-commerce platforms, we move on to the development phase. Here, we ensure all functionalities are implemented flawlessly to meet your specific requirements."
     },
     {   
-        // icon: 'arrow-repeat',
         icon: 'bug-fill',
         title: 'Testing and Deployment',
-        desc: "Having concluded the project, we test the functionalities, we check for any shortcomings and insecurity. We then deploy your website so it can be accessible to all"
+        desc: "Before deployment, we rigorously test your website to ensure all functionalities work seamlessly and address any potential security concerns. Once everything is in place, we deploy your website, making it accessible to your audience."
     }
 
 ]

@@ -1,10 +1,8 @@
-import { Prices, Questions } from "../../assets/Constants"
 import { useContext, useEffect } from "react"
 import { AppContext } from "../../App"
 import { Parallax } from "../../Components/Parallax"
-import { Link } from "react-router-dom"
 import { PagesHero } from "../Components/PagesHero"
-import image from '../../assets/img/about.jpeg'
+import pricing from '../../assets/img/pricing.png'
 import { Packages } from "./Packages"
 import { FAQ } from "../Components/FAQ"
 import { BreadCrumbs } from "../Components/BreadCrumbs"
@@ -23,7 +21,7 @@ const Pricing = () => {
         <div id="Pricing" className="flex-col overflow-hidden w-full pt-9 center">
             
             <PagesHero 
-                image={image} 
+                image={pricing} 
                 header={'Pricing'} 
                 text={[
                     'Explore our our packages and choose that which suits your prupose',

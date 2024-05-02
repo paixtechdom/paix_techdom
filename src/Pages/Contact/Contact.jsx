@@ -1,13 +1,11 @@
-import { Title } from "../Components/Title"
 import { ContactInfo } from "../../assets/Constants"
 import { useContext, useState } from "react"
 import { AppContext } from "../../App"
-import axios from "axios"
 import { useEffect } from "react"
 import { Parallax } from "../../Components/Parallax"
 import { PagesHero } from "../Components/PagesHero"
-import image from '../../assets/img/about.jpeg'
 import { ContactForm } from "./ContactForm"
+import contact from '../../assets/img/contact.png'
 import { BreadCrumbs } from "../Components/BreadCrumbs"
 
 
@@ -26,7 +24,13 @@ const Contact = () => {
     return(
         <div className="section contact flex flex-col items-center mt-9  overflow-hidden" id="Contact">
 
-        <PagesHero image={image} header={'Get in touch with us'} text={['Contact us to get started with your premium oackage coupled with many free supplements to generate more leads for your business']} scrollTo={'Values'} button={false}/>
+        <PagesHero 
+            image={contact} 
+            header={'Get in touch with us'} 
+            text={['Contact us now to get started with your premium package coupled with many free packages to generate more leads for your business.']} 
+            scrollTo={'Values'} 
+            button={false}
+        />
 
         <BreadCrumbs links={['Home', 'Contact Us']}/>
 

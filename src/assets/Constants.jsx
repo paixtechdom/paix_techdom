@@ -1,19 +1,8 @@
+import manoncliff from './img/manoncliff.png'
+import bulb from './img/bulb.png'
+import phone from './img/phone.png'
+import laptop from './img/laptop.png'
 
-import person from './img/person.jpg'
-import education from './img/examImg.png'
-import estore from './img/estore.png'
-import businessImg from './img/businessImg.png'
-import portfolioImg from './img/portfolioImg.png'
-
-import blog from './img/blogImg.png'
-import img5 from './img/design.jpeg'
-import img9 from './img/images (9).jpeg'
-import img6 from './img/images (6).jpeg'
-import img8 from './img/images (8).jpeg'
-import img7 from './img/maintenance.jpeg'
-import image from './img/image.jpg'
-import about from './img/about.jpeg'
-import beautifulwebsite from './img/beautiful-website.jpg'
 
 
 const Navs = [
@@ -60,32 +49,32 @@ const Navs = [
 ]
 const HeroContent = [
     {
-        header: 'Ready to reach out to more customers?',
+        header: 'Empower Your business by unlocking your digital potential',
         text: [
-            'Are you ready bring your business to light by increasing your awareness and reaching out to more clients?', 
+            'Unleash the potential of your business with our tailored web services. Start building your online empire today with our free consultation!', 
             'Let us to handle your online presence and experience a drastic increase in your revenue.'
 
         ],
         color: 'text-blue-400',
-        img: beautifulwebsite
+        img: manoncliff
     },
     {   
-        header: 'Try out our free packages tailored for your business',
-        text: ['Start now and get access to free addiional packages all for your business and organization to generate more leads and revenue.'],
+        header: 'Transform Your Ideas into Reality, Starting Today',
+        text: ['Take advantage of our free consultation to bring your visions to life. Your journey to success begins now!'],
         color: 'text-orange-400',
-        img: about
+        img: bulb
     },
     {
-        header: 'Try out a website tailored for your brand',
-        text: ['We adhere to developing a website whose design, content and functionality is tailored to your needs.'],
+        header: 'You + Our Services = Limitless Possibilities',
+        text: ["Discover how our services can elevate your online presence. Let's explore new possibilities together, starting now"],
         color: 'text-yellow-300',
-        img: blog
+        img: phone
     },
     {
-        header: 'Get started now so you missing business oppurtunities like grants and more?',
-        text: ['Start now to get more oppurtunities attracted to your organization.'],
+        header: 'Step into the Future: Your Online Transformation Awaits',
+        text: ['Experience the excitement of a new website crafted just for you. Start your journey towards success today with our free consultation!'],
         color: 'text-red-400',
-        img: img6
+        img: laptop
     },
 ]
 
@@ -332,32 +321,38 @@ const Questions = [
     {   
         id: 'queswopr',
         icon: 'patch-question-fill',
-        title: 'How long does it take to get a website?',
-        desc: 'A minimum of three days, but it also depends on the complexity of the project and how quick you provide the requirements to get started.'
+        title: 'How long does it take to build a website?',
+        desc: 'The timeline for building a website can vary depending on factors such as the complexity of the project, the number of features required, and the responsiveness of the client in providing feedback and content. On average, a basic website can take anywhere from 1 to 2 weeks, while larger, more complex projects may take a month or more'
     },
     {
         id: 'queswrrrer',
         icon: 'patch-question-fill',
-        title: 'What do I gain from having a website?',
-        desc: 'A website is a powerful tool used for various purposes, ranging from getting your business or organization to '
+        title: 'What is the typical process for building a website with your company?',
+        desc: 'Our website development process typically involves several stages, including initial consultation to understand your requirements, design phase where we create mockups and layouts, development phase where we bring your website to life, testing phase to ensure everything works smoothly, and finally, deployment where we launch your website for the world to see.'
     },
     {
         id: 'qwefwfef',
         icon: 'patch-question-fill',
-        title: '3 How long does it take to get a website?',
-        desc: '3 Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+        title: 'Do you offer website maintenance and support services?',
+        desc: 'Yes, we offer website maintenance and support services to ensure your website remains up-to-date, secure, and running smoothly. Our maintenance packages include regular updates, backups, security checks, and technical support to address any issues that may arise.'
     },
     {
         id: 'qfwdsd',
         icon: 'patch-question-fill',
-        title: '4 How long does it take to get a website?',
-        desc: '4 Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+        title: 'Can you help with search engine optimization (SEO) and digital marketing?',
+        desc: "Absolutely! We offer a range of services to help improve your website's visibility and reach, including search engine optimization (SEO), content optimization, social media integration, and digital marketing strategies tailored to your specific goals and target audience."
     },
     {
         id: 'waldsd',
         icon: 'patch-question-fill',
-        title: '5 How long does it take to get a website?',
-        desc: '5 Lorem ipsum it dj sfjnf lkanfp fvnsf vlnsf s fvljnsfjlns, dlnalvnalknvlfnsf slfnsjnflsnfl fsvoa'
+        title: 'Is the website mobile-responsive and optimized for different devices?',
+        desc: 'Yes, all websites we build are designed to be mobile-responsive and optimized for seamless viewing and interaction across various devices, including smartphones, tablets, and desktops. We prioritize user experience and ensure your website looks and functions flawlessly on any device.'
+    },
+    {
+        id: 'waldsd',
+        icon: 'patch-question-fill',
+        title: 'What is your pricing structure and payment process?',
+        desc: 'Our pricing structure varies depending on the scope and complexity of the project. We offer both fixed-price and hourly rate options, with payment schedules tailored to suit your needs. We accept various payment methods, including credit cards, bank transfers, and online payment platforms, to make the process convenient for you.'
     },
  ]
 

@@ -1,7 +1,5 @@
-import { Parallax } from "../../Components/Parallax"
-import { GridSlider } from "../Components/GridSlider"
 import { PagesHero } from "../Components/PagesHero"
-import image from '../../assets/img/about.jpeg'
+import services from '../../assets/img/services.png'
 import { ServiceList } from "./ServiceList"
 import { AppContext } from "../../App"
 import { useContext, useEffect } from "react"
@@ -19,7 +17,13 @@ const Services = () =>{
     return(
         <div className="bg-blue-fade flex flex-col items-center  overflow-hidden pt-9">
                     
-            <PagesHero image={image} header={'What we do'} text={['We are a digital company dedicated to ensure organizations, startups, small, medium and large size companies are equipped with the right for the online presence and activities', 'illo recusandae saepe accusantium ipsum nihil excepturi inventore, quae modi dignissimos.']} scrollTo={'servicelist'}/>
+            <PagesHero 
+                image={services} 
+                header={'What we do'} 
+                text={['Our services page showcases our commitment to equipping organizations, startups, and companies of all sizes with the right tools and solutions for their online presence and activities. In this image, the digital toolbox represents the comprehensive range of digital services we offer, tailored to meet the unique needs of each client.',
+                ' From website development to online marketing strategies, we empower businesses to thrive in the digital age and achieve their goals with confidence.']} 
+                scrollTo={'servicelist'}
+            />
 
             <BreadCrumbs links={['Home', 'Our Services']}/>
 
