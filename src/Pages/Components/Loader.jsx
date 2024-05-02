@@ -21,14 +21,11 @@ export const Loader = () => {
     return(
         <div className="fixed bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] center w-full h-screen top-0 left-0 flex-col z-50">
 
-            <div className="border h-[50px] md:h-[70px] w-9/12 border-blue-900 center relative rounded-full overflow-hidden">
+            <div className="border h-[50px] w-9/12 lg:w-6/12 border-blue-900 center relative rounded-full overflow-hidden">
 
-                <p className="font-bold text-xl text-gray-100 z-0  ">Paix Techdom</p>
+                <p className="font-bold text-xl text-blue-300 z-0  ">Paix Techdom</p>
 
-                <div className={`bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] w-[100%] absolute  h-full z-10 transition-all duration-[2s] ${animate ? 'left-[100%]' : '-left-5'}`}>
-                    <div className="absolute bg-blue-900 h-full w-1 left-0 rounded-full">
-
-                    </div>
+                <div className={`bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] w-[100%] absolute  h-full z-10 transition-all duration-[2s] ${animate ? 'left-[100%]' : '-left-5'} border-l border-3 border-blue-900`}>
                 </div>
             </div>
                   

@@ -7,9 +7,13 @@ import portfolioImg from './img/portfolioImg.png'
 
 import blog from './img/blogImg.png'
 import img5 from './img/design.jpeg'
-import img6 from './img/images (9).jpeg'
+import img9 from './img/images (9).jpeg'
+import img6 from './img/images (6).jpeg'
+import img8 from './img/images (8).jpeg'
 import img7 from './img/maintenance.jpeg'
-import img8 from './img/image.jpg'
+import image from './img/image.jpg'
+import about from './img/about.jpeg'
+import beautifulwebsite from './img/beautiful-website.jpg'
 
 
 const Navs = [
@@ -54,25 +58,22 @@ const Navs = [
     //     link:'Contact',
     // },
 ]
-// TARGET AUDIENCE - those who need website for online presence or to redesign
-//                 - those who need a custom solution
 const HeroContent = [
     {
-        // header: 'Are clients really scarce?',
-        header: 'Ready to scale up your business with digital automations?',
-        // text: ['Are you ready to leave the stage of not getting new clients?', 
+        header: 'Ready to reach out to more customers?',
         text: [
-            'Are you ready bring your business to light and leave the stage of not getting new clients?', 
+            'Are you ready bring your business to light by increasing your awareness and reaching out to more clients?', 
             'Let us to handle your online presence and experience a drastic increase in your revenue.'
+
         ],
         color: 'text-blue-400',
-        img: businessImg
+        img: beautifulwebsite
     },
     {   
-        header: 'Try out our free packages',
+        header: 'Try out our free packages tailored for your business',
         text: ['Start now and get access to free addiional packages all for your business and organization to generate more leads and revenue.'],
         color: 'text-orange-400',
-        img: estore
+        img: about
     },
     {
         header: 'Try out a website tailored for your brand',
@@ -81,10 +82,10 @@ const HeroContent = [
         img: blog
     },
     {
-        header: 'Missing business oppurtunities like grants and more?',
+        header: 'Get started now so you missing business oppurtunities like grants and more?',
         text: ['Start now to get more oppurtunities attracted to your organization.'],
         color: 'text-red-400',
-        img: portfolioImg
+        img: img6
     },
 ]
 
