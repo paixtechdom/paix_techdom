@@ -5,6 +5,8 @@ import quote from '../../assets/img/quote.png'
 import { PagesHero } from "../Components/PagesHero";
 import { Parallax } from "../../Components/Parallax";
 import { QuoteForm } from "./QuoteForm";
+import { Helmet } from "react-helmet-async"
+
 
 
 const Quote = () => {
@@ -18,7 +20,12 @@ const Quote = () => {
     
     return(
         <div className="bg-blue-fade flex flex-col items-center  overflow-hidden pt-9">
-                    
+            <Helmet>
+                <title>
+                    Get a quote at Paix Techdom
+                </title>
+            </Helmet>
+
             <PagesHero 
                 image={quote} 
                 header={'Get a quote'} 

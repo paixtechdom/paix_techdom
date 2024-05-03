@@ -9,6 +9,9 @@ import { Numbers } from './Numbers'
 import { Hero } from './Hero'
 import { GridSlider } from '../Components/GridSlider'
 import { Steps } from './Steps'
+import { Helmet } from "react-helmet-async"
+
+
 
 const Home = () => {
     const { setCurrentNav } = useContext(AppContext)
@@ -19,6 +22,11 @@ const Home = () => {
     return(
 
         <>       
+            <Helmet>
+                <title>
+                    Paix Techdom - Home Page
+                </title>
+            </Helmet>
         <Hero />
         
         <Numbers />        

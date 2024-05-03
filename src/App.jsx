@@ -7,6 +7,8 @@ import { ABlog } from './Pages/Blog/ABlog';
 import { Loader } from './Pages/Components/Loader';
 import { HeroBg } from './Components/HeroBg';
 import { IconButton } from './Components/Button';
+import { HelmetProvider } from 'react-helmet-async';
+
 
 const Navbar = React.lazy(() => delayLoad(import('./Components/Sections/Navbar')))
 const Footer = React.lazy(() => delayLoad(import('./Components/Sections/Footer')))
@@ -67,8 +69,8 @@ const Layout = () =>{
   
   return(
     <div className='app bg-gray-100 text-gray-100'>
-
-      <AppContext.Provider value={{currentNav, setCurrentNav, smallScreen, mediumScreen , showALert, setShowAlert, alertMessage, setAlertMessage, setAlertType, subject, setSubject, showNavBar, setShowNavBar, isScrollTopZero, setIsScrollTopZero, dbLocation}}>
+      <HelmetProvider>
+        <AppContext.Provider value={{currentNav, setCurrentNav, smallScreen, mediumScreen , showALert, setShowAlert, alertMessage, setAlertMessage, setAlertType, subject, setSubject, showNavBar, setShowNavBar, isScrollTopZero, setIsScrollTopZero, dbLocation}}>
 
           <div id='top'></div>
           <div className='d-flex w-full bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)]'>
@@ -95,7 +97,8 @@ const Layout = () =>{
             </Suspense>
           </div>
      
-      </AppContext.Provider>
+        </AppContext.Provider>
+      </HelmetProvider>
     </div>
   )
 }

@@ -5,6 +5,8 @@ import { AppContext } from "../../App"
 import { useContext, useEffect } from "react"
 import { FAQ } from "../Components/FAQ"
 import { BreadCrumbs } from "../Components/BreadCrumbs"
+import { Helmet } from "react-helmet-async"
+
 
 
 const Services = () =>{
@@ -16,7 +18,11 @@ const Services = () =>{
    
     return(
         <div className="bg-blue-fade flex flex-col items-center  overflow-hidden pt-9">
-                    
+            <Helmet>
+                <title>
+                    Our Services at Paix Techdom
+                </title>
+            </Helmet>                    
             <PagesHero 
                 image={services} 
                 header={'What we do'} 

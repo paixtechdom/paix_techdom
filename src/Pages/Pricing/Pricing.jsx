@@ -6,6 +6,9 @@ import pricing from '../../assets/img/pricing.png'
 import { Packages } from "./Packages"
 import { FAQ } from "../Components/FAQ"
 import { BreadCrumbs } from "../Components/BreadCrumbs"
+import { Helmet } from "react-helmet-async"
+
+
 
 
 const Pricing = () => {
@@ -19,7 +22,11 @@ const Pricing = () => {
 
     return(
         <div id="Pricing" className="flex-col overflow-hidden w-full pt-9 center">
-            
+            <Helmet>
+                <title>
+                    Pricing Paix Techdom
+                </title>
+            </Helmet>            
             <PagesHero 
                 image={pricing} 
                 header={'Pricing'} 

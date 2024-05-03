@@ -8,6 +8,9 @@ import tool from '../../assets/img/tool.png'
 import { ImageAndText } from "../Components/ImageAndText"
 import { Values } from "./Values"
 import { BreadCrumbs } from "../Components/BreadCrumbs"
+import { Helmet } from "react-helmet-async"
+
+
 
 const About = () => {
     const { setCurrentNav } = useContext(AppContext)
@@ -24,6 +27,13 @@ const About = () => {
         */
     return(
         <div className="flex flex-col overflow-hidden w-full pt-9">
+            <Helmet>
+                <title>
+                    About Paix Techdom
+                </title>
+            </Helmet>
+
+
             <PagesHero 
                 image={compass} 
                 header={'About Paix Techdom'} 

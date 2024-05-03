@@ -7,6 +7,7 @@ import { PagesHero } from "../Components/PagesHero"
 import { ContactForm } from "./ContactForm"
 import contact from '../../assets/img/contact.png'
 import { BreadCrumbs } from "../Components/BreadCrumbs"
+import { Helmet } from "react-helmet-async"
 
 
 
@@ -23,7 +24,11 @@ const Contact = () => {
 
     return(
         <div className="section contact flex flex-col items-center mt-9  overflow-hidden" id="Contact">
-
+        <Helmet>
+                <title>
+                    Contact Paix Techdom
+                </title>
+            </Helmet>
         <PagesHero 
             image={contact} 
             header={'Get in touch with us'} 
