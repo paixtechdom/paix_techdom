@@ -49,7 +49,7 @@ const Hero = () => {
                 <XlSlider currentSlide={currentSlide} />
                 <SmSlider currentSlide={currentSlide} sliderRef={sliderRef} handleTouchEnd={handleTouchEnd} handleTouchStart={handleTouchStart}/>
 
-            <div className="center absolute top-[80vh] md:top-[90vh] z-20">
+            <div className="center absolute top-[85vh] md:top-[90vh] z-20">
                 <div className="center gap-3 bg-blue-900 border border-blue-900 bg-opacity-30 p-4 rounded-full px-9">
                     {
                         HeroContent.map((i, j) => (

@@ -18,12 +18,10 @@ export const ImageAndText = ({id, title, desc, img, className, iconText, icon, s
                     <Parallax id={`shiet${id}`}>
                         <div className={`text-gray-300 tracking-wide leading-relaxed gap-2 flex flex-col`}>
                         {
-                            desc.map((d, i) => (
+                        desc.map((d, i) => (
                                 <p key={i}>{d}</p>
                             ))
                         }
-
-                        blessingcomputers.com
                         
                         </div>
                     </Parallax>

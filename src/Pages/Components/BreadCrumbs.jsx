@@ -10,11 +10,11 @@ export const BreadCrumbs = ({links}) => {
                 {
                     links.map((link, i) => (
                         i == 0 ?
-                        <Link to={`/`} className="text-sm text-gray-300">
+                        <Link key={i} to={`/`} className="text-sm text-gray-300">
                             {link}
                             <i className={`bi bi-chevron-right mx-2`}></i>
                         </Link>  :
-                        <div className="text-blue-600 cursor-pointer">
+                        <div key={i} className="text-blue-600 cursor-pointer">
                             {link}
                         </div> 
                     ))

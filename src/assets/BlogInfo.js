@@ -1,7 +1,7 @@
-import img5 from './img/design.jpeg'
-import img6 from './img/images (9).jpeg'
-import img7 from './img/maintenance.jpeg'
-import img8 from './img/image.jpg'
+// import img5 from ''
+// import img6 from '.'
+// import img7 from ''
+// import img8 from ''
 
 
 
@@ -43,7 +43,7 @@ const Blogs = [
         title: 'Tech 1 ignissimos cumque fuga qui quibusdam quia',
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '12 July, 2023',
-        img: img5,
+        // img: img5,
         id: 'latestBlog',
         content: [
             'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
@@ -60,7 +60,7 @@ const Blogs = [
         title: 'Career 2 optio tempore voluptas quia',
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '13 Aug, 2023',
-        img: img6,
+        // img: img6,
         id: 'blog2',
         content: [
             'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
@@ -79,7 +79,7 @@ const Blogs = [
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '14 Sept, 2023',
         id: 'blog3',
-        img: img7,
+        // img: img7,
         content: [
             'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
             'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
@@ -97,7 +97,7 @@ const Blogs = [
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '15 Oct, 2023',
         id: 'blog4',
-        img: img8,
+        // img: img8,
         content: [
             'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
             'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
@@ -114,7 +114,7 @@ const Blogs = [
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '14 Sept, 2023',
         id: 'blog3',
-        img: img7,
+        // img: img7,
         content: [
             'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
             'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',
@@ -132,7 +132,7 @@ const Blogs = [
         desc: 'Elevate your online presence with this anf that and that and ldnsoifn;soinsbfo ofnojsf sofnoak osnfoi sonsoin ',
         date: '15 Oct, 2023',
         id: 'blog4',
-        img: img8,
+    // img: img8
         content: [
             'Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.', 
             'Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.',

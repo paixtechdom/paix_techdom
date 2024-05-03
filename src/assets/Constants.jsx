@@ -322,13 +322,13 @@ const Questions = [
         id: 'queswopr',
         icon: 'patch-question-fill',
         title: 'How long does it take to build a website?',
-        desc: 'The timeline for building a website can vary depending on factors such as the complexity of the project, the number of features required, and the responsiveness of the client in providing feedback and content. On average, a basic website can take anywhere from 1 to 2 weeks, while larger, more complex projects may take a month or more'
+        desc: 'This vary depending the complexity of the project, and the responsiveness of the client in providing feedback and content. On average, a basic website can take anywhere from 3 days to 2 weeks, more complex projects may take a month or more'
     },
     {
         id: 'queswrrrer',
         icon: 'patch-question-fill',
         title: 'What is the typical process for building a website with your company?',
-        desc: 'Our website development process typically involves several stages, including initial consultation to understand your requirements, design phase where we create mockups and layouts, development phase where we bring your website to life, testing phase to ensure everything works smoothly, and finally, deployment where we launch your website for the world to see.'
+        desc: 'The process includes understanding your requirements, research, design phase, development phase where we bring your website to life, testing phase to ensure everything works smoothly, and finally, deployment where we launch your website for the world to see.'
     },
     {
         id: 'qwefwfef',

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { BreadCrumbs } from "../Components/BreadCrumbs";
 import { AppContext } from "../../App";
-import image from '../../assets/img/about.jpeg'
+import quote from '../../assets/img/quote.png'
 import { PagesHero } from "../Components/PagesHero";
 import { Parallax } from "../../Components/Parallax";
 import { QuoteForm } from "./QuoteForm";
@@ -20,7 +20,7 @@ const Quote = () => {
         <div className="bg-blue-fade flex flex-col items-center  overflow-hidden pt-9">
                     
             <PagesHero 
-                image={image} 
+                image={quote} 
                 header={'Get a quote'} 
                 text={[
                     'Fill out the form below with this and that to do this and that',

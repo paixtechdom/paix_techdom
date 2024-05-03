@@ -1,7 +1,4 @@
 import { Link } from 'react-router-dom'
-import logoWhite from '../../assets/img/logoWhite2.png'
-import logoLabelWhite from '../../assets/img/logoLabelWhite.png'
-import logoLabelBlue from '../../assets/img/logoLabelBlue.png'
 import '../../assets/Animation.css'
 import { useState } from 'react'
 import { BlogNavs as Navs } from '../../assets/BlogInfo'

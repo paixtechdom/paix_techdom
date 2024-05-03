@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { Parallax } from "../../Components/Parallax"
 import { AppContext } from "../../App"
 import { FormInput } from "../Components/FormInput"
+import axios from "axios"
 
 export const ContactForm = () => {
     const { setShowAlert, setAlertMessage, setAlertType, subject, setSubject } = useContext(AppContext)
@@ -56,6 +57,7 @@ export const ContactForm = () => {
             setName('')
             setEmail('')
             setMessage('')
+            setSubject('')
         })
         .catch((error) =>{
             setShowAlert(true)
@@ -117,7 +119,7 @@ export const ContactForm = () => {
             </Parallax>
 
             <Parallax id={'formsubmit'} className={'w-full'}>
-                <button type="submit" disabled={isLoading} className={` bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)]  w-full p-3 pt-5 px-6 outline-none border border-blue-900 text-blue-600 rounded-2xl w-full transition-all duration-1000 gap-3 text-xl p-3 center cursor-pointer hover:scale-90 focus:initial`}>
+                <button type="submit" disabled={isLoading} className={` bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)]  w-full p-3 pt-5 px-6 outline-none border border-blue-900 text-blue-600 rounded-2xl w-full transition-all duration-1000 gap-3 text-xl p-3 center cursor-pointer hover:scale-90 focus:initial ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer hover:scale-90'}`}>
                     {
                         isLoading ? 'Sending...' : 'Send Message'
                     }

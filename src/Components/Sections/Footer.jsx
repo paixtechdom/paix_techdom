@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../App'
 import { ContactInfo, Navs } from '../../assets/Constants'
-import logo from '../../assets/img/logoBlue2.png'
 import { Parallax } from '../Parallax'
 import { Button } from '../Button'
 

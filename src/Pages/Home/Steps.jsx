@@ -1,6 +1,5 @@
 import { Button } from "../../Components/Button"
 import { useNavigate } from 'react-router-dom'
-import image from '../../assets/img/beautiful-website.jpg'
 import { Parallax } from "../../Components/Parallax"
 
 const steps = [
