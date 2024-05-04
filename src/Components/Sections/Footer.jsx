@@ -11,7 +11,7 @@ const Footer = () => {
     const { currentNav, setCurrentNav } = useContext(AppContext)
     const navigate = useNavigate()
     return(
-        <>
+        <footer>
         <Parallax id={'ljfkjbdkf'}  className="w-full border-t border-blue-900 mt-[10vh]">
         </Parallax>
         <div className=" w-full flex justify-center text-white">
@@ -74,7 +74,7 @@ const Footer = () => {
                 <p>&copy; Copyright <strong className='text-xl'> Paix Techdom </strong> {new Date().getFullYear()} </p>
             </div>
         </Parallax>       
-        </>
+        </footer>
     )
 }
 

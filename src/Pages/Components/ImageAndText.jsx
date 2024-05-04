@@ -1,4 +1,5 @@
 
+import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component'
 import { Button } from '../../Components/Button'
 import { Parallax } from '../../Components/Parallax'
 import { useNavigate } from 'react-router-dom'
@@ -7,7 +8,7 @@ export const ImageAndText = ({id, title, desc, img, className, iconText, icon, s
     const navigate = useNavigate()
     return(
         
-        <div id={id} className='flex justify-center mt-[12ch] lg:mb-[8ch] text-gray-100 h-fit -90 items-center border-t border-blue-900'>
+        <section id={id} className='flex justify-center mt-[12ch] lg:mb-[8ch] text-gray-100 h-fit -90 items-center border-t border-blue-900'>
             
             <div className={`center ${className ? className : 'flex-col lg:flex-row'} w-11/12 lg:w-10/12 xl:w-9/12 gap-[5ch]`}>
                 <div className={`flex flex-col gap-4 lg:w-10/12`}>
@@ -44,10 +45,15 @@ export const ImageAndText = ({id, title, desc, img, className, iconText, icon, s
 
                     </div>
 
-                    <img src={img} alt="" className={` w-fit h-full rounded-3xl scale-90 ${className ? 'translate-x-[10px]' : '-translate-x-[10px]'}  -translate-y-[10px]`}/>
+                    <LazyLoadImage
+                         src={img} 
+                         placeholderSrc={'Image to describe ' + title} 
+                         className={` w-fit h-full rounded-3xl scale-90 ${className ? 'translate-x-[10px]' : '-translate-x-[10px]'}  -translate-y-[10px]`}
+                         effect='blur'
+                    />
                 </Parallax>
            
             </div>
-        </div>
+        </section>
     )
 }

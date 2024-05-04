@@ -26,12 +26,13 @@ const About = () => {
             answer questions customers may have about the business
         */
     return(
-        <div className="flex flex-col overflow-hidden w-full pt-9">
-            <Helmet>
-                <title>
-                    About Paix Techdom
-                </title>
-            </Helmet>
+        <>
+        <Helmet>
+            <title>
+                About Paix Techdom
+            </title>
+        </Helmet>
+        <main className="flex flex-col overflow-hidden w-full pt-9">
 
 
             <PagesHero 
@@ -88,7 +89,8 @@ const About = () => {
 
 
 
-        </div>
+        </main>
+        </>
     )
 }
 

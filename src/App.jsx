@@ -23,6 +23,10 @@ const Contact = React.lazy(() => delayLoad(import('./Pages/Contact/Contact')))
 const PageNotFound = React.lazy(() => delayLoad(import('./Pages/PageNotFound')))
 
 
+import  "react-lazy-load-image-component/src/effects/blur.css"
+import  "react-lazy-load-image-component/src/effects/opacity.css"
+
+
 
 function delayLoad(promise) {
   return new Promise(resolve => {

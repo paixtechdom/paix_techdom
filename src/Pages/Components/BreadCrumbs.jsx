@@ -3,7 +3,7 @@ import { Parallax } from "../../Components/Parallax"
 
 export const BreadCrumbs = ({links}) => {
     return(
-        <div className="w-full center mt-[8vh] lg:my-4">
+        <section className="w-full center mt-[8vh] lg:my-4">
             <Parallax id={`breadcrumbs`} className={'w-full center'}>
 
             <div className="border  border-blue-900 w-11/12 lg:w-10/12 xl:w-9/12 flex justify-start items-center p-3 pl-[20px] rounded-full">
@@ -21,6 +21,6 @@ export const BreadCrumbs = ({links}) => {
                 }
             </div>
             </Parallax>
-        </div>
+        </section>
     )
 }

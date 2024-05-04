@@ -7,7 +7,7 @@ export const FAQ = () => {
     const [ currentQuestion, setCurrentQuestion ] = useState(Questions[0].id)
     // react-helmet-async 
     return(
-        <div id="FAQ" className="center flex-col py-[9ch] w-full">   
+        <section id="FAQ" className="center flex-col py-[9ch] w-full">   
             <div className="flex flex-col w-11/12 lg:w-10/12 xl:w-9/12 overflow-hidden mt-9">
                 <Parallax id={'faq'} className={'w-full mb-[7vh] lg:w-11/12'}>
                     <h3 className="text-3xl w-full text-blue-600">Frequently Asked Questions (FAQ) </h3>
@@ -31,7 +31,7 @@ export const FAQ = () => {
 
             </div>
 
-        </div>
+        </section>
     )
 }
 

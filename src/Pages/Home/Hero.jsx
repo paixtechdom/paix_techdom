@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { HeroContent } from '../../assets/Constants'
 import { Button } from "../../Components/Button"
+import { LazyLoadImage } from "react-lazy-load-image-component"
 
 
 
@@ -34,7 +35,7 @@ const Hero = () => {
 
 
     return(
-        <div className="relative center w-full  md:h-screen  overflow-hidden">
+        <section className="relative center w-full  md:h-screen  overflow-hidden">
             <div className="absolute hidden lg:block lg:flex flex w-full justify-between items-center z-20">
 
                 <div className="bi bi-chevron-left text-5xl text-gray-300 cursor-pointer h-[250px] center rounded-full w-[100px] lg:w-[150px] p-6 rounded-r-3xl transition-all duration-1000 hover:bg-black hover:bg-opacity-20"  onClick={() => setCurrentSlide(currentSlide == 0 ? HeroContent.length - 1 : prev => prev - 1)}></div>
@@ -58,7 +59,7 @@ const Hero = () => {
                     }
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 
@@ -106,7 +107,12 @@ const XlSlider = ({currentSlide}) => {
                         {
                             HeroContent.map((content, i) => (
                                 <div key={i} className="center w-full overflow-hidden rounded-3xl h-screen">
-                                    <img src={content.img} alt="" className="w-full h-fit rounded-3xl"/>
+                                    <LazyLoadImage 
+                                        src={content.img} 
+                                        placeholderSrc={'Image for ' + content.header} 
+                                        effect='blur'    
+                                        className="w-full h-fit rounded-3xl"
+                                    />
                                 </div>
                             ))
                         }
@@ -155,7 +161,7 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
                     {
                         HeroContent.map((content, i) => (
                             <div key={i} className="flex flex-col  justify-start items-start w-[100vw] gap-4 h-fit">
-                                <img src={content.img} alt="" className="w-full h-fit rounded-3xl "/>
+                                <img src={content.img} alt={'Image for ' + content.header} className="w-full h-fit rounded-3xl "/>
                             </div>
                         ))
                     }

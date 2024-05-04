@@ -19,30 +19,32 @@ const Quote = () => {
 
     
     return(
-        <div className="bg-blue-fade flex flex-col items-center  overflow-hidden pt-9">
+        <>
             <Helmet>
                 <title>
                     Get a quote at Paix Techdom
                 </title>
             </Helmet>
+            <main className="bg-blue-fade flex flex-col items-center  overflow-hidden pt-9">
 
-            <PagesHero 
-                image={quote} 
-                header={'Get a quote'} 
-                text={[
-                    'Fill out the form below with this and that to do this and that',
-                    'Right now i wanna faint.']} 
-                scrollTo={'Values'}
-            />
+                <PagesHero 
+                    image={quote} 
+                    header={'Get a quote'} 
+                    text={[
+                        'Fill out the form below with this and that to do this and that',
+                        'Right now i wanna faint.']} 
+                    scrollTo={'Values'}
+                />
+                
+            <BreadCrumbs links={['Home', 'Get a Quote']}/>
             
-        <BreadCrumbs links={['Home', 'Get a Quote']}/>
-        
-        <div className="w-11/12 lg:w-10/12 xl:w-9/12 mt-[9ch]">
-            <QuoteForm />
-        </div>
+            <section className="w-11/12 lg:w-10/12 xl:w-9/12 mt-[9ch]">
+                <QuoteForm />
+            </section>
 
 
-    </div>
+        </main>
+        </>
     )
 }
 

@@ -32,7 +32,7 @@ export const ABlog = () => {
                     backgroundImage: blog.img
                 }}>
                 </div>
-                    <img src={blog.img} alt="" />
+                    <img src={blog.img} alt="fffffffff" />
                 <div>
                     {blog.title} 
                     {blog.desc} 

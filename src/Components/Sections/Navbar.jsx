@@ -38,15 +38,15 @@ const Navbar = () =>{
     
     return(
         <>
-           <nav className='w-full center  bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] fixed min-h-[8vh] lg:min-h-[13vh] top-0 left-0 z-50 border-b border-blue-900'>
+           <header className='w-full center  bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] fixed min-h-[8vh] lg:min-h-[13vh] top-0 left-0 z-50 border-b border-blue-900'>
                 <div className="w-11/12 lg:w-10/12 xl:w-9/12 flex justify-between items-center">
                     <Link to='/' className="logo text-2xl w-2/12" onClick={() => setShowNav(false)}>
-                        <img src={logo} alt="" className='w-9/12  md:w-7/12 lg:w-5/12'/>
+                        <img src={logo} alt="Paix Techdom Logo" className='w-9/12  md:w-7/12 lg:w-5/12'/>
                     </Link>
 
                     <i className={`bi bi-${showNav ? 'x-lg' : 'list'} cursor-pointer lg:hidden text-2xl`} onClick={e => setShowNav(!showNav)}></i>
 
-                    <div className={`${showNav ? 'left-0' : '-left-[100vw] lg:left-0'} transition-all duration-1000 absolute py-9 lg:py-0 bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] lg:from-transparent w-full lg:w-fit top-[8vh]  lg:top-0 lg:relative flex flex-col lg:flex-row gap-9 items-center border-b border-blue-900 lg:border-b-0`}>
+                    <nav className={`${showNav ? 'left-0' : '-left-[100vw] lg:left-0'} transition-all duration-1000 absolute py-9 lg:py-0 bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] lg:from-transparent w-full lg:w-fit top-[8vh]  lg:top-0 lg:relative flex flex-col lg:flex-row gap-9 items-center border-b border-blue-900 lg:border-b-0`}>
                         {
                             Navs.map((nav, i) => (
                                 <Link key={i} to={`/${nav.link}`} className={`flex w-11/12 lg:w-fit gap-2 items-center ${currentNav == i ? 'text-blue-500 border-b border-blue-900' : ''} hover:text-blue-600 hover:border-b hover:border-blue-400`} onClick={e => {
@@ -69,9 +69,9 @@ const Navbar = () =>{
                             />
                         </div>
 
-                    </div>
+                    </nav>
                 </div>
-           </nav>
+           </header>
         </>
     )
 }

@@ -8,7 +8,7 @@ export const Numbers = () => {
 
     return(
         
-        <div className='flex justify-center w-full my-9 py-9'>
+        <section className='flex justify-center w-full my-9 py-9'>
             <div className={`flex md:grid md:grid-cols-2 items-center lg:flex w-11/12 lg:w-9/12 lg:flex-row justify-center flex-col gap -5`}>
                 {
                     numbers.map((no, key) => (
@@ -18,7 +18,7 @@ export const Numbers = () => {
                         ))
                     }
             </div>
-        </div>
+        </section>
     )
 }
 
