@@ -4,7 +4,7 @@ import { AppContext } from "../../App"
 export const GridSlider = ({data}) =>{
 
 return(
-        <div className="flex flex-col items-center mt-[12ch] overflow-hidden">
+        <div className="flex flex-col items-center mt-[10ch] overflow-hidden">
     
                   
         <div  className={`grid grid-cols-1 lg:grid-cols-2 w-11/12 lg:w-9/12 gap-9`}>

@@ -26,7 +26,7 @@ const PageNotFound = React.lazy(() => delayLoad(import('./Pages/PageNotFound')))
 
 function delayLoad(promise) {
   return new Promise(resolve => {
-    setTimeout(resolve, 3000);
+    setTimeout(resolve, 0);
   }).then(() =>promise);
 }
 

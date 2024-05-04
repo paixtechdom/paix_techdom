@@ -184,31 +184,31 @@ const ServicesInfo = [
         id: 'vslnakawj',
         title: 'Website Development',
         desc: 'Experience the power of interactive web applications with our customized solutions. From dynamic forms to real-time updates, we leverage cutting-edge technologies to enhance user engagement and functionality on your website',
-        icon: 'tools'
+        icon: 'code-slash'
     },
     {
         id: 'knvjnoqldnd',
         title: 'SEO (Search Engine Optimization)',
         desc: "Boost your online visibility and climb the search engine ranks. Our SEO services optimize your websites's content and structure, driving organic traffic and ensuring that your business stands out in the digital landscape.",
-        icon: 'search'
+        icon: 'graph-up'
     },
     {
         id: 'vlmlknosnf',
         title: 'Website Maintenance',
         desc: 'Secure the longetivity of your online presence with our comprehensive website maintenance services. We handle updates, security patches, and performance enhancements, allowing you to focus on your business while we take care of the technical details.',
-        icon: 'wrench'
+        icon: 'tools'
     },
     {
         id: 'pwrnnfninw',
         title: 'E-Commerce solutions',
         desc: 'Unleash the potential of online selling with our tailored e-commerce solutions. We create robust, secure and user-friendly online stores that not only showcase your products but also provide a seamless and secure shopping experience for your customers.',
-        icon: 'shop'
+        icon: 'cart4'
     },
     {
         id: 'siinnqien',
         title: 'Training and Tutoring',
         desc: "Empower your team or yourself with our specialized training and tutoring services. Whether you're looking to master web development or SEO strategies, our experts provide hands-on guidance and knowledge transfer to help you succeed in the digital landscape.",
-        icon: 'award'
+        icon: 'book'
     }
 ]
 
@@ -339,20 +339,14 @@ const Questions = [
     {
         id: 'qfwdsd',
         icon: 'patch-question-fill',
-        title: 'Can you help with search engine optimization (SEO) and digital marketing?',
-        desc: "Absolutely! We offer a range of services to help improve your website's visibility and reach, including search engine optimization (SEO), content optimization, social media integration, and digital marketing strategies tailored to your specific goals and target audience."
+        title: 'Can you help with search engine optimization (SEO)?',
+        desc: "Absolutely! We offer a range of services to help improve your website's visibility and reach, including search engine optimization (SEO), content optimization, and social media integration tailored to your specific goals and target audience."
     },
     {
-        id: 'waldsd',
-        icon: 'patch-question-fill',
-        title: 'Is the website mobile-responsive and optimized for different devices?',
-        desc: 'Yes, all websites we build are designed to be mobile-responsive and optimized for seamless viewing and interaction across various devices, including smartphones, tablets, and desktops. We prioritize user experience and ensure your website looks and functions flawlessly on any device.'
-    },
-    {
-        id: 'waldsd',
+        id: 'eadsdsd',
         icon: 'patch-question-fill',
         title: 'What is your pricing structure and payment process?',
-        desc: 'Our pricing structure varies depending on the scope and complexity of the project. We offer both fixed-price and hourly rate options, with payment schedules tailored to suit your needs. We accept various payment methods, including credit cards, bank transfers, and online payment platforms, to make the process convenient for you.'
+        desc: 'Our pricing structure varies depending on the scope and complexity of the project. We offer fixed-pricing with payment schedules tailored to suit your needs. We accept various payment methods, including credit cards, bank transfers, and online payment platforms, to make the process convenient for you.'
     },
  ]
 

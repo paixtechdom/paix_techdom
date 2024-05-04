@@ -6,8 +6,13 @@ import { useContext, useEffect } from "react"
 import { FAQ } from "../Components/FAQ"
 import { BreadCrumbs } from "../Components/BreadCrumbs"
 import { Helmet } from "react-helmet-async"
+import { Parallax } from "../../Components/Parallax"
 
 
+const ServicesTo =['Businesses looking to establish an online presence.', 'Startups', 'Medium to Large Enterprises', 'Digital Agencies', 'Non-profit Organizations', 'Educational Institutions', 'Government Agencies', 
+'Developers interested in learning new technologies or improving their skills.',
+'Anyone with an idea or concept they want to bring to life on the web.'
+]
 
 const Services = () =>{
     const { setCurrentNav } = useContext(AppContext)
@@ -26,8 +31,8 @@ const Services = () =>{
             <PagesHero 
                 image={services} 
                 header={'What we do'} 
-                text={['Our services page showcases our commitment to equipping organizations, startups, and companies of all sizes with the right tools and solutions for their online presence and activities. In this image, the digital toolbox represents the comprehensive range of digital services we offer, tailored to meet the unique needs of each client.',
-                ' From website development to online marketing strategies, we empower businesses to thrive in the digital age and achieve their goals with confidence.']} 
+                text={['Our services page showcases our commitment to equipping organizations, startups, and companies of all sizes with the right tools and solutions for their online presence and activities. We offer a comprehensive range of digital services tailored to meet the your unique needs.',
+                'From website development to online marketing strategies, we empower businesses to thrive in the digital age and achieve their goals with confidence.']} 
                 scrollTo={'servicelist'}
             />
 
@@ -35,6 +40,31 @@ const Services = () =>{
 
            
             <ServiceList />
+            <Parallax id={'iam'}>
+                <div className="my-[10vh].border-t border-blue-900"></div>
+            </Parallax>
+            <div className="w-11/12 lg:w-10/12 xl:w-9/12 mt-[10vh]">
+                <div className="flex flex-col w-full gap-7">
+                    <Parallax id={'spfdpog'}>
+                        <h3 className="text-blue-600 text-3xl my-4">
+                            We offer our services to
+                        </h3>
+                    </Parallax>
+                    {
+                        ServicesTo.map((service, i) =>(
+                            <Parallax id={service[0]}>
+
+                                <div key={i} className="flex items-center justify-start text-gray-300 gap-5">
+                                    <i className="bi bi-check-circle-fill text-blue-600"></i>
+                                    <p>
+                                        {service}
+                                    </p>
+                                </div>
+                            </Parallax>
+                        ))
+                    }
+                </div>
+            </div>
 
             <FAQ />
 
