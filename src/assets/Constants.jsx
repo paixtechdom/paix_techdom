@@ -49,7 +49,7 @@ const Navs = [
 ]
 const HeroContent = [
     {
-        header: 'Empower Your business by unlocking your digital potential',
+        header: 'Elevate Your business by unlocking your digital potential',
         text: [
             'Unleash the potential of your business with our tailored web services. Start building your online empire today with our free consultation!', 
         ],
