@@ -52,8 +52,6 @@ const HeroContent = [
         header: 'Empower Your business by unlocking your digital potential',
         text: [
             'Unleash the potential of your business with our tailored web services. Start building your online empire today with our free consultation!', 
-            'Let us to handle your online presence and experience a drastic increase in your revenue.'
-
         ],
         color: 'text-blue-400',
         img: manoncliff

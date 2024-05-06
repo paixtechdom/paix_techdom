@@ -9,6 +9,19 @@ const Hero = () => {
     const [ currentSlide, setCurrentSlide ] = useState(0)
     const [startX, setStartX ] = useState(0)
     const sliderRef = useRef(null)
+    
+    useEffect(() => {
+        console.log(currentSlide)
+        const int = setInterval(() => {
+            slide()
+        }, 10000);
+        return () => clearInterval(int)
+    }, [currentSlide])
+
+    const slide = () => {
+        setCurrentSlide(currentSlide === HeroContent.length - 1 ? 0 : prev => prev + 1 )
+    }
+
 
     const handleTouchStart = (e) => {
         setStartX(e.touches[0].clientX)
@@ -23,15 +36,6 @@ const Hero = () => {
         }
     }
 
-    useEffect(() => {
-        const int = setInterval(() => {
-            slide()
-        }, 10000);
-        return () => clearInterval(int)
-    }, [currentSlide])
-    const slide = () => {
-        setCurrentSlide(currentSlide === HeroContent.length - 1 ? 0 : prev => prev + 1 )
-}
 
 
     return(

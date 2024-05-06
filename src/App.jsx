@@ -30,7 +30,7 @@ import  "react-lazy-load-image-component/src/effects/opacity.css"
 
 function delayLoad(promise) {
   return new Promise(resolve => {
-    setTimeout(resolve, 0);
+    setTimeout(resolve, 3000);
   }).then(() =>promise);
 }
 
