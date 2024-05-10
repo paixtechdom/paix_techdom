@@ -11,7 +11,6 @@ const Hero = () => {
     const sliderRef = useRef(null)
     
     useEffect(() => {
-        console.log(currentSlide)
         const int = setInterval(() => {
             slide()
         }, 10000);
