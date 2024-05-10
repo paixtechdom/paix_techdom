@@ -33,7 +33,8 @@ const Footer = () => {
                     Paix Techdom
                 </h3>
                 <p className='tracking-wide leading-relaxed text-gray-300'>
-                    We are a digital company dedicated to ensure organizations, startups, small, medium and large size companies are equipped with the right for the online presence and activities
+                We are a software company with a focus on web development. <br />
+                We are dedicated to ensuring organizations, startups, small, medium and large size companies are equipped with the right website for their online presence and business activities
                 </p>
                 <div className="w-full">
                     <Button className={'w-fit'} text={'Get started now'} icon={'telephone-fill'} func={() => {
