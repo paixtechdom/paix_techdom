@@ -38,7 +38,7 @@ const steps = [
 export const Steps = () => {
     const navigate = useNavigate()
     return(
-        <section id='How' className="center w-full flex-col pt-[15vh] overflow-hidden">
+        <section id='How' className="center w-full flex-col pt-[20vh] overflow-hidden">
             <Parallax id={'howheader'} className={' w-11/12 lg:w-10/12 xl:w-9/12'}>
                 <h2 className="text-primary text-2xl mb-5 font-bold tracking-wide text-blue-600">How we get it done for you</h2>
             </Parallax>

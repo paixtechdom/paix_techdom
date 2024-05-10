@@ -3,7 +3,8 @@ import { Questions } from "../../assets/Constants"
 import { GridSlider } from "./GridSlider"
 import { Parallax } from "../../Components/Parallax"
 
-export const FAQ = () => {
+export const 
+FAQ = () => {
     const [ currentQuestion, setCurrentQuestion ] = useState(Questions[0].id)
     // react-helmet-async 
     return(
@@ -44,15 +45,16 @@ const Question = ({question, i, currentQuestion, setCurrentQuestion}) => {
         <Parallax id={`questions${question.title[0]}${question.title[1]}`} className={'flex gap-2 w-full'}>
 
             <div className={`flex flex-col w-full gap-3 border-b border-blue-900 p- 4 overflow-hidden h-fit`}>
-                <div className="flex justify-between items-start gap-9">
+                <div className="flex justify-between items-start gap-9 cursor-pointer"
+                    onClick={() => setCurrentQuestion(question.id == currentQuestion ? '' : question.id)}>
                     <h3 className="text-blue-600 text-xl">
                         {question.title}
                     </h3>
-                    <i className={`bi bi-${currentQuestion == question.id ? 'chevron-up eye-slash-fill' : 'chevron-down eye-fill'} text-2xl text-blue-600 cursor-pointer bord er border-blue-600 center`} onClick={() => setCurrentQuestion(question.id == currentQuestion ? '' : question.id)}></i>
+                    <i className={`bi bi-${currentQuestion == question.id ? 'chevron-up eye-slash-fill' : 'chevron-down eye-fill'} text-2xl text-blue-600 cursor-pointer bord er border-blue-600 center`} ></i>
                 </div>
 
 
-                <p className={`text-gray-300 tracking-wide leading-relaxed text-[15px] transition-all duration-500 ${currentQuestion == question.id ? 'h-fit' : 'h-0'}`}>{question.desc}</p>
+                <p className={`text-gray-300 tracking-wide leading-relaxed text-[15px] transition-all duration-500 ${currentQuestion == question.id ? 'py-3' : 'h-0'}`}>{question.desc}</p>
             </div>
         </Parallax>
     )
