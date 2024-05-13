@@ -124,9 +124,9 @@ const Gain = [
     },
     {
         id: 'grant',
-        title: 'Grab more oppurtunities',
+        title: 'Grab more opportunities',
         icon: 'check-circle-fill',
-        desc: 'With an impactful online presence, your chances of securing oppurtunities such as additional support or funding for your projects are heightened.'
+        desc: 'With an impactful online presence, your chances of securing opportunities such as additional support or funding for your projects are heightened.'
     },
     {
         id: 'ground',
