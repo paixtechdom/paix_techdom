@@ -16,7 +16,7 @@ FAQ = () => {
                 </Parallax>
 
             
-                <div className="grid w-full gap-9 w-full bg-red-400 lg:w-9/12">
+                <div className="grid w-full gap-9 w-full lg:w-9/12">
                     {
                         Questions.map((question, i) => (
                             <div key={i} className={`flex h-full w-full`}>
