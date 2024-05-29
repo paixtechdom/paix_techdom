@@ -218,12 +218,7 @@ const ContactInfo = [
         link: 'https://api.whatsapp.com/send?phone=2347063730930'
     },
     {
-        title: 'support@paixtechdom.com',
-        icon: 'envelope',
-        link: 'mailto:paixtechdom@gmail.com'
-    },
-    {
-        title: 'info@paixtechdom.com',
+        title: 'customer@paixtechdom.com',
         icon: 'envelope',
         link: 'mailto:paixtechdom@gmail.com'
     },
