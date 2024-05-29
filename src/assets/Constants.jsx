@@ -236,16 +236,16 @@ const ContactInfo = [
 
     {
         icon: 'facebook',
-        link: 'https://www.facebook.com/profile.php?id=1000091611065721'
+        link: 'https://web.facebook.com/profile.php?id=100091611065721'
     },
     {
         icon: 'instagram',
-        link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
+        link: 'https://www.instagram.com/paix_techdom/'
     },
-    // {
-    //     icon: 'twitter',
-    //     link: 'https://instagram.com/paix_techdom?utm_source=qr&igshid=YzU1NGVIODEzOA%3D%3D'
-    // },
+    {
+        icon: 'twitter',
+        link: 'https://x.com/PTechdom69649'
+    },
   
 ]
 
