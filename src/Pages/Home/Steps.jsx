@@ -35,6 +35,8 @@ const steps = [
     }
 
 ]
+
+
 export const Steps = () => {
     const navigate = useNavigate()
     return(
@@ -81,7 +83,7 @@ const Step = ({step, i}) => {
             <div className={`flex flex-col w-full gap-3 ${
                 i == steps.length - 1 ? 'mb-[2vh]' : 
                 i == steps.length - 2 ? 'mb-[5vh] lg:mb-[2vh]' : 
-                'mb-[5vh] lg:mb-[10vh] xl:mb-[12vh]'} rounded-2xl border border-blue-900 p-4`}>
+                'mb-[5vh] lg:mb-[10vh] xl:mb-[12vh]'} rounded-2xl border border-blue-900 p-4 py-7`}>
 
                 <h3 className="text-blue-600 text-xl">
                     {step.title}

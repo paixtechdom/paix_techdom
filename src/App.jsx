@@ -30,7 +30,7 @@ import  "react-lazy-load-image-component/src/effects/opacity.css"
 
 function delayLoad(promise) {
   return new Promise(resolve => {
-    setTimeout(resolve, 3000);
+    setTimeout(resolve, 1500);
   }).then(() =>promise);
 }
 
@@ -70,6 +70,7 @@ const Layout = () =>{
     }
   }
 
+  
   
   return(
     <div className='app bg-gray-100 text-gray-100'>

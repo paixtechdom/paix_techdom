@@ -41,7 +41,7 @@ export const ImageAndText = ({id, title, desc, img, className, iconText, icon, s
                 </div>
                 
                 <Parallax id={`shit${id}`} className={'w-full lg:w-8/12 center relative'}>
-                    <div className={`absolute w-full h-full border border-blue-900 border-2 rounded-3xl ${className ? ' -left-[15px]' : ' -right-[15px]'}  scale-90 -bottom-[15px]`}>
+                    <div className={`absolute w-full min-h-[50px] h-full border border-blue-900 border-2 rounded-3xl ${className ? ' -left-[15px]' : ' -right-[15px]'}  scale-90 -bottom-[15px]`}>
 
                     </div>
 

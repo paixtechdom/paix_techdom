@@ -2,6 +2,8 @@ import manoncliff from './img/manoncliff.png'
 import bulb from './img/bulb.png'
 import phone from './img/phone.png'
 import laptop from './img/laptop.png'
+import logo from "../assets/img/favicon.png"
+
 
 
 
@@ -117,7 +119,7 @@ const Gain = [
         desc: 'Through a strategically designed website (SEO Optimized), more people become acquainted with and recognize your brand, enhancing overall awareness.'
     },
     {
-        id: 'clients',
+        id: 'clientzdfjlnxjf',
         title: 'Gain access to more clients',
         icon: 'check-circle-fill',
         desc: 'Your website serves as a gateway to connect with new customers, enabling the expansion of your business reach and clients.'
@@ -353,7 +355,7 @@ const Questions = [
 
 
 
-export { Navs, Gain, numbers, ServicesInfo, ContactInfo, Prices, Testimonials, HeroContent, ValuesInfo, Questions }
+export { logo, Navs, Gain, numbers, ServicesInfo, ContactInfo, Prices, Testimonials, HeroContent, ValuesInfo, Questions }
 
 
 

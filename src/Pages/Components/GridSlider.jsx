@@ -4,14 +4,13 @@ import { AppContext } from "../../App"
 export const GridSlider = ({data}) =>{
 
 return(
-        <section className="flex flex-col items-center my-[10vh] overflow-hidden">
-    
-                  
+        <section className="flex flex-col items-center my-[10vh] overflow-hidden border border-blue-900">
+
         <div  className={`grid grid-cols-1 lg:grid-cols-2 w-11/12 lg:w-9/12 gap-9`}>
 
             {
                 data.map((d, i) => (
-                    <Parallax key={i} id={d.id} className='flex flex-col border border-blue-900 p-5 md:p-9 rounded-xl gap-2 leading-relaxed tracking-wide' index={i}>
+                    <Parallax key={i} id={d.id} className='h-full flex flex-col border border-blue-900 bg-[rgba(0,0,24,0.8)] p-5 md:p-9 rounded-xl gap-2 leading-relaxed tracking-wide' index={i}>
                         
                         <div className="flex relative w-fi center h-12 md:h-16 w-2/12 md:w-3/12 p-3 mb-3">
                             <div className="absolute border border-blue-900 top-0  left-50 w-12 h-12 md:w-16 md:h-16 rotate-45 rounded-tl-[25px]  rounded-br-[25px]">

@@ -8,11 +8,11 @@ export const Loader = () => {
         
         setTimeout(() => {
             document.body.style.overflowY = 'auto'
-        }, 3000);
+        }, 1500);
         
         setTimeout(() => {
             setLoaderOpacity(50)
-        }, 2900);
+        }, 1400);
 
 
     }, [])
@@ -21,7 +21,7 @@ export const Loader = () => {
         <div className={`fixed bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] center w-full h-screen top-0 left-0 flex-col z-50 transition-all durtion-[4s] opacity-${loaderOpacity}`}>
             <Ladder />
 
-            <div className="center relative overflow-hidden flex-col z-10 bg-[rgba(0,0,24)] border border-blue-900 p-7 rounded-xl">
+            <div className="center relative overflow-hidden flex-col z-10 bg-[rgba(0,0,24,0.8)] border border-blue-900 p-7 rounded-xl">
                 <p className="font-bold text-3xl text-blue-600 ">Paix Techdom</p>
 
                 <p className="text- italic text-sm text-gray-300">...growing your buisness...</p>
@@ -47,10 +47,10 @@ const Ladder = () => {
         setLightUpLadder(true)
         setTimeout(() => {
             setLightUpStepsDown(true)
-        }, 1500);
+        }, 500);
         setTimeout(() => {
             setLightUpStepsUp(true)
-        }, 2800);
+        }, 1000);
     }, [])
     return(
         <div className="absolute text-white h-screen flex items-start justify-center w-full overflow-hidden">
