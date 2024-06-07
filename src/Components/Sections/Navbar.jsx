@@ -38,7 +38,7 @@ const Navbar = () =>{
     
     return(
         <>
-           <header className='w-full center  bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] fixed min-h-[10vh] lg:min-h-[13vh] top-0 left-0 z-50 border-b border-blue-900'>
+           <header className='w-full center  bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)] fixed min-h-[8vh] lg:min-h-[13vh] top-0 left-0 z-50 border-b border-blue-900'>
                 <div className="w-11/12 lg:w-10/12 xl:w-9/12 flex justify-between items-center">
                     <Link to='/' className="logo text-2xl w-2/12" onClick={() => setShowNav(false)}>
                         <img src={logo} alt="Paix Techdom Logo" className='w-9/12  md:w-7/12 lg:w-5/12'/>
