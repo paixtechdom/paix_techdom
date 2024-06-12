@@ -10,7 +10,7 @@ export const Alert = ({alertMessage, setShowAlert, alertType, }) =>{
         <div className="alertParent " style={{
             zIndex: 500
         }}>
-            <div className={`rounded-2xl alert bg-[rgba(0,0,10)] w-9/12 lg:w-5/12 rounded-4 ${alertType}`}>
+            <div className={`rounded-2xl alert bg-[rgba(0,0,10)] w-11/12 md:w-9/12 lg:w-5/12 rounded-4 ${alertType}`}>
                 
                 <div className={`${alertType} rounded-full flex items-center justify-center text-5xl text-white w-[80px] h-[80px]`}>
                     <i className={`bi bi-${alertType == 'success' ? 'check-lg text-green-500' : alertType == 'error' ?  'exclamation' : ''}`}></i>
