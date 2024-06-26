@@ -28,6 +28,14 @@ const Contact = () => {
                 <title>
                     Contact Paix Techdom
                 </title>
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-R61QXZTRLE"></script>
+                <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments)}
+                gtag('js', new Date());
+
+                gtag('config', 'G-R61QXZTRLE');
+                </script>
             </Helmet>
             <main className="section contact flex flex-col items-center mt-9  overflow-hidden" id="Contact">
             <PagesHero 

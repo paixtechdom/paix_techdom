@@ -27,6 +27,14 @@ const Home = () => {
                     Paix Techdom - Web Development Company
                 </title>
                 <link rel="icon" type="image/png" href={logo} />
+                <script async src="https://www.googletagmanager.com/gtag/js?id=G-R61QXZTRLE"></script>
+                <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments)}
+                gtag('js', new Date());
+
+                gtag('config', 'G-R61QXZTRLE');
+                </script>
             </Helmet>
         <main>
 
