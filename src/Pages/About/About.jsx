@@ -31,14 +31,6 @@ const About = () => {
             <title>
                 About Paix Techdom
             </title>
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-R61QXZTRLE"></script>
-                <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments)}
-                gtag('js', new Date());
-
-                gtag('config', 'G-R61QXZTRLE');
-                </script>
         </Helmet>
         <main className="flex flex-col overflow-hidden w-full pt-9">
 

@@ -26,14 +26,6 @@ const Pricing = () => {
                 <title>
                     Pricing Paix Techdom
                 </title>
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-R61QXZTRLE"></script>
-                <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments)}
-                gtag('js', new Date());
-
-                gtag('config', 'G-R61QXZTRLE');
-                </script>
             </Helmet>            
             <main id="Pricing" className="flex-col overflow-hidden w-full pt-9 center">
                 <PagesHero 
