@@ -220,7 +220,7 @@ const ContactInfo = [
         link: 'https://api.whatsapp.com/send?phone=2347063730930'
     },
     {
-        title: 'customer@paixtechdom.com',
+        title: 'paixtechdom@gmail.com',
         icon: 'envelope',
         link: 'mailto:paixtechdom@gmail.com'
     },

@@ -16,30 +16,44 @@ const Footer = () => {
         </Parallax>
         <div className=" w-full flex justify-center text-white">
            <div className={`w-11/12 lg:w-10/12 xl:w-9/12 px-3 flex flex-col lg:flex-row items-start justify-between gap-9 my-8 z-20 `}>
-            <div className="flex flex-col gap-5 w-full lg:w-6/12">
-                <div className="flex items-center justify-start gap-5 w-full">
-                    {
-                        ContactInfo.map((contact, i) => (
-                            <a key={i} href={contact.link} className='p-2 h-12 w-12 center relative'>
-                                <div className="border rounded-tl-3xl rounded-br-3xl border-blue-900 absolute top-0 right-0 rotate-[45deg] w-full h-full">
-
-                                </div>
-                                <i className={`bi bi-${contact.icon} text-blue-100`}></i>
-                            </a>
-                        ))
-                    }
-                </div>
+            <div className="flex flex-col gap-3 w-full lg:w-6/12">
+              
                 <h3 className="text-2xl text-blue-600">
                     Paix Techdom
                 </h3>
                 <p className='tracking-wide leading-relaxed text-gray-300'>
-                We are a software company with a focus on web development. <br />
                 We are dedicated to ensuring organizations, startups, small, medium and large size companies are equipped with the right website for their online presence and business activities
                 </p>
                 <div className="w-full">
                     <Button className={'w-fit'} text={'Get started now'} icon={'telephone-fill'} func={() => {
                         navigate('/Contact')
                     }}/>
+                </div>
+             <div className="flex items-start flex-col w-11/12 mt-[5vh] gap-4">
+                <Parallax id={'contacticons'} className="flex gap-5">
+                    {
+                        ContactInfo.map((contact, i) => (
+                            !contact.title &&
+                            <a key={i} href={contact.link} className="p-2 h-12 w-12 center relative">
+                                <div className="border rounded-tl-3xl rounded-br-3xl border-blue-900 absolute top-0 right-0 rotate-[45deg] w-full h-full">
+                                </div>
+                                <i className={`bi bi-${contact.icon} text-xl `}></i>
+                            </a>
+                        ))
+                    }
+                </Parallax>
+                    {
+                        ContactInfo.map((contact, i) => (
+                            contact.title &&
+                            <Parallax key={i} id={contact.icon} className={'flex gap-4'}>
+                                <i className={`bi bi-${contact.icon}-fill text-xl `}></i>
+                                <a href={contact.link}>
+                                    {contact.title}
+                                </a>
+                            </Parallax>
+                        ))
+                    }
+                    
                 </div>
             </div>
 
