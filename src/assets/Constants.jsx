@@ -243,6 +243,10 @@ const ContactInfo = [
         icon: 'twitter',
         link: 'https://x.com/PTechdom69649'
     },
+    {
+        icon: 'linkedin',
+        link: 'https://linkedin.com/company/paixtechdom'
+    },
   
 ]
 
