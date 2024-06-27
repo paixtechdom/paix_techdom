@@ -34,7 +34,7 @@ const Footer = () => {
                     {
                         ContactInfo.map((contact, i) => (
                             !contact.title &&
-                            <a key={i} href={contact.link} className="p-2 h-12 w-12 center relative">
+                            <a key={i} target="_blank" href={contact.link} className="p-2 h-12 w-12 center relative">
                                 <div className="border rounded-tl-3xl rounded-br-3xl border-blue-900 absolute top-0 right-0 rotate-[45deg] w-full h-full">
                                 </div>
                                 <i className={`bi bi-${contact.icon} text-xl `}></i>
@@ -47,7 +47,7 @@ const Footer = () => {
                             contact.title &&
                             <Parallax key={i} id={contact.icon} className={'flex gap-4'}>
                                 <i className={`bi bi-${contact.icon}-fill text-xl `}></i>
-                                <a href={contact.link}>
+                                <a target="_blank" href={contact.link}>
                                     {contact.title}
                                 </a>
                             </Parallax>
