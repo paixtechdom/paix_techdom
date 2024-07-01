@@ -32,7 +32,7 @@ const Quote = () => {
                     image={quote} 
                     header={'Get a quote'} 
                     text={[
-                        'Start the transformative journey for your business today',
+                        'Start the transformative journey your business deserves today',
                         '']} 
                     scrollTo={'Values'}
                 />
@@ -44,7 +44,7 @@ const Quote = () => {
                     <Packages />
                 </div>
             </Parallax>
-            
+
             <section className="w-11/12 lg:w-10/12 xl:w-9/12 mt-[9ch]">
                 <QuoteForm />
             </section>
