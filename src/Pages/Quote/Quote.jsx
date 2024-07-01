@@ -6,7 +6,8 @@ import { PagesHero } from "../Components/PagesHero";
 import { Parallax } from "../../Components/Parallax";
 import { QuoteForm } from "./QuoteForm";
 import { Helmet } from "react-helmet-async"
-
+import { Packages } from "./Packages"
+import { FAQ } from "../Components/FAQ"
 
 
 const Quote = () => {
@@ -31,17 +32,24 @@ const Quote = () => {
                     image={quote} 
                     header={'Get a quote'} 
                     text={[
-                        'Fill out the form below with this and that to do this and that',
-                        'Right now i wanna faint.']} 
+                        'Start the transformative journey for your business today',
+                        '']} 
                     scrollTo={'Values'}
                 />
                 
             <BreadCrumbs links={['Home', 'Get a Quote']}/>
             
+            <Parallax id="packages" className={'w-full center pb-[7vh] pt-[15vh]'}>
+                <div  className="center w-11/12 lg:w-10/12 xl:w-9/12">
+                    <Packages />
+                </div>
+            </Parallax>
+            
             <section className="w-11/12 lg:w-10/12 xl:w-9/12 mt-[9ch]">
                 <QuoteForm />
             </section>
 
+                
 
         </main>
         </>

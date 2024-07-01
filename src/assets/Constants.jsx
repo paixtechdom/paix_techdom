@@ -2,7 +2,7 @@ import manoncliff from './img/manoncliff.png'
 import bulb from './img/bulb.png'
 import phone from './img/phone.png'
 import laptop from './img/laptop.png'
-import logo from "../assets/img/favicon.png"
+import logo from "../assets/img/favicon.ico"
 
 
 
@@ -23,16 +23,12 @@ const Navs = [
         icon:'hdd-stack-fill',
         link:'Services',
     },
+  
     // {
-    //     name:'Consultancy',
-    //     icon:'person',
-    //     link:'',
+    //     name:'Portfolio',
+    //     icon:'journal-code',
+    //     link:'portfolio',
     // },
-    {
-        name:'Pricing',
-        icon:'tags-fill',
-        link:'Pricing',
-    },
     // {
     //     name:'Blog',
     //     icon: 'file-earmark-richtext',
@@ -40,14 +36,10 @@ const Navs = [
     // },
     {
         name:'Get a Quote',
-        icon:'card-list',
+        icon:'tags-fill',
         link:'Quote',
     },
-    // {
-    //     name:'Contact Us',
-    //     icon:'telephone',
-    //     link:'Contact',
-    // },
+    
 ]
 const HeroContent = [
     {

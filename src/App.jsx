@@ -17,7 +17,7 @@ const Footer = React.lazy(() => delayLoad(import('./Components/Sections/Footer')
 const Home = React.lazy(() => delayLoad(import('./Pages/Home/Home')))
 const About = React.lazy(() => delayLoad(import('./Pages/About/About')))
 const Services = React.lazy(() => delayLoad(import('./Pages/Services/Services')))
-const Pricing = React.lazy(() => delayLoad(import('./Pages/Pricing/Pricing')))
+const Portfolio = React.lazy(() => delayLoad(import('./Pages/Portfolio/Portfolio')))
 const Quote = React.lazy(() => delayLoad(import('./Pages/Quote/Quote')))
 const Contact = React.lazy(() => delayLoad(import('./Pages/Contact/Contact')))
 const PageNotFound = React.lazy(() => delayLoad(import('./Pages/PageNotFound')))
@@ -143,12 +143,12 @@ const router = createBrowserRouter([
               <Services />
           </Suspense>
       },
-      {
-        path: '/Pricing',
-        element: <Suspense fallback={<Loader />}>
-            <Pricing />
-          </Suspense>
-      },
+      // {
+      //   path: '/portfolio',
+      //   element: <Suspense fallback={<Loader />}>
+      //       <Portfolio />
+      //     </Suspense>
+      // },
       {
         path: '/Quote',
         element: <Suspense fallback={<Loader />}>
