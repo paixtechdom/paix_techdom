@@ -60,19 +60,19 @@ const Portfolio = () => {
             <main id="Portfolio" className="flex-col overflow-hidden w-full pt-9 center">
 
                 <section className="flex flex-col">
-
+                    
                 </section>
 
                 
 
-                {/* <BreadCrumbs links={['Home', 'Portfolio']}/> */}
+                <BreadCrumbs links={['Home', 'Portfolio']}/>
 
                 <section className="center flex-col gap- mt-[20vh]">
-                    {/* <div className="w-11/12 lg:w-10/12 xl:w-9/12 mb-[15vh]">
+                    <div className="w-11/12 lg:w-10/12 xl:w-9/12 mb-[15vh]">
                         <Parallax id={"ourworks"}>
                             <h2 className="text-blue-600 text-4xl my-4">Our Works</h2>
                         </Parallax>
-                    </div> */}
+                    </div>
                     <div className="flex flex-col lg:grid lg:grid-cols-2 w-11/12 lg:w-10/12 xl:w-9/12 gap-[15vh] lg:gap-[5vh] ">
 
                         {
