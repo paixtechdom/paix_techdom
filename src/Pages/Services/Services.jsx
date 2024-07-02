@@ -47,7 +47,7 @@ const Services = () =>{
                 <section className="w-11/12 lg:w-10/12 xl:w-9/12 mt-[10vh]">
                     <div className="flex flex-col w-full gap-7">
                         <Parallax id={'spfdpog'}>
-                            <h3 className="text-blue-600 text-3xl my-4">
+                            <h3 className="text-blue-600 text-4xl my-4">
                                 We offer our services to
                             </h3>
                         </Parallax>

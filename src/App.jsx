@@ -30,7 +30,7 @@ import  "react-lazy-load-image-component/src/effects/opacity.css"
 
 function delayLoad(promise) {
   return new Promise(resolve => {
-    setTimeout(resolve, 1500);
+    setTimeout(resolve, 0);
   }).then(() =>promise);
 }
 
@@ -77,8 +77,7 @@ const Layout = () =>{
       <HelmetProvider>
         <AppContext.Provider value={{currentNav, setCurrentNav, smallScreen, mediumScreen , showALert, setShowAlert, alertMessage, setAlertMessage, setAlertType, subject, setSubject, showNavBar, setShowNavBar, isScrollTopZero, setIsScrollTopZero, dbLocation}}>
 
-          <div id='top'></div>
-          <div className='d-flex w-full bg-gradient-to-l from-[rgba(0,0,10)] via-[rgba(0,0,24)] to-[rgba(0,0,10)]'>
+          <div className='d-flex w-full bg-gradient-to-l from-secondary via-primary to-secondary'>
 
             <Suspense fallback={<></>}>
               <Navbar />
@@ -87,8 +86,9 @@ const Layout = () =>{
               
             <Outlet />
 
-            <IconButton icon={'arrow-up'} className={`fixed bottom-5 z-50  transition-all duration-1000 ${scrolledDown ? 'right-5' : '-right-[50%]'}`} func={() => {
-                document.querySelector('#top').scrollIntoView({
+            <IconButton icon={'arrow-up'} className={`fixed bottom-[5%] z-50 scale-125  transition-all duration-1000 ${scrolledDown ? 'right-[5%]' : '-right-[50%]'}`} func={() => {
+              scrollTo({
+                    top: 0,
                     behavior: 'smooth'
                 })
             }}/>
@@ -143,12 +143,12 @@ const router = createBrowserRouter([
               <Services />
           </Suspense>
       },
-      // {
-      //   path: '/portfolio',
-      //   element: <Suspense fallback={<Loader />}>
-      //       <Portfolio />
-      //     </Suspense>
-      // },
+      {
+        path: '/portfolio',
+        element: <Suspense fallback={<Loader />}>
+            <Portfolio />
+          </Suspense>
+      },
       {
         path: '/Quote',
         element: <Suspense fallback={<Loader />}>

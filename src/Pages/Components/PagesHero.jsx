@@ -11,7 +11,7 @@ export const PagesHero = ({image, header, text, scrollTo, button}) => {
                     <h1 className="text-5xl text-blue-600">
                         {header}
                     </h1>
-                    <div className="flex flex-col gap-3 text-gray-300 tracking-wide leading-relaxed">
+                    <div className="flex flex-col gap-3 text-gray-300 tracking-wide leading-relaxed ">
                         {
                             text.map((text, i) => (
                                 <p key={i}>{text}</p>

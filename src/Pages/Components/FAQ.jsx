@@ -9,17 +9,17 @@ FAQ = () => {
     // react-helmet-async 
     return(
         <section id="FAQ" className="center flex-col py-[9ch] w-full">   
-            <div className="flex flex-col w-11/12 lg:w-10/12 xl:w-9/12 overflow-hidden mt-9">
-                <Parallax id={'faq'} className={'w-full mb-[7vh] lg:w-11/12'}>
+            <div className="center flex-col w-11/12 lg:w-10/12 xl:w-9/12 overflow-hidden mt-9">
+                <Parallax id={'faq'} className={'w-full mb-[7vh] lg:w-9/12'}>
                     <h3 className="text-3xl w-full text-blue-600">Frequently Asked Questions (FAQ) </h3>
 
                 </Parallax>
 
             
-                <div className="grid w-full gap-9 w-full lg:w-9/12">
+                <div className="center flex-col w-full gap-9 lg:w-9/12">
                     {
                         Questions.map((question, i) => (
-                            <div key={i} className={`flex h-full w-full`}>
+                            <div key={i} className={`flex h-full w-full `}>
                                 <Question question={question} i={i}
                                 currentQuestion={currentQuestion}
                                 setCurrentQuestion={setCurrentQuestion}
@@ -54,7 +54,7 @@ const Question = ({question, i, currentQuestion, setCurrentQuestion}) => {
                 </div>
 
 
-                <p className={`text-gray-300 tracking-wide leading-relaxed text-[15px] transition-all duration-500 ${currentQuestion == question.id ? 'py-3' : 'h-0'}`}>{question.desc}</p>
+                <p className={`text-gray-300 tracking-wide leading-relaxed text-[15px] transition-all duration-500 bg-black bg-opacity-40 px-5 ${currentQuestion == question.id ? 'py-5' : 'h-0'}`}>{question.desc}</p>
             </div>
         </Parallax>
     )

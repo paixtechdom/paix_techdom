@@ -24,11 +24,11 @@ const Navs = [
         link:'Services',
     },
   
-    // {
-    //     name:'Portfolio',
-    //     icon:'journal-code',
-    //     link:'portfolio',
-    // },
+    {
+        name:'Portfolio',
+        icon:'journal-code',
+        link:'portfolio',
+    },
     // {
     //     name:'Blog',
     //     icon: 'file-earmark-richtext',

@@ -6,7 +6,7 @@ export const BreadCrumbs = ({links}) => {
         <section className="w-full center mt-[8vh] lg:my-4">
             <Parallax id={`breadcrumbs`} className={'w-full center'}>
 
-            <div className="border  border-blue-900 w-11/12 lg:w-10/12 xl:w-9/12 flex justify-start items-center p-3 pl-[20px] rounded-full">
+            <div className="border bg-gradient-to-l from-secondary via-primary to-secondary  border-blue-900 w-11/12 lg:w-10/12 xl:w-9/12 flex justify-start items-center p-4 pl-[20px] rounded-full">
                 {
                     links.map((link, i) => (
                         i == 0 ?
@@ -14,7 +14,7 @@ export const BreadCrumbs = ({links}) => {
                             {link}
                             <i className={`bi bi-chevron-right mx-2`}></i>
                         </Link>  :
-                        <div key={i} className="text-blue-600 cursor-pointer">
+                        <div key={i} className="text-blue-600 cursor-pointer font-bold text-lg">
                             {link}
                         </div> 
                     ))
