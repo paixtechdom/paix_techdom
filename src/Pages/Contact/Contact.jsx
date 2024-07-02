@@ -32,7 +32,7 @@ const Contact = () => {
             <main className="section contact flex flex-col items-center mt-9  overflow-hidden" id="Contact">
             <PagesHero 
                 image={contact} 
-                header={'Get in touch with us'} 
+                header={'Get in touch with us now'} 
                 text={['Contact us now to get started with your premium package coupled with many free packages to generate more leads for your business.']} 
                 scrollTo={'Values'} 
                 button={false}

@@ -30,7 +30,7 @@ const Quote = () => {
 
                 <PagesHero 
                     image={quote} 
-                    header={'Get a quote'} 
+                    header={'Get a quote now'} 
                     text={[
                         'Start the transformative journey your business deserves today',
                         '']} 

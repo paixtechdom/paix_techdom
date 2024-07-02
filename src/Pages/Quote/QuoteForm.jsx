@@ -77,7 +77,7 @@ export const QuoteForm = () => {
         
         <div className="w-11/12 lg:w-10/12 my-4 flex flex-col gap-7">
             <Parallax id='sendusamessage'>
-                <h2 className="text-4xl text-blue-600">Get a quote</h2>
+                <h2 className="text-4xl text-blue-600">Get a quote now</h2>
             </Parallax>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

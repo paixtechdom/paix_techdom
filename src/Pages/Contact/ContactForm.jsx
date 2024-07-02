@@ -75,7 +75,7 @@ export const ContactForm = () => {
         
         <div className="lg:w-10/12 w-11/12 my-4 flex flex-col gap-7">
             <Parallax id='sendusamessage'>
-                <h2 className="text-4xl text-blue-600">Send Us a message</h2>
+                <h2 className="text-4xl text-blue-600">Send Us a message now</h2>
             </Parallax>
             <Parallax id={'formname'} className={'w-full'}>
                 <FormInput label={'Name'} icon={'person-fill'} value={name} setValue={setName} type={'text'}/>
