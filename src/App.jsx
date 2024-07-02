@@ -10,17 +10,17 @@ import { IconButton } from './Components/Button';
 import { HelmetProvider } from 'react-helmet-async';
 
 
-const Navbar = React.lazy(() => delayLoad(import('./Components/Sections/Navbar')))
-const Footer = React.lazy(() => delayLoad(import('./Components/Sections/Footer')))
+const Navbar = React.lazy(() => import('./Components/Sections/Navbar'))
+const Footer = React.lazy(() => import('./Components/Sections/Footer'))
 
 // ************************PAGES***************
-const Home = React.lazy(() => delayLoad(import('./Pages/Home/Home')))
-const About = React.lazy(() => delayLoad(import('./Pages/About/About')))
-const Services = React.lazy(() => delayLoad(import('./Pages/Services/Services')))
-const Portfolio = React.lazy(() => delayLoad(import('./Pages/Portfolio/Portfolio')))
-const Quote = React.lazy(() => delayLoad(import('./Pages/Quote/Quote')))
-const Contact = React.lazy(() => delayLoad(import('./Pages/Contact/Contact')))
-const PageNotFound = React.lazy(() => delayLoad(import('./Pages/PageNotFound')))
+const Home = React.lazy(() => import('./Pages/Home/Home'))
+const About = React.lazy(() => import('./Pages/About/About'))
+const Services = React.lazy(() => import('./Pages/Services/Services'))
+const Portfolio = React.lazy(() => import('./Pages/Portfolio/Portfolio'))
+const Quote = React.lazy(() => import('./Pages/Quote/Quote'))
+const Contact = React.lazy(() => import('./Pages/Contact/Contact'))
+const PageNotFound = React.lazy(() => import('./Pages/PageNotFound'))
 
 
 import  "react-lazy-load-image-component/src/effects/blur.css"
@@ -28,11 +28,7 @@ import  "react-lazy-load-image-component/src/effects/opacity.css"
 
 
 
-function delayLoad(promise) {
-  return new Promise(resolve => {
-    setTimeout(resolve, 0);
-  }).then(() =>promise);
-}
+
 
 export const AppContext = createContext()
 
