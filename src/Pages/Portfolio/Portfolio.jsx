@@ -56,7 +56,7 @@ const Portfolio = () => {
         <>
             <Helmet>
                 <title>
-                    Our Projects - Paix Techdom
+                    Our Works - Paix Techdom
                 </title>
             </Helmet>            
             <main id="Portfolio" className="flex-col overflow-hidden w-full pt-9 center">
