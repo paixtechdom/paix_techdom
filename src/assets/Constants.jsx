@@ -25,9 +25,9 @@ const Navs = [
     },
   
     {
-        name:'Portfolio',
+        name:'Our works',
         icon:'journal-code',
-        link:'portfolio',
+        link:'works',
     },
     // {
     //     name:'Blog',

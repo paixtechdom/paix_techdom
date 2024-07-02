@@ -144,7 +144,7 @@ const router = createBrowserRouter([
           </Suspense>
       },
       {
-        path: '/portfolio',
+        path: '/works',
         element: <Suspense fallback={<Loader />}>
             <Portfolio />
           </Suspense>
