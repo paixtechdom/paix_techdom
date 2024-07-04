@@ -139,7 +139,9 @@ const APortfolio = ({portfolio, i}) => {
             // useRef={projectRef}
         >
                                 
-        <Parallax id={portfolio?.title.replaceAll(' ', '')} className={"w-full 11/12"}>
+        <Parallax id={portfolio?.title.replaceAll(' ', '')} className={"w-full min-h-[50vh] relative w-full"}>
+            <div className="absolute w-full h-full bg-secondary animate-pulse top-0 left-0"></div>
+
             <LazyLoadImage 
                 src={portfolio.img} 
                 placeholderSrc={portfolio.title} 
