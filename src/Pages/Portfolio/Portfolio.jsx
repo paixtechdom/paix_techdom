@@ -16,7 +16,7 @@ import img from "../../assets/img/portfolio.jpg"
 
 const PortfolioItems = [
     {
-        title: 'Onidson Travels & Tours Ltd',
+        title: 'Onidson Travels and Tours Ltd',
         link: 'https://onidsontravels.com',
         img: onidson
     },
@@ -112,7 +112,7 @@ const APortfolio = ({portfolio, i}) => {
     // const projectRef = useRef(null)
 
     const handleScroll = () => {
-        let element = document.querySelector(`#${portfolio?.title.replaceAll(' ', '').replaceAll('&', '')}`)
+        let element = document.querySelector(`#${portfolio?.title.replaceAll(' ', '')}`)
         
         if(element){
             let pos = element.getBoundingClientRect()
@@ -135,7 +135,7 @@ const APortfolio = ({portfolio, i}) => {
     }, [])
 
     return(
-        <a id={portfolio?.title.replaceAll(' ', '').replaceAll('&', '')} href={portfolio.link} target="_blank" className={`w-full center flex-col -reverse lg :flex-row${i%2 !== 0 ? "-reverse" : ""} gap-[50px] lg:mb-0 relative overflow-hidden`} 
+        <a id={portfolio?.title.replaceAll(' ', '')} href={portfolio.link} target="_blank" className={`w-full center flex-col -reverse lg :flex-row${i%2 !== 0 ? "-reverse" : ""} gap-[50px] lg:mb-0 relative overflow-hidden`} 
             // useRef={projectRef}
         >
                                 
