@@ -18,7 +18,7 @@ const PortfolioItems = [
     {
         title: 'Onidson Travels & Tours Ltd',
         link: 'https://onidsontravels.com',
-        img: saculietImg
+        img: onidson
     },
     {
         title: 'Saculiet Enterprises Nigeria',
