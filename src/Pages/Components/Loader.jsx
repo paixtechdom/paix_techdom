@@ -36,8 +36,7 @@ export const Loader = () => {
 const Ladder = () => {
     const steps = [
         'a','b','c',
-        'd','e','f',
-        'g'
+        'd','e','f'
     ]
     const [ lightUpLadder, setLightUpLadder ]  = useState(false)
     const [ lightUpStepsUp, setLightUpStepsUp ]  = useState(false)
