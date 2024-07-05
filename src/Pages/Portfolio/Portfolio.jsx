@@ -116,7 +116,7 @@ const APortfolio = ({portfolio, i}) => {
         
         if(element){
             let pos = element.getBoundingClientRect()
-            if(pos.top > -200 && pos.top < 0){
+            if(pos.top > -200 && pos.top < 100){
                 setIsPosMatch(true)
             }  else{
                 setIsPosMatch(false)
@@ -139,7 +139,7 @@ const APortfolio = ({portfolio, i}) => {
             // useRef={projectRef}
         >
                                 
-        <Parallax id={portfolio?.title.replaceAll(' ', '')} className={"w-full min-h-[50vh] relative w-full"}>
+        <Parallax id={portfolio?.title.replaceAll(' ', '')} className={"w-full min-h-[50vh] relative"}>
             <div className="absolute w-full h-full bg-secondary animate-pulse top-0 left-0"></div>
 
             <LazyLoadImage 
@@ -153,7 +153,7 @@ const APortfolio = ({portfolio, i}) => {
 
         <div className="flex flex-col gap-5 absolute bottom-0 min-h-[10vh] w-full text-center">
             <Parallax id={portfolio.title.replaceAll(' ', '')+'header'}>
-                <a target="_blank" href={portfolio.link} className="text-center border border-blue-900 bg-primary bg-opacity-80 p-3 px-6 rounded-full shadow-2xl">{portfolio.title}</a>
+                <a target="_blank" href={portfolio.link} className="text-center border border-blue-900 bg-primary bg-opacity-80 p-3 px-6 rounded-full shadow-2xl">Click to view <strong className="text-white"> {portfolio.title}</strong></a>
             </Parallax>
            
         </div>
