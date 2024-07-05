@@ -9,7 +9,7 @@ import classImg from "../../assets/img/portfolioImgs/classImg.png"
 import livingImg from "../../assets/img/portfolioImgs/livingWaters.png"
 import macmayImg from "../../assets/img/portfolioImgs/macmayImg.png"
 import saculietImg from "../../assets/img/portfolioImgs/saculietImg.png"
-import onidson from "../../assets/img/portfolioImgs/onidson.png"
+import onidson from "../../assets/img/portfolioImgs/onidsonImg.png"
 import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component'
 import { PagesHero } from "../Components/PagesHero"
 import img from "../../assets/img/portfolio.jpg"
