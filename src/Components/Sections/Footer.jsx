@@ -15,7 +15,7 @@ const Footer = () => {
         <Parallax id={'ljfkjbdkf'}  className="w-full border-t border-blue-900 mt-[10vh]">
         </Parallax>
         <div className=" w-full flex justify-center">
-           <div className={`w-11/12 lg:w-10/12 xl:w-9/12 px-3 flex flex-col lg:flex-row items-start justify-between gap-9 my-[15vh] z-20 `}>
+           <div className={`w-11/12 lg:w-10/12 xl:w-9/12 px-3 flex flex-col lg:flex-row items-start justify-between gap-9 mt-[15vh] z-20 `}>
             <div className="flex flex-col gap-3 w-full lg:w-6/12">
             <div className="flex items-start flex-col w-11/12 mb-[5vh] gap-4">
                 <Parallax id={'contacticons'} className="flex gap-5">
@@ -86,7 +86,7 @@ const Footer = () => {
         </div>    
 
 
-        <Parallax id={'fjlf'}>
+        <Parallax id={'fjlf'} className={"pt-[15vh]"}>
             <div className="p-3 py-9  flex justify-center items-center text-white text-center border-t border-blue-900">
                 <p>&copy; Copyright <strong className='text-xl'> Paix Techdom </strong> {new Date().getFullYear()} </p>
             </div>
