@@ -108,23 +108,7 @@ const Portfolio = () => {
 }
 
 const APortfolio = ({portfolio, i}) => {
-    const [ isPosMatch, setIsPosMatch ] = useState(false)
-    // const projectRef = useRef(null)
-
-    const handleScroll = () => {
-        let element = document.querySelector(`#${portfolio?.title.replaceAll(' ', '')}`)
-        
-        if(element){
-            let pos = element.getBoundingClientRect()
-            if(pos.top > -200 && pos.top < 100){
-                setIsPosMatch(true)
-            }  else{
-                setIsPosMatch(false)
-            }
-
-        }
-      
-    }
+ 
 
 
 
@@ -158,9 +142,7 @@ const APortfolio = ({portfolio, i}) => {
            
         </div>
 
-        <div className={`top-0 absolute left-0 h-full w-full bg-secondary scale-125 transition-all duration-500 center flex-col hover:opacity-90 active:opacity-90
-            ${isPosMatch ? "opacity-90 lg:opacity-0" : "opacity-0 "}
-        `}>
+        <div className={`top-0 absolute left-0 h-full w-full bg-secondary scale-125 transition-all duration-500 center flex-col hover:opacity-90 active:opacity-90`}>
             <i className="bi bi-eye-fill text-4xl"></i> 
             <p>
                 Click to view site
