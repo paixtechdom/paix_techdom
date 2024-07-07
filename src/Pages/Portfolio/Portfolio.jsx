@@ -108,7 +108,7 @@ const Portfolio = () => {
 }
 
 const APortfolio = ({portfolio, i}) => {
-
+ 
     return(
         <a id={portfolio?.title.replaceAll(' ', '')} href={portfolio.link} target="_blank" className={`w-full center flex-col -reverse lg :flex-row${i%2 !== 0 ? "-reverse" : ""} gap-[50px] lg:mb-0 relative overflow-hidden`} 
             // useRef={projectRef}
@@ -133,7 +133,8 @@ const APortfolio = ({portfolio, i}) => {
            
         </div>
 
-        <div className={`top-0 absolute left-0 h-full w-full bg-secondary scale-125 transition-all duration-500 center flex-col hover:opacity-90 active:opacity-90`}>
+        <div className={`top-0 absolute left-0 h-full w-full bg-secondary scale-125 transition-all duration-500 center flex-col hover:opacity-90 active:opacity-90 opacity-0
+        `}>
             <i className="bi bi-eye-fill text-4xl"></i> 
             <p>
                 Click to view site
