@@ -108,15 +108,6 @@ const Portfolio = () => {
 }
 
 const APortfolio = ({portfolio, i}) => {
- 
-
-
-
-    useEffect(() => {
-        document.addEventListener('scroll', handleScroll)
-        return () => document.removeEventListener("scroll", handleScroll)
-
-    }, [])
 
     return(
         <a id={portfolio?.title.replaceAll(' ', '')} href={portfolio.link} target="_blank" className={`w-full center flex-col -reverse lg :flex-row${i%2 !== 0 ? "-reverse" : ""} gap-[50px] lg:mb-0 relative overflow-hidden`} 
