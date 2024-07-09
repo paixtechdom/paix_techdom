@@ -131,7 +131,7 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
             onTouchEnd={handleTouchEnd}
             ref={sliderRef}
         >
-            <div className="overflow-hidden w-full flex justify-start h-fit pt-[10ch]">
+            <div className="overflow-hidden w-full flex justify-start h-fit pt-[15vh]">
 
                 <div className={`flex transition-all duration-1000`} style={{
                     width: HeroContent.length*100+'vw',
