@@ -16,7 +16,7 @@ import img from "../../assets/img/portfolio.jpg"
 
 const PortfolioItems = [
     {
-        title: 'Onidson Travels and Tours Ltd',
+        title: 'Onidson Travels and Logistics Ltd',
         link: 'https://onidsontravels.com',
         img: onidson
     },
