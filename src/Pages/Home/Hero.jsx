@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { HeroContent } from '../../assets/Constants'
 import { Button } from "../../Components/Button"
 import { LazyLoadImage } from "react-lazy-load-image-component"
+import { Link, Navigate } from "react-router-dom"
 
 
 
@@ -89,7 +90,9 @@ const XlSlider = ({currentSlide}) => {
                                         ))
                                     
                                     }</div>
+                                    <Link to={"/Contact"}>
                                     <Button text={'Start Now'} className="w-fit" icon={'cursor-fill'}/>
+                                    </Link>
 
                                 </div>
                             ))
@@ -144,7 +147,11 @@ const SmSlider = ({currentSlide, sliderRef, handleTouchStart, handleTouchEnd}) =
 
                                 <h1 className="text-3xl text-blue-600 w-[85%]">{content.header}</h1>
                                 <div className="text-gray-300  tracking-wide leading-relaxed w-[90%]">{content.text}</div>
-                                <Button text={'start now'} className="w-fit" icon={'cursor-fill'}/>
+                                <Link to={"/Contact"}>
+                                <Button text={'start now'} className="w-fit" icon={'cursor-fill'}
+                                    func={() => Navigate()}
+                                    />
+                                </Link>
 
                             </div>
                         ))
