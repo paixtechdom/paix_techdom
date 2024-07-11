@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect, Suspense } from 'react'
-import { createBrowserRouter, RouterProvider, Outlet, Link } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import './index.css'
 import { Alert } from './Components/Alert'
 import { Blog } from './Pages/Blog/Blog';
@@ -10,8 +10,8 @@ import { IconButton } from './Components/Button';
 import { HelmetProvider } from 'react-helmet-async';
 
 
-const Navbar = React.lazy(() => import('./Components/Sections/Navbar'))
-const Footer = React.lazy(() => import('./Components/Sections/Footer'))
+import { Navbar } from './Components/Sections/Navbar';
+import { Footer } from './Components/Sections/Footer';
 
 // ************************PAGES***************
 const Home = React.lazy(() => import('./Pages/Home/Home'))

@@ -8,7 +8,7 @@ import { Parallax } from '../../Components/Parallax'
 import { Button } from '../Button'
 import { AppContext } from '../../App'
 
-const Navbar = () =>{
+export const Navbar = () =>{
     const { currentNav, setCurrentNav } = useContext(AppContext)
     const navigate = useNavigate()
     const [ showNav, setShowNav ] = useState(false)
@@ -77,4 +77,3 @@ const Navbar = () =>{
 }
 
 
-export default  Navbar

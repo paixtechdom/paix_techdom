@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
 
-
 export const Loader = () => {
     const [ loaderOpacity, setLoaderOpacity ] = useState(100)
-    useEffect(() => {
-        document.body.style.overflow = 'hidden'
+    useEffect(() => {        
+        document.body.style.overflow = 'hidden';
         
         setTimeout(() => {
             document.body.style.overflowY = 'auto'
@@ -12,9 +11,7 @@ export const Loader = () => {
         
         setTimeout(() => {
             setLoaderOpacity(50)
-        }, 1400);
-
-
+        }, 1400);        
     }, [])
     
     return(
@@ -66,7 +63,7 @@ const Ladder = () => {
                         ${lightUpStepsUp ? 'border-t' : ''}
                         ${lightUpStepsDown ? 'border-b' : ''}
                         `} style={{
-                                boxShadow: 'inset 0px 0px 10px 5px rgba(225,225,225,0.1)'
+                                boxShadow: 'inset 0px 0px 10px 5px rgba(225,225,225,0.01)'
                             }}></p>
                         ))
                     }
@@ -81,9 +78,9 @@ const Ladder = () => {
 
 const LadderPole = ({condition, rotate}) => {
     return(
-        <div className={`h-[170vh] w-5 bg-[rgba(0,0,24)] borde r border-blue-800  z-10 relatiive -translate-y-[5vh] ${rotate}`} 
+        <div className={`h-[170vh] w-5 bg-[rgba(0,0,24)] borde r border-blue-100  z-10 relatiive -translate-y-[5vh] ${rotate}`} 
         style={{
-            boxShadow: 'inset 0px 0px 6px 5px rgba(225,225,225,0.1)'
+            boxShadow: 'inset 0px 0px 6px 5px rgba(225,225,225,0.01)'
         }}>
             <div className={`absolute bg-transparent w-full h-3 border-l border-r border-blue-400 transition-all duration-[2s] bottom-0 ${condition ? 'h-full' : ''}`}></div>
         </div>

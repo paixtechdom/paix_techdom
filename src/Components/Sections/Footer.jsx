@@ -7,7 +7,7 @@ import { Button } from '../Button'
 
 
 
-const Footer = () => {
+export const Footer = () => {
     const { currentNav, setCurrentNav } = useContext(AppContext)
     const navigate = useNavigate()
     return(
@@ -94,6 +94,3 @@ const Footer = () => {
         </footer>
     )
 }
-
-
-export default Footer
