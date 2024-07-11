@@ -5,8 +5,6 @@ import laptop from './img/laptop.png'
 import logo from "../assets/img/favicon.ico"
 
 
-
-
 const Navs = [
     {
         name:'Home',
@@ -41,9 +39,10 @@ const Navs = [
     },
     
 ]
+
 const HeroContent = [
     {
-        header: 'Elevate Your business by unlocking your digital potential',
+        header: 'Your business can still soar higher',
         text: [
             'Unleash the potential of your business with our tailored web services. Start building your online empire today with our free consultation!', 
         ],
