@@ -126,9 +126,9 @@ const APortfolio = ({portfolio, i}) => {
         </Parallax>
 
 
-        <div className="flex justify-center gap-5 absolute bottom-[5vh] md:bottom-0 min-h-[10vh] w-full text-center">
+        <div className="flex justify-center gap-5 absolute bottom-[5vh] min-h-[10vh] w-full text-center">
             <Parallax id={portfolio.title.replaceAll(' ', '')+'header'} className={"center max-w-[90%]"}>
-                <a target="_blank" href={portfolio.link} className="text-center border border-blue-900 bg-primary bg-opacity-80 p-3 px-6 rounded-full shadow-2xl flex flex-col md:flex-row items-center gap-2 justify-center max-w-full"><span>Click to view</span> <strong className="text-white"> {portfolio.title}</strong></a>
+                <a target="_blank" href={portfolio.link} className="text-center border border-blue-900 bg-primary bg-opacity-80 p-3 px-6 rounded-full shadow-2xl flex flex-col items-center gap-2 justify-center max-w-full"><span>Click to view</span> <strong className="text-white"> {portfolio.title}</strong></a>
             </Parallax>
            
         </div>
