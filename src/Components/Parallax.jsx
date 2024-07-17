@@ -27,7 +27,7 @@ export const Parallax = ({id, children, className}) => {
     }, [])
 
     return(
-        <div  id={id} className={`relative  transition-all duration-1000 ${isPosMatch ? ' top-0 ' : 'opacity-0 scale-[0.2] top-[5vh]'} ${className}`}>
+        <div  id={id} className={`relative  transition-all duration-1000 ${isPosMatch ? '' : 'opacity-0 scale-[0.2] top-[3vh]'} ${className}`}>
             {children}
         </div>
     )
