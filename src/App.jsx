@@ -1,105 +1,194 @@
-import React, { useState, createContext, useEffect, Suspense } from 'react'
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import './index.css'
-import { Alert } from './Components/Alert'
-import { Blog } from './Pages/Blog/Blog';
-import { ABlog } from './Pages/Blog/ABlog';
-import { Loader } from './Pages/Components/Loader';
-import { HeroBg } from './Components/HeroBg';
-import { IconButton } from './Components/Button';
-import { HelmetProvider } from 'react-helmet-async';
+import './App.css';
+import { createBrowserRouter, RouterProvider, Outlet, useNavigate } from 'react-router-dom';
 
-
-import { Navbar } from './Components/Sections/Navbar';
-import { Footer } from './Components/Sections/Footer';
-
-// ************************PAGES***************
-const Home = React.lazy(() => import('./Pages/Home/Home'))
-const About = React.lazy(() => import('./Pages/About/About'))
-const Services = React.lazy(() => import('./Pages/Services/Services'))
-const Portfolio = React.lazy(() => import('./Pages/Portfolio/Portfolio'))
-const Quote = React.lazy(() => import('./Pages/Quote/Quote'))
-const Contact = React.lazy(() => import('./Pages/Contact/Contact'))
-const PageNotFound = React.lazy(() => import('./Pages/PageNotFound'))
-
-
-import  "react-lazy-load-image-component/src/effects/blur.css"
-import  "react-lazy-load-image-component/src/effects/opacity.css"
-
-
-
+import { createContext, useState, useContext, useEffect, useId, useRef } from 'react';
+import Cookie from 'js-cookie'
+import axios from 'axios';
+// import { Settings } from './Component/Settings/Settings';
+import { Navbar } from './Components/Navbar';
+import { Home } from './Pages/Home/Home';
+import { CreateExam } from './Pages/Admin/Pages/CreateExam';
+import { Exam } from './Pages/Exam';
+import { StudentLogin } from './Pages/Student/StudentLogin';
+import { StudentRegistration } from './Pages/Student/StudentRegistration';
+import { Student } from './Pages/Student/Student';
+import { Admin } from './Pages/Admin/Admin';
+import { ConfirmBox } from './Components/ConfirmBox/ConfirmBox';
+import { AddNewExam } from './Pages/Admin/Pages/AddNewExam';
+import { AllExams } from './Pages/Admin/Pages/AllExams';
+import { Login } from './Pages/Admin/Pages/Login';
 
 
 export const AppContext = createContext()
 
 const Layout = () =>{
-  const [ currentNav, setCurrentNav ] = useState(0)  
-  const [ smallScreen, setSmallScreen ] = useState(false)  
-  const [ mediumScreen, setMediumScreen  ] = useState(false)  
-  const [ showNavBar, setShowNavBar ] = useState(false)
-  const [ showALert, setShowAlert ] = useState(false)
-  const [ alertMessage, setAlertMessage ] = useState('')
-  const [ alertType, setAlertType ] = useState('')
-  const [ subject, setSubject ] = useState('')
-  const [ isScrollTopZero, setIsScrollTopZero ] = useState(true)
-  const [ scrolledDown, setScrolledDown ] = useState(false)
+  const Navigate = useNavigate()
 
-  const  dbLocation = 'http://localhost:80/paixAPI'
+  
+  const checkUser = Cookie.get('userDetails')
+  const [ login, setLogin ] = useState(false)
+  const [ confirm, setConfirm ] = useState(false)
+  const [ confirmMessage, setConfirmMessage ] = useState('')
+  const [ confirmFunction, setConfirmFunction ] = useState('')
+  const [ userName, setUserName ] = useState('') 
+  const [ firstName, setFirstName ] = useState('') 
+  const [ userId, setUserId ] = useState('') 
+  const [ examKey, setExamKey ] = useState('') 
+  const [ examinationKey, setExaminationKey ] = useState('') 
+  const [ curentExaminationKey, setCurrentExaminationKey  ] = useState('') 
+  const [ examStatus, setExamStatus ] = useState('') 
+  const [ savedQuestions, setSavedQuestions ] = useState([])
+  const [ examTitle, setExamTitle ] = useState('')
+  const [ matricNumber, setMatricNumber ] = useState('')
+  const [ studentName, setStudentName ] = useState('')
+  const [ showResult, setShowResult ] = useState(false)
+  const [ examKeyTobeDeleted, setExamKeyTobeDeleted ] = useState('')
+  const [ questionTobeDeleted, setQuestionTobeDeleted ] = useState('')
+  const [ examQuestions, setExamQuestions ] = useState([])
+  
+  const [ startedExam, setStartedExam ] = useState(false)
+  const [ showScore, setShowScore ] = useState(false)
+  const [ examEnded, setExamEnded ] = useState(false)
+  const [ markedExam, setMarkedExam ] = useState('false')
+  
+  const [  duration, setDuration ] = useState(0)
+  const [ exams, setExams ] = useState([])
+  const [ score, setScore ] = useState(0)
+  const [ studentMatricNumber, setStudentMatricNumber ] = useState('')
+  const [ studentFaculty, setStudentFaculty ] = useState('')
+  const [ studentDepartment, setStudentDepartment ] = useState('')
+  const [ studentLevel, setStudentLevel ] = useState('')
+  const [ noAvailableExams, setNoAvailableExams ]= useState([])
+  const [ marking, setMarking ]= useState(false)
+  const [ hideNavBar, setHideNavBar ]= useState(false)
 
-  document.addEventListener('scroll', () => {
-    if(document.documentElement.scrollTop > 500){
-        setScrolledDown(true)
-    }else{
-        setScrolledDown(false)
-    }
-})
+  // const dbLocation = 'https://online-exam-app.000webhostapp.com/quiz_app'
+  const dbLocation = 'http://localhost:80/api-quiz-app'
 
+
+
+  
+  // ON refresh set user details to the cookie saved
   useEffect(() =>{
-      document.addEventListener('scroll', handleScroll)
+      // if(login == false){
+      //   Cookie.remove('userDetails', {path:'/'})
+      // }
+      const user = Cookie.get('userDetails')
+      if(user != undefined){
+      
+        const userd = JSON.parse(Cookie.get('userDetails'))
+        if(userd?.userName == 'admin'){
+          setUserName('admin')
+        }else{
+          setUserName(userd?.firstName + ' '+ userd.lastName )
+          setFirstName(userd?.firstName)
+  
+        }
+        setStudentMatricNumber(userd.matricNumber)
+        setStudentFaculty(userd?.faculty)
+        setStudentDepartment(userd?.department)
+        setStudentLevel(userd?.level)
+        setUserId(userd?.id)
+        setLogin(true)
+      }
+
+
   }, [])
 
-  const handleScroll = () =>{
-    if(document.documentElement.scrollTop > 200){
-      setIsScrollTopZero(false)
-    }else{
-      setIsScrollTopZero(true)
-    }
+  // npm install bcryptjs --save
+  const markExam = () =>{
+  
   }
 
+  // useEffect(() =>{
+  //   if(markedExam == true && markExam){
+
+  //   }
+
+  // }, [markedExam])
+  const timerId = useRef()
+
+
+  const submitExam = (score, totalNoOfQuestions) =>{
+    setScore(score)    
+    setExamEnded(true) 
+    setStartedExam(false) 
+    clearInterval(timerId.current)
+    setMarking(true)
+    setTimeout(() => {
+      setMarking(false)
+      setShowScore(true)
+      // axios.post(`${dbLocation}/examResults.php/save`, {
+      //       score: score,
+      //       examKey: examKey,
+      //       matricNumber: studentMatricNumber,
+      //       department: studentDepartment,
+      //       faculty: studentFaculty,
+      //       level: studentLevel,
+      //       studentName: userName
+      //     }).then(function(response){
+            
+      //       setMarkedExam(false)
+      //     })
+    }, 3000);
+
+}
+
+
+const Logout = () =>{
+  if(userName == 'admin'){
+      Navigate('/Login')
+  }else{
+      Navigate('/Student_login')
+
+  }
+  Cookie.remove('userDetails', {path:'/'})
+  setLogin(false)
+  setUserName('')
+  setFirstName('')
+  setConfirm(false)
+  setStudentMatricNumber('')
+}
+
+const fetchExams = () =>{
+  axios.get(`${dbLocation}/exams.php/`).then(function(response){
+      setExams(response.data)
+  }) 
+}
+const deleteExam = async (examKeyTobeDeleted) =>{
+  const response = await axios.delete(`${dbLocation}/exams.php/${examKeyTobeDeleted}/delete`).then(function(){
+    alert('Exam Deleted')
+    fetchExams()
+  })
   
+}
+const fetchQuestions = (newExamKey) =>{
+  axios.get(`${dbLocation}/examquestions.php/${newExamKey}`, newExamKey).then(function(response){
+      setSavedQuestions(response.data)
+    }) 
+  }
   
+  const deleteQuestion = async (questionTobeDeleted) =>{
+    const response = await axios.delete(`${dbLocation}/examquestions.php/${questionTobeDeleted}/delete`).then(function() {
+      alert('Question Deleted')
+      fetchQuestions(examKey)
+    })
+}
+
+
+
   return(
-    <div className='app bg-gray-100 text-gray-100'>
-      <HelmetProvider>
-        <AppContext.Provider value={{currentNav, setCurrentNav, smallScreen, mediumScreen , showALert, setShowAlert, alertMessage, setAlertMessage, setAlertType, subject, setSubject, showNavBar, setShowNavBar, isScrollTopZero, setIsScrollTopZero, dbLocation}}>
+    <div className='app'>
+   
+        
+        <AppContext.Provider value={{ userName, examKey, setExamKey,  examStatus, setExamStatus, setUserName, setLogin, login, examinationKey, setExaminationKey,savedQuestions, setSavedQuestions, examTitle, setExamTitle ,examQuestions, setExamQuestions, score, setScore, matricNumber, setMatricNumber, studentName, setStudentName, showResult, setShowResult, studentMatricNumber, setStudentMatricNumber, studentLevel, setStudentLevel, setUserId, userId, studentDepartment, setStudentDepartment, studentFaculty, setStudentFaculty, dbLocation, noAvailableExams, setNoAvailableExams, examinationKey, curentExaminationKey ,setCurrentExaminationKey, startedExam, setStartedExam, submitExam, examEnded, setExamEnded, showScore, setShowScore, confirm, setConfirm, confirmMessage, setConfirmMessage, confirmFunction, setConfirmFunction, Logout, examKeyTobeDeleted, setExamKeyTobeDeleted, deleteExam, fetchExams, exams, setExams, questionTobeDeleted, setQuestionTobeDeleted, deleteQuestion, fetchQuestions, duration, setDuration, markExam, markedExam, setMarkedExam, timerId, marking, setMarking, firstName, setFirstName, hideNavBar, setHideNavBar }}>
+        <Navbar />
+        <Outlet />
+        <ConfirmBox />
 
-          <div className='d-flex w-full bg-gradient-to-l from-secondary via-primary to-secondary'>
+      </AppContext.Provider> 
 
-            <Suspense fallback={<></>}>
-              <Navbar />
-            </Suspense>
-            <HeroBg />
-              
-            <Outlet />
-
-            <IconButton icon={'arrow-up'} className={`fixed bottom-[5%] z-50 scale-125  transition-all duration-1000 ${scrolledDown ? 'right-[5%]' : '-right-[50%]'}`} func={() => {
-              scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                })
-            }}/>
-           
-            {
-              showALert ? 
-              <Alert alertMessage={alertMessage} alertType={alertType} setShowAlert={setShowAlert}/> : ''
-            }
-            <Suspense fallback={<></>}>
-              <Footer />
-            </Suspense>
-          </div>
-     
-        </AppContext.Provider>
-      </HelmetProvider>
+ 
     </div>
   )
 }
@@ -111,59 +200,47 @@ const router = createBrowserRouter([
     children:[
       {
         path: '/',
-        element: 
-        
-        <React.Suspense fallback={<Loader />}>
-          <Home />
-        </React.Suspense>
-      },
-      // {
-      //   path: '/Blog/:id',
-      //   element: <ABlog />
-      // },
-      // {
-      //   path: '/Blog/',
-      //   element: <Blog />
-      // },
-      {
-        path: '/About',
-        element: 
-          <Suspense fallback={<Loader />}>
-            <About />
-          </Suspense>
+        element: <Home />
       },
       {
-        path: '/Services',
-        element: 
-          <Suspense fallback={<Loader />}>
-              <Services />
-          </Suspense>
+        path: '/exam/:examTitle',
+        element: <CreateExam />
       },
       {
-        path: '/works',
-        element: <Suspense fallback={<Loader />}>
-            <Portfolio />
-          </Suspense>
+        path: '/exams/add-new',
+        element: <AddNewExam />
       },
       {
-        path: '/Quote',
-        element: <Suspense fallback={<Loader />}>
-            <Quote />
-          </Suspense>
+        path: '/exams/all-exams',
+        element: <AllExams />
       },
       {
-        path: '/Contact',
-        element: 
-          <Suspense fallback={<Loader />}>
-            <Contact />
-          </Suspense>
+        path: '/Examination/:examinationKey',
+        element: <Exam />
+      },
+      {
+        path: '/Login',
+        element: <Login />
+      },
+      {
+        path: '/Student_login',
+        element: <StudentLogin />
+      },
+      {
+        path: '/dashboard',
+        element: <Admin />
+      },
+      {
+        path: '/Student/:username',
+        element: <Student />
+      },
+      {
+        path: '/Student_registration',
+        element: <StudentRegistration />
       },
       {
         path: '/*',
-        element: 
-          <Suspense fallback={<Loader />}>
-            <PageNotFound /> 
-          </Suspense>
+        element: <Home />
       }
     ]
   }
@@ -171,15 +248,14 @@ const router = createBrowserRouter([
 
 function App() {
   
+    return (
+      <div className='App'>
 
-  return (
-    <div className='App'>
-      <div>
-        <RouterProvider router={router} />
-
+          <RouterProvider router={router} /> 
+      
       </div>
-    </div>
-  );
+    )
+
 
 
 }
