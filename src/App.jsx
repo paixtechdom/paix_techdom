@@ -7,7 +7,7 @@ import axios from 'axios';
 // import { Settings } from './Component/Settings/Settings';
 import { Navbar } from './Components/Navbar';
 import { Home } from './Pages/Home/Home';
-import { CreateExam } from './Pages/Admin/Pages/CreateExam';
+import { CreateExam } from './Pages/Admin/Pages/CreateExams/CreateExam';
 import { Exam } from './Pages/Exam';
 import { StudentLogin } from './Pages/Student/StudentLogin';
 import { StudentRegistration } from './Pages/Student/StudentRegistration';
@@ -17,6 +17,7 @@ import { ConfirmBox } from './Components/ConfirmBox/ConfirmBox';
 import { AddNewExam } from './Pages/Admin/Pages/AddNewExam';
 import { AllExams } from './Pages/Admin/Pages/AllExams';
 import { Login } from './Pages/Admin/Pages/Login';
+import Alert from './Components/Alert';
 
 
 export const AppContext = createContext()
@@ -33,9 +34,11 @@ const Layout = () =>{
   const [ userName, setUserName ] = useState('') 
   const [ firstName, setFirstName ] = useState('') 
   const [ userId, setUserId ] = useState('') 
+  
   const [ examKey, setExamKey ] = useState('') 
   const [ examinationKey, setExaminationKey ] = useState('') 
   const [ curentExaminationKey, setCurrentExaminationKey  ] = useState('') 
+
   const [ examStatus, setExamStatus ] = useState('') 
   const [ savedQuestions, setSavedQuestions ] = useState([])
   const [ examTitle, setExamTitle ] = useState('')
@@ -181,8 +184,9 @@ const fetchQuestions = (newExamKey) =>{
     <div className='app'>
    
         
-        <AppContext.Provider value={{ userName, examKey, setExamKey,  examStatus, setExamStatus, setUserName, setLogin, login, examinationKey, setExaminationKey,savedQuestions, setSavedQuestions, examTitle, setExamTitle ,examQuestions, setExamQuestions, score, setScore, matricNumber, setMatricNumber, studentName, setStudentName, showResult, setShowResult, studentMatricNumber, setStudentMatricNumber, studentLevel, setStudentLevel, setUserId, userId, studentDepartment, setStudentDepartment, studentFaculty, setStudentFaculty, dbLocation, noAvailableExams, setNoAvailableExams, examinationKey, curentExaminationKey ,setCurrentExaminationKey, startedExam, setStartedExam, submitExam, examEnded, setExamEnded, showScore, setShowScore, confirm, setConfirm, confirmMessage, setConfirmMessage, confirmFunction, setConfirmFunction, Logout, examKeyTobeDeleted, setExamKeyTobeDeleted, deleteExam, fetchExams, exams, setExams, questionTobeDeleted, setQuestionTobeDeleted, deleteQuestion, fetchQuestions, duration, setDuration, markExam, markedExam, setMarkedExam, timerId, marking, setMarking, firstName, setFirstName, hideNavBar, setHideNavBar }}>
+        <AppContext.Provider value={{ userName, examKey, setExamKey,  examStatus, setExamStatus, setUserName, setLogin, login, examinationKey, setExaminationKey, savedQuestions, setSavedQuestions, examTitle, setExamTitle ,examQuestions, setExamQuestions, score, setScore, matricNumber, setMatricNumber, studentName, setStudentName, showResult, setShowResult, studentMatricNumber, setStudentMatricNumber, studentLevel, setStudentLevel, setUserId, userId, studentDepartment, setStudentDepartment, studentFaculty, setStudentFaculty, dbLocation, noAvailableExams, setNoAvailableExams, examinationKey, curentExaminationKey ,setCurrentExaminationKey, startedExam, setStartedExam, submitExam, examEnded, setExamEnded, showScore, setShowScore, confirm, setConfirm, confirmMessage, setConfirmMessage, confirmFunction, setConfirmFunction, Logout, examKeyTobeDeleted, setExamKeyTobeDeleted, deleteExam, fetchExams, exams, setExams, questionTobeDeleted, setQuestionTobeDeleted, deleteQuestion, fetchQuestions, duration, setDuration, markExam, markedExam, setMarkedExam, timerId, marking, setMarking, firstName, setFirstName, hideNavBar, setHideNavBar }}>
         <Navbar />
+        <Alert />
         <Outlet />
         <ConfirmBox />
 

@@ -5,10 +5,15 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { AppContext } from "../../App"
+import { dbLocation } from "../../assets/Constants"
+import { useSelector } from "react-redux"
 
 
-export const EditQuestion = ({question, optionA, optionB, optionC, optionD, questionId, answer, setShowEditQuestion, questionNo }) =>{
-    const { dbLocation, fetchQuestions, examKey } = useContext(AppContext)
+export const EditQuestion = ({editQuestionInfo, setShowEditQuestion  }) =>{
+    const { fetchQuestions } = useContext(AppContext)
+    const appstate = useSelector((state) => state.appslice)  
+    const examKey = appstate.examKey
+
     const [ newAnswer, setNewAnswer ] = useState('')
     const [ newQuestion, setNewQuestion ] = useState('')
     const [ newOptionA, setNewOptionA ] = useState('vvv')

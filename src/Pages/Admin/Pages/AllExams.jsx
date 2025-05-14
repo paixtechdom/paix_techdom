@@ -10,16 +10,21 @@ import { Results } from "../Components/Results"
 import { NoSubmits } from "../Components/NoSubmits"
 import Cookie from "js-cookie"
 import { DangerButtonCLass, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
+
+import { setDuration, setExamKey, setExamStatus, setExamTitle } from "../../../assets/store/AppSlice"
+import { useDispatch } from "react-redux"
  
 
 export const AllExams = () =>{
     const [ examResultTitle, setExamResultTitle ] = useState('')
     const [ resultExamKey, setResultExamKey ] = useState('')
+
     const [ selectedFaculty, setSelectedFaculty ] = useState('')
-    const { userName, setExamTitle, setExamKey, showResult, setShowResult, dbLocation, setExamStatus, examStyle, setExamStyle, setConfirm, setConfirmFunction, setConfirmMessage, setExamKeyTobeDeleted, exams, fetchExams, examKey,  duration, setDuration} = useContext(AppContext)
+    const { userName, showResult, setShowResult, dbLocation, examStyle, setExamStyle, setConfirm, setConfirmFunction, setConfirmMessage, setExamKeyTobeDeleted, exams, fetchExams } = useContext(AppContext)
     const Navigate = useNavigate()
     const [ currentIndex, setCurrentIndex ] = useState(1)
 
+    const dispatch = useDispatch()
 
 
 
@@ -27,10 +32,6 @@ export const AllExams = () =>{
         fetchExams()
         Cookie.remove('examKey', {path:'/admin'})
     }, [])
-    // useEffect(() => {
-    //     console.table(exams)
-    // }, [exams])
-
     
 
 
@@ -65,7 +66,7 @@ export const AllExams = () =>{
 
                     </div>
                     : 
-                    <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 md:grid-col-2 lg:grid-cols-3">
+                    <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                         {
                         exams?.map((exam, key) =>(                        
                             <AvailableExamBlock 
@@ -91,19 +92,27 @@ export const AllExams = () =>{
 
 
 
-const AvailableExamBlock = ({exam}) => (
+const AvailableExamBlock = ({exam}) => {
+    const dispatch = useDispatch()
+
+
+    return(
     <div className="flex flex-col gap-3 rounded-xl bg-gray-50 shadow-lg p-5 relative">
          <span className={`absolute top-0 right-0 w-4 h-4 rounded-tr-xl ${exam.status == "Active" ?  "bg-green-600 animate-pulse" : "bg-gray-700"}`}
         ></span>
 
         <Link to = {`/Exam/${exam.examTitle.replaceAll(' ', "-")}`} 
-        className="font-bold text-lg text-gray-700"
-        onClick={e =>{
-            setExamKey(exam.examKey)
-            setExamStatus(exam.status)
-            setDuration(exam.duration)
-            
-            setExamTitle(exam.examTitle)
+        className="font-bold text-lg text-gray-700 hover:underline hover:text-blue-900"
+        onClick={() =>{
+            dispatch(setExamKey(exam.examKey))
+            dispatch(setExamStatus(exam.status))
+            dispatch(setDuration(exam.duration))
+            dispatch(setExamTitle(exam.examTitle))
+            Cookie.set('examKey', exam.examKey, {
+                expires: 1,
+                sameSite:'strict',
+                secure: 'true'
+            })            
             }}> 
             {exam.examTitle}
         </Link>
@@ -120,9 +129,9 @@ const AvailableExamBlock = ({exam}) => (
 
 
 
-        <div className="flex justify-between items-center gap-4 mt-4">
+        <div className="flex justify-between items-center w-full gap-4 mt-4">
 
-            <button className={SecondaryButtonCLass + "w-full lg:scale-90"}  onClick={() =>{ 
+            <button className={SecondaryButtonCLass + " w-full lg:scale-90"}  onClick={() =>{ 
                 setExamResultTitle(exam.examTitle)
                 setResultExamKey(exam.examKey)
                 setShowResult(true)
@@ -143,8 +152,8 @@ const AvailableExamBlock = ({exam}) => (
        
        
 
-</div>
-)
+    </div>
+)}
 
 
 // <div className="sortBy">

@@ -31,8 +31,8 @@ export const Home = () =>{
 
                         <img src="./images (1).jpeg" alt="Educational Image" className="w-6/12"/>
 
-                        <Link to='/dashboard' className={LinkClass}> 
-                        {/* <Link to='/Login' className={LinkClass}>  */}
+                        {/* <Link to='/dashboard' className={LinkClass}>  */}
+                        <Link to='/Login' className={LinkClass}> 
                             Admin 
                         </Link>
                     </div>

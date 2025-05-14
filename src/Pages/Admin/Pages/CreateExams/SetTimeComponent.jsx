@@ -1,0 +1,157 @@
+import React, { useEffect, useState } from 'react'
+import { FormatTime } from '../../../../assets/Functions'
+import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass } from '../../../../assets/Constants'
+import { useDispatch } from 'react-redux'
+import { setDuration } from '../../../../assets/store/AppSlice'
+import axios from 'axios'
+
+// to format time input in seconds to hr:min:sec format
+
+export const SetTimeComponent = ({examKey, duration}) => {    
+    const [ timeFrame, setTimeFrame ] = useState(duration)
+    const [ closeTimerInout, setCloseTimerInput ] = useState(true)
+
+    const addDuration = async () =>{
+        console.log(timeFrame)
+        await axios.post(`${dbLocation}/exams.php/${timeFrame}/${examKey}`)
+    }
+
+  return (
+    <main className={``}>
+
+        <div className={PrimaryButtonCLass + ' flex items-center gap-2'}
+        onClick={()=> setCloseTimerInput(!closeTimerInout)}>
+            <p className='text-sm'>Duration:</p>
+            <p>
+                {FormatTime(duration)}
+            </p>
+        </div>
+
+        {
+            !closeTimerInout &&
+            <SetNewSession 
+                setTimeFrame={setTimeFrame} 
+                timeFrame={timeFrame}
+                setCloseTimerInput={setCloseTimerInput}
+                addDuration={addDuration}
+            />
+        }
+           
+    </main>
+  )
+}
+
+
+
+const SetNewSession = ({setTimeFrame, timeFrame, setCloseTimerInput, addDuration}) => {
+    const [ sec, setSec ] = useState(0)
+    const [ min, setMin ] = useState(0)
+    const [ hr, setHr ] = useState(0)
+    
+    const dispatch = useDispatch()
+    
+    const Minutes_To_Seconds = (min) => {
+        return min * 60 
+    }
+    const Hours_To_Seconds = (hr) => {
+        return hr * 60 * 60
+    }
+
+    useEffect(() => {
+        setTimeFrame(Hours_To_Seconds(hr) + Minutes_To_Seconds(min) + sec)
+    }, [sec, min, hr])
+
+
+
+    return(
+        <div className="absolute center flex-col gap-3 bg-gray-100 p-5 rounded-xl shadow-xl min-w-[220px] mt-4">
+   
+            <div className="flex justify-between gap-4 w-full">
+                
+                <SetValuesComponent 
+                    value={hr}
+                    setValue={setHr}
+                    title={"Hr"}
+                    />
+
+                <SetValuesComponent 
+                    value={min}
+                    setValue={setMin}
+                    title={"Min"}
+                    />
+                
+                <SetValuesComponent 
+                    value={sec}
+                    setValue={setSec}
+                    title={"Sec"}
+                />
+                
+            </div>
+
+            <div className="flex items-center w-full gap-3 mt-3">
+
+                <button className={PrimaryButtonCLass + " w-full"}
+                onClick={() => {
+                    setCloseTimerInput(true)
+                    dispatch(setDuration(timeFrame))
+                    addDuration()
+                }}>
+                    Enter
+                </button>
+                
+                <button className={SecondaryButtonCLass + " w-fit"} onClick={() => {setCloseTimerInput(true)}} >
+                    Close
+                </button>
+            </div>
+
+        </div>
+
+    )
+}
+
+
+const SetValuesComponent = ({value, setValue, title}) => {
+    return(
+        <div className="center flex-col gap-2">
+            <p className={`text-[12px] font-bold text-gray-500`}>{title}</p>
+            <ControlsButton 
+            func={() => {
+                setValue(prev => prev +=   1)
+            }}>
+                <i className='bi bi-chevron-up'></i>
+            </ControlsButton>
+
+            <input 
+                type="number" 
+                value={value} 
+                className='w-12 text-center bg-transparent center'
+                onChange={(e) => {
+                setValue(value < 0 ? 0 : e.target.value) 
+            }}
+            />
+            
+            <ControlsButton 
+                func={() => {
+                setValue(prev => value <= 0 ? 0 : prev -= 1)
+                }} 
+                disabled={value == 0}
+            >
+                <i className='bi bi-chevron-down'></i>
+            </ControlsButton>
+
+        </div>
+    )
+}
+
+
+const ControlsButton = ({children, func, disabled}) => {
+    return(
+        <button className='bg-black bg-opacity-30 rounded h-7 w-full center active:scale-90 transition-all duration-100 active:rotate-[15deg] shadow-sm shadow-blue-950 scale-90 disabled:opacity-40 disabled:cursor-not-allowed' 
+        disabled={disabled}
+        onClick={func}
+        >
+            {children}
+        </button>
+    )
+}
+

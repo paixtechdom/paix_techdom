@@ -43,7 +43,7 @@ export const AddNewExam = () => {
         let b = new Date().getFullYear()
         let d = new Date().getSeconds()
         let e = new Date().getMilliseconds()
-        let newExamKey = ( userName+ ''+a+''+d+''+b +''+e  )
+        let newExamKey = ( userName + "exam" + ''+a+''+d+''+b +''+e  )
         setValue('examKey', newExamKey)
         setValue('status', 'Inactive')
         reset({

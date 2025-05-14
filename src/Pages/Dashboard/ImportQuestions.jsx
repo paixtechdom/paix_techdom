@@ -4,9 +4,11 @@ import * as yup from 'yup'
 import axios from "axios"
 import { useContext, useState } from "react"
 import { AppContext } from "../../App"
+import { PrimaryButtonCLass, SecondaryButtonCLass } from "../../assets/Constants"
 
 export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examStatus}) =>{
     const { dbLocation } = useContext(AppContext)
+    const [ doc, setDoc ] = useState(null)
 
     const schema = yup.object().shape({
 
@@ -16,7 +18,6 @@ export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examSta
         resolver: yupResolver(schema)
     })
     
-    const [ doc, setDoc ] = useState(null)
   
     const setFile = (e) =>{
        const inputedFile = e.target.files[0]
@@ -62,19 +63,16 @@ export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examSta
                 display: doc == null ? 'none' : 'block' 
             }}/>
 
-            <button  style={{
-                display: doc == null ? 'block' : 'none' 
-            }}
+            <button 
+            className={`${doc == null ? 'block' : 'hidden'} ${SecondaryButtonCLass}`}
              onClick={() =>{
                 document.querySelector('#file').click()
             }}>
-                Click to import questions 
+                Import questions 
             </button>
 
             <button name="file" onClick={handleSubmit(postFile)} 
-                style={{
-                    display: doc == null ? 'none' : 'block' 
-                }}
+            className={`${doc == null ? 'hidden' : 'block'} ${PrimaryButtonCLass}`}
             >Import</button>
         </>
     )
