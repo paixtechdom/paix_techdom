@@ -3,40 +3,30 @@ import { useContext, useState } from "react"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "../../../App"
-import { useForm } from "react-hook-form"
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+
 import { Results } from "../Components/Results"
 import { NoSubmits } from "../Components/NoSubmits"
 import Cookie from "js-cookie"
-import { DangerButtonCLass, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
-
-import { setDuration, setExamKey, setExamStatus, setExamTitle } from "../../../assets/store/AppSlice"
-import { useDispatch } from "react-redux"
+import { DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
+import { useDispatch, useSelector } from "react-redux"
+import { useUpdateExamDetails } from "../../../assets/Hooks/useUpdateExamDetails"
+import { useMyConfirmBox } from "../../../assets/Hooks/useMyConfirmBox"
+import { setConfirmedAction } from "../../../assets/store/ConfirmBoxSlice"
+import { useMyAlert } from "../../../assets/Hooks/useMyAlert"
+import InfoComponent from "../../../Components/InfoComponent"
  
 
 export const AllExams = () =>{
     const [ examResultTitle, setExamResultTitle ] = useState('')
     const [ resultExamKey, setResultExamKey ] = useState('')
-
-    const [ selectedFaculty, setSelectedFaculty ] = useState('')
-    const { userName, showResult, setShowResult, dbLocation, examStyle, setExamStyle, setConfirm, setConfirmFunction, setConfirmMessage, setExamKeyTobeDeleted, exams, fetchExams } = useContext(AppContext)
+    const { userName, showResult, setShowResult, setConfirmMessage, setExamKeyTobeDeleted, exams, fetchExams } = useContext(AppContext)
     const Navigate = useNavigate()
-    const [ currentIndex, setCurrentIndex ] = useState(1)
-
-    const dispatch = useDispatch()
-
-
-
+    
     useEffect(() =>{
         fetchExams()
         Cookie.remove('examKey', {path:'/admin'})
     }, [])
     
-
-
-    const [ examValue, setExamValue ] = useState('exam.level')
-    const [ filterValue, setFilterValue ] = useState('')
 
     return (
         <main className='center flex-col w-full mt-[12vh]'> 
@@ -47,8 +37,7 @@ export const AllExams = () =>{
                     <h1 className={TopLevelHeader}>Exams</h1>
 
                     <div className="flex items-center gap-3 w-full lg:w-fit">
-                        <Link to={'/exams/add-new'} className={PrimaryButtonCLass + "flex items-center gap-1 "}> <i className="bi bi-plus text-2xl"></i>
-                            Create Exam</Link>
+                        <Link to={'/exams/add-new'} className={PrimaryButtonCLass + " "}> Create Exam</Link>
 
                         <Link to="" className={SecondaryButtonCLass + " "}>Generate With AI</Link>
                     </div>
@@ -71,7 +60,9 @@ export const AllExams = () =>{
                         exams?.map((exam, key) =>(                        
                             <AvailableExamBlock 
                             exam={exam} 
-                            key={key}/>
+                            key={key}
+                            fetchExams={fetchExams}
+                            />
                             ))
                         }
                     </section>
@@ -92,8 +83,34 @@ export const AllExams = () =>{
 
 
 
-const AvailableExamBlock = ({exam}) => {
+const AvailableExamBlock = ({exam, fetchExams}) => {
     const dispatch = useDispatch()
+    const updateExamDetails = useUpdateExamDetails()
+    const [useConfirmBox] = useMyConfirmBox()
+    const triggerAlert = useMyAlert()
+
+    const [ deleteClicked, setDeleteClicked ] = useState(false)
+    const confirmedAction = useSelector((state) => state.confirmBox.confirmedAction)  
+    
+    
+    const deleteExam = async () =>{
+        await axios.delete(`${dbLocation}/exams.php/${exam.examKey}/delete`).then(function(){
+          fetchExams()
+          triggerAlert("success", `Exam deleted successfully`)
+          
+        }).catch(() => {
+            triggerAlert("error", `Failed to delete Exam`)
+        })
+        
+      }
+
+    useEffect(() => {
+        if(confirmedAction && deleteClicked){        
+            deleteExam()    
+            dispatch(setConfirmedAction(false))
+            setDeleteClicked(false)
+        }
+    }, [confirmedAction])
 
 
     return(
@@ -103,11 +120,8 @@ const AvailableExamBlock = ({exam}) => {
 
         <Link to = {`/Exam/${exam.examTitle.replaceAll(' ', "-")}`} 
         className="font-bold text-lg text-gray-700 hover:underline hover:text-blue-900"
-        onClick={() =>{
-            dispatch(setExamKey(exam.examKey))
-            dispatch(setExamStatus(exam.status))
-            dispatch(setDuration(exam.duration))
-            dispatch(setExamTitle(exam.examTitle))
+        onClick={() =>{ 
+            updateExamDetails(exam)
             Cookie.set('examKey', exam.examKey, {
                 expires: 1,
                 sameSite:'strict',
@@ -116,18 +130,23 @@ const AvailableExamBlock = ({exam}) => {
             }}> 
             {exam.examTitle}
         </Link>
-       
-        <p className="flex items-center gap-1"><span>Faculty:</span> {exam.faculty}</p>
         
-        <div className="flex justify-between">
-            <p className="flex items-center gap-1"><span>Dept: </span> {exam.department}</p>
+        <div className="flex justify-between gap-3">
+            <InfoComponent 
+                title={"Faculty:"}
+                info={exam.faculty}
+            />
 
-            <p className="flex items-center gap-1"><span>Level:</span> {exam.level}</p>
-
-
+            <InfoComponent 
+                title={"Level:"}
+                info={exam.level}
+            />
         </div>
 
-
+        <InfoComponent 
+            title={"Department:"}
+            info={exam.department}
+        />
 
         <div className="flex justify-between items-center w-full gap-4 mt-4">
 
@@ -140,17 +159,12 @@ const AvailableExamBlock = ({exam}) => {
             </button>
 
             <button className={DangerButtonCLass + " w-full lg:scale-90"}  onClick={() =>{
-                setExamKeyTobeDeleted(exam.examKey)
-                setConfirm(true)
-                setConfirmFunction('deleteExam')
-                setConfirmMessage(`Do you want to delete ${exam.examTitle}?`) 
+                 setDeleteClicked(true)
+                 useConfirmBox('Confirm to delete this exam' ,exam.examTitle)
             }}>
                 Delete Exam
             </button>
         </div>
-
-       
-       
 
     </div>
 )}

@@ -8,16 +8,22 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import Cookie from "js-cookie"
-import { availableDepartments, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../../assets/Constants"
+import { availableDepartments, dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../../assets/Constants"
+import { useDispatch } from 'react-redux'
+import { setDuration, setExamKey } from '../../../assets/store/ExamSlice'
+import { useUpdateExamDetails } from '../../../assets/Hooks/useUpdateExamDetails'
+import { useMyAlert } from '../../../assets/Hooks/useMyAlert'
  
 
 
 export const AddNewExam = () => {
 
     const [ selectedFaculty, setSelectedFaculty ] = useState('')
-    const { userName, setExamTitle, setExamKey, dbLocation, setExamStatus } = useContext(AppContext)
+    const { userName, fetchExams } = useContext(AppContext)
     const Navigate = useNavigate()
-
+    const updateExamDetails = useUpdateExamDetails()
+    const triggerAlert = useMyAlert()
+    const dispatch = useDispatch()
 
 
 
@@ -46,22 +52,23 @@ export const AddNewExam = () => {
         let newExamKey = ( userName + "exam" + ''+a+''+d+''+b +''+e  )
         setValue('examKey', newExamKey)
         setValue('status', 'Inactive')
-        reset({
-            examTitle: '',
-            faculty: '',
-            level: ''
-        })
+        setValue('duration', 0)
+        
+        
         await axios.post(`${dbLocation}/exams.php`, data)
-        setExamKey(newExamKey)
-        setExamStatus('Inactive')
-        setExamTitle(data.examTitle)
-        fetchExams()
-        // Cookie.set('examKey', examKey, {
-        //     expires: 1,
-        //     sameSite:'strict',
-        //     secure: 'true'
-        // })
-        Navigate(`/exam/${data.examTitle.replaceAll(" ", "-")}`)
+        .then(() =>{
+            triggerAlert("success", "Exam Created Successfully")
+            updateExamDetails(data)
+            Navigate(`/exam/${data.examTitle.replaceAll(" ", "-")}`)
+            // fetchExams()
+            Cookie.set('examKey', data.examKey, {
+                expires: 1,
+                sameSite:'strict',
+                secure: 'true'
+            })
+        }).catch(() =>
+            triggerAlert("error", "Error Creating New Exam")
+        )
     }
     
 
@@ -161,7 +168,7 @@ export const AddNewExam = () => {
             </form>
 
             <div className="w-full lg:w-6/12 hidden lg:flex lg:justify-center lg:items-center">
-                <img src="/images.png" alt="Picture"  className='w-5/12'/>
+                <img src="/images.png" alt="Picture"  className='w-8/12'/>
             </div>
         </div>
     </main>

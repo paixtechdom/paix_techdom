@@ -8,7 +8,7 @@ import { useMyAlert } from '../../../../assets/Hooks/useMyAlert'
 
 
 
-const AddQuestionForm = ({ examKey, fetchQuestions }) => {
+const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
     const triggerAlert = useMyAlert()
     const [ answer, setAnswer ] = useState('')
     const [ points, setPoints ] = useState(1)
@@ -33,16 +33,16 @@ const AddQuestionForm = ({ examKey, fetchQuestions }) => {
         setValue("points", points)
         setValue("questionType", questionType)
         if(answer == 'optionA'){
-            setValue('answer', data.optionA)
+            setValue('answer', "A")
         }
         if(answer == 'optionB'){
-            setValue('answer', data.optionB)
+            setValue('answer', "B")
         }
         if(answer == 'optionC'){
-            setValue('answer', data.optionC)
+            setValue('answer', "C")
         }
         if(answer == 'optionD'){
-            setValue('answer', data.optionD)
+            setValue('answer', "D")
         }
         if(questionType == "multiple-choice"){
             if(data.optionA == 0 || data.optionB == 0 || data.optionC == 0 || data.optionD == 0){
@@ -73,7 +73,8 @@ const AddQuestionForm = ({ examKey, fetchQuestions }) => {
         // To ensure the options are not the same
         if(data.answer != undefined ){
          await axios.post(`${dbLocation}/examquestions.php`, data).then(function() {
-            triggerAlert("success", "Question 3 added successfully")
+            triggerAlert("success", `Question ${no} added successfully`)
+            fetchQuestions(examKey)
             reset({
                 question: '',
                 optionA: '',
@@ -86,7 +87,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions }) => {
         })
     
         }else{
-            triggerAlert("error", "Answer not selected")
+            triggerAlert("error", "No answer selected")
         }
     }
 
@@ -106,11 +107,11 @@ const AddQuestionForm = ({ examKey, fetchQuestions }) => {
         {/* Question Type and Point */}
         <div className="flex justify-between">
             <div className="flex items-center gap-3">
-                1. 
+                {no}. 
                 <select name="" id="" value={questionType} onChange={(e) => {
                     setQuestionType(e.target.value)
                 }}
-                className='outline-none bg-none bg-transparent min-w-[150px] font-bold text-gray-600'>
+                className='outline-none bg-none bg-transparent min-w-[150px] font-bold text-gray-600 cursor-pointer'>
                     <option value="multiple-choice">Multiple Choice</option>
                     <option value="true/false">True / False</option>
                 </select>
@@ -134,7 +135,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions }) => {
         {/* Question */}
         <div className="flex flex-col gap-2 w-full">
             <div className="center flex-col md:flex-row gap-3 w-full">
-                <label htmlFor="" className='text-lg font-bold text-gray-700'>Question</label>
+                <label htmlFor="" className='text-lg font-bold text-gray-700 w-full lg:w-fit'>Question</label>
                 <input className={TextInputClass + " w-full"} type="text" placeholder="Enter Question"  {...register('question')}/> 
 
             </div>
@@ -195,6 +196,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions }) => {
 
 
         </div>
+        
     </div>
         
     <button className={PrimaryButtonCLass + " w-fit"} onClick={handleSubmit(addQuestion)} > 

@@ -5,147 +5,338 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { AppContext } from "../../App"
-import { dbLocation } from "../../assets/Constants"
-import { useSelector } from "react-redux"
+import { DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TextInputClass } from "../../assets/Constants"
+import { useDispatch, useSelector } from "react-redux"
+import { useMyAlert } from "../../assets/Hooks/useMyAlert"
+import { useMyConfirmBox } from "../../assets/Hooks/useMyConfirmBox"
+import { setConfirmedAction } from "../../assets/store/ConfirmBoxSlice"
+import { setExamStatus } from "../../assets/store/ExamSlice"
 
 
-export const EditQuestion = ({editQuestionInfo, setShowEditQuestion  }) =>{
+export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>{
     const { fetchQuestions } = useContext(AppContext)
-    const appstate = useSelector((state) => state.appslice)  
-    const examKey = appstate.examKey
+    const dispatch = useDispatch()
+    const confirmedAction = useSelector((state) => state.confirmBox.confirmedAction)  
+    
+    const examstate = useSelector((state) => state.examslice)  
+    const examKey = examstate.examKey
+    const triggerAlert = useMyAlert()
+    const [useConfirmBox] = useMyConfirmBox()
 
-    const [ newAnswer, setNewAnswer ] = useState('')
-    const [ newQuestion, setNewQuestion ] = useState('')
-    const [ newOptionA, setNewOptionA ] = useState('vvv')
-    const [ newOptionB, setNewOptionB ] = useState('')
-    const [ newOptionC, setNewOptionC ] = useState('')
-    const [ newOptionD, setNewOptionD ] = useState('')
-    
-    useEffect(() =>{
-        setNewQuestion(question)
-        setNewOptionA(optionA)
-        setNewOptionB(optionB)
-        setNewOptionC(optionC)
-        setNewOptionD(optionD)
-        setNewAnswer(answer)
-    }, []) 
-    useEffect(() =>{
-        setValue('question', newQuestion)
-        setValue('optionA', newOptionA)
-        setValue('optionB', newOptionB)
-        setValue('optionC', newOptionC)
-        setValue('optionD', newOptionD)
-        setValue('answer', newAnswer)
-    }, [newQuestion, newAnswer, newOptionA, newOptionB, newOptionC, newOptionD])
+    const [ updatedQuestion, setUpdatedQuestion ] = useState(false)
+    const [ deleteClicked, setDeleteClicked ] = useState(false)
 
-    
-    
-    const { register, handleSubmit, formState: {errors}, reset, setValue } = useForm({
-        
+    // set the default info of questions to the existing ones
+    const [ newQuestionInfo, setNewQuestionInfo ] = useState({
+        optionA: editQuestionInfo.optionA,
+        optionB: editQuestionInfo.optionB,
+        optionC: editQuestionInfo.optionC,
+        optionD: editQuestionInfo.optionD,
+        question: editQuestionInfo.question,
+        answer: editQuestionInfo.answer,
+        points: editQuestionInfo.points == 0 ? 1 : editQuestionInfo.points ,
+        questionType: editQuestionInfo.questionType == "" ? "multiple-choice" : editQuestionInfo.questionType       
     })
     
 
-    const updateExamQuestion = async (data) =>{
-        if(data.answer.length < 1){
-            alert('Answer Not Selected')
-        }else{
-            if(data.optionA == 0 || data.optionB == 0 || data.optionC == 0 || data.optionD == 0){
-                alert('Options cannot be empty')
-            }else{
-                if(data.optionA != data.optionB && data.optionA != data.optionC && data.optionA != data.optionD && data.optionB != data.optionC && data.optionB != data.optionD && data.optionC != data.optionD ){
-                    const response = await axios.post(`${dbLocation}/examquestions.php/${questionId}/save`, data).then(function() {
-                        setShowEditQuestion(false)
-                        fetchQuestions(examKey)
-                    })
-    
-                }else{
-                    alert('Options must be different')
-                }
-            }
-
+    // Check for errors with options before updating
+    const updateExamQuestion = (newQuestionInfo) =>{
+        if(newQuestionInfo.questionType == "true/false"){
+            newQuestionInfo.optionC = "";
+            newQuestionInfo.optionD = "";
         }
+
+        if(newQuestionInfo.answer.length < 1){
+            triggerAlert("error", "No answer selected")
+            return;
+        }         
+
+        
+        if(newQuestionInfo.questionType == "true/false"){
+            if(newQuestionInfo.optionA == 0 || newQuestionInfo.optionB == 0){
+                triggerAlert("error", "Options cannot be empty")
+                return;
+            }
+            
+            if(newQuestionInfo.optionA != newQuestionInfo.optionB ){
+                UpdateAfterVerificaton()        
+                return
+            }
+            triggerAlert("error", "Two or more options cannot be the same")
+            
+            
+        }
+
+        if(newQuestionInfo.questionType == "multiple-choice"){
+            if(newQuestionInfo.optionA == 0 || newQuestionInfo.optionB == 0 || newQuestionInfo.optionC == 0 || newQuestionInfo.optionD == 0){
+                triggerAlert("error", "Options cannot be empty")
+                return;
+            }
+            
+            if(newQuestionInfo.optionA != newQuestionInfo.optionB && newQuestionInfo.optionA != newQuestionInfo.optionC && newQuestionInfo.optionA != newQuestionInfo.optionD && newQuestionInfo.optionB != newQuestionInfo.optionC && newQuestionInfo.optionB != newQuestionInfo.optionD && newQuestionInfo.optionC != newQuestionInfo.optionD ){
+                UpdateAfterVerificaton()
+                return;
+            }
+            triggerAlert("error", "Two or more options cannot be the same")
+        }        
+    }
+
+    const UpdateAfterVerificaton = async () => {
+        console.table(newQuestionInfo)
+        await axios.post(`${dbLocation}/examquestions.php/${editQuestionInfo.id}/save`, newQuestionInfo).then(function() {
+            setUpdatedQuestion(false)
+            triggerAlert("success", `Question ${questionNo} Updated Successfully`)
+            fetchQuestions(examKey)
+        })
+    }
+
+
+
+    useEffect(() => {
+        // to check if any change has been made to the question, covering the aspects listed in the array, parameters
+
+        const parameters = ["optionA", "optionB", "optionC", "optionD", "answer", "points", "questionType", "question"]
+        let i = 0
+        parameters.forEach((parameter) => {
+            if(editQuestionInfo[parameter] !== newQuestionInfo[parameter]){
+                i += 1
+            }else{
+            }
+        })
+        if(i == 0){
+            setUpdatedQuestion(false)
+        }else{
+            setUpdatedQuestion(true)
+        }
+        
+    }, [newQuestionInfo])
+
+
+    useEffect(() => {
+        // to set option a and b default value to True and False, respectively
+        if(newQuestionInfo.questionType == "true/false"){
+            setNewQuestionInfo({
+                ...newQuestionInfo,
+                optionA: "True",
+                optionB: "False"
+            })
+
+            // to set answer to an empty string if the initial answer is C or D
+            if(newQuestionInfo.answer == "C" || newQuestionInfo.answer == "D"){
+            setNewQuestionInfo({
+                ...newQuestionInfo,
+                answer: ""
+            })
+            }
+        }
+    }, [newQuestionInfo.questionType])
+
+ 
+    const HandleChange = (e) =>{
+        setNewQuestionInfo({
+            ...newQuestionInfo,
+            [e.target.name]: (e.target.value)
+        })
+    }
+
+    useEffect(() => {
+        if(confirmedAction && deleteClicked){        
+            deleteQuestion()    
+            dispatch(setConfirmedAction(false))
+            setDeleteClicked(false)
+        }
+    }, [confirmedAction])
+
+    
+
+    const deleteQuestion = async () => {       
+        await axios.delete(`${dbLocation}/examquestions.php/${editQuestionInfo.id}/delete`)
+        .then(function() {
+            fetchQuestions(examKey)
+            triggerAlert("success", `Question ${questionNo} deleted successfully`)
+            
+            noOfQuestions < 6 && 
+            axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`)
+                .then(dispatch(setExamStatus("Inactive")))
+        }).catch(() => {
+            triggerAlert("error", `Failed to delete Question ${questionNo}`)
+        })
+        
+        
     }
 
     return(
-        <div className="editQuestionParent">
-            <div className="editQuestion">
-                <h3 style={{
-                    textAlign: 'center',
-                    marginBottom: 35+'px'
-                }}>Edit Question {questionNo}</h3>
-                <div className="question">
-                    <input type="text" onChange={(e) =>{
-                        setNewQuestion(e.target.value)
-                    }} value={newQuestion} required/>
-                    <p className="label">Question</p>
-                    <p className="newAnswer">New Answer Selected: <b>{newAnswer}</b></p>
-                </div>
+        <section className="flex flex-col gap-4 w-11/12 mt-9 bg-gray-100 p-9 rounded-xl">
 
-                <div className="setOptions">
-                    <div className="questionInput">
-                        <div>
-                            <input type="text" onChange={(e) =>{
-                                setNewOptionA(e.target.value)
-                            }} value={newOptionA} required/>
-
-                            <input type="radio" name="question" onClick={(e) => setNewAnswer(newOptionA)} onChange={() =>{
-                            }} checked={answer == optionA && true}/>
-                        </div>
-                        <p className="label">Option A</p>
+            <div className="flex flex-col w-full gap-9">
+                {/* Question Type and Point */}
+                <div className="flex justify-between">
+                    <div className="flex items-center gap-3">
+                        {questionNo}
+                        
+                        <select name="questionType" id="" value={newQuestionInfo.questionType} onChange={(e) => HandleChange(e)}
+                        
+                        className='outline-none bg-none bg-transparent min-w-[150px] font-bold text-gray-600 cursor-pointer'>
+                            <option value="multiple-choice">Multiple Choice</option>
+                            <option value="true/false">True / False</option>
+                        </select>
                     </div>
-                    <div className="questionInput">
-                        <div>
-                            <input type="text" onChange={(e) =>{
-                                setNewOptionB(e.target.value)
-                            }} value={newOptionB} required/>
 
-                            <input type="radio" name="question" onClick={() => setNewAnswer(newOptionB)} 
-                            onChange={() =>{}}
-                            checked={answer == optionB && true}/>
+                    <div className="flex items-center gap-3">
 
-                        </div>
-                        <p className="label">Option B</p>
-                    </div>
-                    <div className="questionInput">
-                        <div>
-                        <input type="text" onChange={(e) =>{
-                            setNewOptionC(e.target.value)
-                        }} value={newOptionC} required/>
-                        <input type="radio" name="question" onClick={() => setNewAnswer(newOptionC) } 
-                        onChange={() =>{}}
-                        checked={answer == optionC && true}/>
 
-                        </div>
-                        <p className="label">Option C</p>
-                    </div>
-                    <div className="questionInput">
-                        <div>
-                        <input type="text" onChange={(e) =>{
-                            setNewOptionD(e.target.value)
-                        }} value={newOptionD } required/>
-                        <input type="radio" name="question" onClick={() => setNewAnswer(newOptionD)} 
-                        onChange={() =>{}}
-                        checked={answer == optionD && true}/>
+                        <button className='center hover:scale-90 active:scale-90 bg-white hover:bg-gray-200 active:bg-gray-200 h-8 w-8 text-xl rounded transition-all duration-500 shadow'
+                        onClick={()=> {
+                            setNewQuestionInfo({
+                                ...newQuestionInfo,
+                                points: newQuestionInfo.points ==  1 ? 1 : newQuestionInfo.points - 1 
+                            })
+                        }}
+                        >-</button>
+                        <p>{newQuestionInfo.points} Pt</p>
+                        <button className='center hover:scale-90 active:scale-90 bg-white hover:bg-gray-200 active:bg-gray-200 h-8 w-8 text-xl rounded transition-all duration-500 shadow'
+                        onClick={()=> {
+                            setNewQuestionInfo({
+                                ...newQuestionInfo,
+                                points: newQuestionInfo.points == 5 ? 5 : newQuestionInfo.points + 1
+                            })
+                            
+                        }}
+                        >+</button>
 
-                        </div>
-                        <p className="label">Option D</p>
+
+
                     </div>
                 </div>
-                <button className="editClose" onClick={() =>{
-                        setShowEditQuestion(false)
-                    }}>
-                        X
-                    </button>
 
-                <div className="buttons">
-                    <button className="save" onClick={handleSubmit(updateExamQuestion)}>
-                        Save
-                    </button>
+                {/* Question */}
+                <div className="flex flex-col gap-2 w-full">
+                    <div className="center flex-col md:flex-row gap-3 w-full">
+                        <label htmlFor="" className='text-lg font-bold text-gray-700'>Question</label>
+                        <input className={TextInputClass + " w-full"} type="text" placeholder="Enter Question" required value={newQuestionInfo.question}
+                        name="question"
+                        onChange={(e) => HandleChange(e)}
+                        /> 
+
+                    </div>
+
+                </div>
+
+                <div className="flex flex-col gap-9 justify-between md:grid md:grid-cols-2">
+
+                    <div className={'flex items-center w-full gap-3'}>
+                        <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "A" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                        onClick={() => {
+                            setNewQuestionInfo({
+                                ...newQuestionInfo,
+                                answer: "A"
+                            })
+                        }}
+                        >A</p>
+                        <input 
+                            className={TextInputClass + ` w-full ${newQuestionInfo.answer =="A" ? "bg-green-200" : ""} `} 
+                            type="text" 
+                            name="optionA"
+                            placeholder="Enter Option A"  
+                            value={newQuestionInfo.optionA}
+                            onChange={(e) => HandleChange(e)}
+                            required
+                            readOnly={newQuestionInfo.questionType == "true/false"}
+                        />
+                    </div>
                     
+                    <div className={'flex items-center w-full gap-3'}>
+                        <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "B" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                        onClick={() => {
+                            setNewQuestionInfo({
+                                ...newQuestionInfo,
+                                answer: "B"
+                            })
+                        }}
+                        >B</p>
+                        <input 
+                            className={TextInputClass + ` w-full ${newQuestionInfo.answer =="B" ? "bg-green-200" : ""} `} 
+                            type="text" 
+                            name="optionB"
+                            placeholder="Enter Option B"  
+                            value={newQuestionInfo.optionB}
+                            onChange={(e) => HandleChange(e)}
+                            required
+                            readOnly={newQuestionInfo.questionType == "true/false"}
+                        />
+                    </div>
+            
+                    {   newQuestionInfo.questionType !== "true/false" &&
+                        <>
+                            <div className={'flex items-center w-full gap-3'}>
+                                <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "C" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                                onClick={() => {
+                                    setNewQuestionInfo({
+                                        ...newQuestionInfo,
+                                        answer: "C"
+                                    })
+                                }}
+                                >C</p>
+                                <input 
+                                    className={TextInputClass + ` w-full ${newQuestionInfo.answer =="C" ? "bg-green-200" : ""} `} 
+                                    type="text" 
+                                    name="optionC"
+                                    placeholder="Enter Option C"  
+                                    value={newQuestionInfo.optionC}
+                                    onChange={(e) => HandleChange(e)}
+                                    required={newQuestionInfo.questionType == "multiple-choice"}
+                                    readOnly={newQuestionInfo.questionType == "true/false"}
+                                />
+                            </div>
+
+                            <div className={'flex items-center w-full gap-3'}>
+                                <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "D" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                                onClick={() => {
+                                    setNewQuestionInfo({
+                                        ...newQuestionInfo,
+                                        answer: "D"
+                                    })
+                                }}
+                                >D</p>
+                                <input 
+                                    className={TextInputClass + ` w-full ${newQuestionInfo.answer =="D" ? "bg-green-200" : ""} `} 
+                                    type="text" 
+                                    name="optionD"
+                                    placeholder="Enter Option D"  
+                                    value={newQuestionInfo.optionD}
+                                    onChange={(e) => HandleChange(e)}
+                                    required={newQuestionInfo.questionType == "multiple-choice"}
+                                    readOnly={newQuestionInfo.questionType == "true/false"}
+                                />
+                            </div>
+                        </> 
+                    }
+
                 </div>
+
+            </div>
+            
+            <div className="flex itemx-center gap-6 mt-6">
+                <button 
+                    className={`${updatedQuestion ? PrimaryButtonCLass : SecondaryButtonCLass} w-fit disabled:cursor-not-allowed disabled:opacity-70`} 
+                    disabled={!updatedQuestion} 
+                    onClick={() =>  {
+                    updateExamQuestion(newQuestionInfo)}}> 
+                    Update 
+                </button>
+
+                <button 
+                    className={`${DangerButtonCLass} w-fit `}
+                    onClick={() =>  {
+                        setDeleteClicked(true)
+                        useConfirmBox('Confirm to delete Question ' + questionNo + '?' , "Question: " + newQuestionInfo.question)
+                    }}> 
+                    Delete
+                </button>
+
             </div>
 
-        </div>
+        </section>
     )
 
 }

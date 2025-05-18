@@ -13,10 +13,11 @@ import { StudentLogin } from './Pages/Student/StudentLogin';
 import { StudentRegistration } from './Pages/Student/StudentRegistration';
 import { Student } from './Pages/Student/Student';
 import { Admin } from './Pages/Admin/Admin';
-import { ConfirmBox } from './Components/ConfirmBox/ConfirmBox';
+import { ConfirmBox } from './Components/ConfirmBox';
 import { AddNewExam } from './Pages/Admin/Pages/AddNewExam';
 import { AllExams } from './Pages/Admin/Pages/AllExams';
 import { Login } from './Pages/Admin/Pages/Login';
+import { PageNotFound } from './Pages/PageNotFound';
 import Alert from './Components/Alert';
 
 
@@ -46,7 +47,6 @@ const Layout = () =>{
   const [ studentName, setStudentName ] = useState('')
   const [ showResult, setShowResult ] = useState(false)
   const [ examKeyTobeDeleted, setExamKeyTobeDeleted ] = useState('')
-  const [ questionTobeDeleted, setQuestionTobeDeleted ] = useState('')
   const [ examQuestions, setExamQuestions ] = useState([])
   
   const [ startedExam, setStartedExam ] = useState(false)
@@ -158,33 +158,20 @@ const fetchExams = () =>{
       setExams(response.data)
   }) 
 }
-const deleteExam = async (examKeyTobeDeleted) =>{
-  const response = await axios.delete(`${dbLocation}/exams.php/${examKeyTobeDeleted}/delete`).then(function(){
-    alert('Exam Deleted')
-    fetchExams()
-  })
-  
-}
+
 const fetchQuestions = (newExamKey) =>{
   axios.get(`${dbLocation}/examquestions.php/${newExamKey}`, newExamKey).then(function(response){
       setSavedQuestions(response.data)
     }) 
   }
   
-  const deleteQuestion = async (questionTobeDeleted) =>{
-    const response = await axios.delete(`${dbLocation}/examquestions.php/${questionTobeDeleted}/delete`).then(function() {
-      alert('Question Deleted')
-      fetchQuestions(examKey)
-    })
-}
-
 
 
   return(
-    <div className='app'>
+    <div className='app z-1'>
    
         
-        <AppContext.Provider value={{ userName, examKey, setExamKey,  examStatus, setExamStatus, setUserName, setLogin, login, examinationKey, setExaminationKey, savedQuestions, setSavedQuestions, examTitle, setExamTitle ,examQuestions, setExamQuestions, score, setScore, matricNumber, setMatricNumber, studentName, setStudentName, showResult, setShowResult, studentMatricNumber, setStudentMatricNumber, studentLevel, setStudentLevel, setUserId, userId, studentDepartment, setStudentDepartment, studentFaculty, setStudentFaculty, dbLocation, noAvailableExams, setNoAvailableExams, examinationKey, curentExaminationKey ,setCurrentExaminationKey, startedExam, setStartedExam, submitExam, examEnded, setExamEnded, showScore, setShowScore, confirm, setConfirm, confirmMessage, setConfirmMessage, confirmFunction, setConfirmFunction, Logout, examKeyTobeDeleted, setExamKeyTobeDeleted, deleteExam, fetchExams, exams, setExams, questionTobeDeleted, setQuestionTobeDeleted, deleteQuestion, fetchQuestions, duration, setDuration, markExam, markedExam, setMarkedExam, timerId, marking, setMarking, firstName, setFirstName, hideNavBar, setHideNavBar }}>
+        <AppContext.Provider value={{ userName, examKey, setExamKey,  examStatus, setExamStatus, setUserName, setLogin, login, examinationKey, setExaminationKey, savedQuestions, setSavedQuestions, examTitle, setExamTitle ,examQuestions, setExamQuestions, score, setScore, matricNumber, setMatricNumber, studentName, setStudentName, showResult, setShowResult, studentMatricNumber, setStudentMatricNumber, studentLevel, setStudentLevel, setUserId, userId, studentDepartment, setStudentDepartment, studentFaculty, setStudentFaculty, dbLocation, noAvailableExams, setNoAvailableExams, examinationKey, curentExaminationKey ,setCurrentExaminationKey, startedExam, setStartedExam, submitExam, examEnded, setExamEnded, showScore, setShowScore, confirm, setConfirm, confirmMessage, setConfirmMessage, confirmFunction, setConfirmFunction, Logout, fetchExams, exams, setExams, fetchQuestions, duration, setDuration, markExam, markedExam, setMarkedExam, timerId, marking, setMarking, firstName, setFirstName, hideNavBar, setHideNavBar }}>
         <Navbar />
         <Alert />
         <Outlet />
@@ -244,7 +231,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/*',
-        element: <Home />
+        element: <PageNotFound />
       }
     ]
   }

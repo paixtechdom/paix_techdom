@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useContext } from "react"
 import { AppContext } from "../App"
 import { ChangePassword } from "../Pages/ChangePassword"
-import { ConfirmBox } from "./ConfirmBox/ConfirmBox"
+import { ConfirmBox } from "./ConfirmBox"
 import { Logo, SideNav } from "../assets/Constants"
 import { Link, useNavigate } from "react-router-dom"
 

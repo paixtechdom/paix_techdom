@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FormatTime } from '../../../../assets/Functions'
 import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass } from '../../../../assets/Constants'
 import { useDispatch } from 'react-redux'
-import { setDuration } from '../../../../assets/store/AppSlice'
+import { setDuration } from '../../../../assets/store/ExamSlice'
 import axios from 'axios'
 
 // to format time input in seconds to hr:min:sec format
@@ -12,7 +12,6 @@ export const SetTimeComponent = ({examKey, duration}) => {
     const [ closeTimerInout, setCloseTimerInput ] = useState(true)
 
     const addDuration = async () =>{
-        console.log(timeFrame)
         await axios.post(`${dbLocation}/exams.php/${timeFrame}/${examKey}`)
     }
 

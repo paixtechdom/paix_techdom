@@ -5,9 +5,9 @@ export const dbLocation = 'http://localhost:80/api-quiz-app'
 
 export const PrimaryButtonCLass = "cursor-pointer bg-gray-900 transition-all duration-500 ease-in-out border border-gray-900 rounded-xl py-2 md:py-3 px-4 lg:px-6 text-sm lg:text-base text-gray-100 hover:bg-gray-700 hover:scale-90"
 
-export const SecondaryButtonCLass = "cursor-pointer transition-all duration-500 ease-in-out border border-gray-600 hover:bg-gray-200 rounded-xl py-2 md:py-3 px-4 lg:px-6 text-sm lg:text-base text-gray-900 hover:bg-white hover:scale-90"
+export const SecondaryButtonCLass = "cursor-pointer transition-all duration-500 ease-in-out border border-gray-600 hover:bg-gray-200 rounded-xl py-2 md:py-3 px-4 lg:px-6 text-sm lg:text-base text-gray-900 hover:scale-90"
 
-export const DangerButtonCLass = "cursor-pointer transition-all duration-500 ease-in-out bg-red-800 text-white font-bold hover:bg-red-900 rounded-xl py-2 md:py-3 px-4 lg:px-6 text-sm lg:text-base hover:scale-90"
+export const DangerButtonCLass = "cursor-pointer transition-all duration-500 ease-in-out bg-red-900 text-white font-bold hover:bg-red-950 rounded-xl py-2 md:py-3 px-4 lg:px-6 text-sm lg:text-base hover:scale-90"
 
 export const SuccessButtonClass = "cursor-pointer transition-all duration-500 ease-in-out bg-green-700 text-white font-bold rounded-xl py-2 md:py-3 px-4 lg:px-6 text-sm lg:text-base hover:scale-90"
 
