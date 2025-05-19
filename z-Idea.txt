@@ -1,3 +1,36 @@
-when you update faculty, the dept also should be affected
 Drag to rearange the order of the questions
-Setting of time without the buttons
+Setting of time without the buttons - using the input and then button to increase what was inputed
+
+
+
+
+
+Exam report
+2. faculty
+3. department
+4. level  - thsis is the same for all who took the exam - what about those for all?
+
+
+
+1. Name
+5. score
+6. time used
+7. date
+
+
+Live monitoring
+
+1. no of students
+2. connected
+3. completed
+4. time left to deactivating of exam
+
+
+
+
+Admin Pages
+    1. Login
+    2. Create Exam
+    3. All Exams
+    4. Edit Exam 
+    5. Exam Report

@@ -142,42 +142,48 @@ export const CreateExam = () =>{
     }
 
     useEffect(() => {
-        if(faculty !== newExamInfo.faculty){
-            setNewExamInfo({
-                ...newExamInfo,
-                department: ""
-            })
-        }
-
-        if(faculty !== newExamInfo.faculty || level !== newExamInfo.level || department !== newExamInfo.department){
-            updateExamInfo()
-        }
-        else{
+        // to prevent calling running this code before the app state updates hereby deleting all info
+        if(editPart !== "" || editPart !== "empty"){
+            if(faculty !== newExamInfo.faculty){
+                setNewExamInfo({
+                    ...newExamInfo,
+                    department: ""
+                })
+            }
+    
+            if(faculty !== newExamInfo.faculty || level !== newExamInfo.level || department !== newExamInfo.department){
+                updateExamInfo()
+            }
+            else{
+            }
         }
     }, [newExamInfo])
 
     const updateExamInfo = async () => {
-        console.table(newExamInfo)
+        // console.table(newExamInfo)
         if(newExamInfo.department == ""){
-            triggerAlert("error", "Select a new department")
-            return
+            triggerAlert("info", "Select a department")
         }
-        // await axios.post(`${dbLocation}/exams.php/update/${examKey}`, newExamInfo)
-        // .then((res) => {
-        //     if(res.data.status == 1) {
-        //         dispatch(setExamTitle(newExamInfo.examTitle))
-        //         dispatch(setExamLevel(newExamInfo.level))
-        //         dispatch(setExamDepartment(newExamInfo.department))
-        //         dispatch(setExamFaculty(newExamInfo.faculty))
-        //         triggerAlert("success", "Exam Info Updated Successfully")
-        //         navigate(`/exam/${newExamInfo.examTitle.replaceAll(" ", "-")}`)
-        //     }else{
-        //         triggerAlert("error", "Failed to Update Exam Info")
-        //     }
-        // })
-        // .catch(() => {
-        //     triggerAlert("error", "Failed to Update Exam Info")
-        // })
+        await axios.post(`${dbLocation}/exams.php/update/${examKey}`, newExamInfo)
+        .then((res) => {
+            if(res.data.status == 1) {
+                dispatch(setExamTitle(newExamInfo.examTitle))
+                dispatch(setExamLevel(newExamInfo.level))
+                dispatch(setExamDepartment(newExamInfo.department))
+                dispatch(setExamFaculty(newExamInfo.faculty))
+                {
+                    newExamInfo.department !== "" &&
+                    triggerAlert("success", "Exam Info Updated Successfully")
+
+                }
+                navigate(`/exam/${newExamInfo.examTitle.replaceAll(" ", "-")}`)
+            }else{
+                triggerAlert("error", "Failed to Update Exam Info")
+            }
+        })
+        .catch(() => {
+            triggerAlert("error", "Failed to Update Exam Info")
+        })
     }
 
 
@@ -229,7 +235,7 @@ export const CreateExam = () =>{
                                 editPart == "faculty" ?
                                 
                                 <i className="bi bi-x text-2xl hover:scale-110" onClick={() =>{
-                                setEditPart("f")
+                                setEditPart("empty")
                                 }}>
 
                             </i>: 
@@ -260,7 +266,7 @@ export const CreateExam = () =>{
                                 editPart == "level" ?
                                 
                                 <i className="bi bi-x text-2xl hover:scale-110" onClick={() =>{
-                                setEditPart("f")
+                                setEditPart("empty")
                                 }}>
 
                             </i>: 
@@ -289,7 +295,7 @@ export const CreateExam = () =>{
                             icon={
                                 editPart == "department" ?
                                 <i className="bi bi-x text-2xl hover:scale-110" onClick={() =>{
-                                setEditPart("f")
+                                setEditPart("empty")
                                 }}>
 
                             </i>: 
@@ -306,7 +312,7 @@ export const CreateExam = () =>{
                                 // get departments based on the selected faculty
                                     data={availableDepartments.filter((d, i) => 
                                         d.faculty == newExamInfo.faculty ?
-                                        availableDepartments[i] :""
+                                        availableDepartments[i] :[]
                                         )[0].department}
                                         
                                     part="department"
@@ -393,7 +399,7 @@ const EditPartDropDownComponent = ({data, part, setNewExamInfo, setEditPart, new
                 ${newExamInfo[part] == d ? "bg-white" : ""}
                 `}
                 onClick={() => {
-                    setEditPart("q")
+                    setEditPart("empty")
                     setNewExamInfo({
                         ...newExamInfo,
                         [part]: d

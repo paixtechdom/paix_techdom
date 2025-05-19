@@ -19,6 +19,7 @@ import { AllExams } from './Pages/Admin/Pages/AllExams';
 import { Login } from './Pages/Admin/Pages/Login';
 import { PageNotFound } from './Pages/PageNotFound';
 import Alert from './Components/Alert';
+import { ExamReport } from './Pages/Admin/Pages/ExamReport/ExamReport';
 
 
 export const AppContext = createContext()
@@ -193,25 +194,47 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />
       },
+
+      // Edit and update exam information and questions
       {
         path: '/exam/:examTitle',
         element: <CreateExam />
       },
+
+      // Create new exam, setting the title, dept, level and faculty
       {
         path: '/exams/add-new',
         element: <AddNewExam />
       },
+
+      // to view all exams from the admin panel
       {
         path: '/exams/all-exams',
         element: <AllExams />
       },
+
+      // to view reports for exams
       {
-        path: '/Examination/:examinationKey',
-        element: <Exam />
+        path: '/exams/report/:examTitle',
+        element: <ExamReport />
       },
+      // admin login page
       {
         path: '/Login',
         element: <Login />
+      },
+
+
+
+      // student home page
+      {
+        path: '/Student/:username',
+        element: <Student />
+      },
+      
+      {
+        path: '/Examination/:examinationKey',
+        element: <Exam />
       },
       {
         path: '/Student_login',
@@ -220,10 +243,6 @@ const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <Admin />
-      },
-      {
-        path: '/Student/:username',
-        element: <Student />
       },
       {
         path: '/Student_registration',

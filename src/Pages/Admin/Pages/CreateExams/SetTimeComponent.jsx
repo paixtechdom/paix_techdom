@@ -123,7 +123,8 @@ const SetValuesComponent = ({value, setValue, title}) => {
             <input 
                 type="number" 
                 value={value} 
-                className='w-12 text-center bg-transparent center'
+                className='w-12 text-center bg-transparent center outline-none'
+                readOnly
                 onChange={(e) => {
                 setValue(value < 0 ? 0 : e.target.value) 
             }}

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect } from "react"
 import { useContext, useState } from "react"
-import { AppContext } from "../../../App"
+import { AppContext } from "../../../../App"
 
 
 export const Results = ({examResultTitle, examKey}) =>{
