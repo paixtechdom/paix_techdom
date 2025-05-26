@@ -148,10 +148,10 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
 
             <div className="flex flex-col gap-2">
                 <div className={'flex items-center w-full gap-3'}>
-                    <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${answer == "optionA" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                    <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${answer == "optionA" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
                     onClick={() => setAnswer("optionA")}
                     >A</p>
-                    <input className={TextInputClass + ` w-full ${answer =="optionA" ? "bg-green-200" : ""} `} type="text" placeholder="Enter Option A"  {...register('optionA')}
+                    <input className={TextInputClass + ` w-full ${answer =="optionA" ? "bg-green-100" : ""} `} type="text" placeholder="Enter Option A"  {...register('optionA')}
                     readOnly={questionType == "true/false"}
                     />
                 </div>
@@ -160,10 +160,10 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
 
             <div className="flex flex-col gap-2">
                 <div className={'flex items-center w-full gap-3'}>
-                    <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${answer == "optionB" ? "bg-green-800 text-white" : "text-gray-600 hover:bg-green-100"}`}
+                    <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${answer == "optionB" ? "bg-green-800 text-white" : "text-gray-600 hover:bg-green-100"}`}
                     onClick={() => setAnswer("optionB")}
                     >B</p>
-                    <input className={TextInputClass + ` w-full ${answer =="optionB" ? "bg-green-200" : ""} `} type="text" placeholder="Enter Option B"  {...register('optionB')}
+                    <input className={TextInputClass + ` w-full ${answer =="optionB" ? "bg-green-100" : ""} `} type="text" placeholder="Enter Option B"  {...register('optionB')}
                     readOnly={questionType == "true/false"}/>
                 </div>
                 <p className={ErrorMessageTextClass}>{errors.optionB?.message}</p>
@@ -173,20 +173,20 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
                 <>
                     <div className="flex flex-col gap-2">
                         <div className={'flex items-center w-full gap-3'}>
-                            <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${answer == "optionC" ? "bg-green-800 text-white"  : "text-gray-600 hover:bg-green-100"}`}
+                            <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${answer == "optionC" ? "bg-green-800 text-white"  : "text-gray-600 hover:bg-green-100"}`}
                             onClick={() => setAnswer("optionC")}
                             >C</p>
-                            <input className={TextInputClass + ` w-full ${answer =="optionC" ? "bg-green-200" : ""} `} type="text" placeholder="Enter Option C"  {...register('optionC')}/>
+                            <input className={TextInputClass + ` w-full ${answer =="optionC" ? "bg-green-100" : ""} `} type="text" placeholder="Enter Option C"  {...register('optionC')}/>
                         </div>
                         <p className={ErrorMessageTextClass}>{errors.optionC?.message}</p>
                     </div>
                 
                     <div className="flex flex-col gap-2">
                         <div className={'flex items-center w-full gap-3'}>
-                            <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${answer == "optionD" ? "bg-green-800 text-white"  : "text-gray-600 hover:bg-green-100"}`}
+                            <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${answer == "optionD" ? "bg-green-800 text-white"  : "text-gray-600 hover:bg-green-100"}`}
                             onClick={() => setAnswer("optionD")}
                             >D</p>
-                            <input className={TextInputClass + ` w-full ${answer =="optionD" ? "bg-green-200" : ""} `} type="text" placeholder="Enter Option D"  {...register('optionD')}/>
+                            <input className={TextInputClass + ` w-full ${answer =="optionD" ? "bg-green-100" : ""} `} type="text" placeholder="Enter Option D"  {...register('optionD')}/>
                         </div>
                         <p className={ErrorMessageTextClass}>{errors.optionD?.message}</p>
                     </div>

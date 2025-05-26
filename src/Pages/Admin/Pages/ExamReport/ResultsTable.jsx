@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 
 
-const OrdersTable = ({data, currentPage}) => {
+export const ResultsTable = ({data, currentPage=1}) => {
     const [ loading, setLoading ] = useState(false)
     const navigate = useNavigate()
 
@@ -81,4 +81,3 @@ const OrdersTable = ({data, currentPage}) => {
 
 
 
-export { OrdersTable }

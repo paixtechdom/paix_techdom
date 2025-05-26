@@ -4,67 +4,81 @@ import { AvailableExams } from "./AvailabeExams"
 import { useNavigate } from "react-router"
 import InfoComponent from "../../Components/InfoComponent"
 import { TopLevelHeader } from "../../assets/Constants"
+import Cookie from "js-cookie"
+import { useSelector } from "react-redux"
+import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
 
 
 
 export const Student = () =>{
 
-    const { userName, studentMatricNumber, studentLevel, studentDepartment, studentFaculty, login, setStartedExam, setExamEnded } =useContext (AppContext)
+    const { } =useContext (AppContext)
     const navigate = useNavigate()
+    const updateStudentDetails = useUpdateStudentDetails()
+
+    const cookiedStudentDetails = Cookie.get("userDetails")
+    const studentDetails = useSelector(state => state.studentslice)
+    const firstName = studentDetails.firstName
+    const lastName = studentDetails.lastName
+    const middleName = studentDetails.middleName
+    const department = studentDetails.department
+    const matricNumber = studentDetails.matricNumber
+    const level = studentDetails.level
+    const faculty = studentDetails.faculty
+    
 
     useEffect(() =>{
+        if(cookiedStudentDetails != undefined){
+            updateStudentDetails(JSON.parse(cookiedStudentDetails))
+        }else{
+            navigate(`/Student_login`)
+            
+        }
         // setStartedExam(false)
         // setExamEnded(true)
 
-        // navigate(`/Student/${userName}`)
     }, [])
     return(
         <main className="w-full center flex-col mt-[15vh]">
             <div className="flex w-11/12 flex-col gap-3">
 
-                <h1 className={`${TopLevelHeader}`}>Welcome {userName}</h1>
+                <h1 className={`${TopLevelHeader}`}><span className="text-2xl">Welcome </span> {firstName}</h1>
 
                 <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 w-full gap-4">
                     <InfoComponent 
                         title={"Name:"}
-                        info={userName}
+                        info={firstName + " " + lastName}
                     />
 
                     <InfoComponent 
                         title={"Faculty:"}
-                        info={studentFaculty}
+                        info={faculty}
                     />
                     <InfoComponent 
                         title={"Matric Number:"}
-                        info={studentMatricNumber}
+                        info={matricNumber}
                     />
                     <InfoComponent 
                         title={"Department:"}
-                        info={studentDepartment}
+                        info={department}
                     />
                     <div className="flex items-center justify-between gap-4">
                         <InfoComponent 
                             title={"Level:"}
-                            info={studentLevel}
+                            info={level}
                         />
                     </div>
                 </div>
+
+                <AvailableExams />
             </div>
 
     
 
-            {/* <AvailableExams level={studentLevel} department={studentDepartment} faculty={studentFaculty}/> */}
         </main>
 
         /* shift + alt + a - open comment */
         
 
     )
-
-    // if(userName == '' ){
-    //     return (
-    //        <StudentLogin />
-    //     )
-
-    // }
 }

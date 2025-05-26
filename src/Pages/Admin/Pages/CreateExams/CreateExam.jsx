@@ -5,9 +5,9 @@ import * as yup from 'yup'
 import axios from "axios"
 import { AppContext } from "../../../../App"
 import { useNavigate } from "react-router"
-import { EditQuestion } from "../../../Dashboard/EditQuestion"
+import { EditQuestion } from "./EditQuestion"
 import Cookie from "js-cookie"
-import { ImportQuestions } from "../../../Dashboard/ImportQuestions"
+import { ImportQuestions } from "./ImportQuestions"
 import { useDispatch, useSelector } from "react-redux"
 import { availableDepartments, DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, SuccessButtonClass, TopLevelHeader } from "../../../../assets/Constants"
 import AddQuestionForm from "./AddQuestionForm"
@@ -58,13 +58,15 @@ export const CreateExam = () =>{
             
             if(exam == undefined){
                 navigate("/exams/all-exams") 
-                triggerAlert("error", "Error Fetching Exam")
+                // triggerAlert("error", "Error Fetching Exam undefined")
+                console.log("Error Fetching Exam undefined")
                 return
             }
             
             if((window.document.URL).split("/")[4].toLowerCase() !== exam.examTitle.toLowerCase().replaceAll(" ", "-")){
-                triggerAlert("error", "Error Fetching Exam")
-                navigate("/page-not-found")
+                // triggerAlert("error", "Error Fetching Exam false url")
+                console.log("Error Fetching Exam false url")
+                // navigate("/page-not-found")
                 return
             }
 
@@ -72,33 +74,41 @@ export const CreateExam = () =>{
 
         })
         .catch(() => {
-            triggerAlert("error", "Error Fetching Exam")
+            // triggerAlert("error", "Error Fetching Exam no exam")
+            console.log("Error Fetching Exam no exam")
             navigate("/exams/all-exams")            
         })
     }
-
-    const cookiedExamKey = Cookie.get('examKey')
-
+    
+    
+    const CookiedExamDetails = Cookie.get("examDetails") 
+    
     useEffect(() =>{
-        dispatch(setExamKey(cookiedExamKey))
-        fetchQuestions(cookiedExamKey)
-        FetchExam(cookiedExamKey || examKey)
-
-        if(examKey == "" && cookiedExamKey == ""){
+        if (CookiedExamDetails !== undefined){
+            const examDetails = JSON.parse(Cookie.get("examDetails"))
+            dispatch(setExamKey(examDetails.examKey))
+            fetchQuestions(examDetails.examKey)
+            FetchExam(examDetails.examKey)
+            updateExamDetails(examDetails)
+        }else{
             navigate("/exams/all-exams")
+
         }
     }, [])
 
 
 
-// to ensure the new exam info is updated after refreshing the page
+// to ensure the new exam info is updated with the info in the store after refreshing the page
     useEffect(() => {
-        setNewExamInfo({
-            examTitle : examTitle,
-            level: level,
-            faculty : faculty,
-            department : department
-        })
+        // if(editPart !== "" || editPart !== "empty"){
+
+            setNewExamInfo({
+                examTitle : examTitle,
+                level: level,
+                faculty : faculty,
+                department : department
+            })
+        // }
     
     }, [examstate])
   
@@ -142,7 +152,8 @@ export const CreateExam = () =>{
     }
 
     useEffect(() => {
-        // to prevent calling running this code before the app state updates hereby deleting all info
+        // to prevent calling running this code before the app state updates hereby deleting all info 
+        // editPart = "" when the state is refreshed and  = "epmty" when an edit has ended from the title, dept, level and faculty
         if(editPart !== "" || editPart !== "empty"){
             if(faculty !== newExamInfo.faculty){
                 setNewExamInfo({
@@ -150,14 +161,17 @@ export const CreateExam = () =>{
                     department: ""
                 })
             }
-    
-            if(faculty !== newExamInfo.faculty || level !== newExamInfo.level || department !== newExamInfo.department){
-                updateExamInfo()
-            }
-            else{
-            }
+
+
+            // // faculty, level, department
+            // if(faculty !== newExamInfo.faculty || level !== newExamInfo.level || department !== newExamInfo.department){
+            //     updateExamInfo()
+            //     // console.log("updateExamInfo")
+            // }
+            // else{
+            // }
         }
-    }, [newExamInfo])
+    }, [newExamInfo.faculty])
 
     const updateExamInfo = async () => {
         // console.table(newExamInfo)
@@ -176,7 +190,7 @@ export const CreateExam = () =>{
                     triggerAlert("success", "Exam Info Updated Successfully")
 
                 }
-                navigate(`/exam/${newExamInfo.examTitle.replaceAll(" ", "-")}`)
+                // navigate(`/exam/${newExamInfo.examTitle.replaceAll(" ", "-")}`)
             }else{
                 triggerAlert("error", "Failed to Update Exam Info")
             }
@@ -280,7 +294,7 @@ export const CreateExam = () =>{
                             {
                                 editPart == "level" && 
                                 <EditPartDropDownComponent 
-                                    data={["100", "200", "300", "All"]}
+                                    data={["100", "200", "300"]}
                                     part="level"
                                     setNewExamInfo={setNewExamInfo} 
                                     setEditPart={setEditPart}
@@ -313,7 +327,7 @@ export const CreateExam = () =>{
                                     data={availableDepartments.filter((d, i) => 
                                         d.faculty == newExamInfo.faculty ?
                                         availableDepartments[i] :[]
-                                        )[0].department}
+                                        )[1].department}
                                         
                                     part="department"
                                     setNewExamInfo={setNewExamInfo} setEditPart={setEditPart}
@@ -346,23 +360,26 @@ export const CreateExam = () =>{
             
 
             {/* A list of all questions in an editable format*/}
-            {
-                savedQuestions.map((question, i) => (
+            {/* {   
+                savedQuestions.length > 0 &&
+                <> */}
+               { savedQuestions?.map((question, i) => (
                     <EditQuestion 
                         editQuestionInfo={question} 
                         key={i}
                         questionNo={i+1}
                         noOfQuestions={savedQuestions.length}
-                    />
-                ))
-            }
+                        />
+                ))}
+                {/* </> */}
+            {/* } */}
 
             {/* Component to add a new question */}
             <AddQuestionForm examKey={examKey} fetchQuestions={fetchQuestions} 
-            no={savedQuestions.length + 1}/>
+            no={savedQuestions?.length + 1}/>
 
             {
-                savedQuestions.length < 1 ? <p style={{
+                savedQuestions?.length < 1 ? <p style={{
                     paddingLeft: 5+'%'
                 }}>No saved Question</p> :
                 ''
@@ -390,10 +407,11 @@ export const CreateExam = () =>{
 
 
 const EditPartDropDownComponent = ({data, part, setNewExamInfo, setEditPart, newExamInfo}) => {
+    const nData = [...data, "All"]
   return(
     <div className="absolute top-[100%] mt-2 left-0 w-full flex flex-col bg-gray-100 shadow-xl rounded-xl overflow-hidden z-20">
         {
-            data.map((d, key)  => (
+            nData.map((d, key)  => (
                 <p key={key}
                  className={`hover:bg-white p-3 px-5 transition-all duration-500 ease-in-out text-sm
                 ${newExamInfo[part] == d ? "bg-white" : ""}

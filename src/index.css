@@ -18,17 +18,12 @@
 }
 .body{
     z-index: 198;
-
 }
-
-.h-90{
-    height: 87%
-}
-
 
 .center{
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 

@@ -8,7 +8,8 @@ const initialState = {
     duration: "",
     level: "",
     department: "",
-    faculty: ""
+    faculty: "",
+    questionsLength: 0
 }
 
 const ExamSlice = createSlice({
@@ -36,11 +37,14 @@ const ExamSlice = createSlice({
         setExamFaculty: (state, action) => {
             state.faculty = action.payload
         },
+        setQuestionsLength: (state, action) => {
+            state.questionsLength = action.payload
+        },
     }
 })
 
 
-export const { setExamKey, setExamStatus, setDuration, setExamTitle, setExamLevel, setExamDepartment, setExamFaculty } = ExamSlice.actions
+export const { setExamKey, setExamStatus, setDuration, setExamTitle, setExamLevel, setExamDepartment, setExamFaculty, setQuestionsLength } = ExamSlice.actions
 
 
 

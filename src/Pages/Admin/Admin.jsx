@@ -1,19 +1,29 @@
-import { useContext, useState } from "react"
-import { AppContext } from "../../App"
+import { useEffect } from "react"
 import Dashboard from "./Pages/Dashboard"
+import Cookie from "js-cookie"
+import { useNavigate } from "react-router-dom"
 // import "./Admin.css"
 
 export const Admin = () =>{
-    const {  userName  } = useContext(AppContext)
+    const userName = Cookie.get("userDetails")
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        // console.log(userName)
+        if(userName == 'admin' ){
+        }else{
+            navigate('/')
+        }
+
+    }, [])
+    // return
 
 
-    if(userName == 'admin' ){
         return (
             <main className="admin">
                 <Dashboard />
             </main>
         )
 
-    }
  
 }

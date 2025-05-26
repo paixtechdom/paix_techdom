@@ -1,21 +1,29 @@
 import Cookie from "js-cookie"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useContext } from "react"
 import { AppContext } from "../App"
 import { ChangePassword } from "../Pages/ChangePassword"
 import { ConfirmBox } from "./ConfirmBox"
 import { Logo, SideNav } from "../assets/Constants"
 import { Link, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { setCurrentDropDown, setCurrentNav, setShowSideNav, setShowTopNav } from "../assets/store/NavigationSlice"
 
 export const Navbar = () =>{
-    const { startedExam, userName, setExamKey, login, setConfirm, logout, setConfirmMessage, setConfirmFunction, firstName, hideNavBar } = useContext(AppContext)
     const [ showChangePassword, setShowChangePassword]= useState(false)
-    const navigate = useNavigate()
 
-    const [ hideSideNav, setHideSideNav ] = useState(true)
-    const [ currentNav, setCurrentNav ] = useState(0)
-    const [ currentDropDown, setCurrentDropDown ] = useState(0)
-    
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const navigation = useSelector((state) => state.navigation)  
+
+
+    const showSideNav = navigation.showSideNav
+    const currentNav = navigation.currentNav
+    const currentDropDown = navigation.currentDropDown
+    const showTopNav = navigation.showTopNav
+        
+
+   
     // if(login && userName ){
     //     if(!hideNavBar){
     //         return(
@@ -65,20 +73,20 @@ export const Navbar = () =>{
         <>
         {/* *******************  SIDE BAR NAVIGATION    ******************* */}
 
-            <div className={`fixed top-0 z-40 h-screen w-full flex justify-start items-start  transition-all duration-1000 ${hideSideNav ? '-translate-x-[100%]' : ''}`}>
+            <div className={`fixed top-0 z-40 h-screen w-full flex justify-start items-start  transition-all duration-1000 ${showSideNav ? "" : '-translate-x-[100%]'}`}>
                 <nav className="flex flex-col bg-gray-100 items-center w-[100%] lg:w-[40%] xl:w-[25%] h-screen pt-[10vh]">
                     {
                         SideNav.map((nav, i) => (
                             <div key={i} className="flex flex-col transition-all duration-1000 justify-between w-full text-s  text-gray-900 border-b border-gray-200 ">
                                 <div className={`flex w-full p-5 justify-between cursor-pointer ${currentNav === i ? 'bg-primary text-white hover:bg-blue-900' : 'text-secondary hover:bg-gray-200'}`} onClick={() => {
                                     if( nav.sublinks){
-                                        setCurrentDropDown(currentDropDown === nav.title ? '' : nav.title) 
+                                        dispatch(setCurrentDropDown(currentDropDown === nav.title ? '' : nav.title))
 
                                     }else{
 
                                         navigate(`/${nav.link}`)
-                                        setCurrentNav(i)
-                                        setHideSideNav(true)
+                                        dispatch(setCurrentNav(i))
+                                        dispatch(setShowSideNav(false))
                                     }
                                    
                                 }}>
@@ -100,8 +108,9 @@ export const Navbar = () =>{
 
                                         {   
                                             nav?.sublinks?.map((sublink, j) => (
-                                                <Link to={`/${nav.link}/${sublink.link}`} key={j} className="flex gap-5 py-3 hover:bg-gray-300 w-full px-8 text-sm" onClick={() => {setHideSideNav(true)
-                                                    setCurrentNav(i)
+                                                <Link to={`/${nav.link}/${sublink.link}`} key={j} className="flex gap-5 py-3 hover:bg-gray-300 w-full px-8 text-sm" onClick={() => {
+                                                    dispatch(setShowSideNav(false))
+                                                    dispatch(setCurrentNav(i))
                                                 }}>
                                                 <i className={`bi bi-${sublink.icon} text-secondary`}></i>
                                                 <p className="">{sublink.title}</p>
@@ -115,7 +124,7 @@ export const Navbar = () =>{
                     }
                 </nav>
 
-                <div className="h-full bg-transparent w-[60%] lg:w-[60%] xl:w-[70%]" onClick={ ()=> setHideSideNav(!hideSideNav)}>
+                <div className="h-full bg-transparent w-[60%] lg:w-[60%] xl:w-[70%]" onClick={ ()=> dispatch(setShowSideNav(!showSideNav))}>
                 
                 </div>
 
@@ -124,12 +133,14 @@ export const Navbar = () =>{
         
         {/********************  TOP NAVIGATION    ********************/}
         
-        <div className="fixed h-[8vh] md:h-[10vh] shadow bg-gray-900 top-0 w-full flex items-center justify-between" style={{
+        <div className={`fixed h-[8vh] md:h-[10vh] shadow bg-gray-900 top-0 w-full flex items-center justify-between
+        ${showTopNav ? '' : "translate-y-[-20vh]"}
+        `} style={{
             zIndex: 45
         }}>
             {/* LEFT TOP NAV */}
             <div className="w-11/12 lg:w-7/12 flex items-center gap-6 px-5">
-                <i className={` bi bi-${hideSideNav ? 'list' : 'x-lg'} bg-gray-100 text-2xl cursor-pointer text-gray-900 center h-8 w-12 rounded center`} onClick={ ()=> setHideSideNav(!hideSideNav)}></i>
+                <i className={` bi bi-${!showSideNav ? 'list' : 'x-lg'} bg-gray-100 text-2xl cursor-pointer text-gray-900 center h-8 w-12 rounded center`} onClick={ ()=> dispatch(setShowSideNav(!showSideNav))}></i>
 
                 <p className="text-sm font-bold text-gray-100 flex gap-2 items-center w-full">
                     

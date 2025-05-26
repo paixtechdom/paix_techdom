@@ -28,7 +28,7 @@ export const AddNewExam = () => {
 
 
     useEffect(() =>{
-        Cookie.remove('examKey', {path:'/admin'})
+        Cookie.remove('examDetails', {path:'/admin'})
     }, [])
 
     const schema = yup.object().shape({
@@ -59,9 +59,9 @@ export const AddNewExam = () => {
         .then(() =>{
             triggerAlert("success", "Exam Created Successfully")
             updateExamDetails(data)
-            Navigate(`/exam/${data.examTitle.replaceAll(" ", "-")}`)
+            Navigate(`/exam/${data.examTitle.toLowerCase().replaceAll(" ", "-")}`)
             // fetchExams()
-            Cookie.set('examKey', data.examKey, {
+            Cookie.set('examDetails', JSON.stringify(data), {
                 expires: 1,
                 sameSite:'strict',
                 secure: 'true'

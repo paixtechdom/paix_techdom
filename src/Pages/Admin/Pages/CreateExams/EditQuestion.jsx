@@ -4,13 +4,13 @@ import { useContext } from "react"
 import { useEffect } from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { AppContext } from "../../App"
-import { DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TextInputClass } from "../../assets/Constants"
+import { AppContext } from "../../../../App"
+import { DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TextInputClass } from "../../../../assets/Constants"
 import { useDispatch, useSelector } from "react-redux"
-import { useMyAlert } from "../../assets/Hooks/useMyAlert"
-import { useMyConfirmBox } from "../../assets/Hooks/useMyConfirmBox"
-import { setConfirmedAction } from "../../assets/store/ConfirmBoxSlice"
-import { setExamStatus } from "../../assets/store/ExamSlice"
+import { useMyAlert } from "../../../../assets/Hooks/useMyAlert"
+import { useMyConfirmBox } from "../../../../assets/Hooks/useMyConfirmBox"
+import { setConfirmedAction } from "../../../../assets/store/ConfirmBoxSlice"
+import { setExamStatus } from "../../../../assets/store/ExamSlice"
 
 
 export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>{
@@ -172,7 +172,9 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                 {/* Question Type and Point */}
                 <div className="flex justify-between">
                     <div className="flex items-center gap-3">
-                        {questionNo}
+                        <p className="bg-white p-2 rounded-lg w-9 h-8 center shadow-md font-bold">
+                            {questionNo} <span className="text-[12px] font-light">/{noOfQuestions}</span>
+                        </p>
                         
                         <select name="questionType" id="" value={newQuestionInfo.questionType} onChange={(e) => HandleChange(e)}
                         
@@ -225,7 +227,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                 <div className="flex flex-col gap-9 justify-between md:grid md:grid-cols-2">
 
                     <div className={'flex items-center w-full gap-3'}>
-                        <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "A" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                        <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "A" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
                         onClick={() => {
                             setNewQuestionInfo({
                                 ...newQuestionInfo,
@@ -234,7 +236,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                         }}
                         >A</p>
                         <input 
-                            className={TextInputClass + ` w-full ${newQuestionInfo.answer =="A" ? "bg-green-200" : ""} `} 
+                            className={TextInputClass + ` w-full ${newQuestionInfo.answer =="A" ? "bg-green-100" : ""} `} 
                             type="text" 
                             name="optionA"
                             placeholder="Enter Option A"  
@@ -246,7 +248,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                     </div>
                     
                     <div className={'flex items-center w-full gap-3'}>
-                        <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "B" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                        <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "B" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
                         onClick={() => {
                             setNewQuestionInfo({
                                 ...newQuestionInfo,
@@ -255,7 +257,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                         }}
                         >B</p>
                         <input 
-                            className={TextInputClass + ` w-full ${newQuestionInfo.answer =="B" ? "bg-green-200" : ""} `} 
+                            className={TextInputClass + ` w-full ${newQuestionInfo.answer =="B" ? "bg-green-100" : ""} `} 
                             type="text" 
                             name="optionB"
                             placeholder="Enter Option B"  
@@ -269,7 +271,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                     {   newQuestionInfo.questionType !== "true/false" &&
                         <>
                             <div className={'flex items-center w-full gap-3'}>
-                                <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "C" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                                <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "C" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
                                 onClick={() => {
                                     setNewQuestionInfo({
                                         ...newQuestionInfo,
@@ -278,7 +280,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                                 }}
                                 >C</p>
                                 <input 
-                                    className={TextInputClass + ` w-full ${newQuestionInfo.answer =="C" ? "bg-green-200" : ""} `} 
+                                    className={TextInputClass + ` w-full ${newQuestionInfo.answer =="C" ? "bg-green-100" : ""} `} 
                                     type="text" 
                                     name="optionC"
                                     placeholder="Enter Option C"  
@@ -290,7 +292,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                             </div>
 
                             <div className={'flex items-center w-full gap-3'}>
-                                <p className={`text-l font-bold rounded-full bg-white w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "D" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
+                                <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${newQuestionInfo.answer == "D" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
                                 onClick={() => {
                                     setNewQuestionInfo({
                                         ...newQuestionInfo,
@@ -299,7 +301,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
                                 }}
                                 >D</p>
                                 <input 
-                                    className={TextInputClass + ` w-full ${newQuestionInfo.answer =="D" ? "bg-green-200" : ""} `} 
+                                    className={TextInputClass + ` w-full ${newQuestionInfo.answer =="D" ? "bg-green-100" : ""} `} 
                                     type="text" 
                                     name="optionD"
                                     placeholder="Enter Option D"  

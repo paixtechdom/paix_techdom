@@ -9,6 +9,7 @@ import axios from "axios"
 import { useMyAlert } from "../../../../assets/Hooks/useMyAlert"
 import { useUpdateExamDetails } from "../../../../assets/Hooks/useUpdateExamDetails"
 import { FormatTime } from "../../../../assets/Functions"
+import { ResultsTable } from "./ResultsTable"
 
 const Students = [
     {score: 65},
@@ -22,6 +23,8 @@ const Students = [
     {score: 89},
     {score: 90},
 ]
+
+
 export const ExamReport = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -37,7 +40,8 @@ export const ExamReport = () => {
     const faculty = examstate.faculty      
     const department = examstate.department   
 
-    const cookiedExamKey = Cookie.get('examKey')
+    
+    const cookiedExamDetails = Cookie.get('examDetails')
 
 
     const FetchExam = async (key) => {
@@ -58,21 +62,23 @@ export const ExamReport = () => {
             }
 
             updateExamDetails(exam)
-
+            
         })
         .catch(() => {
             triggerAlert("error", "Error Fetching Exam catch")
             navigate("/exams/all-exams")            
         })
     }
+    
 
-
-
+    
     useEffect(() =>{
-        dispatch(setExamKey(cookiedExamKey))
-        FetchExam(cookiedExamKey || examKey)
+        if(cookiedExamDetails != undefined){
+            updateExamDetails(cookiedExamDetails)
+            FetchExam(cookiedExamDetails.examKey || examKey)
+        }
 
-        if(examKey == "" && cookiedExamKey == ""){
+        if(examKey == "" && cookiedExamDetails.examKey == ""){
             navigate("/exams/all-exams")
         }
     }, [])
@@ -112,7 +118,9 @@ export const ExamReport = () => {
 
 
                 <PerformanceChart />
-
+                <ResultsTable 
+                    data={Students}
+                />
             </div>
         </main>
     )

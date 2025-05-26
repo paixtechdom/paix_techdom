@@ -3,8 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import axios from "axios"
 import { useContext, useState } from "react"
-import { AppContext } from "../../App"
-import { PrimaryButtonCLass, SecondaryButtonCLass } from "../../assets/Constants"
+import { AppContext } from "../../../../App"
+import { PrimaryButtonCLass, SecondaryButtonCLass } from "../../../../assets/Constants"
 
 export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examStatus}) =>{
     const { dbLocation } = useContext(AppContext)

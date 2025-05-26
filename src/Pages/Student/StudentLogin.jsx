@@ -7,20 +7,23 @@ import { Link, useNavigate } from 'react-router-dom'
 // import './Login.css'
 import Cookie from "js-cookie"
 import { AppContext } from "../../App"
-import { ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../assets/Constants"
+import { dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../assets/Constants"
+import { useMyAlert } from "../../assets/Hooks/useMyAlert"
+import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
+import { useSelector } from "react-redux"
 
 
 export const StudentLogin = () => {
 
-    const {  setStudentMatricNumber, setUserName, setStudentLevel,  setStudentDepartment,  setStudentFaculty, dbLocation, setLogin, setUserId  } = useContext(AppContext)
     const [ customError, setCustomError ] = useState('')
     const [ showPassword, setShowPassword ] = useState('password')
 
 
     const Navigate = useNavigate()
+    const triggerAlert = useMyAlert()
+    const updateStudentDetails = useUpdateStudentDetails()
 
     useEffect(() => {
-        setLogin(false)
         Navigate('/Student_login')
         Cookie.remove('userDetails', {path:'/'})
     }, [])
@@ -41,37 +44,27 @@ export const StudentLogin = () => {
     })
 
     const onLogin = async (data) => {
-        await axios.get(`${dbLocation}/studentRegistration.php/students`).then(function(response) {
-            let students = response.data
-
-            students.forEach((student) => {
-                if(student.matricNumber == data.matricNumber && student.password == data.Password){
-                    Cookie.remove('userDetails', {path:'/'})
-                    Cookie.set('userDetails', JSON.stringify(student), {
-                        expires: 1,
-                        sameSite:'strict',
-                        secure: 'true'
-                    })
-                    const user = JSON.parse(Cookie.get('userDetails'))
-                    setLogin(true)
-                    setUserName(user.firstName + ' '+ user.lastName )
-                    setStudentMatricNumber(user.matricNumber)
-                    setStudentFaculty(user.faculty)
-                    setStudentDepartment(user.department)
-                    setStudentLevel(user.level)
-                    setUserId(user.id)
-                    Navigate(`/Student/${user.firstName} ${user.lastName}`)
-                }
-                else if(student.matricNumber == data.matricNumber && student.password != data.Password){
-                    setCustomError("Incorrect Password")
-                }
-                else if(student.matricNumber != data.matricNumber && student.password == data.Password){
-                    setCustomError("Incorrect Matric Number")
-                }
-               
-            })
-            // console.log(students)
+        await axios.get(`${dbLocation}/studentRegistration.php/login/${data.matricNumber}/${data.Password}`)
+            .then((res) => {
+            const user = res.data.user
+            if(res.data.status == 1){
+                triggerAlert("success", res.data.message)
+                Cookie.set('userDetails', JSON.stringify(user), {
+                    expires: 1,
+                    sameSite:'strict',
+                    secure: 'true'
+                })             
+                updateStudentDetails(JSON.parse(Cookie.get("userDetails")))       
+                Navigate(`/student/${user.firstName}-${user.lastName}`)
+            }else{
+                triggerAlert("error", res.data.message)
+                
+            }
         })
+        .catch((error)=> {
+            console.table(error)
+            triggerAlert("error", "An error occured, please try again")
+        }) 
 
     }
 
@@ -118,7 +111,7 @@ export const StudentLogin = () => {
                         </button>
                     </form>
 
-                    <div className="fixed top-0 right-0 w-[300px]">
+                    <div className="fixed top-0 right-0 w-[300px] hidden lg:block">
                         <img src="./istockphoto-1384437843-612x612.jpg" alt="Piss" />
                     </div>
 

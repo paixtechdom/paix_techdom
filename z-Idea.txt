@@ -1,6 +1,8 @@
 Drag to rearange the order of the questions
 Setting of time without the buttons - using the input and then button to increase what was inputed
 
+total score - admin side
+confirm submission, if some haven't being filled
 
 
 

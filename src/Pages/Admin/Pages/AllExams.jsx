@@ -3,7 +3,6 @@ import { useContext, useState } from "react"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "../../../App"
-import { NoSubmits } from "../Components/NoSubmits"
 import Cookie from "js-cookie"
 import { DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
 import { useDispatch, useSelector } from "react-redux"
@@ -12,17 +11,16 @@ import { useMyConfirmBox } from "../../../assets/Hooks/useMyConfirmBox"
 import { setConfirmedAction } from "../../../assets/store/ConfirmBoxSlice"
 import { useMyAlert } from "../../../assets/Hooks/useMyAlert"
 import InfoComponent from "../../../Components/InfoComponent"
+import { GetQuestionLength } from "../../../Components/GetQuestionLength"
  
 
 export const AllExams = () =>{
-    const [ examResultTitle, setExamResultTitle ] = useState('')
-    const [ resultExamKey, setResultExamKey ] = useState('')
-    const { userName, showResult, setShowResult, setConfirmMessage, setExamKeyTobeDeleted, exams, fetchExams } = useContext(AppContext)
+    const { exams, fetchExams } = useContext(AppContext)
     const Navigate = useNavigate()
     
     useEffect(() =>{
         fetchExams()
-        Cookie.remove('examKey', {path:'/admin'})
+        Cookie.remove('examDetails', {path:'/admin'})
     }, [])
     
 
@@ -53,7 +51,7 @@ export const AllExams = () =>{
 
                     </div>
                     : 
-                    <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+                    <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                         {exams?.map((exam, key) =>(                        
                             <AvailableExamBlock 
                             exam={exam} 
@@ -73,10 +71,10 @@ export const AllExams = () =>{
 const AvailableExamBlock = ({exam, fetchExams}) => {
     const dispatch = useDispatch()
     const updateExamDetails = useUpdateExamDetails()
-    const [useConfirmBox] = useMyConfirmBox()
     const triggerAlert = useMyAlert()
-
+    
     const [ deleteClicked, setDeleteClicked ] = useState(false)
+    const [useConfirmBox] = useMyConfirmBox()
     const confirmedAction = useSelector((state) => state.confirmBox.confirmedAction)  
     
     
@@ -102,7 +100,8 @@ const AvailableExamBlock = ({exam, fetchExams}) => {
     const SetExamInfoGlobally = () => {
         // to update the store and cookie
         updateExamDetails(exam)
-        Cookie.set('examKey', exam.examKey, {
+
+        Cookie.set('examDetails', JSON.stringify(exam), {
             expires: 1,
             sameSite:'strict',
             secure: 'true'
@@ -133,10 +132,22 @@ const AvailableExamBlock = ({exam, fetchExams}) => {
             </div>
         </div>
 
-        <InfoComponent 
-            title={"Department:"}
-            info={exam.department}
-        />
+        <div className="flex justify-between gap-3">
+            
+            <InfoComponent 
+                title={"Department:"}
+                info={exam.department}
+            />
+
+            <div className="w-4/12">
+            
+
+            <InfoComponent 
+                title={"Questions:"}
+                info={<GetQuestionLength examKey={exam.examKey} />}
+            />
+            </div>
+        </div>
 
         <div className="flex justify-between items-center w-full gap-4 mt-4">
 

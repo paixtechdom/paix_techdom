@@ -4,15 +4,27 @@ import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass } from '../../../.
 import { useDispatch } from 'react-redux'
 import { setDuration } from '../../../../assets/store/ExamSlice'
 import axios from 'axios'
+import { useMyAlert } from '../../../../assets/Hooks/useMyAlert'
 
 // to format time input in seconds to hr:min:sec format
 
 export const SetTimeComponent = ({examKey, duration}) => {    
     const [ timeFrame, setTimeFrame ] = useState(duration)
     const [ closeTimerInout, setCloseTimerInput ] = useState(true)
+    const triggerAlert = useMyAlert()
+
 
     const addDuration = async () =>{
         await axios.post(`${dbLocation}/exams.php/${timeFrame}/${examKey}`)
+        .then((res) => {
+            if(res.data.status == 1){
+                triggerAlert("success", res.data.message)
+            }else{
+                triggerAlert("error", res.data.message)
+            }
+        }).catch(() =>{
+            triggerAlert("error", "Failed to update time")
+        })
     }
 
   return (

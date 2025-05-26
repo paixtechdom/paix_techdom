@@ -6,13 +6,14 @@ import { AppContext } from "../../../App"
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 import Cookie from "js-cookie"
-import { ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../../assets/Constants"
+import { dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../../assets/Constants"
+import { useMyAlert } from "../../../assets/Hooks/useMyAlert"
 
 
 export const Login = () =>{
-    const { setUserName, setLogin, setUserId, setFirstName } = useContext(AppContext)
     const Navigate = useNavigate()
-
+    const triggerAlert = useMyAlert()
+    
     // to store users fetched
     const [ adminDetails, setAdminDetails ] = useState([])
  
@@ -22,19 +23,11 @@ export const Login = () =>{
     // const Navigate = useNavigate()
       
     useEffect(() =>{
-        getAdminDetails()
-        setLogin(false)
         Navigate('/Login')
         Cookie.remove('userDetails', {path:'/'})
     }, [])
 
     
-    // to fetch all users
-    const getAdminDetails =  () =>{
-        axios.get('http://localhost:80/api-quiz-app/admin/').then(function(response){
-            setAdminDetails(response.data)
-        }) 
-    }
     // 192.168.43.44
 
     // to validate the login inputs
@@ -49,29 +42,29 @@ export const Login = () =>{
     })
 
     // LOGIN FUNCTION
-    const onLogin = (data) =>{
-        // to fetch all users and check if the username and password matches an existing record
-        if(data.userName == adminDetails[0].userName && data.Password == adminDetails[0].password){
-            // to create and save a cookie of this user's details
-            Cookie.remove('userDetails', {path:'/'})
-            Cookie.set('userDetails', JSON.stringify(adminDetails[0]), {
+    const onLogin = async (data) => {
+        await axios.get(`${dbLocation}/index.php/login/${data.userName}/${data.Password}`)
+        .then((res) => {
+        const user = res.data.user
+        if(res.data.status == 1){
+            triggerAlert("success", res.data.message)
+            Cookie.set('userDetails', user.userName, {
                 expires: 1,
                 sameSite:'strict',
                 secure: 'true'
-            })
-            const user = JSON.parse(Cookie.get('userDetails'))
-            setUserName(user?.userName)
-            setFirstName(user?.userName)
-            setLogin(true)
-            setUserId(user.id)
-            Navigate('/dashboard')
+            })             
+            // console.table(Cookie.get("userDetails"))       
+            Navigate(`/dashboard`)
+        }else{
+            triggerAlert("error", res.data.message)
+            
         }
-        else{
-            // setCustomError('Incorrect Username or password')
-            // setTimeout(() => {
-            //     setCustomError('')
-            // }, 3000);
-        }
+    })
+    .catch((error)=> {
+        console.table(error)
+        triggerAlert("error", "An error occured, please try again")
+    }) 
+    
 }
 
 
@@ -122,7 +115,7 @@ export const Login = () =>{
                         Login 
                     </button>
                 </form>
-                <div className="fixed top-0 right-0 w-[300px]">
+                <div className="fixed top-0 right-0 w-[300px] hidden lg:block">
                     <img src="./images.jpeg" alt="Pics" />
                 </div>
                 </div>

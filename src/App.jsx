@@ -1,4 +1,3 @@
-import './App.css';
 import { createBrowserRouter, RouterProvider, Outlet, useNavigate } from 'react-router-dom';
 
 import { createContext, useState, useContext, useEffect, useId, useRef } from 'react';
@@ -8,7 +7,7 @@ import axios from 'axios';
 import { Navbar } from './Components/Navbar';
 import { Home } from './Pages/Home/Home';
 import { CreateExam } from './Pages/Admin/Pages/CreateExams/CreateExam';
-import { Exam } from './Pages/Exam';
+import { Examination } from './Pages/Student/Examination/Examination';
 import { StudentLogin } from './Pages/Student/StudentLogin';
 import { StudentRegistration } from './Pages/Student/StudentRegistration';
 import { Student } from './Pages/Student/Student';
@@ -20,6 +19,7 @@ import { Login } from './Pages/Admin/Pages/Login';
 import { PageNotFound } from './Pages/PageNotFound';
 import Alert from './Components/Alert';
 import { ExamReport } from './Pages/Admin/Pages/ExamReport/ExamReport';
+import { dbLocation } from './assets/Constants';
 
 
 export const AppContext = createContext()
@@ -27,96 +27,23 @@ export const AppContext = createContext()
 const Layout = () =>{
   const Navigate = useNavigate()
 
-  
-  const checkUser = Cookie.get('userDetails')
-  const [ login, setLogin ] = useState(false)
-  const [ confirm, setConfirm ] = useState(false)
-  const [ confirmMessage, setConfirmMessage ] = useState('')
-  const [ confirmFunction, setConfirmFunction ] = useState('')
   const [ userName, setUserName ] = useState('') 
-  const [ firstName, setFirstName ] = useState('') 
-  const [ userId, setUserId ] = useState('') 
   
-  const [ examKey, setExamKey ] = useState('') 
-  const [ examinationKey, setExaminationKey ] = useState('') 
-  const [ curentExaminationKey, setCurrentExaminationKey  ] = useState('') 
-
-  const [ examStatus, setExamStatus ] = useState('') 
-  const [ savedQuestions, setSavedQuestions ] = useState([])
-  const [ examTitle, setExamTitle ] = useState('')
-  const [ matricNumber, setMatricNumber ] = useState('')
-  const [ studentName, setStudentName ] = useState('')
-  const [ showResult, setShowResult ] = useState(false)
-  const [ examKeyTobeDeleted, setExamKeyTobeDeleted ] = useState('')
   const [ examQuestions, setExamQuestions ] = useState([])
+  const [ savedQuestions, setSavedQuestions ] = useState([])
   
-  const [ startedExam, setStartedExam ] = useState(false)
-  const [ showScore, setShowScore ] = useState(false)
-  const [ examEnded, setExamEnded ] = useState(false)
-  const [ markedExam, setMarkedExam ] = useState('false')
-  
+    
   const [  duration, setDuration ] = useState(0)
   const [ exams, setExams ] = useState([])
-  const [ score, setScore ] = useState(0)
-  const [ studentMatricNumber, setStudentMatricNumber ] = useState('')
-  const [ studentFaculty, setStudentFaculty ] = useState('')
-  const [ studentDepartment, setStudentDepartment ] = useState('')
-  const [ studentLevel, setStudentLevel ] = useState('')
   const [ noAvailableExams, setNoAvailableExams ]= useState([])
-  const [ marking, setMarking ]= useState(false)
-  const [ hideNavBar, setHideNavBar ]= useState(false)
-
-  // const dbLocation = 'https://online-exam-app.000webhostapp.com/quiz_app'
-  const dbLocation = 'http://localhost:80/api-quiz-app'
 
 
-
-  
-  // ON refresh set user details to the cookie saved
-  useEffect(() =>{
-      // if(login == false){
-      //   Cookie.remove('userDetails', {path:'/'})
-      // }
-      const user = Cookie.get('userDetails')
-      if(user != undefined){
-      
-        const userd = JSON.parse(Cookie.get('userDetails'))
-        if(userd?.userName == 'admin'){
-          setUserName('admin')
-        }else{
-          setUserName(userd?.firstName + ' '+ userd.lastName )
-          setFirstName(userd?.firstName)
-  
-        }
-        setStudentMatricNumber(userd.matricNumber)
-        setStudentFaculty(userd?.faculty)
-        setStudentDepartment(userd?.department)
-        setStudentLevel(userd?.level)
-        setUserId(userd?.id)
-        setLogin(true)
-      }
-
-
-  }, [])
-
-  // npm install bcryptjs --save
-  const markExam = () =>{
-  
-  }
-
-  // useEffect(() =>{
-  //   if(markedExam == true && markExam){
-
-  //   }
-
-  // }, [markedExam])
   const timerId = useRef()
 
 
   const submitExam = (score, totalNoOfQuestions) =>{
     setScore(score)    
     setExamEnded(true) 
-    setStartedExam(false) 
     clearInterval(timerId.current)
     setMarking(true)
     setTimeout(() => {
@@ -147,11 +74,6 @@ const Logout = () =>{
 
   }
   Cookie.remove('userDetails', {path:'/'})
-  setLogin(false)
-  setUserName('')
-  setFirstName('')
-  setConfirm(false)
-  setStudentMatricNumber('')
 }
 
 const fetchExams = () =>{
@@ -161,7 +83,9 @@ const fetchExams = () =>{
 }
 
 const fetchQuestions = (newExamKey) =>{
-  axios.get(`${dbLocation}/examquestions.php/${newExamKey}`, newExamKey).then(function(response){
+  axios.get(`${dbLocation}/examquestions.php/${newExamKey}`)
+  .then(function(response){
+      // console.table(response.data)
       setSavedQuestions(response.data)
     }) 
   }
@@ -172,8 +96,11 @@ const fetchQuestions = (newExamKey) =>{
     <div className='app z-1'>
    
         
-        <AppContext.Provider value={{ userName, examKey, setExamKey,  examStatus, setExamStatus, setUserName, setLogin, login, examinationKey, setExaminationKey, savedQuestions, setSavedQuestions, examTitle, setExamTitle ,examQuestions, setExamQuestions, score, setScore, matricNumber, setMatricNumber, studentName, setStudentName, showResult, setShowResult, studentMatricNumber, setStudentMatricNumber, studentLevel, setStudentLevel, setUserId, userId, studentDepartment, setStudentDepartment, studentFaculty, setStudentFaculty, dbLocation, noAvailableExams, setNoAvailableExams, examinationKey, curentExaminationKey ,setCurrentExaminationKey, startedExam, setStartedExam, submitExam, examEnded, setExamEnded, showScore, setShowScore, confirm, setConfirm, confirmMessage, setConfirmMessage, confirmFunction, setConfirmFunction, Logout, fetchExams, exams, setExams, fetchQuestions, duration, setDuration, markExam, markedExam, setMarkedExam, timerId, marking, setMarking, firstName, setFirstName, hideNavBar, setHideNavBar }}>
-        <Navbar />
+        <AppContext.Provider value={{ savedQuestions, setSavedQuestions, userName, examQuestions, setExamQuestions, noAvailableExams, setNoAvailableExams, submitExam, Logout, fetchExams, exams, setExams, fetchQuestions, duration, setDuration,  timerId }}>
+          {
+            Cookie.get('userDetails') !== undefined &&
+            <Navbar />
+          }
         <Alert />
         <Outlet />
         <ConfirmBox />
@@ -223,23 +150,22 @@ const router = createBrowserRouter([
         path: '/Login',
         element: <Login />
       },
-
-
-
+      // student login
+      {
+        path: '/Student_login',
+        element: <StudentLogin />
+      },
       // student home page
       {
         path: '/Student/:username',
         element: <Student />
       },
+      // exam interface
+      {
+        path: '/examination/:examinationKey',
+        element: <Examination />
+      },
       
-      {
-        path: '/Examination/:examinationKey',
-        element: <Exam />
-      },
-      {
-        path: '/Student_login',
-        element: <StudentLogin />
-      },
       {
         path: '/dashboard',
         element: <Admin />

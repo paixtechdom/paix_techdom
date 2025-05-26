@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { AppContext } from "../../App"
-
+import Cookie from "js-cookie"
 import { Link, useNavigate } from "react-router-dom"
 import { TopLevelHeader } from "../../assets/Constants"
 
@@ -11,6 +11,7 @@ export const Home = () =>{
     useEffect(() => {
         // setLogin(false)
         Navigate('/')
+        Cookie.remove('userDetails', {path:'/'})
     }, [])
 
     const LinkClass = "center bg-gray-100 w-[250px] lg:w-[300px] h-[100px] md:h-[150px] rounded-xl shadow-lg hover:bg-gray-800 hover:text-gray-100 transition-all duration-1000 z-10"

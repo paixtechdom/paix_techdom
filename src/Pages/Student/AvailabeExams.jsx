@@ -1,86 +1,179 @@
 import axios from "axios"
-import { useContext, useEffect, useState, useRef } from "react"
-import { AppContext } from "../../App"
-import { EachAvailableExam } from "./EachAvailableExam"
-import { StudentLogin } from "./StudentLogin"
+import { useEffect, useState } from "react"
 
-export const AvailableExams = ({level, department, faculty, }) => {
-    const { dbLocation, noAvailableExams, setNoAvailableExams, score, examQuestions, setCurrentExaminationKey, login, submitExam,  setHideNavBar } = useContext(AppContext)
+import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass } from "../../assets/Constants"
+import { useDispatch, useSelector } from "react-redux"
+import { useUpdateExamDetails } from "../../assets/Hooks/useUpdateExamDetails"
+import { useMyAlert } from "../../assets/Hooks/useMyAlert"
+import Cookie from "js-cookie"
+import { Link } from "react-router-dom"
+import InfoComponent from "../../Components/InfoComponent"
+import { GetQuestionLength } from "../../Components/GetQuestionLength"
+import { FormatTime } from "../../assets/Functions"
+import { setQuestionsLength } from "../../assets/store/ExamSlice"
+
+export const AvailableExams = () => {
     const [ isLoadingExams, setIsLoadingExams ] = useState(false)
     const [ exams, setExams ]= useState([])
 
-
+    const studentDetails = useSelector(state => state.studentslice)
+    const cookiedDetails  = Cookie.get("userDetails")
     useEffect(() =>{
-        fetchExams()
-        setCurrentExaminationKey('')
-        setIsLoadingExams(true)
-        setHideNavBar(false)
+        if(cookiedDetails != undefined){
+            const cookiedStudentDetails = JSON.parse(cookiedDetails)
+            fetchExams(cookiedStudentDetails )
+            setIsLoadingExams(true)
+        }
+
     }, [])
-    useEffect(() =>{
-        let avEx = document.querySelector('.avEx')
-        setNoAvailableExams(avEx.innerHTML)
-    })
-
-    const fetchExams = () =>{
-        axios.get(`${dbLocation}/exams.php/`).then(function(response){
-            const Exams = response.data
-            const availableExams = Exams.filter(exam => {
-                if(exam.level == level || exam.level == 'All'){
-                    if(exam.department == department || exam.department == 'All'){
-                        if(exam.faculty == faculty || exam.faculty == 'All'){
-                            if(exam.status == 'Active'){
-                                    setIsLoadingExams(false)
-                                    return exam;                                    
-                                }
-                            }
-                        }
-                    
-                    }
-                })
-            setExams(availableExams)
-           
-
-           
-        }) 
-    }
-    if(login){
-        return(
-            <div className="availableExams">
-                     <h2>Available Exams</h2>
-            <div >
-                {
-                    isLoadingExams ? <p style={{
-                        marginTop: 40+'px'
-                    }}>
-                        Fetching exams ...
-                    </p> : ''
-                }
-                {
-                    noAvailableExams.length == 0 &&
-                    <p style={{
-                        marginTop: 30+'px'
-                    }}>No available Exam</p>
-                }
-                
-                <div className="avEx" >
-                    {
-                        !isLoadingExams ?
-        
-                        exams?.map((exam, key) =>(
-                            <>
-                            <EachAvailableExam key={key} faculty={exam.faculty} examKey={exam.examKey} examTitle={exam.examTitle}/>
-                            </>
-                                
-                        )) : ''
-                    }
-                    
-                </div>
-        
-            </div>
-                
     
-            </div>
-        )
+    const encodeValue = (value) => value.replace(/\s+/g, '-')
+
+    const fetchExams = (studentDetails) =>{        
+        axios.get(`${dbLocation}/exams.php/availableExams/${studentDetails.level}/${encodeValue(studentDetails.department)}/${encodeValue(studentDetails.faculty)}`)
+        .then(function(res){
+            const exams = res.data
+            setExams(exams)
+            setIsLoadingExams(false)          
+        }) 
+
     }
- 
+
+
+
+    return(
+        <section className="my-[10vh] flex flex-col w-full">
+            <h3 className="font-bold text-xl text-gray-700">({exams.length}) Available Exams</h3>
+            {
+                
+                exams.length == 0 ?
+                <div className="h-[70vh] center flex-col gap-2">
+                    <i className="bi bi-file-text text-5xl"></i>
+                    <p>No available exam</p>
+                </div>
+                : 
+                    
+                    <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                    {exams?.map((exam, i) => (
+                        <AvailableExam
+                            key={i}
+                            exam={exam}
+                        />
+                    ))
+                    }
+                    </section>
+            }
+
+        </section>
+    )
+    
+    
 }   
+
+
+
+
+const AvailableExam = ({exam, fetchExams}) => {
+    const dispatch = useDispatch()
+    const updateExamDetails = useUpdateExamDetails()
+    
+    const triggerAlert = useMyAlert()
+    const [ length, setLength ] = useState(0)
+
+
+    useEffect(() => {
+        axios.get(`${dbLocation}/examquestions.php/${exam.examKey}/noquestions`)
+        .then((res) => {
+            setLength(res.data[0].total)
+        }) 
+    }, [])
+
+
+    const SetExamInfoGlobally = (exam) => {
+    // to update the store and cookie
+        console.table(exam)
+        updateExamDetails(exam)
+
+        Cookie.set('examDetails', JSON.stringify(exam), {
+            expires: 1,
+            sameSite:'strict',
+            secure: 'true'
+        })
+    }
+
+  
+
+    
+    // filters from the backend
+    // same level or all, same department or all, same faculty or all
+    // if exam is active
+
+    // if candidate has not taken the exam - NOT DONE 
+
+
+    return(
+    <Link to={`/Examination/${exam.examKey}`} className="flex flex-col gap-3 rounded-xl bg-gray-50 shadow-lg p-5 relative">
+         <span className={`absolute top-0 right-0 w-4 h-4 rounded-tr-xl ${exam.status == "Active" ?  "bg-green-600 animate-pulse" : "bg-gray-700"}`}
+        ></span>
+
+        <div className="font-bold text-lg text-gray-700 hover:underline hover:text-blue-900"
+        onClick={() => {
+            SetExamInfoGlobally(exam)
+            dispatch(setQuestionsLength(length))
+        }}> 
+            {exam.examTitle}
+        </div>
+        
+        <div className="flex justify-between gap-3">
+            <InfoComponent 
+                title={"Faculty:"}
+                info={exam.faculty}
+            />
+
+            <div className="w-4/12">
+            <InfoComponent 
+                title={"Level:"}
+                info={exam.level}
+            />
+            </div>
+        </div>
+
+        <div className="flex justify-between gap-3">
+            
+            <InfoComponent 
+                title={"Department:"}
+                info={exam.department}
+            />
+
+            <div className="w-4/12">
+
+            <InfoComponent 
+                title={"Questions:"}
+                info={<GetQuestionLength examKey={exam.examKey} />}
+            />
+            </div>
+        </div>
+
+
+        <div className="flex justify-between items-center w-full gap-4 mt-4">
+
+            <div className="w-fit">
+                <InfoComponent 
+                    title={"Expires in:"}
+                    info={FormatTime(45000)}
+                />
+            </div>
+
+            <div className={PrimaryButtonCLass + " center w-fit lg:scale-90"}  
+                onClick={() => {
+                    SetExamInfoGlobally(exam)
+                    dispatch(setQuestionsLength(length))
+                }}>
+                Start Exam
+            </div>
+
+          
+        </div>
+
+    </Link>
+)}
