@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router'
 import  DataTable  from 'react-data-table-component'
 import { useEffect, useState } from 'react'
-import { FormatTime } from '../../../../assets/Functions'
+import { FormatTime } from '../../../assets/Functions'
 import axios from 'axios'
-import { dbLocation } from '../../../../assets/Constants'
+import { dbLocation } from '../../../assets/Constants'
 
 /*
     the exam should stor the total score
@@ -23,26 +23,24 @@ export const GetInfo = ({id, data}) => {
         getInfo(id)
     }, [])
 
-    const getInfo = (id) => {   
+    const getInfo = (examKey) => {   
 
-        axios.get(`${dbLocation}/studentRegistration.php/getstudent/${id}`)
+        axios.get(`${dbLocation}/exams.php/getstudent/${examKey}`)
         .then((res) => {
-            data == "fullName" ? 
-            setInfo (res.data.firstName + " " + res.data.lastName) :
-            setInfo (res.data[data])
+            setInfo (res.data.examTitle)
         })
     }
     return info; // Return the function so it can be used in components
   };
   
 
-  const studentInfoRows = {
+  const examInfoRows = {
         id: 'name',
-        name:  <p className="font-bold text-sm">Full Name</p>,
-        selector: row => row.studentId,
+        name:  <p className="font-bold text-sm">Exam</p>,
+        selector: row => row.examKey,
         cell: (row) => 
             <div>
-                <GetInfo id={row.studentId} data={"fullName"}/>
+                <GetInfo id={row.examKey}/>
             </div>,
         sortable: true,
         width: 25+'%',
@@ -51,7 +49,7 @@ export const GetInfo = ({id, data}) => {
 
 //   if i can do the fetching on the back end and add the data before bringing it to the frontend - to prevent many calls
 
-export const ResultsTable = ({data, currentPage=1}) => {
+export const StudentReportTable = ({data, currentPage}) => {
     const [ loading, setLoading ] = useState(false)
     const navigate = useNavigate()
 
@@ -67,7 +65,7 @@ export const ResultsTable = ({data, currentPage=1}) => {
             width: 7+'%',
         },
          
-            studentInfoRows
+            examInfoRows
         ,
         {
             id: 'score',

@@ -5,15 +5,15 @@ import { useNavigate } from "react-router"
 import InfoComponent from "../../Components/InfoComponent"
 import { TopLevelHeader } from "../../assets/Constants"
 import Cookie from "js-cookie"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
+import { setShowTopNav } from "../../assets/store/NavigationSlice"
 
 
 
 export const Student = () =>{
-
-    const { } =useContext (AppContext)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const updateStudentDetails = useUpdateStudentDetails()
 
     const cookiedStudentDetails = Cookie.get("userDetails")
@@ -30,6 +30,7 @@ export const Student = () =>{
     useEffect(() =>{
         if(cookiedStudentDetails != undefined){
             updateStudentDetails(JSON.parse(cookiedStudentDetails))
+            dispatch(setShowTopNav(true))
         }else{
             navigate(`/Student_login`)
             

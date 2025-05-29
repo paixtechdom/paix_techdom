@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "../../../App"
 import Cookie from "js-cookie"
-import { DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
+import { availableDepartments, DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
 import { useDispatch, useSelector } from "react-redux"
 import { useUpdateExamDetails } from "../../../assets/Hooks/useUpdateExamDetails"
 import { useMyConfirmBox } from "../../../assets/Hooks/useMyConfirmBox"
@@ -35,7 +35,7 @@ export const AllExams = () =>{
                     <div className="flex items-center gap-3 w-full lg:w-fit">
                         <Link to={'/exams/add-new'} className={PrimaryButtonCLass + " "}> Create Exam</Link>
 
-                        <Link to="" className={SecondaryButtonCLass + " "}>Generate With AI</Link>
+                        <Link to="" className={SecondaryButtonCLass + " "}>View Reports</Link>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@ export const AllExams = () =>{
 
                     </div>
                     : 
-                    <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                    <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 lg:grid-cols-2">
                         {exams?.map((exam, key) =>(                        
                             <AvailableExamBlock 
                             exam={exam} 
@@ -74,7 +74,7 @@ const AvailableExamBlock = ({exam, fetchExams}) => {
     const triggerAlert = useMyAlert()
     
     const [ deleteClicked, setDeleteClicked ] = useState(false)
-    const [useConfirmBox] = useMyConfirmBox()
+    const useConfirmBox = useMyConfirmBox()
     const confirmedAction = useSelector((state) => state.confirmBox.confirmedAction)  
     
     
@@ -100,6 +100,7 @@ const AvailableExamBlock = ({exam, fetchExams}) => {
     const SetExamInfoGlobally = () => {
         // to update the store and cookie
         updateExamDetails(exam)
+        // console.table(exam)
 
         Cookie.set('examDetails', JSON.stringify(exam), {
             expires: 1,
@@ -108,8 +109,10 @@ const AvailableExamBlock = ({exam, fetchExams}) => {
         })
     }
     return(
-    <div className="flex flex-col gap-3 rounded-xl bg-gray-50 shadow-lg p-5 relative">
-         <span className={`absolute top-0 right-0 w-4 h-4 rounded-tr-xl ${exam.status == "Active" ?  "bg-green-600 animate-pulse" : "bg-gray-700"}`}
+
+    <div className={`flex flex-col gap-3 rounded-xl shadow-lg p-5 relative
+        ${availableDepartments.find(fac => fac.faculty == exam.faculty)?.color} `}>
+         <span className={`absolute top-0 right-0 w-8 h-8 rounded-tr-xl rounded-bl-xl ${exam.status == "Active" ?  "bg-green-800 animate-pulse" : "bg-gray-700"}`}
         ></span>
 
         <Link to = {`/Exam/${exam.examTitle.replaceAll(' ', "-")}`} 
@@ -118,13 +121,13 @@ const AvailableExamBlock = ({exam, fetchExams}) => {
             {exam.examTitle}
         </Link>
         
-        <div className="flex justify-between gap-3">
+        <div className="flex flex-col md:flex-row justify-between gap-3">
             <InfoComponent 
                 title={"Faculty:"}
                 info={exam.faculty}
             />
 
-            <div className="w-4/12">
+            <div className="w-full lg:w-4/12">
             <InfoComponent 
                 title={"Level:"}
                 info={exam.level}
@@ -132,14 +135,14 @@ const AvailableExamBlock = ({exam, fetchExams}) => {
             </div>
         </div>
 
-        <div className="flex justify-between gap-3">
+        <div className="flex flex-col md:flex-row justify-between gap-3">
             
             <InfoComponent 
                 title={"Department:"}
                 info={exam.department}
             />
 
-            <div className="w-4/12">
+            <div className="w-full lg:w-4/12">
             
 
             <InfoComponent 
@@ -149,13 +152,13 @@ const AvailableExamBlock = ({exam, fetchExams}) => {
             </div>
         </div>
 
-        <div className="flex justify-between items-center w-full gap-4 mt-4">
+        <div className="flex justify-betw een items-center w-fi gap-4 mt-4">
 
-            <Link to={`/exams/report/${exam.examTitle.replaceAll(' ', "-")}`} className={SecondaryButtonCLass + " center w-full lg:scale-90"}  onClick={() => SetExamInfoGlobally()}>
+            <Link to={`/exams/report/${exam.examTitle.replaceAll(' ', "-")}`} className={SecondaryButtonCLass + " center w- full lg:scale-90"}  onClick={() => SetExamInfoGlobally()}>
                 Exam Report
             </Link>
 
-            <button className={DangerButtonCLass + " w-full lg:scale-90"}  onClick={() =>{
+            <button className={DangerButtonCLass + " w- full lg:scale-90"}  onClick={() =>{
                  setDeleteClicked(true)
                  useConfirmBox('Confirm to delete this exam' ,exam.examTitle)
             }}>

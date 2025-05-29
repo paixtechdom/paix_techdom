@@ -42,6 +42,14 @@ export const AddNewExam = () => {
     const { register, handleSubmit, formState: {errors}, reset, setValue } = useForm({
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        // availableDepartments
+        // selectedFaculty
+        // dept.departments
+
+        
+    }, [])
  
 
     const createExam = async (data) => {
@@ -49,23 +57,28 @@ export const AddNewExam = () => {
         let b = new Date().getFullYear()
         let d = new Date().getSeconds()
         let e = new Date().getMilliseconds()
-        let newExamKey = ( userName + "exam" + ''+a+''+d+''+b +''+e  )
+        let newExamKey = ( "exam" + ''+a+''+d+''+b +''+e  )
         setValue('examKey', newExamKey)
         setValue('status', 'Inactive')
         setValue('duration', 0)
         
-        
+        console.log(data)
         await axios.post(`${dbLocation}/exams.php`, data)
-        .then(() =>{
-            triggerAlert("success", "Exam Created Successfully")
-            updateExamDetails(data)
-            Navigate(`/exam/${data.examTitle.toLowerCase().replaceAll(" ", "-")}`)
-            // fetchExams()
-            Cookie.set('examDetails', JSON.stringify(data), {
-                expires: 1,
-                sameSite:'strict',
-                secure: 'true'
-            })
+        .then((res) =>{
+            if(res.data.status == 1){
+                triggerAlert("success", "Exam Created Successfully")
+                updateExamDetails(data)
+                console.log(res.data.message)
+                Navigate(`/exam/${data.examTitle.toLowerCase().replaceAll(" ", "-")}`)
+                // fetchExams()
+                Cookie.set('examDetails', JSON.stringify(data), {
+                    expires: 1,
+                    sameSite:'strict',
+                    secure: 'true'
+                })
+            }else{
+                triggerAlert("error", "Error Creating New Exam")
+            }
         }).catch(() =>
             triggerAlert("error", "Error Creating New Exam")
         )
@@ -121,20 +134,17 @@ export const AddNewExam = () => {
            
                     <select className={TextInputClass} name="" id="" {...register('department')}>
                     
-                            <option value=""  className="valueless">{selectedFaculty == '' ? 'Select a Faculty' : 'Department--'}</option>
+                        <option value="" className="valueless">{selectedFaculty == '' ? 'Select a Faculty' : 'Department--'}</option>
+
                         {
-                            availableDepartments.map((department, key) => (
-                                department.faculty == selectedFaculty &&
-                                
-                                <>
-                                <option key={key} value={department.department[0]}>{department.department[0]}</option>
-                                <option key={key + 5} value={department.department[1]}>{department.department[1]}</option>
-                                </>
+                            availableDepartments.find(fac => fac.faculty === selectedFaculty)
+                            ?.departments.map((dept, i) => (
+                                <option key={i} value={dept}>{dept}</option>
                             ))
                         }
                         {
                             selectedFaculty !== '' &&
-                        <option value="All">All</option>
+                            <option value="All">All</option>
                         }
                     </select>
                     <p className={ErrorMessageTextClass}>{errors.department?.message}</p>

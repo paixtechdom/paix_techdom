@@ -27,7 +27,7 @@ const confirmBox = createSlice({
 })
 
 
-export const { toggleShowConfirmBox, setConfirmMessage, setConfirmMessageDescription,setConfirmedAction } = confirmBox.actions
+export const { toggleShowConfirmBox, setConfirmMessage, setConfirmMessageDescription, setConfirmedAction } = confirmBox.actions
 
 
 export default confirmBox.reducer

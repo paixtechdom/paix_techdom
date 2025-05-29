@@ -11,6 +11,7 @@ export const Admin = () =>{
     useEffect(() => {
         // console.log(userName)
         if(userName == 'admin' ){
+            
         }else{
             navigate('/')
         }

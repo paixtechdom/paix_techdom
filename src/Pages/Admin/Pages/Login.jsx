@@ -8,23 +8,22 @@ import { useNavigate } from 'react-router-dom'
 import Cookie from "js-cookie"
 import { dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../../assets/Constants"
 import { useMyAlert } from "../../../assets/Hooks/useMyAlert"
+import { useLogout } from "../../../assets/Hooks/useLogout"
 
 
 export const Login = () =>{
     const Navigate = useNavigate()
     const triggerAlert = useMyAlert()
-    
+    const Logout = useLogout()
+
     // to store users fetched
-    const [ adminDetails, setAdminDetails ] = useState([])
  
     // to store error to be displayed if there is error in the login details
-    const [ customError, setCustomError ] = useState('')
     const [ showPassword, setShowPassword ] = useState('password')
     // const Navigate = useNavigate()
       
     useEffect(() =>{
-        Navigate('/Login')
-        Cookie.remove('userDetails', {path:'/'})
+        // Logout("login")
     }, [])
 
     
@@ -78,47 +77,45 @@ export const Login = () =>{
                 <h1 className={`${TopLevelHeader} w-11/12`}>Admin Login</h1>
 
                 <form className="flex flex-col w-11/12 gap-3">
-                <div className="flex flex-col gap-4">
-                            <label className="text-gray-500 font-bold" htmlFor="matricNumber">User Name</label>
+                    <div className="flex flex-col gap-4">
+                        <label className="text-gray-500 font-bold" htmlFor="matricNumber">User Name</label>
 
-                            <input className={TextInputClass} type="text" placeholder="Username"  {...register('userName')} />
-                            <p className={ErrorMessageTextClass}>{errors.userName?.message}</p>
-                            </div>
+                        <input className={TextInputClass} type="text" placeholder="Username"  {...register('userName')} />
+                        <p className={ErrorMessageTextClass}>{errors.userName?.message}</p>
+                    </div>
 
-                        <div className="flex flex-col gap-4">
-                            <label className="text-gray-500 font-bold" htmlFor="password">Password</label>
+                    <div className="flex flex-col gap-4">
+                        <label className="text-gray-500 font-bold" htmlFor="password">Password</label>
 
-                            <div className={`${TextInputClass} flex items-center justify-between w-full`}>
-                                <input type={showPassword} 
+                        <div className={`${TextInputClass} flex items-center justify-between w-full`}>
+                            <input 
+                                type={showPassword} 
                                 className={"outline-none w-full"}
                                 placeholder="**********"  
-                                {...register('Password')}/>
-                                
-                                <i className="bi bi-eye-fill text-xl text-gray-700" 
-                                    onClick={() =>{
-                                        setShowPassword(showPassword == 'text' ? 'password' : 'text') 
-                                    }}
-                                ></i>
-                                {/* <input type="checkbox" name="" id="" 
-                                /> */}
-                            </div>
-                            <p className={ErrorMessageTextClass}>{errors.Password?.message}</p>
+                                {...register('Password')}
+                            />
+                            
+                            <i className={`bi bi-${showPassword == 'text' ? "eye-slash-fill" : "eye-fill"} text-xl cursor-pointer text-gray-700`} 
+                                onClick={() =>{
+                                    setShowPassword(showPassword == 'text' ? 'password' : 'text') 
+                                }}
+                            ></i>
+                            {/* <input type="checkbox" name="" id="" 
+                            /> */}
                         </div>
-
-
-                                        
-                    <p className={ErrorMessageTextClass}>{customError}</p>
-
-                   
+                        <p className={ErrorMessageTextClass}>{errors.Password?.message}</p>
+                    </div>                   
 
                     <button onClick={handleSubmit(onLogin)} className={`${PrimaryButtonCLass} uppercase font-bold w-fit min-w-[200px]`}> 
                         Login 
                     </button>
                 </form>
+                
                 <div className="fixed top-0 right-0 w-[300px] hidden lg:block">
                     <img src="./images.jpeg" alt="Pics" />
                 </div>
                 </div>
+
 
                 <button className="fixed top-5 left-5 border border-gray-400 h-[45px] w-[45px] bg-white center rounded-full transition" onClick={() =>{
                     Navigate('/')
@@ -129,4 +126,4 @@ export const Login = () =>{
         </div>
         </main>
     )
-}
+    }

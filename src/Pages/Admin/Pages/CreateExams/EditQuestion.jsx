@@ -13,7 +13,7 @@ import { setConfirmedAction } from "../../../../assets/store/ConfirmBoxSlice"
 import { setExamStatus } from "../../../../assets/store/ExamSlice"
 
 
-export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>{
+export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, UpdateTotalScore }) =>{
     const { fetchQuestions } = useContext(AppContext)
     const dispatch = useDispatch()
     const confirmedAction = useSelector((state) => state.confirmBox.confirmedAction)  
@@ -21,7 +21,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
     const examstate = useSelector((state) => state.examslice)  
     const examKey = examstate.examKey
     const triggerAlert = useMyAlert()
-    const [useConfirmBox] = useMyConfirmBox()
+    const useConfirmBox = useMyConfirmBox()
 
     const [ updatedQuestion, setUpdatedQuestion ] = useState(false)
     const [ deleteClicked, setDeleteClicked ] = useState(false)
@@ -82,8 +82,9 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
     }
 
     const UpdateAfterVerificaton = async () => {
-        console.table(newQuestionInfo)
+        // console.table(newQuestionInfo)
         await axios.post(`${dbLocation}/examquestions.php/${editQuestionInfo.id}/save`, newQuestionInfo).then(function() {
+            UpdateTotalScore(newQuestionInfo.points, questionNo-1)
             setUpdatedQuestion(false)
             triggerAlert("success", `Question ${questionNo} Updated Successfully`)
             fetchQuestions(examKey)
@@ -154,6 +155,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
         .then(function() {
             fetchQuestions(examKey)
             triggerAlert("success", `Question ${questionNo} deleted successfully`)
+            UpdateTotalScore()
             
             noOfQuestions < 6 && 
             axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`)
@@ -213,8 +215,9 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions }) =>
 
                 {/* Question */}
                 <div className="flex flex-col gap-2 w-full">
-                    <div className="center flex-col md:flex-row gap-3 w-full">
-                        <label htmlFor="" className='text-lg font-bold text-gray-700'>Question</label>
+                    <div className="center flex-col lg:flex-row gap-3 w-full">
+                        <label htmlFor="question" className='text-lg font-bold text-gray-700 w-full lg:w-fit'>Question</label>
+
                         <input className={TextInputClass + " w-full"} type="text" placeholder="Enter Question" required value={newQuestionInfo.question}
                         name="question"
                         onChange={(e) => HandleChange(e)}

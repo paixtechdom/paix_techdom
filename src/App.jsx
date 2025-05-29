@@ -20,61 +20,22 @@ import { PageNotFound } from './Pages/PageNotFound';
 import Alert from './Components/Alert';
 import { ExamReport } from './Pages/Admin/Pages/ExamReport/ExamReport';
 import { dbLocation } from './assets/Constants';
+import { StudentReports } from './Pages/Student/Reports/StudentReports';
 
 
 export const AppContext = createContext()
 
 const Layout = () =>{
   const Navigate = useNavigate()
-
-  const [ userName, setUserName ] = useState('') 
-  
   const [ examQuestions, setExamQuestions ] = useState([])
-  const [ savedQuestions, setSavedQuestions ] = useState([])
-  
-    
-  const [  duration, setDuration ] = useState(0)
+  const [ savedQuestions, setSavedQuestions ] = useState([])    
   const [ exams, setExams ] = useState([])
-  const [ noAvailableExams, setNoAvailableExams ]= useState([])
 
 
-  const timerId = useRef()
+  useEffect(() => {
+    document.documentElement.scrollTop = 0
+  }, [document.URL])
 
-
-  const submitExam = (score, totalNoOfQuestions) =>{
-    setScore(score)    
-    setExamEnded(true) 
-    clearInterval(timerId.current)
-    setMarking(true)
-    setTimeout(() => {
-      setMarking(false)
-      setShowScore(true)
-      // axios.post(`${dbLocation}/examResults.php/save`, {
-      //       score: score,
-      //       examKey: examKey,
-      //       matricNumber: studentMatricNumber,
-      //       department: studentDepartment,
-      //       faculty: studentFaculty,
-      //       level: studentLevel,
-      //       studentName: userName
-      //     }).then(function(response){
-            
-      //       setMarkedExam(false)
-      //     })
-    }, 3000);
-
-}
-
-
-const Logout = () =>{
-  if(userName == 'admin'){
-      Navigate('/Login')
-  }else{
-      Navigate('/Student_login')
-
-  }
-  Cookie.remove('userDetails', {path:'/'})
-}
 
 const fetchExams = () =>{
   axios.get(`${dbLocation}/exams.php/`).then(function(response){
@@ -96,7 +57,7 @@ const fetchQuestions = (newExamKey) =>{
     <div className='app z-1'>
    
         
-        <AppContext.Provider value={{ savedQuestions, setSavedQuestions, userName, examQuestions, setExamQuestions, noAvailableExams, setNoAvailableExams, submitExam, Logout, fetchExams, exams, setExams, fetchQuestions, duration, setDuration,  timerId }}>
+        <AppContext.Provider value={{ savedQuestions, setSavedQuestions, examQuestions, setExamQuestions, fetchExams, exams, setExams, fetchQuestions }}>
           {
             Cookie.get('userDetails') !== undefined &&
             <Navbar />
@@ -157,8 +118,12 @@ const router = createBrowserRouter([
       },
       // student home page
       {
-        path: '/Student/:username',
+        path: '/student/:username',
         element: <Student />
+      },
+      {
+        path: '/student/reports',
+        element: <StudentReports />
       },
       // exam interface
       {

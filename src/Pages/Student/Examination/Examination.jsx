@@ -6,23 +6,30 @@ import { useContext, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { AppContext } from "../../../App"
 import { ExamInterface } from "./ExamInterface"
-import { dbLocation, PrimaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
+import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
 import InfoComponent from "../../../Components/InfoComponent"
 import { GetQuestionLength } from "../../../Components/GetQuestionLength"
 import { useDispatch, useSelector } from "react-redux"
 import { useUpdateStudentDetails } from "../../../assets/Hooks/useUpdateStudentDetails"
 import { useUpdateExamDetails } from "../../../assets/Hooks/useUpdateExamDetails"
-import { FormatTime } from "../../../assets/Functions"
+import { FormatDate, FormatTime } from "../../../assets/Functions"
 import { setShowTopNav } from "../../../assets/store/NavigationSlice"
+import { Link } from "react-router-dom"
 
 
 export const Examination = () => {
-    const { setExamQuestions } = useContext(AppContext)
+    const { setExamQuestions, savedQuestions } = useContext(AppContext)
     const [ correctAns, setCorrectAns ] = useState([])
     const [ startedExam, setStartedExam ] = useState(false)
     const [ countdown, setCountdown ] = useState(0)
+    const [ submittedExam, setSubmittedExam ] = useState(false)
+    const [ score, setScore ] = useState(0)
+    const [ showScore, setShowScore ] = useState(false)
+    const [ answers, setAnswers ] = useState([])
 
-
+    
+    
+    const timerId = useRef()
     const dispatch = useDispatch()
     const navigate = useNavigate('/')
     const updateStudentDetails = useUpdateStudentDetails()
@@ -32,6 +39,7 @@ export const Examination = () => {
     const examDetails = useSelector(state => state.examslice)
     const examTitle = examDetails.examTitle
     const examKey = examDetails.examKey
+    const totalScore = examDetails.totalScore
 
 
     const studentDetails = useSelector(state => state.studentslice)
@@ -48,49 +56,16 @@ export const Examination = () => {
 
     useEffect(() =>{
         if(cookiedStudentDetails != undefined && cookiedExamDetails != undefined){
+            const exDetails = JSON.parse(cookiedExamDetails)
             updateStudentDetails(JSON.parse(cookiedStudentDetails))
             updateExamDetails(JSON.parse(cookiedExamDetails))
+            setCountdown(exDetails.duration || examDetails.duration)
             dispatch(setShowTopNav(false))
-            setCountdown(examDetails.duration)
         }
     }, [])
     
 
-    useEffect(() =>{
-        // setExamQuestions('')
-        // setScore(0)
-        // setShowScore(false)
-        // setStartedExam(false)
-        // setExamEnded(false)
-        // setMarkedExam('false')
-        // console.table(studentDetails)
-        // console.table(examDetails)
-    }, [])
- 
-
-    // useEffect(() =>{
-    //     if(countdown == 1){
-    //         setScore(0)
-    //         setTimeout(() => {
-    //             setMarkedExam('mark')
-    //         }, 900);
-    //     } 
-    // }, [countdown])
-
     
-    // useEffect(() =>{
-        
-    //     if(countdown == 0){
-    //         clearInterval(timerId.current)
-    //         setCountdown(10000)
-    //         submitExam(score, examQuestions.length)
-    //         setInterval(() => {
-    //             setMarking(false)
-    //         }, 3000);
-    //     } 
-    // }, [countdown, submitExam])
-
-
 
 //   const handleLeavePage = (event) => {
 //     // submitExam(score, examQuestions.length)
@@ -127,19 +102,58 @@ export const Examination = () => {
 //   }, [startedExam]);
 
 
+    useEffect(() => {
+        if(submittedExam){
+            clearInterval(timerId.current)
+            setShowScore(true)
+        }
+    }, [submittedExam])
 
     
    
     const StartTimer = () =>{
-        const timerId = setInterval(() =>{
-            setCountdown(prev => prev -= 1)
+        timerId.current = setInterval(() =>{
+            setCountdown(prev => prev > 0 ? prev - 1 : 0)
         }, 1000)
-        return () => clearInterval(timerId)
+        return () => clearInterval(timerId.current)
     }
 
 
-
+    const closeExam = () => {
+        setSubmittedExam(false)    
+        setStartedExam(false)
+        setCountdown(0)
+        setScore(0)
+    }
     
+    const SaveReport = () => {
+        let today = new Date()
+        let date = FormatDate(today)
+        let userscore = 0
+
+        savedQuestions.forEach((question, i) =>{
+            if(question.answer == answers[i]){
+                userscore += question.points
+            }    
+        })
+
+        const saveinfo = {
+            examKey: examDetails.examKey,
+            studentId: studentDetails.id,
+            score: userscore,
+            timeUsed: examDetails.duration - countdown,
+            date: date,
+            totalScore: totalScore
+          }
+
+        //   console.table(saveinfo)
+          axios.post(`${dbLocation}/examResults.php/save`, saveinfo)
+          .then((response) => {
+            // console.log(response.data)
+            
+            
+          })
+    }
     
     const fetchQuestions = async (examKey) =>{
         
@@ -150,11 +164,6 @@ export const Examination = () => {
             const shuffledQuestions = questions.sort(() => Math.random() - 0.5)
             setExamQuestions(shuffledQuestions)
         }) 
-        // await axios.get(`${dbLocation}/exams.php/${examKey}/duration`).then(function(response){
-        //     let res = response.data
-        //     // setCountdown(5)
-        //     setCountdown(res[0].duration)
-        // }) 
         // startTimer()
     }
     
@@ -175,17 +184,21 @@ export const Examination = () => {
 
   return (
       
-      <main className="mt-[5vh] w-full center flex-col">      
-        <div className={ TopLevelHeader + " w-11/12 mb-3"}> 
-            {examTitle}
-        </div>
-
-        {FormatTime(countdown)}
+      <main className="mt-[5vh] w-full center flex-col mb-[10vh]">
+        <div className="flex flex-wrap w-11/12 lg:gap-3 items-center justify-between mb-7">
+            <div className={ TopLevelHeader + " mb-3"}> 
+                {examTitle}
+            </div>
+            {
+                (startedExam || submittedExam) &&
+                <p className={`${countdown < 600 ? "bg-red-400 animate-pulse" : ""} bg-gray-100 shadow-lg p-3 rounded-xl text-[15px]`}>{FormatTime(countdown)}</p>
+            }
+        </div>      
         {
             !startedExam ?
             <div className="flex flex-col w-11/12 gap-3">
                 
-                <div className="flex flex-col lg:flex-row justify-between gap-3">
+                <div className="flex flex-col md:flex-row justify-between gap-3">
                     <InfoComponent 
                         title={"Full Name:"}
                         info={`${firstName} ${studentDetails.middleName} ${lastName}`}
@@ -197,13 +210,13 @@ export const Examination = () => {
                     />
                 </div>
 
-                <div className="flex justify-between gap-3">
+                <div className="flex flex-col md:flex-row justify-between gap-3">
                     <InfoComponent 
                         title={"Faculty:"}
                         info={faculty}
                     />
 
-                    <div className="w-4/12">
+                    <div className="w-full md:w-4/12">
                     <InfoComponent 
                         title={"Level:"}
                         info={level}
@@ -211,18 +224,25 @@ export const Examination = () => {
                     </div>
                 </div>
 
-                <div className="flex justify-between gap-3">
-                    
+                <div className="flex flex-col md:flex-row justify-between gap-3">
+                    <div className="w-full md:w-5/12">
                     <InfoComponent 
                         title={"Department:"}
                         info={department}
                     />
+                    </div>
 
-                    <div className="w-4/12">
+                    <div className="flex flex-col md:flex-row w-full md:w-7/12 gap-3">
+                        <div className="w-full lg:w-4/12">
 
+                            <InfoComponent 
+                                title={"Questions:"}
+                                info={<GetQuestionLength examKey={examKey} />}
+                            />
+                        </div>
                     <InfoComponent 
-                        title={"Questions:"}
-                        info={<GetQuestionLength examKey={examKey} />}
+                        title={"Duration:"}
+                        info={FormatTime(countdown)}
                     />
                     </div>
                 </div>
@@ -232,43 +252,54 @@ export const Examination = () => {
                 <button
                     onClick={() => {
                         setStartedExam(true)
-                        fetchQuestions(examKey)
-                        // setScore(0)
-                        
+                        fetchQuestions(examKey) 
+                        StartTimer()                       
                     }} 
                     className={`${PrimaryButtonCLass} w-fit my-9 min-w-[150px] mb-12`}>
                     Start Exam
                 </button>
             </div> : 
-           <ExamInterface 
-            StartTimer={StartTimer}
+            <ExamInterface 
+                submittedExam={submittedExam} 
+                setSubmittedExam={setSubmittedExam}
+                countdown={countdown}
+                SaveReport={SaveReport}
+                setScore={setScore}
+                closeExam={closeExam}
+                answers={answers}
+                setAnswers={setAnswers}
             />
         }
+
         
+    {
+        showScore &&
+        <div className="fixed top-0 left-0 bg-black  w-full h-screen center backdrop-blur-[2px] bg-opacity-50 z-[20]">
+            <div className="center flex-col gap-4 bg-white h-[40vh] w-11/12 md:w-8/12 lg:w-6/12 xl:w-6/12 rounded-xl shadow-xl p-9  transition-all duration-500 ease-in-out">
+                <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-lg">Score: </h3>
+                    <p> {score} </p>
+                </div>
+                
+                <div className="flex justify-between gap-5">
+                    <button className={`${PrimaryButtonCLass}`}
+                    onClick={() => {
+                        setShowScore(false)
+                    }}>
+                        View Questions
+                    </button>
 
-
-
-   
-
-              {/* {
-                  showScore &&
-                  <div className="score">
-                      <div>
-                          <h3>Score</h3>
-                      <p>
-                          <span>{score}</span> right answer(s) 
-                      </p>
-                      <p>
-                          <span>{examQuestions.length - score}</span> wrong answer(s)
-                      </p>
-                      <p>
-                          Total number of questions: <span>{examQuestions.length}</span>
-                      </p>
-                      </div>
-                  </div>
-               }  */}
-          
-        
+                    <Link to={`/student/${firstName}-${lastName}`} className={`${SecondaryButtonCLass} `}
+                    onClick={() => {
+                        closeExam()
+                    }}>
+                        Return to Home Page
+                    </Link>
+                </div>
+            </div>
+        </div>
+    } 
+    
       </main>
   )
 }

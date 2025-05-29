@@ -1,23 +1,23 @@
 Drag to rearange the order of the questions
-Setting of time without the buttons - using the input and then button to increase what was inputed
-
-total score - admin side
-confirm submission, if some haven't being filled
+generate with ai
+notifications
 
 
 
+student report page in account
+loadings
+preventing pages from loading based on account
+leaving or closing the page
+if user refreshes after exam, he can still retake it
 
-Exam report
-2. faculty
-3. department
-4. level  - thsis is the same for all who took the exam - what about those for all?
+choosing multiple faculties for the exam
 
 
 
-1. Name
-5. score
-6. time used
-7. date
+importing questions
+    what format and how to generate it,
+
+
 
 
 Live monitoring
@@ -32,7 +32,14 @@ Live monitoring
 
 Admin Pages
     1. Login
-    2. Create Exam
+    Dashboard
     3. All Exams
-    4. Edit Exam 
-    5. Exam Report
+    2. Create Exam
+    reports
+    settings
+    5. Exam Report for each exam
+
+student
+    all Exams
+    examination
+    exam reports

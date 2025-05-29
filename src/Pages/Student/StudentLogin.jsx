@@ -11,21 +11,20 @@ import { dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, 
 import { useMyAlert } from "../../assets/Hooks/useMyAlert"
 import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
 import { useSelector } from "react-redux"
+import { useLogout } from "../../assets/Hooks/useLogout"
+
 
 
 export const StudentLogin = () => {
 
-    const [ customError, setCustomError ] = useState('')
     const [ showPassword, setShowPassword ] = useState('password')
-
-
+    const Logout = useLogout()
     const Navigate = useNavigate()
     const triggerAlert = useMyAlert()
     const updateStudentDetails = useUpdateStudentDetails()
 
     useEffect(() => {
-        Navigate('/Student_login')
-        Cookie.remove('userDetails', {path:'/'})
+        Logout("Student_login")
     }, [])
     
     
@@ -34,9 +33,7 @@ export const StudentLogin = () => {
         matricNumber: yup.string().required('Matric Number is required'),
         Password: yup.string().min(6).max(18).required()
     })
-    useEffect(() =>{
-        setCustomError('')
-    }, [schema.Password, schema.matricNumber])
+     x
     
     // to handle the details of the form on submit
     const { register, handleSubmit, formState: {errors} } = useForm({
@@ -62,7 +59,7 @@ export const StudentLogin = () => {
             }
         })
         .catch((error)=> {
-            console.table(error)
+            // console.table(error)
             triggerAlert("error", "An error occured, please try again")
         }) 
 
@@ -88,13 +85,15 @@ export const StudentLogin = () => {
                             <label className="text-gray-500 font-bold" htmlFor="password">Password</label>
 
                             <div className={`${TextInputClass} flex items-center justify-between w-full`}>
-                                <input type={showPassword} 
-                                className={"outline-none w-full"}
-                                placeholder="Password"  
-                                {...register('Password')}/>
+                                <input 
+                                    type={showPassword} 
+                                    {...register('Password')}
+                                    className={"outline-none w-full"}
+                                    placeholder="Password"  
+                                />
                                 
-                                <i className="bi bi-eye-fill text-xl text-gray-700" 
-                                    onClick={() =>{
+                                <i className={`bi bi-${showPassword == 'text' ? "eye-slash-fill" : "eye-fill"} text-xl cursor-pointer text-gray-700`} 
+                                    onClick={() =>{                                        
                                         setShowPassword(showPassword == 'text' ? 'password' : 'text') 
                                     }}
                                 ></i>
@@ -104,7 +103,6 @@ export const StudentLogin = () => {
                             <p className={ErrorMessageTextClass}>{errors.Password?.message}</p>
                         </div>
 
-                        <p className={ErrorMessageTextClass}>{customError}</p>
 
                         <button onClick={handleSubmit(onLogin)} className={`${PrimaryButtonCLass} uppercase font-bold w-fit min-w-[200px]`}> 
                             Login 

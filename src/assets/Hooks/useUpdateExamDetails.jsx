@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setDuration, setExamDepartment, setExamFaculty, setExamKey, setExamLevel, setExamStatus, setExamTitle } from "../store/ExamSlice";
+import { setDuration, setExamDepartment, setExamFaculty, setExamKey, setExamLevel, setExamStatus, setExamTitle, setTotalScore } from "../store/ExamSlice";
 
 export const useUpdateExamDetails = () => {
     const dispatch = useDispatch();
@@ -13,6 +13,7 @@ export const useUpdateExamDetails = () => {
       dispatch(setExamLevel(exam.level))
       dispatch(setExamDepartment(exam.department))
       dispatch(setExamFaculty(exam.faculty))
+      dispatch(setTotalScore(exam.totalScore))
     };
   
     return updateExamDetails; // Return the function so it can be used in components

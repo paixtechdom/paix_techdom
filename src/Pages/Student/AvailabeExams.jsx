@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass } from "../../assets/Constants"
+import { availableDepartments, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass } from "../../assets/Constants"
 import { useDispatch, useSelector } from "react-redux"
 import { useUpdateExamDetails } from "../../assets/Hooks/useUpdateExamDetails"
 import { useMyAlert } from "../../assets/Hooks/useMyAlert"
@@ -11,16 +11,21 @@ import InfoComponent from "../../Components/InfoComponent"
 import { GetQuestionLength } from "../../Components/GetQuestionLength"
 import { FormatTime } from "../../assets/Functions"
 import { setQuestionsLength } from "../../assets/store/ExamSlice"
+import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
 
 export const AvailableExams = () => {
     const [ isLoadingExams, setIsLoadingExams ] = useState(false)
     const [ exams, setExams ]= useState([])
+    const updateStudentDetails = useUpdateStudentDetails()
 
-    const studentDetails = useSelector(state => state.studentslice)
+
     const cookiedDetails  = Cookie.get("userDetails")
     useEffect(() =>{
+
+
         if(cookiedDetails != undefined){
             const cookiedStudentDetails = JSON.parse(cookiedDetails)
+            updateStudentDetails(cookiedStudentDetails)      
             fetchExams(cookiedStudentDetails )
             setIsLoadingExams(true)
         }
@@ -30,7 +35,7 @@ export const AvailableExams = () => {
     const encodeValue = (value) => value.replace(/\s+/g, '-')
 
     const fetchExams = (studentDetails) =>{        
-        axios.get(`${dbLocation}/exams.php/availableExams/${studentDetails.level}/${encodeValue(studentDetails.department)}/${encodeValue(studentDetails.faculty)}`)
+        axios.get(`${dbLocation}/exams.php/availableExams/${studentDetails.level}/${encodeValue(studentDetails.department)}/${encodeValue(studentDetails.faculty)}/${studentDetails.id}`)
         .then(function(res){
             const exams = res.data
             setExams(exams)
@@ -73,7 +78,9 @@ export const AvailableExams = () => {
 
 
 
-const AvailableExam = ({exam, fetchExams}) => {
+
+
+const AvailableExam = ({exam}) => {
     const dispatch = useDispatch()
     const updateExamDetails = useUpdateExamDetails()
     
@@ -91,7 +98,7 @@ const AvailableExam = ({exam, fetchExams}) => {
 
     const SetExamInfoGlobally = (exam) => {
     // to update the store and cookie
-        console.table(exam)
+        // console.table(exam)
         updateExamDetails(exam)
 
         Cookie.set('examDetails', JSON.stringify(exam), {
@@ -112,7 +119,7 @@ const AvailableExam = ({exam, fetchExams}) => {
 
 
     return(
-    <Link to={`/Examination/${exam.examKey}`} className="flex flex-col gap-3 rounded-xl bg-gray-50 shadow-lg p-5 relative">
+    <Link to={`/Examination/${exam.examKey}`} className={`flex flex-col gap-3 rounded-xl  shadow-lg p-5 relative ${availableDepartments.find(fac => fac.faculty == exam.faculty)?.color}`}>
          <span className={`absolute top-0 right-0 w-4 h-4 rounded-tr-xl ${exam.status == "Active" ?  "bg-green-600 animate-pulse" : "bg-gray-700"}`}
         ></span>
 
@@ -124,13 +131,13 @@ const AvailableExam = ({exam, fetchExams}) => {
             {exam.examTitle}
         </div>
         
-        <div className="flex justify-between gap-3">
+        <div className="flex flex-col md:flex-row justify-between gap-3">
             <InfoComponent 
                 title={"Faculty:"}
                 info={exam.faculty}
             />
 
-            <div className="w-4/12">
+            <div className="w-full lg:w-4/12">
             <InfoComponent 
                 title={"Level:"}
                 info={exam.level}
@@ -138,14 +145,14 @@ const AvailableExam = ({exam, fetchExams}) => {
             </div>
         </div>
 
-        <div className="flex justify-between gap-3">
+        <div className="flex flex-col md:flex-row justify-between gap-3">
             
             <InfoComponent 
                 title={"Department:"}
                 info={exam.department}
             />
 
-            <div className="w-4/12">
+            <div className="w-full lg:w-4/12">
 
             <InfoComponent 
                 title={"Questions:"}
@@ -153,14 +160,15 @@ const AvailableExam = ({exam, fetchExams}) => {
             />
             </div>
         </div>
+        
 
 
-        <div className="flex justify-between items-center w-full gap-4 mt-4">
+        <div className="flex flex-col md:flex-row justify-between lg:items-center w-full gap-4 mt-4">
 
-            <div className="w-fit">
+            <div className="w-full md:w-fit">
                 <InfoComponent 
-                    title={"Expires in:"}
-                    info={FormatTime(45000)}
+                    title={"Duration:"}
+                    info={FormatTime(exam.duration)}
                 />
             </div>
 

@@ -13,7 +13,7 @@ export const useMyConfirmBox = () => {
       dispatch(setConfirmMessageDescription(confirmMessageDescription));
     };
   
-    return [useConfirmBox]; // Return the function so it can be used in components
+    return useConfirmBox; // Return the function so it can be used in components
 
 
   };

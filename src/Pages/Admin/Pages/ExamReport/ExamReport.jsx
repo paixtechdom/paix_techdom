@@ -39,9 +39,27 @@ export const ExamReport = () => {
     const level = examstate.level      
     const faculty = examstate.faculty      
     const department = examstate.department   
+    const totalScore = examstate.totalScore   
 
     
     const cookiedExamDetails = Cookie.get('examDetails')
+ 
+    const [ results, setResults ] = useState([])
+    const [ performance, setPerformance ] = useState({
+        passed: 0,
+        average: 0,
+        failed: 0
+    })
+
+    const UpdatePerformanceState = (type) => {
+        setPerformance({
+            ...performance,
+            [type]: performance[type] += 1
+        })
+    }
+
+    
+    
 
 
     const FetchExam = async (key) => {
@@ -50,14 +68,14 @@ export const ExamReport = () => {
             const exam = res.data[0]
 
             if(exam == undefined){
-                navigate("/exams/all-exams") 
+                // navigate("/exams/all-exams") 
                 triggerAlert("error", "Error Fetching Exam undefined")
                 return
             }
             
             if((window.document.URL).split("/")[5].toLowerCase() !== exam.examTitle.toLowerCase().replaceAll(" ", "-")){
                 triggerAlert("error", "Error Fetching Exam")
-                navigate("/page-not-found")
+                // navigate("/page-not-found")
                 return
             }
 
@@ -66,35 +84,60 @@ export const ExamReport = () => {
         })
         .catch(() => {
             triggerAlert("error", "Error Fetching Exam catch")
-            navigate("/exams/all-exams")            
+            // navigate("/exams/all-exams")            
         })
     }
-    
+    const fetchResults = (examKey) =>{
 
+
+        axios.get(`${dbLocation}/examResults.php/${examKey}`, examKey).then(function(response){
+            // console.table(response.data)
+            setResults(response.data)
+            let ntotalScore= cookiedExamDetails != undefined ? (JSON.parse(cookiedExamDetails)).totalScore : totalScore
+    
+            const minScore = ntotalScore/2 - ntotalScore/20
+            const maxScore = ntotalScore/2 + ntotalScore/20
+            
+            console.log(minScore, totalScore, maxScore)
+
+            response.data.forEach(s => 
+                s.score >= maxScore ? UpdatePerformanceState("passed") : 
+                s.score <= minScore ? UpdatePerformanceState("failed") : 
+                s.score > minScore && s.score < maxScore ? UpdatePerformanceState("average") : ""
+            ) 
+        }) 
+    }
+    
+    
     
     useEffect(() =>{
+        // console.table(cookiedExamDetails)
         if(cookiedExamDetails != undefined){
-            updateExamDetails(cookiedExamDetails)
-            FetchExam(cookiedExamDetails.examKey || examKey)
+            const cookiedExamDetailsObject = JSON.parse(cookiedExamDetails)            
+            updateExamDetails(cookiedExamDetailsObject)
+            FetchExam(cookiedExamDetailsObject.examKey || examKey)
+            fetchResults(cookiedExamDetailsObject.examKey || examKey)
         }
 
-        if(examKey == "" && cookiedExamDetails.examKey == ""){
+        if(examKey == "" && cookiedExamDetails == undefined){
             navigate("/exams/all-exams")
         }
     }, [])
 
+    // create a new array from what was fetched
+
 
     return(
         <main className="w-full center pt-[15vh]">
-            <div className="w-11/12 center flex-col gap-12">
+            <div className="w-11/12 center flex-col gap-12 mb-[10vh] lg:mb-[20vh]">
 
                 <div className="flex flex-col w-full gap-5">
                     <h2 className={`${TopLevelHeader} w-full`}>Exam Report</h2>
                 
 
-                    <h2 className={`font-bold w-full text-2xl`}> <span className="text-xl font-light">Title:</span> {examTitle}</h2>
+                    <h2 className={`font-bold w-full text-2xl`}> <span className="text-base font-light">Title:</span> {examTitle}</h2>
 
-                    <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 w-full gap-4">
+                    <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-2 w-full gap-4">
                         <InfoComponent 
                             title={"Faculty:"}
                             info={faculty}
@@ -103,7 +146,7 @@ export const ExamReport = () => {
                             title={"Department:"}
                             info={department}
                         />
-                        <div className="flex items-center justify-between gap-4">
+                        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
                             <InfoComponent 
                                 title={"Level:"}
                                 info={level}
@@ -113,13 +156,21 @@ export const ExamReport = () => {
                                 info={FormatTime(duration)}
                             />
                         </div>
+                        <InfoComponent 
+                            title={"Total Score:"}
+                            info={totalScore}
+                        />
                     </div>
                 </div>
 
 
-                <PerformanceChart />
+                <PerformanceChart 
+                    results={results}
+                    performance={performance}
+                />
                 <ResultsTable 
-                    data={Students}
+                    data={results || []}
+                    currentPage={1}
                 />
             </div>
         </main>
@@ -127,46 +178,28 @@ export const ExamReport = () => {
 }
 
 
-const PerformanceChart = ({}) => {
-    const [ performance, setPerformance ] = useState({
-        passed: 0,
-        failed: 0,
-        average: 0,
-    })
-    const UpdatePerformanceState = (type) => {
-        setPerformance({
-            ...performance,
-            [type]: performance[type] += 1
-        })
-    }
+const PerformanceChart = ({ performance }) => {
 
-    useEffect(() => {
-        Students.forEach(s => 
-            s.score >= 55 ? UpdatePerformanceState("passed") : 
-            s.score <= 45 ? UpdatePerformanceState("failed") : 
-            s.score > 45 && s.score < 55 ? UpdatePerformanceState("average") : ""
-        )
-    }, [])
+ 
 
     return(
         <section className="flex w-full flex-col gap-3">
+
             <div className="flex w-full bg-gray-100 relative h-[2vh] rounded-full xl shadow-md overflow-hidden">
-        
+
+
                 <PerformanceInfo 
-                    performance={performance}
-                    type={"passed"}
+                    performance={performance.passed}
                     color={"green-500"}
                 />
         
                 <PerformanceInfo 
-                    performance={performance}
-                    type={"average"}
+                    performance={performance.average}
                     color={"gray-500"}
                 />
         
                 <PerformanceInfo 
-                    performance={performance}
-                    type={"failed"}
+                    performance={performance.failed}
                     color={"red-600"}
                 />
 
@@ -191,10 +224,10 @@ const PerformanceChart = ({}) => {
 
 }
 
-const PerformanceInfo = ({performance, type, color}) =>{
+const PerformanceInfo = ({performance, color}) =>{
     return(
         <div className={`bg-${color} h-full relative`} style={{
-            width: ((performance[type] / Students.length) * 100) + "%"
+            width: ((performance / Students.length) * 100) + "%"
         }}>
         </div>
     )

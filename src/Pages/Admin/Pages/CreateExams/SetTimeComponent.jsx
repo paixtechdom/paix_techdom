@@ -127,7 +127,7 @@ const SetValuesComponent = ({value, setValue, title}) => {
             <p className={`text-[12px] font-bold text-gray-500`}>{title}</p>
             <ControlsButton 
             func={() => {
-                setValue(prev => prev +=   1)
+                setValue(prev => prev + 1)
             }}>
                 <i className='bi bi-chevron-up'></i>
             </ControlsButton>
@@ -136,7 +136,7 @@ const SetValuesComponent = ({value, setValue, title}) => {
                 type="number" 
                 value={value} 
                 className='w-12 text-center bg-transparent center outline-none'
-                readOnly
+                // readOnly
                 onChange={(e) => {
                 setValue(value < 0 ? 0 : e.target.value) 
             }}
@@ -144,7 +144,7 @@ const SetValuesComponent = ({value, setValue, title}) => {
             
             <ControlsButton 
                 func={() => {
-                setValue(prev => value <= 0 ? 0 : prev -= 1)
+                setValue(prev => value <= 0 ? 0 : prev - 1)
                 }} 
                 disabled={value == 0}
             >

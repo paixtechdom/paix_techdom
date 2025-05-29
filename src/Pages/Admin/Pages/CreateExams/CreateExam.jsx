@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { availableDepartments, DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, SuccessButtonClass, TopLevelHeader } from "../../../../assets/Constants"
 import AddQuestionForm from "./AddQuestionForm"
 import { SetTimeComponent } from "./SetTimeComponent"
-import { setExamDepartment, setExamFaculty, setExamKey, setExamLevel, setExamStatus, setExamTitle } from "../../../../assets/store/ExamSlice"
+import { setExamDepartment, setExamFaculty, setExamKey, setExamLevel, setExamStatus, setExamTitle, setTotalScore } from "../../../../assets/store/ExamSlice"
 import { useMyAlert } from "../../../../assets/Hooks/useMyAlert"
 import { useUpdateExamDetails } from "../../../../assets/Hooks/useUpdateExamDetails"
 import InfoComponent from "../../../../Components/InfoComponent"
@@ -36,15 +36,16 @@ export const CreateExam = () =>{
     const status = examstate.status      
     const level = examstate.level      
     const faculty = examstate.faculty      
+    const totalScore = examstate.totalScore      
     const department = examstate.department      
 
 
     const [ editPart, setEditPart ] = useState("")
     const [ newExamInfo, setNewExamInfo ] = useState({
-        examTitle: "",
-        level: "",
-        faculty: "",
-        department: ''
+        examTitle: examTitle,
+        level: level,
+        faculty: faculty,
+        department: department
     })
 
 
@@ -84,12 +85,15 @@ export const CreateExam = () =>{
     const CookiedExamDetails = Cookie.get("examDetails") 
     
     useEffect(() =>{
+        document.documentElement.scrollTop=0
+        // console.table(CookiedExamDetails)
         if (CookiedExamDetails !== undefined){
             const examDetails = JSON.parse(Cookie.get("examDetails"))
             dispatch(setExamKey(examDetails.examKey))
             fetchQuestions(examDetails.examKey)
             FetchExam(examDetails.examKey)
             updateExamDetails(examDetails)
+           
         }else{
             navigate("/exams/all-exams")
 
@@ -101,13 +105,14 @@ export const CreateExam = () =>{
 // to ensure the new exam info is updated with the info in the store after refreshing the page
     useEffect(() => {
         // if(editPart !== "" || editPart !== "empty"){
-
+            if (CookiedExamDetails !== undefined){
             setNewExamInfo({
                 examTitle : examTitle,
                 level: level,
                 faculty : faculty,
                 department : department
             })
+        }
         // }
     
     }, [examstate])
@@ -119,37 +124,66 @@ export const CreateExam = () =>{
         if(savedQuestions.length < 5 ){
             triggerAlert("error", "You need at least 5 questions to go live")
         }else{
-            if(status == 'Active'){
-                await axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`).then(() => {
-                    triggerAlert("info", "Exam is now inactive")
-                    dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
-                })
-                
+            if(duration < 60){
+                triggerAlert("error", "Time frame is too short for an exam")
             }else{
-                await axios.post(`${dbLocation}/exams.php/${examKey}/Active`).then(() => {
-                    triggerAlert("success", "Exam is now live")
-                    dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
-                })
-            }
-
-            // savedQuestions.forEach((question, index) =>{
+                if(status == 'Active'){
+                    await axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`).then(() => {
+                        triggerAlert("info", "Exam is now inactive")
+                        dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
+                    })
+                    
+                }else{
+                    await axios.post(`${dbLocation}/exams.php/${examKey}/Active`).then(() => {
+                        triggerAlert("success", "Exam is now live")
+                        dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
+                    })
+                }
     
-            //     if(question.answer == 'Answer not selected'){
-            //         appearance = 1
-            //         i = index + 1
-            //     }
-            //     })
-                
-            //     if(appearance > 0){
-            //         alert('Answer Not Selected in no ' + i )
+                // savedQuestions.forEach((question, index) =>{
+        
+                //     if(question.answer == 'Answer not selected'){
+                //         appearance = 1
+                //         i = index + 1
+                //     }
+                //     })
                     
-            //     }
-            //     else{
-                    
-                    // if(status == "Active"){}
-            //     }
+                //     if(appearance > 0){
+                //         alert('Answer Not Selected in no ' + i )
+                        
+                //     }
+                //     else{
+                        
+                        // if(status == "Active"){}
+                //     }
+            }
         }
     }
+
+    // change points, add new question or delete question
+
+    const UpdateTotalScore = async (points, index) => {
+        let totalScore = 0
+        savedQuestions.forEach((q) => {
+            totalScore += q.points
+        })
+        if(points){
+            totalScore -= savedQuestions[index].points
+            totalScore += points
+        }else{
+        }
+        
+        await axios.post(`${dbLocation}/exams.php/${totalScore}/totalScore/${examKey}`)
+        .catch(() =>{
+            triggerAlert("error", "Failed to update Info")
+        })
+        dispatch(setTotalScore(totalScore))
+    }
+
+    // saved question.lenth is to track if a new question has been added
+    useEffect(() => {
+        UpdateTotalScore()
+    }, [savedQuestions.length])
 
     useEffect(() => {
         // to prevent calling running this code before the app state updates hereby deleting all info 
@@ -173,6 +207,7 @@ export const CreateExam = () =>{
         }
     }, [newExamInfo.faculty])
 
+
     const updateExamInfo = async () => {
         // console.table(newExamInfo)
         if(newExamInfo.department == ""){
@@ -185,6 +220,7 @@ export const CreateExam = () =>{
                 dispatch(setExamLevel(newExamInfo.level))
                 dispatch(setExamDepartment(newExamInfo.department))
                 dispatch(setExamFaculty(newExamInfo.faculty))
+                dispatch(setTotalScore(newExamInfo.totalScore))
                 {
                     newExamInfo.department !== "" &&
                     triggerAlert("success", "Exam Info Updated Successfully")
@@ -204,9 +240,10 @@ export const CreateExam = () =>{
     return (
         <main className="center flex-col w-full mt-[15vh]">
             <section className="flex flex-col gap-4 w-11/12 lg:gap-8">
-            
-                <div className="flex flex-col w-full justify-between gap-4 ">
-                    {/* Exam Titls */}
+                {/* {examTitle} : {faculty} : {level} : {department}  */}
+                <div className="flex flex-col w-fullw justify-between gap-4 ">
+
+                    {/* Exam Title */}
                     <div className="flex flex-wrap gap-5 justify-between lg:items-center">
                         <input 
                             className={TopLevelHeader + " w-full lg:w-10/12 outline-gray-300 px- 2 p-3 rounded-xl"} 
@@ -258,8 +295,7 @@ export const CreateExam = () =>{
                                 }}>
 
                             </i>    
-                        }
-                            >
+                        }>
                             {
                                 editPart == "faculty" && 
                                 <EditPartDropDownComponent 
@@ -335,23 +371,32 @@ export const CreateExam = () =>{
                                 />
                             }   
                         </InfoComponent>
+
+                        <InfoComponent
+                            title={"Total Score:"}
+                            info={totalScore}
+                        />
                     </div>  
 
                 </div>
                 {/* Duration, inport questions, set live or active  */}
 
-                <div className="flex items-center gap-5 justify-center w-full">
-                    <SetTimeComponent 
-                        examKey={examKey}
-                        duration={duration}
-                    />
-                    
+                <div className="flex flex-wrap items-center gap-5 justify-center w-full">
                     <ImportQuestions fetchQuestions={fetchQuestions} examKey ={examKey} setExamStatus={setExamStatus} status={status}/>
                     {/* <p>Duration: </p> */}
                     
+                    <div className="flex gap-5 items-center">
+
+                        <button className={`${status == "Active" ? SuccessButtonClass : SecondaryButtonCLass } font-bold text-sm button w-fit `}
+                        onClick={() => updateExamStatus(examKey, status)}>{status == "Active" ? "Live" : "Go Live"}</button>
+
+                        <SetTimeComponent 
+                            examKey={examKey}
+                            duration={duration}
+                        />
+                    </div>
                     
-                    <button className={`${status == "Active" ? SuccessButtonClass : SecondaryButtonCLass } font-bold text-sm button w-fit `}
-                    onClick={() => updateExamStatus(examKey, status)}>{status == "Active" ? "Live" : "Go Live"}</button>
+                    
 
                 </div>
 
@@ -366,6 +411,7 @@ export const CreateExam = () =>{
                { savedQuestions?.map((question, i) => (
                     <EditQuestion 
                         editQuestionInfo={question} 
+                        UpdateTotalScore={UpdateTotalScore} 
                         key={i}
                         questionNo={i+1}
                         noOfQuestions={savedQuestions.length}
@@ -407,11 +453,11 @@ export const CreateExam = () =>{
 
 
 const EditPartDropDownComponent = ({data, part, setNewExamInfo, setEditPart, newExamInfo}) => {
-    const nData = [...data, "All"]
+    const newData = [...data, "All"]
   return(
     <div className="absolute top-[100%] mt-2 left-0 w-full flex flex-col bg-gray-100 shadow-xl rounded-xl overflow-hidden z-20">
         {
-            nData.map((d, key)  => (
+            newData.map((d, key)  => (
                 <p key={key}
                  className={`hover:bg-white p-3 px-5 transition-all duration-500 ease-in-out text-sm
                 ${newExamInfo[part] == d ? "bg-white" : ""}

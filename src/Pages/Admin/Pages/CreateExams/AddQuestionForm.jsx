@@ -135,7 +135,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
         {/* Question */}
         <div className="flex flex-col gap-2 w-full">
             <div className="center flex-col md:flex-row gap-3 w-full">
-                <label htmlFor="" className='text-lg font-bold text-gray-700 w-full lg:w-fit'>Question</label>
+                <label htmlFor="" className='text-lg font-bold text-gray-700 w-full md:w-fit'>Question</label>
                 <input className={TextInputClass + " w-full"} type="text" placeholder="Enter Question"  {...register('question')}/> 
 
             </div>

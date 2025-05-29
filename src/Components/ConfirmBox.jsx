@@ -11,34 +11,6 @@ export const ConfirmBox = () =>{
     const showConfirmBox = confirmBox.showConfirmBox
     const confirmMessageDescription = confirmBox.confirmMessageDescription
 
-
-    // useEffect(() =>{
-    //     if(confirmFunction == 'automaticExamSubmission'){
-    //         submitExam(score, examQuestions.length)
-    //     }
-    // }, [confirmFunction])
-
-       
-    const confirmFunc = () =>{
-    //     setConfirm(false)
-    //     if(confirmFunction == 'Logout'){
-    //         Logout()
-    //     }
-    //     if(confirmFunction == 'deleteExam'){
-    //         deleteExam(examKeyTobeDeleted)
-    //     }
-    //     if(confirmFunction == 'deleteQuestion'){
-    //         deleteQuestion(questionTobeDeleted)
-    //     }
-    //     if(confirmFunction == 'submitExam'){     
-
-    //         submitExam(score, examQuestions.length)
-            
-            
-    //     }
-    }
-
-
         
     return(
         <section className={`fixed top-0 left-0 bg-black  w-full h-screen center backdrop-blur-[2px]
