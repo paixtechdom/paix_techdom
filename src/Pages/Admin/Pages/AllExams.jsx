@@ -18,14 +18,21 @@ export const AllExams = () =>{
     const { exams, fetchExams } = useContext(AppContext)
     const Navigate = useNavigate()
     
+    const CookiedUserDetails = Cookie.get("userDetails") 
     useEffect(() =>{
-        fetchExams()
-        Cookie.remove('examDetails', {path:'/admin'})
+        document.documentElement.scrollTop=0
+        if(CookiedUserDetails !== "admin"){
+            Navigate("/")
+        }
+        else{
+            fetchExams()
+            Cookie.remove('examDetails', {path:'/admin'})
+        }
     }, [])
     
 
     return (
-        <main className='center flex-col w-full mt-[12vh]'> 
+        <main className='center flex-col w-full my-[12vh]'> 
   
             <div className="center w-11/12 flex-col">
 

@@ -24,6 +24,7 @@ export const StudentLogin = () => {
     const updateStudentDetails = useUpdateStudentDetails()
 
     useEffect(() => {
+        document.documentElement.scrollTop=0
         Logout("Student_login")
     }, [])
     
@@ -33,7 +34,7 @@ export const StudentLogin = () => {
         matricNumber: yup.string().required('Matric Number is required'),
         Password: yup.string().min(6).max(18).required()
     })
-     x
+     
     
     // to handle the details of the form on submit
     const { register, handleSubmit, formState: {errors} } = useForm({

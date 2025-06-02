@@ -90,7 +90,7 @@ export const ExamReport = () => {
     const fetchResults = (examKey) =>{
 
 
-        axios.get(`${dbLocation}/examResults.php/${examKey}`, examKey).then(function(response){
+        axios.get(`${dbLocation}/examResults.php/${examKey}`).then(function(response){
             // console.table(response.data)
             setResults(response.data)
             let ntotalScore= cookiedExamDetails != undefined ? (JSON.parse(cookiedExamDetails)).totalScore : totalScore
@@ -98,7 +98,7 @@ export const ExamReport = () => {
             const minScore = ntotalScore/2 - ntotalScore/20
             const maxScore = ntotalScore/2 + ntotalScore/20
             
-            console.log(minScore, totalScore, maxScore)
+            // console.log(minScore, totalScore, maxScore)
 
             response.data.forEach(s => 
                 s.score >= maxScore ? UpdatePerformanceState("passed") : 
@@ -110,19 +110,28 @@ export const ExamReport = () => {
     
     
     
-    useEffect(() =>{
-        // console.table(cookiedExamDetails)
-        if(cookiedExamDetails != undefined){
-            const cookiedExamDetailsObject = JSON.parse(cookiedExamDetails)            
-            updateExamDetails(cookiedExamDetailsObject)
-            FetchExam(cookiedExamDetailsObject.examKey || examKey)
-            fetchResults(cookiedExamDetailsObject.examKey || examKey)
-        }
+    const CookiedUserDetails = Cookie.get("userDetails") 
 
-        if(examKey == "" && cookiedExamDetails == undefined){
-            navigate("/exams/all-exams")
+    
+    useEffect(() =>{
+        document.documentElement.scrollTop=0
+
+        if(CookiedUserDetails == "admin"){
+
+            if(cookiedExamDetails != undefined){
+                const cookiedExamDetailsObject = JSON.parse(cookiedExamDetails)            
+                updateExamDetails(cookiedExamDetailsObject)
+                FetchExam(cookiedExamDetailsObject.examKey || examKey)
+                fetchResults(cookiedExamDetailsObject.examKey || examKey)
+            }
+            else{
+                navigate("/exams/all-exams")            
+            }
+        }else{
+            navigate("/")
         }
     }, [])
+
 
     // create a new array from what was fetched
 

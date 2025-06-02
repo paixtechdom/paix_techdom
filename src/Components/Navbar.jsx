@@ -39,7 +39,7 @@ export const Navbar = () =>{
         {   
             title: 'All Exams',
             link: 'exams/all-exams',
-            icon: 'person-check-fill'
+            icon: 'book-fill'
         },
         {
             title: 'Add New Exam',
@@ -47,18 +47,18 @@ export const Navbar = () =>{
             icon: 'plus scale-[1.5]'
     
         },
-        {
-            title: 'Reports',
-            // all exams title, level, department, faculty, number of submits, high, lowest
-            link: 'reports',
-            icon: 'bar-chart-line-fill',
+        // {
+        //     title: 'Reports',
+        //     // all exams title, level, department, faculty, number of submits, high, lowest
+        //     link: 'reports',
+        //     icon: 'bar-chart-line-fill',
            
-        },
-        {
-            title: 'Settings',
-            link: 'settings',
-            icon: 'gear-fill',
-        },
+        // },
+        // {
+        //     title: 'Settings',
+        //     link: '#',
+        //     icon: 'gear-fill',
+        // },
         
         
     ] : 
@@ -214,6 +214,7 @@ const UserDropDown = ({showUserDropDown, setShowUserDropDown}) => {
 
     useEffect(() => {
         if(confirmedAction && logoutClicked){    
+            // console.log("Log Out")
             setShowUserDropDown(false)
             Logout(goTo)
             navigate(`/${goTo}`)
@@ -233,12 +234,12 @@ const UserDropDown = ({showUserDropDown, setShowUserDropDown}) => {
                 </p>
             </div>
 
-            <Link to={"/settings"} className={`${SecondaryButtonCLass} w-full center hover:border-b hover:border-blue-900`}
+            <div id={"/settings"} className={`${SecondaryButtonCLass} w-full center hover:border-b hover:border-blue-900`}
             onClick={() => 
                 setShowUserDropDown(false)
             }>
                 Settings
-            </Link>
+            </div>
 
             <button className={`${PrimaryButtonCLass} w-full`} 
             onClick={() => {

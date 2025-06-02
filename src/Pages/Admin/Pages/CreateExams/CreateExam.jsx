@@ -83,20 +83,24 @@ export const CreateExam = () =>{
     
     
     const CookiedExamDetails = Cookie.get("examDetails") 
+    const CookiedUserDetails = Cookie.get("userDetails") 
     
     useEffect(() =>{
         document.documentElement.scrollTop=0
-        // console.table(CookiedExamDetails)
-        if (CookiedExamDetails !== undefined){
-            const examDetails = JSON.parse(Cookie.get("examDetails"))
-            dispatch(setExamKey(examDetails.examKey))
-            fetchQuestions(examDetails.examKey)
-            FetchExam(examDetails.examKey)
-            updateExamDetails(examDetails)
-           
-        }else{
-            navigate("/exams/all-exams")
 
+        if(CookiedUserDetails == "admin"){
+            if(CookiedExamDetails !== undefined){
+                const examDetails = JSON.parse(Cookie.get("examDetails"))
+                dispatch(setExamKey(examDetails.examKey))
+                fetchQuestions(examDetails.examKey)
+                FetchExam(examDetails.examKey)
+                updateExamDetails(examDetails)
+            }
+            else{
+                navigate("/exams/all-exams")            
+            }
+        }else{
+            navigate("/")
         }
     }, [])
 
@@ -371,11 +375,17 @@ export const CreateExam = () =>{
                                 />
                             }   
                         </InfoComponent>
+                        <div className="w-full flex gap-3">
 
-                        <InfoComponent
-                            title={"Total Score:"}
-                            info={totalScore}
-                        />
+                            <InfoComponent
+                                title={"Questions:"}
+                                info={savedQuestions.length}
+                            />
+                            <InfoComponent
+                                title={"Total Score:"}
+                                info={totalScore}
+                            />
+                        </div>
                     </div>  
 
                 </div>

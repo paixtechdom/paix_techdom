@@ -25,10 +25,17 @@ export const AddNewExam = () => {
     const triggerAlert = useMyAlert()
     const dispatch = useDispatch()
 
-
+    const CookiedUserDetails = Cookie.get("userDetails") 
 
     useEffect(() =>{
+        document.documentElement.scrollTop=0
+
         Cookie.remove('examDetails', {path:'/admin'})
+
+        if(CookiedUserDetails !== "admin"){
+            Navigate("/")
+        }
+
     }, [])
 
     const schema = yup.object().shape({
@@ -43,13 +50,6 @@ export const AddNewExam = () => {
         resolver: yupResolver(schema)
     })
 
-    useEffect(() => {
-        // availableDepartments
-        // selectedFaculty
-        // dept.departments
-
-        
-    }, [])
  
 
     const createExam = async (data) => {
@@ -90,7 +90,7 @@ export const AddNewExam = () => {
     <main className='w-full center pt-[10vh] min-h-[120vh]'>
          <div className="w-11/12 center">
 
-            <form action="" className='flex flex-col bg-gray-100 shadow-xl rounded-xl w-full lg:w-6/12 py-[8vh] px-8 gap-6'>
+            <form action="" className='flex flex-col bg-gray-100 shadow-xl rounded-xl w-full lg:w-6/12 py-[8vh] px-4 lg:px-8 gap-6'>
                 <h2 className={TopLevelHeader}>Add New Exam</h2>
 
                 {/* Name  / Title of Exam */}

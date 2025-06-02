@@ -9,8 +9,10 @@ export const Admin = () =>{
     const navigate = useNavigate()
 
     useEffect(() => {
+        document.documentElement.scrollTop=0
+
         // console.log(userName)
-        if(userName == 'admin' ){
+        if(userName == 'admin'){
             
         }else{
             navigate('/')

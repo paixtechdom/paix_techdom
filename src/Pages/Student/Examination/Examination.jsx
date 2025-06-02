@@ -19,7 +19,6 @@ import { Link } from "react-router-dom"
 
 export const Examination = () => {
     const { setExamQuestions, savedQuestions } = useContext(AppContext)
-    const [ correctAns, setCorrectAns ] = useState([])
     const [ startedExam, setStartedExam ] = useState(false)
     const [ countdown, setCountdown ] = useState(0)
     const [ submittedExam, setSubmittedExam ] = useState(false)
@@ -55,51 +54,31 @@ export const Examination = () => {
     const cookiedExamDetails = Cookie.get("examDetails")
 
     useEffect(() =>{
-        if(cookiedStudentDetails != undefined && cookiedExamDetails != undefined){
-            const exDetails = JSON.parse(cookiedExamDetails)
-            updateStudentDetails(JSON.parse(cookiedStudentDetails))
-            updateExamDetails(JSON.parse(cookiedExamDetails))
-            setCountdown(exDetails.duration || examDetails.duration)
-            dispatch(setShowTopNav(false))
+        document.documentElement.scrollTop=0
+        
+        // if no user is saved to cookie
+        if(cookiedStudentDetails != undefined){
+        // if no exam details is saved to cookie
+            if(cookiedExamDetails != undefined){
+                const exDetails = JSON.parse(cookiedExamDetails)
+                // if the page is refreshed and the app has lost its state else
+                if(examDetails.examTitle == exDetails.examTitle){
+                    updateStudentDetails(JSON.parse(cookiedStudentDetails))
+                    updateExamDetails(JSON.parse(cookiedExamDetails))
+                    setCountdown(exDetails.duration || examDetails.duration)
+                    dispatch(setShowTopNav(false))
+
+                }else{
+                    navigate(`/student/${firstName.toLowerCase()}-${lastName.toLowerCase()}`)
+                }
+            }else{
+                navigate(`/student/${firstName.toLowerCase()}-${lastName.toLowerCase()}`)
+
+            }
+        }else{
+            navigate("/student_login")
         }
     }, [])
-    
-
-    
-
-//   const handleLeavePage = (event) => {
-//     // submitExam(score, examQuestions.length)
-//       if (document.visibilityState == 'hidden'){
-//           setMarkedExam('mark')
-//           console.log(score, 'hidden')
-        
-//     }
-//     if (document.visibilityState == 'visible'){
-//         console.log(score, 'visible')
-//         setMarkedExam('false')
-//         // submitExam(score, examQuestions.length)
-//     }
-//     };
-    
-//     useEffect(() => {
-//         if(startedExam == true){
-         
-            
-//             // Attach the event listener when the component mounts
-//             // window.addEventListener('beforeunload', handleLeavePage);
-//             window.addEventListener('visibilitychange', () =>{
-//                 handleLeavePage()
-//         });
-//         // window.addEventListener('popstate', handleLeavePage);
-    
-//         // Remove the event listener when the component unmounts
-//         return () => {
-//         //   window.removeEventListener('beforeunload', handleLeavePage);
-//           window.removeEventListener('visibilitychange', handleLeavePage);
-//         //   window.removeEventListener('popstate', handleLeavePage);
-//         };
-//     }
-//   }, [startedExam]);
 
 
     useEffect(() => {
@@ -139,7 +118,9 @@ export const Examination = () => {
 
         const saveinfo = {
             examKey: examDetails.examKey,
+            examTitle: examDetails.examTitle,
             studentId: studentDetails.id,
+            studentName: studentDetails.lastName + " " + studentDetails.firstName + " " + studentDetails.middleName[0],
             score: userscore,
             timeUsed: examDetails.duration - countdown,
             date: date,
@@ -150,10 +131,40 @@ export const Examination = () => {
           axios.post(`${dbLocation}/examResults.php/save`, saveinfo)
           .then((response) => {
             // console.log(response.data)
-            
-            
           })
     }
+
+    const handleLeavePage = () => {
+        // submitExam(score, examQuestions.length)
+          if (document.visibilityState == 'hidden'){
+            // SaveReport()
+            console.log(score, 'hidden')
+            
+        }
+        // if (document.visibilityState == 'visible'){
+        //     console.log(score, 'visible')
+        //     // SaveReport()
+        //     // submitExam(score, examQuestions.length)
+        // }
+    };
+        
+        useEffect(() => {
+            if(startedExam){                
+                // Attach the event listener when the component mounts
+                window.addEventListener('beforeunload', handleLeavePage);
+                window.addEventListener('visibilitychange', handleLeavePage);
+                window.addEventListener('popstate', handleLeavePage);
+        
+            // Remove the event listener when the component unmounts
+            return () => {
+              window.removeEventListener('beforeunload', handleLeavePage);
+              window.removeEventListener('visibilitychange', handleLeavePage);
+              window.removeEventListener('popstate', handleLeavePage);
+            };
+        }
+      }, [startedExam]);
+
+
     
     const fetchQuestions = async (examKey) =>{
         

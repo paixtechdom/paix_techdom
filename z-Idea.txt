@@ -1,21 +1,14 @@
 Drag to rearange the order of the questions
-generate with ai
-notifications
+SETUP PROJECT WITH TYPESCRIPT
+no usage of type all in typescript
 
 
 
-student report page in account
+
+
 loadings
-preventing pages from loading based on account
+
 leaving or closing the page
-if user refreshes after exam, he can still retake it
-
-choosing multiple faculties for the exam
-
-
-
-importing questions
-    what format and how to generate it,
 
 
 

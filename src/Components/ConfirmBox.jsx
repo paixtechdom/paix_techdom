@@ -21,13 +21,13 @@ export const ConfirmBox = () =>{
 
                 ${!showConfirmBox ? "scale-[0.5] z-[-50] opacity-0" : " "}
             `}>
-                <div className="center flex-col w-full gap-2">
-                    <h2 className={"text-2xl text-center"}>
+                <div className="center flex-col w-full gap-2 text-center">
+                    <h2 className={"text-2xl"}>
                         {confirmMessage}</h2>
-                    <p>{confirmMessageDescription}</p>
+                    <p className=" text-center">{confirmMessageDescription}</p>
                 </div>
 
-                <div className="center items-center gap-5">
+                <div className="center items-center lg:gap-5">
 
                     <button className={SecondaryButtonCLass + " scale-90 min-w-[150px]"} onClick={() =>{
                         dispatch(toggleShowConfirmBox(false))

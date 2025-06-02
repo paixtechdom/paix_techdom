@@ -1,57 +1,12 @@
-import { useNavigate } from 'react-router'
 import  DataTable  from 'react-data-table-component'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FormatTime } from '../../../assets/Functions'
-import axios from 'axios'
-import { dbLocation } from '../../../assets/Constants'
 
-/*
-    the exam should stor the total score
-
-    student info
-    full name,
-    level,
-    department,
-    faculty,
-    matricNumber
-*/
-
-export const GetInfo = ({id, data}) => {
-    const [ info, setInfo ] = useState("")
-
-    useEffect(() => {
-        getInfo(id)
-    }, [])
-
-    const getInfo = (examKey) => {   
-
-        axios.get(`${dbLocation}/exams.php/getstudent/${examKey}`)
-        .then((res) => {
-            setInfo (res.data.examTitle)
-        })
-    }
-    return info; // Return the function so it can be used in components
-  };
-  
-
-  const examInfoRows = {
-        id: 'name',
-        name:  <p className="font-bold text-sm">Exam</p>,
-        selector: row => row.examKey,
-        cell: (row) => 
-            <div>
-                <GetInfo id={row.examKey}/>
-            </div>,
-        sortable: true,
-        width: 25+'%',
-  }
-
-
-//   if i can do the fetching on the back end and add the data before bringing it to the frontend - to prevent many calls
 
 export const StudentReportTable = ({data, currentPage}) => {
+
     const [ loading, setLoading ] = useState(false)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     
 
@@ -64,14 +19,23 @@ export const StudentReportTable = ({data, currentPage}) => {
             cell: (row, index) => <div>{(index + 1 + currentPage * 10) - 10}</div>,
             width: 7+'%',
         },
-         
-            examInfoRows
-        ,
+        {
+            id: 'examTitle',
+            name:  <p className="font-bold text-sm">Exam</p>,
+            sortable: true,
+            selector: row => row.examTitle,
+        },
         {
             id: 'score',
             name:  <p className="font-bold text-sm">Score</p>,
             sortable: true,
             selector: row => row.score,
+        },
+        {
+            id: 'totalScore',
+            name:  <p className="font-bold text-sm">Total Score</p>,
+            sortable: true,
+            selector: row => row.totalScore,
         },
         {
             id: 'timeUsed',
@@ -101,9 +65,6 @@ export const StudentReportTable = ({data, currentPage}) => {
             striped
             // persistTableHead
             keyField="id"
-            // onRowClicked={(row, o) => {
-            //     navigate(`/orders/${row.id}`)
-            // }}
             progressPending={loading}
             
             // paginationServer

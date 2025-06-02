@@ -100,13 +100,13 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
     }, [questionType])
 
   return (
-    <section className="flex flex-col gap-4 w-11/12 mt-9 bg-gray-100 p-9 rounded-xl">
+    <section className="flex flex-col gap-4 w-11/12 mt-9 bg-gray-100 p-4 py-5 lg:p-9 lg:py-9 rounded-xl">
 
     
-    <div className=" flex flex-col w-full gap-9">
+    <div className=" flex flex-col w-full gap-5 lg:gap-9">
         {/* Question Type and Point */}
         <div className="flex justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 lg:gap-3">
                 {no}. 
                 <select name="" id="" value={questionType} onChange={(e) => {
                     setQuestionType(e.target.value)
@@ -117,7 +117,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
                 </select>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 lg:gap-3">
                     <button className='center hover:scale-90 active:scale-90 bg-white hover:bg-gray-200 active:bg-gray-200 h-8 w-8 text-xl rounded transition-all duration-500 shadow'
                     onClick={()=> {
                         setPoints(prev => prev == 1 ? 1 : prev -1)
@@ -134,7 +134,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
         
         {/* Question */}
         <div className="flex flex-col gap-2 w-full">
-            <div className="center flex-col md:flex-row gap-3 w-full">
+            <div className="center flex-col md:flex-row gap-2 lg:gap-3 w-full">
                 <label htmlFor="" className='text-lg font-bold text-gray-700 w-full md:w-fit'>Question</label>
                 <input className={TextInputClass + " w-full"} type="text" placeholder="Enter Question"  {...register('question')}/> 
 
@@ -144,10 +144,10 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
         </div>
 
         {/* Options */}
-        <div className="flex flex-col gap-9 justify-between md:grid md:grid-cols-2">
+        <div className="flex flex-col gap-5 lg:gap-9 justify-between md:grid md:grid-cols-2">
 
             <div className="flex flex-col gap-2">
-                <div className={'flex items-center w-full gap-3'}>
+                <div className={'flex items-center w-full gap-2 lg:gap-3'}>
                     <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${answer == "optionA" ? "bg-green-800 text-white" : "text-gray-600  hover:bg-green-100"}`}
                     onClick={() => setAnswer("optionA")}
                     >A</p>
@@ -159,7 +159,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
             </div>
 
             <div className="flex flex-col gap-2">
-                <div className={'flex items-center w-full gap-3'}>
+                <div className={'flex items-center w-full gap-2 lg:gap-3'}>
                     <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${answer == "optionB" ? "bg-green-800 text-white" : "text-gray-600 hover:bg-green-100"}`}
                     onClick={() => setAnswer("optionB")}
                     >B</p>
@@ -172,7 +172,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
             {   questionType !== "true/false" &&
                 <>
                     <div className="flex flex-col gap-2">
-                        <div className={'flex items-center w-full gap-3'}>
+                        <div className={'flex items-center w-full gap-2 lg:gap-3'}>
                             <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${answer == "optionC" ? "bg-green-800 text-white"  : "text-gray-600 hover:bg-green-100"}`}
                             onClick={() => setAnswer("optionC")}
                             >C</p>
@@ -182,7 +182,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
                     </div>
                 
                     <div className="flex flex-col gap-2">
-                        <div className={'flex items-center w-full gap-3'}>
+                        <div className={'flex items-center w-full gap-2 lg:gap-3'}>
                             <p className={`text-l font-bold rounded-full w-10 h-9 shadow center cursor-pointer ${answer == "optionD" ? "bg-green-800 text-white"  : "text-gray-600 hover:bg-green-100"}`}
                             onClick={() => setAnswer("optionD")}
                             >D</p>

@@ -82,6 +82,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />
       },
+      {
+        path: '/dashboard',
+        element: <Admin />
+      },
 
       // Edit and update exam information and questions
       {
@@ -131,10 +135,6 @@ const router = createBrowserRouter([
         element: <Examination />
       },
       
-      {
-        path: '/dashboard',
-        element: <Admin />
-      },
       {
         path: '/Student_registration',
         element: <StudentRegistration />

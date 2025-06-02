@@ -26,7 +26,7 @@ export const AvailableExams = () => {
         if(cookiedDetails != undefined){
             const cookiedStudentDetails = JSON.parse(cookiedDetails)
             updateStudentDetails(cookiedStudentDetails)      
-            fetchExams(cookiedStudentDetails )
+            fetchExams(cookiedStudentDetails)
             setIsLoadingExams(true)
         }
 

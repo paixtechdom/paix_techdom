@@ -25,19 +25,21 @@ export const Student = () =>{
     const matricNumber = studentDetails.matricNumber
     const level = studentDetails.level
     const faculty = studentDetails.faculty
-    
+
 
     useEffect(() =>{
-        if(cookiedStudentDetails != undefined){
-            updateStudentDetails(JSON.parse(cookiedStudentDetails))
-            dispatch(setShowTopNav(true))
-        }else{
-            navigate(`/Student_login`)
-            
-        }
-        // setStartedExam(false)
-        // setExamEnded(true)
+        document.documentElement.scrollTop=0
 
+        if(cookiedStudentDetails != undefined){
+            if(cookiedStudentDetails == "admin"){
+                navigate(`/login`)
+            }else{
+                updateStudentDetails(JSON.parse(cookiedStudentDetails))
+                dispatch(setShowTopNav(true))
+            }
+        }else{
+            navigate(`/Student_login`)   
+        }
     }, [])
     return(
         <main className="w-full center flex-col mt-[15vh]">

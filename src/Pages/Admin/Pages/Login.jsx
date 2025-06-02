@@ -23,7 +23,8 @@ export const Login = () =>{
     // const Navigate = useNavigate()
       
     useEffect(() =>{
-        // Logout("login")
+        document.documentElement.scrollTop=0
+        Logout("login")
     }, [])
 
     
@@ -76,7 +77,7 @@ export const Login = () =>{
                 
                 <h1 className={`${TopLevelHeader} w-11/12`}>Admin Login</h1>
 
-                <form className="flex flex-col w-11/12 gap-3">
+                <form className="flex flex-col w-full lg:w-11/12 gap-3">
                     <div className="flex flex-col gap-4">
                         <label className="text-gray-500 font-bold" htmlFor="matricNumber">User Name</label>
 
@@ -111,9 +112,9 @@ export const Login = () =>{
                     </button>
                 </form>
                 
-                <div className="fixed top-0 right-0 w-[300px] hidden lg:block">
-                    <img src="./images.jpeg" alt="Pics" />
-                </div>
+                    <div className="fixed top-0 right-0 w-[300px] hidden lg:block">
+                        <img src="./images.jpeg" alt="Pics" />
+                    </div>
                 </div>
 
 
