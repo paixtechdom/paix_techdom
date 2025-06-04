@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ExamInfoInterface } from "../Interfaces";
 
 
-const initialState = {
+const initialState: ExamInfoInterface = {
     examKey: "",
     status: "",
     examTitle: "",
@@ -17,31 +18,31 @@ const ExamSlice = createSlice({
     name: "examslice",
     initialState,
     reducers: {
-        setExamKey: (state, action) => {
+        setExamKey: (state, action: PayloadAction<string>) => {
             state.examKey = action.payload
         },
-        setExamStatus: (state, action) => {
+        setExamStatus: (state, action: PayloadAction<string>) => {
             state.status = action.payload
         },
-        setDuration: (state, action) => {
+        setDuration: (state, action: PayloadAction<string>) => {
             state.duration = action.payload
         },
-        setExamTitle: (state, action) => {
+        setExamTitle: (state, action: PayloadAction<string>) => {
             state.examTitle = action.payload
         },
-        setExamLevel: (state, action) => {
+        setExamLevel: (state, action: PayloadAction<string>) => {
             state.level = action.payload
         },
-        setExamDepartment: (state, action) => {
+        setExamDepartment: (state, action: PayloadAction<string>) => {
             state.department = action.payload
         },
-        setExamFaculty: (state, action) => {
+        setExamFaculty: (state, action: PayloadAction<string>) => {
             state.faculty = action.payload
         },
-        setQuestionsLength: (state, action) => {
+        setQuestionsLength: (state, action: PayloadAction<number>) => {
             state.questionsLength = action.payload
         },
-        setTotalScore: (state, action) => {
+        setTotalScore: (state, action: PayloadAction<number>) => {
             state.totalScore = action.payload
         },
     }

@@ -66,7 +66,7 @@ export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examSta
         <div className="flex flex-wrap gap-5 items-center">
             <input type="file" name="file" accept=".csv"  id="file" 
             onChange={setFile}  
-            className={doc != null && `bg-gray-200 p-2 rounded-r-xl shadow-lg`}
+            className={doc != null ? `bg-gray-200 p-2 rounded-r-xl shadow-lg` : undefined }
             style={{
                 display: doc == null ? 'none' : 'block' 
             }}

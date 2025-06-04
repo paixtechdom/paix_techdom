@@ -7,7 +7,7 @@ export const useLogout = () => {
     // const dispatch = useDispatch();
     const navigate = useNavigate()
 
-    const Logout = (goTo) => {
+    const Logout = (goTo: string) => {
         // console.log("log out")
         navigate(`/${goTo}`)
         Cookie.remove('userDetails', {path:'/'})

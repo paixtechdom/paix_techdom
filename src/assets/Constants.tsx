@@ -1,5 +1,3 @@
-import logo from "/favicon.ico"
-
 // const dbLocation = 'https://online-exam-app.000webhostapp.com/quiz_app'
 export const dbLocation = 'http://localhost:80/api-quiz-app'
 

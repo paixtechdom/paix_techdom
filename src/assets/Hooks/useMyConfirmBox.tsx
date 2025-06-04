@@ -7,7 +7,7 @@ export const useMyConfirmBox = () => {
     
 
     // Create a function that handles the alert logic
-    const useConfirmBox = (confirmMessage, confirmMessageDescription) => {
+    const useConfirmBox = (confirmMessage: string, confirmMessageDescription: string) => {
       dispatch(toggleShowConfirmBox(true));
       dispatch(setConfirmMessage(confirmMessage));
       dispatch(setConfirmMessageDescription(confirmMessageDescription));

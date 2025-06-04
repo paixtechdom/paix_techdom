@@ -8,6 +8,7 @@ no usage of type all in typescript
 
 loadings
 
+the moment you are logged in, it records tha you have started the exam, if you leave thne page, it records your score as ZERO
 leaving or closing the page
 
 
@@ -36,3 +37,24 @@ student
     all Exams
     examination
     exam reports
+
+
+
+npm i --save-dev @types/js-cookie
+
+problems
+1. useLogout
+2. Funtions
+
+
+
+1027870340
+uba 
+living waters
+
+
+    8115234822
+    opay
+    bro precious
+
+

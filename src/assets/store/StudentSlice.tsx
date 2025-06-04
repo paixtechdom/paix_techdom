@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { studentInfoInterface } from "../Interfaces";
 
-
-const initialState = {
+const initialState: studentInfoInterface = {
     firstName: "",
     middleName: "",
     lastName: "",
@@ -16,28 +16,28 @@ const StudentSlice = createSlice({
     name: "studentslice",
     initialState,
     reducers: {
-        setFirstName: (state, action) => {
+        setFirstName: (state, action: PayloadAction<string>) => {
             state.firstName = action.payload
         },
-        setMiddleName: (state, action) => {
+        setMiddleName: (state, action: PayloadAction<string>) => {
             state.middleName = action.payload
         },
-        setLastName: (state, action) => {
+        setLastName: (state, action: PayloadAction<string>) => {
             state.lastName = action.payload
         },
-        setId: (state, action) => {
+        setId: (state, action: PayloadAction<string>) => {
             state.id = action.payload
         },
-        setMatricNumber: (state, action) => {
+        setMatricNumber: (state, action: PayloadAction<string>) => {
             state.matricNumber = action.payload
         },
-        setLevel: (state, action) => {
+        setLevel: (state, action: PayloadAction<string>) => {
             state.level = action.payload
         },
-        setDepartment: (state, action) => {
+        setDepartment: (state, action: PayloadAction<string>) => {
             state.department = action.payload
         },
-        setFaculty: (state, action) => {
+        setFaculty: (state, action: PayloadAction<string>) => {
             state.faculty = action.payload
         },
     }

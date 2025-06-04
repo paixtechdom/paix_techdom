@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import { setDuration, setExamDepartment, setExamFaculty, setExamKey, setExamLevel, setExamStatus, setExamTitle, setTotalScore } from "../store/ExamSlice";
+import { ExamInfoInterface } from "../Interfaces";
 
 export const useUpdateExamDetails = () => {
     const dispatch = useDispatch();
   
     // Create a function that handles the alert logic
-    const updateExamDetails = (exam) => {
+    const updateExamDetails = (exam: ExamInfoInterface) => {
       dispatch(setExamKey(exam.examKey))
       dispatch(setDuration(exam.duration))
       dispatch(setExamStatus(exam.status))

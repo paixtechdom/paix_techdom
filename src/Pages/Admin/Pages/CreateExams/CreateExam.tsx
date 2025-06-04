@@ -242,7 +242,7 @@ export const CreateExam = () =>{
 
 
     return (
-        <main className="center flex-col w-full mt-[15vh]">
+        <main className="center flex-col w-full my-[15vh]">
             <section className="flex flex-col gap-4 w-11/12 lg:gap-8">
                 {/* {examTitle} : {faculty} : {level} : {department}  */}
                 <div className="flex flex-col w-fullw justify-between gap-4 ">
@@ -367,7 +367,7 @@ export const CreateExam = () =>{
                                     data={availableDepartments.filter((d, i) => 
                                         d.faculty == newExamInfo.faculty ?
                                         availableDepartments[i] :[]
-                                        )[1].department}
+                                        )[1].departments}
                                         
                                     part="department"
                                     setNewExamInfo={setNewExamInfo} setEditPart={setEditPart}
@@ -464,6 +464,8 @@ export const CreateExam = () =>{
 
 const EditPartDropDownComponent = ({data, part, setNewExamInfo, setEditPart, newExamInfo}) => {
     const newData = [...data, "All"]
+    
+
   return(
     <div className="absolute top-[100%] mt-2 left-0 w-full flex flex-col bg-gray-100 shadow-xl rounded-xl overflow-hidden z-20">
         {

@@ -1,6 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { NavigationInterface } from "../Interfaces";
 
-const initialState = {
+
+const initialState: NavigationInterface = {
     showSideNav: false,
     currentNav: 0,
     currentDropDown: 0,
@@ -11,17 +13,17 @@ const navigationSlice = createSlice({
     name: "navigation",
     initialState,
     reducers: {
-        setShowSideNav: (state, action) => {
+        setShowSideNav: (state, action: PayloadAction<boolean>) => {
             state.showSideNav = action.payload
         },
-        setShowTopNav: (state, action) => {
-            state.showTopNav = action.payload
-        },
-        setCurrentNav: (state, action) => {
+        setCurrentNav: (state, action: PayloadAction<number>) => {
             state.currentNav = action.payload
         },
-        setCurrentDropDown: (state, action) => {
+        setCurrentDropDown: (state, action: PayloadAction<number>) => {
             state.currentDropDown = action.payload
+        },
+        setShowTopNav: (state, action: PayloadAction<boolean>) => {
+            state.showTopNav = action.payload
         },
        
     }

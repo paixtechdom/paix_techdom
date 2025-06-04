@@ -1,6 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { confirmBoxInterface } from "../Interfaces";
 
-const initialState = {
+
+
+const initialState: confirmBoxInterface = {
     showConfirmBox: false,
     confirmMessage: "",
     confirmMessageDescription: "",
@@ -11,16 +14,16 @@ const confirmBox = createSlice({
     name: "confirmBox",
     initialState,
     reducers: {
-        toggleShowConfirmBox: (state, action) => {
+        toggleShowConfirmBox: (state, action: PayloadAction<boolean>) => {
             state.showConfirmBox = action.payload
         },
-        setConfirmMessage: (state, action) => {
+        setConfirmMessage: (state, action: PayloadAction<string>) => {
             state.confirmMessage = action.payload
         },
-        setConfirmMessageDescription: (state, action) => {
+        setConfirmMessageDescription: (state, action: PayloadAction<string>) => {
             state.confirmMessageDescription = action.payload
         },
-        setConfirmedAction: (state, action) => {
+        setConfirmedAction: (state, action: PayloadAction<boolean>) => {
             state.confirmedAction = action.payload
         }
     }

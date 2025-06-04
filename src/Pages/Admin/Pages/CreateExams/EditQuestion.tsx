@@ -188,8 +188,8 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
             onDragEnd={HandleDragEnd}
             >
 
-            <div className="center bg-gray-50 h- [100] w-6">
-                <i className="bi bi-grid-fill cursor-grab"></i>
+            <div className="center bg-gray-50 h- [100] w-6 cursor-grab hover:bg-gray-300 active:bg-gray-300 transition-all duration-500 ease-in-out">
+                <i className="bi bi-grid-fill"></i>
             </div>
 
             <div className="flex flex-col gap-4 w-full p-4 py-5 lg:p-9 lg:py-9">

@@ -10,19 +10,16 @@ import confirmBoxReducer from "./ConfirmBoxSlice"
 
 export const store = configureStore({
     reducer: {
-        // navigation: navigationReducer,
         alert: alertReducer,
         confirmBox: confirmBoxReducer,
-        // appslice: appsliceReducer,
         examslice: examsliceReducer,
         studentslice: studentsliceReducer,
         navigation: navigationReducer,
-        // imageslice: imageSliceReducer
     }
 })
 
 
-// export type RootState = ReturnType<typeof store.getState>
-// export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
 
