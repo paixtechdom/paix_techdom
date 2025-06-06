@@ -6,7 +6,7 @@ import { AppContext } from "../../../App"
 
 export const NoSubmits = ({examKey}) =>{
     const {  showResult, setShowResult, dbLocation } = useContext(AppContext)
-    const [ no, setNo ]= useState(0)
+    const [ no, setNo ]= useState(t)
 
     useEffect(() =>{
         const fetchResults = (examKey) =>{

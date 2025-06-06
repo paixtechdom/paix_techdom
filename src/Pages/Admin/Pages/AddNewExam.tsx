@@ -19,7 +19,6 @@ import { useMyAlert } from '../../../assets/Hooks/useMyAlert'
 export const AddNewExam = () => {
 
     const [ selectedFaculty, setSelectedFaculty ] = useState('')
-    const { userName, fetchExams } = useContext(AppContext)
     const Navigate = useNavigate()
     const updateExamDetails = useUpdateExamDetails()
     const triggerAlert = useMyAlert()

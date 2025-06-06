@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { confirmBoxInterface } from "../Interfaces";
 
+export interface confirmBoxInterface {
+    showConfirmBox: boolean,
+    confirmMessage: string,
+    confirmMessageDescription: string,
+    confirmedAction: boolean
+}
 
 
 const initialState: confirmBoxInterface = {
@@ -34,3 +39,4 @@ export const { toggleShowConfirmBox, setConfirmMessage, setConfirmMessageDescrip
 
 
 export default confirmBox.reducer
+2

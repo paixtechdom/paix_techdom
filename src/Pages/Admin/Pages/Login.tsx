@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { AppContext } from "../../../App"
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 import Cookie from "js-cookie"
@@ -19,7 +18,7 @@ export const Login = () =>{
     // to store users fetched
  
     // to store error to be displayed if there is error in the login details
-    const [ showPassword, setShowPassword ] = useState('password')
+    const [ showPassword, setShowPassword ] = useState<string>('password')
     // const Navigate = useNavigate()
       
     useEffect(() =>{
@@ -42,7 +41,14 @@ export const Login = () =>{
     })
 
     // LOGIN FUNCTION
-    const onLogin = async (data) => {
+    interface loginDataInterface {
+        userName: string,
+        Password: string
+    }
+
+    const onLogin = async (data: loginDataInterface) => {
+        // console.log(data)
+        
         await axios.get(`${dbLocation}/index.php/login/${data.userName}/${data.Password}`)
         .then((res) => {
         const user = res.data.user
@@ -51,7 +57,7 @@ export const Login = () =>{
             Cookie.set('userDetails', user.userName, {
                 expires: 1,
                 sameSite:'strict',
-                secure: 'true'
+                secure: true
             })             
             // console.table(Cookie.get("userDetails"))       
             Navigate(`/dashboard`)
@@ -79,14 +85,14 @@ export const Login = () =>{
 
                 <form className="flex flex-col w-full lg:w-11/12 gap-3">
                     <div className="flex flex-col gap-4">
-                        <label className="text-gray-500 font-bold" htmlFor="matricNumber">User Name</label>
+                        <label className="text-gray-500 font-bold" htmlFor="userName">User Name</label>
 
                         <input className={TextInputClass} type="text" placeholder="Username"  {...register('userName')} />
                         <p className={ErrorMessageTextClass}>{errors.userName?.message}</p>
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <label className="text-gray-500 font-bold" htmlFor="password">Password</label>
+                        <label className="text-gray-500 font-bold" htmlFor="Password">Password</label>
 
                         <div className={`${TextInputClass} flex items-center justify-between w-full`}>
                             <input 
@@ -101,8 +107,6 @@ export const Login = () =>{
                                     setShowPassword(showPassword == 'text' ? 'password' : 'text') 
                                 }}
                             ></i>
-                            {/* <input type="checkbox" name="" id="" 
-                            /> */}
                         </div>
                         <p className={ErrorMessageTextClass}>{errors.Password?.message}</p>
                     </div>                   

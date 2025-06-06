@@ -15,7 +15,28 @@ export const FormatTime = (time: number) =>{
 
 
 
-export const FormatDate = (date : Date) => {
-    const options = {day: "numeric", month: "long", year: "numeric"}
+export const FormatDate = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }
     return date.toLocaleDateString("en-US", options)
+}
+
+
+export const ReplaceSpace = (s: string): string => {
+    s.replace(" ", "-")
+    .replace(" ", "-")
+    .replace(" ", "-")
+    .replace(" ", "-")
+    .replace(" ", "-")
+    .replace(" ", "-")
+    .replace(" ", "-")
+    .replace(" ", "-")
+    .replace(" ", "-")
+    .replace(" ", "-")
+    .toLowerCase()
+
+    return s
 }

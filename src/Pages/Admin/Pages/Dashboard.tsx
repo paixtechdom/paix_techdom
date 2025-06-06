@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom"
 import { DataCard } from "../../../Components/DataCard"
-import { useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { TopLevelHeader } from "../../../assets/Constants"
 // import { OrdersTable } from "../../Components/Table/Tables"
 
@@ -18,13 +17,13 @@ const Dashboard = () => {
                     <div className="flex flex-col w-full ">
 
                         <div className="grid grid-cols-2 lg:grid-cols-4 w-full  gap-5 bg-red-3 00">
-                            <DataCard className={'bg-blue-200'} data={'Total Exams'} icon={'book-fill'} id={''} value={'3'}/>
+                            <DataCard className={'bg-blue-200'} data={'Total Exams'} icon={'book-fill'} value={'3'}/>
                             
-                            <DataCard className={'bg-blue-100'} data={'Students'} iconClass={'bg-green-600'} icon={'people-fill'} id={''} value={'+120'}/>
+                            <DataCard className={'bg-blue-100'} data={'Students'} icon={'people-fill'} value={'+120'}/>
 
-                            <DataCard className={'bg-blue-50'}  data={'Average Scores'} icon={'bar-chart-fill'} id={''} value={'66%'}/>
+                            <DataCard className={'bg-blue-50'}  data={'Average Scores'} icon={'bar-chart-fill'} value={'66%'}/>
 
-                            <DataCard iconClass={'bg-red-800'} data={'Reports'} icon={'award-fill'} id={''} value={'9'}/>
+                            <DataCard data={'Reports'} icon={'award-fill'} value={'9'}/>
                         </div>
 
                     
@@ -117,50 +116,57 @@ export const NotificationList = () =>{
 }
 
 
-const BarChartScores = [
+interface DummyScoresInterface {
+    examTitle: string,
+    scoresList: number[],
+    totalScore: number
+}
+
+
+const BarChartDummyScores: DummyScoresInterface[] = [
     {
         examTitle: "PHY 101",
-        scores: [70, 80, 44, 79, 45, 78, 87, 82, 54, 67, 75],
+        scoresList: [70, 80, 44, 79, 45, 78, 87, 82, 54, 67, 75],
         totalScore: 100
     },
     {
         examTitle: "ENT 114",
-        scores: [80, 89, 74, 79, 85, 88, 77, 93, 84, 87, 85],
+        scoresList: [80, 89, 74, 79, 85, 88, 77, 93, 84, 87, 85],
         totalScore: 100
     },
     {
         examTitle: "MTH 113",
-        scores: [45, 56, 34, 49, 45, 68, 67, 52, 44, 37, 65],
+        scoresList: [45, 56, 34, 49, 45, 68, 67, 52, 44, 37, 65],
         totalScore: 100
     },
     {
         examTitle: "CHEM 114",
-        scores: [80, 89, 74, 79, 85, 88, 77, 93, 84, 87, 85],
+        scoresList: [80, 89, 74, 79, 85, 88, 77, 93, 84, 87, 85],
         totalScore: 100
     },
     {
         examTitle: "ENG 101",
-        scores: [65, 55, 54, 69, 50, 68, 70, 70, 75, 57, 65],
+        scoresList: [65, 55, 54, 69, 50, 68, 70, 70, 75, 57, 65],
         totalScore: 100
     },
     {
         examTitle: "CSC 105",
-        scores: [80, 75, 45, 69, 63, 58, 82, 67, 71, 63, 70],
+        scoresList: [80, 75, 45, 69, 63, 58, 82, 67, 71, 63, 70],
         totalScore: 100
     },
     {
         examTitle: "GNS 113",
-        scores: [45, 56, 54, 49, 45, 68, 67, 52, 44, 37, 65],
+        scoresList: [45, 56, 54, 49, 45, 68, 67, 52, 44, 37, 65],
         totalScore: 100
     },
     {
         examTitle: "GNS 201",
-        scores: [65, 55, 54, 69, 50, 68, 70, 70, 75, 57, 65],
+        scoresList: [65, 55, 54, 69, 50, 68, 70, 70, 75, 57, 65],
         totalScore: 100
     },
     {
         examTitle: "CSC 207",
-        scores: [80, 75, 85, 69, 63, 78, 82, 67, 71, 83, 70],
+        scoresList: [80, 75, 85, 69, 63, 78, 82, 67, 71, 83, 70],
         totalScore: 100
     }
 ]
@@ -183,7 +189,7 @@ export const BarChart = () => {
                 </div>
 
 
-                {BarChartScores.map((score, i) => (
+                {BarChartDummyScores.map((score: DummyScoresInterface, i) => (
                     <div key={i} className="flex items-center flex-col justify-end h-[40vh] gap-2 relative w-full">
 
                         <Bar scores={score}/>
@@ -203,7 +209,13 @@ export const BarChart = () => {
 }
 export default Dashboard 
 
-const Bar = ({scores}) => {
+
+interface BarInterface{
+    scores: DummyScoresInterface
+
+}
+
+const Bar:FC <BarInterface> = ({scores}) => {
     const [ height, setHeight ] = useState(1)
 
     /*
@@ -212,14 +224,9 @@ const Bar = ({scores}) => {
         avegrage score / 100 * total score
     */
 
-
-
     useEffect(() => {
-        let sumOfAllScores = 0
-        scores.scores.forEach(score => {
-           sumOfAllScores += score 
-        });
-        let averageScore = sumOfAllScores / scores.scores.length
+        const sumOfAllScores = scores.scoresList.reduce((sum: number, current) => sum + current, 0);
+        let averageScore = sumOfAllScores / scores.scoresList.length
 
         setHeight((averageScore/100) * scores.totalScore)
     }, [])

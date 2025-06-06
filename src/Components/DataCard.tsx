@@ -1,5 +1,14 @@
+import { FC } from "react"
 
-export const DataCard = ({className, data, icon, value}) => {
+interface DataCardInterface {
+    className?: string,
+    data: string,
+    value: string | number
+    icon: string
+}
+
+
+export const DataCard: FC <DataCardInterface> = ({className, data, icon, value}) => {
 
     return(
         <div className={`w-full h-fit cursor-pointer transition-all duration-1000 hover:scale-90 ${className ? className : 'bg-white'} flex flex-col items-center p-5 shadow-lg lg:shadow-xl rounded-xl`}>

@@ -1,6 +1,13 @@
-import React from 'react'
+import { FC } from "react"
+interface InfoCompnentInterface {
+ title: string,
+ info: string  | JSX.Element | number,
+ children?: JSX.Element,
+ icon?: JSX.Element
+}
 
-const InfoComponent = ({title, info, children, icon}) => {
+
+const InfoComponent:FC<InfoCompnentInterface> = ({title, info, children, icon}) => {
   return (
 
     <div className='w-full flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow cursor-pointer relative h-fit'>

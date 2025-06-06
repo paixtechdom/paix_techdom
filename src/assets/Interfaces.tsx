@@ -1,11 +1,3 @@
-export interface confirmBoxInterface {
-    showConfirmBox: boolean,
-    confirmMessage: string,
-    confirmMessageDescription: string,
-    confirmedAction: boolean
-}
-
-
 export interface alertInterface {
     showAlert: boolean
     alertType: string,
@@ -43,3 +35,14 @@ export interface studentInfoInterface {
     department: string,
     faculty: string
 }
+
+
+
+export interface AdminResultTableInterface {
+    id: number; // depending on your keyField
+    index?: number;
+    studentName: string;
+    score: number;
+    timeUsed: number; // assuming it's in seconds or milliseconds
+    date: string;     // or Date, depending on your data format
+}   

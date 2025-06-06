@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider, Outlet, useNavigate } from 'react-router-dom';
 
-import { createContext, useState, useContext, useEffect, useId, useRef } from 'react';
+import { createContext, useState, useEffect, Context } from 'react';
 import Cookie from 'js-cookie'
 import axios from 'axios';
 // import { Settings } from './Component/Settings/Settings';
@@ -12,7 +12,6 @@ import { StudentLogin } from './Pages/Student/StudentLogin';
 import { StudentRegistration } from './Pages/Student/StudentRegistration';
 import { Student } from './Pages/Student/Student';
 import { Admin } from './Pages/Admin/Admin';
-import { ConfirmBox } from './Components/ConfirmBox';
 import { AddNewExam } from './Pages/Admin/Pages/AddNewExam';
 import { AllExams } from './Pages/Admin/Pages/AllExams';
 import { Login } from './Pages/Admin/Pages/Login';
@@ -21,12 +20,13 @@ import Alert from './Components/Alert';
 import { ExamReport } from './Pages/Admin/Pages/ExamReport/ExamReport';
 import { dbLocation } from './assets/Constants';
 import { StudentReports } from './Pages/Student/Reports/StudentReports';
+import { ConfirmBox } from './Components/ConfirmBox';
 
 
 export const AppContext = createContext()
 
 const Layout = () =>{
-  const Navigate = useNavigate()
+  
   const [ examQuestions, setExamQuestions ] = useState([])
   const [ savedQuestions, setSavedQuestions ] = useState([])    
   const [ exams, setExams ] = useState([])
@@ -43,7 +43,7 @@ const fetchExams = () =>{
   }) 
 }
 
-const fetchQuestions = (newExamKey) =>{
+const fetchQuestions = (newExamKey: string) =>{
   axios.get(`${dbLocation}/examquestions.php/${newExamKey}`)
   .then(function(response){
       // console.table(response.data)

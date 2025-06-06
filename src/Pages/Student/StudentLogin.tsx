@@ -1,16 +1,13 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import axios from "axios"
-import { Link, useNavigate } from 'react-router-dom'
-// import './Login.css'
+import { useNavigate } from 'react-router-dom'
 import Cookie from "js-cookie"
-import { AppContext } from "../../App"
 import { dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../assets/Constants"
 import { useMyAlert } from "../../assets/Hooks/useMyAlert"
 import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
-import { useSelector } from "react-redux"
 import { useLogout } from "../../assets/Hooks/useLogout"
 
 
@@ -24,7 +21,7 @@ export const StudentLogin = () => {
     const updateStudentDetails = useUpdateStudentDetails()
 
     useEffect(() => {
-        document.documentElement.scrollTop=0
+        document.documentElement.scrollTop = 0
         Logout("Student_login")
     }, [])
     
@@ -41,7 +38,15 @@ export const StudentLogin = () => {
         resolver: yupResolver(schema)
     })
 
-    const onLogin = async (data) => {
+
+    interface loginDataInterface {
+        matricNumber: string,
+        Password: string
+    }
+
+
+
+    const onLogin = async (data: loginDataInterface) => {
         await axios.get(`${dbLocation}/studentRegistration.php/login/${data.matricNumber}/${data.Password}`)
             .then((res) => {
             const user = res.data.user
@@ -50,17 +55,18 @@ export const StudentLogin = () => {
                 Cookie.set('userDetails', JSON.stringify(user), {
                     expires: 1,
                     sameSite:'strict',
-                    secure: 'true'
+                    secure: true
                 })             
-                updateStudentDetails(JSON.parse(Cookie.get("userDetails")))       
+
+                updateStudentDetails(user)     
+
                 Navigate(`/student/${user.firstName}-${user.lastName}`)
             }else{
                 triggerAlert("error", res.data.message)
                 
             }
         })
-        .catch((error)=> {
-            // console.table(error)
+        .catch(()=> {
             triggerAlert("error", "An error occured, please try again")
         }) 
 
