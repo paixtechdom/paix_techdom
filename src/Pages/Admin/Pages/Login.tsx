@@ -8,12 +8,15 @@ import Cookie from "js-cookie"
 import { dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../../assets/Constants"
 import { useMyAlert } from "../../../assets/Hooks/useMyAlert"
 import { useLogout } from "../../../assets/Hooks/useLogout"
+import { useDispatch } from "react-redux"
+import { setShowTopNav } from "../../../assets/store/NavigationSlice"
 
 
 export const Login = () =>{
     const Navigate = useNavigate()
     const triggerAlert = useMyAlert()
     const Logout = useLogout()
+    const dispatch = useDispatch()
 
     // to store users fetched
  
@@ -22,6 +25,7 @@ export const Login = () =>{
     // const Navigate = useNavigate()
       
     useEffect(() =>{
+        dispatch(setShowTopNav(false))
         document.documentElement.scrollTop=0
         Logout("login")
     }, [])
@@ -61,6 +65,7 @@ export const Login = () =>{
             })             
             // console.table(Cookie.get("userDetails"))       
             Navigate(`/dashboard`)
+            dispatch(setShowTopNav(true))
         }else{
             triggerAlert("error", res.data.message)
             

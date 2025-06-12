@@ -1,24 +1,29 @@
-import { yupResolver } from "@hookform/resolvers/yup"
 import axios from "axios"
-import { useContext } from "react"
 import { useEffect } from "react"
 import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { AppContext } from "../../../../App"
 import { DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TextInputClass } from "../../../../assets/Constants"
 import { useDispatch, useSelector } from "react-redux"
 import { useMyAlert } from "../../../../assets/Hooks/useMyAlert"
 import { useMyConfirmBox } from "../../../../assets/Hooks/useMyConfirmBox"
 import { setConfirmedAction } from "../../../../assets/store/ConfirmBoxSlice"
-import { setExamStatus } from "../../../../assets/store/ExamSlice"
+import { ExamQuestionInterface, FetchExamQuestion, setExamStatus } from "../../../../assets/store/ExamSlice"
+import { AppDispatch, RootState } from "../../../../assets/store/AppStore"
 
 
-export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, UpdateTotalScore }) =>{
-    const { fetchQuestions } = useContext(AppContext)
-    const dispatch = useDispatch()
-    const confirmedAction = useSelector((state) => state.confirmBox.confirmedAction)  
+interface EditQuestionInterface {
+    editQuestionInfo: ExamQuestionInterface,
+    questionNo: number,
+    noOfQuestions: number,
+    UpdateTotalScore: any
+
+}
+
+export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, UpdateTotalScore } :EditQuestionInterface) =>{
+
+    const dispatch = useDispatch<AppDispatch>()
+    const confirmedAction = useSelector((state:RootState) => state.confirmBox.confirmedAction)  
     
-    const examstate = useSelector((state) => state.examslice)  
+    const examstate = useSelector((state:RootState) => state.examslice)  
     const examKey = examstate.examKey
     const triggerAlert = useMyAlert()
     const useConfirmBox = useMyConfirmBox()
@@ -27,7 +32,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
     const [ deleteClicked, setDeleteClicked ] = useState(false)
 
     // set the default info of questions to the existing ones
-    const [ newQuestionInfo, setNewQuestionInfo ] = useState({
+    const [ newQuestionInfo, setNewQuestionInfo ] = useState<ExamQuestionInterface>({
         optionA: editQuestionInfo.optionA,
         optionB: editQuestionInfo.optionB,
         optionC: editQuestionInfo.optionC,
@@ -40,7 +45,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
     
 
     // Check for errors with options before updating
-    const updateExamQuestion = (newQuestionInfo) =>{
+    const updateExamQuestion = (newQuestionInfo: ExamQuestionInterface) =>{
         if(newQuestionInfo.questionType == "true/false"){
             newQuestionInfo.optionC = "";
             newQuestionInfo.optionD = "";
@@ -53,7 +58,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
 
         
         if(newQuestionInfo.questionType == "true/false"){
-            if(newQuestionInfo.optionA == 0 || newQuestionInfo.optionB == 0){
+            if(newQuestionInfo.optionA.trim() == "" || newQuestionInfo.optionB.trim() == ""){
                 triggerAlert("error", "Options cannot be empty")
                 return;
             }
@@ -68,7 +73,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
         }
 
         if(newQuestionInfo.questionType == "multiple-choice"){
-            if(newQuestionInfo.optionA == 0 || newQuestionInfo.optionB == 0 || newQuestionInfo.optionC == 0 || newQuestionInfo.optionD == 0){
+            if(newQuestionInfo.optionA.trim() == "" || newQuestionInfo.optionB.trim() == "" || newQuestionInfo.optionC.trim() == "" || newQuestionInfo.optionD.trim() == ""){
                 triggerAlert("error", "Options cannot be empty")
                 return;
             }
@@ -87,7 +92,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
             UpdateTotalScore(newQuestionInfo.points, questionNo-1)
             setUpdatedQuestion(false)
             triggerAlert("success", `Question ${questionNo} Updated Successfully`)
-            fetchQuestions(examKey)
+            dispatch(FetchExamQuestion(examKey))
         })
     }
 
@@ -96,7 +101,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
     useEffect(() => {
         // to check if any change has been made to the question, covering the aspects listed in the array, parameters
 
-        const parameters = ["optionA", "optionB", "optionC", "optionD", "answer", "points", "questionType", "question"]
+        const parameters:(keyof ExamQuestionInterface)[] = ["optionA", "optionB", "optionC", "optionD", "answer", "points", "questionType", "question"]
         let i = 0
         parameters.forEach((parameter) => {
             if(editQuestionInfo[parameter] !== newQuestionInfo[parameter]){
@@ -133,7 +138,7 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
     }, [newQuestionInfo.questionType])
 
  
-    const HandleChange = (e) =>{
+    const HandleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>{
         setNewQuestionInfo({
             ...newQuestionInfo,
             [e.target.name]: (e.target.value)
@@ -153,16 +158,16 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
     const deleteQuestion = async () => {       
         await axios.delete(`${dbLocation}/examquestions.php/${editQuestionInfo.id}/delete`)
         .then(function() {
-            fetchQuestions(examKey)
+            dispatch(FetchExamQuestion(examKey))
             triggerAlert("success", `Question ${questionNo} deleted successfully`)
             UpdateTotalScore()
             
             noOfQuestions < 6 && 
             axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`)
-                .then(dispatch(setExamStatus("Inactive")))
-        }).catch(() => {
-            triggerAlert("error", `Failed to delete Question ${questionNo}`)
-        })
+                .then(() => dispatch(setExamStatus("Inactive")))
+            }).catch(() => {
+                triggerAlert("error", `Failed to delete Question ${questionNo}`)
+            })
         
         
     }

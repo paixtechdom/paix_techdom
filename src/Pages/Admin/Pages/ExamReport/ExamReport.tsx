@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { setExamKey } from "../../../../assets/store/ExamSlice"
+import { useSelector } from "react-redux"
 import Cookie from "js-cookie"
 import { useNavigate } from "react-router-dom"
 import { dbLocation, TopLevelHeader } from "../../../../assets/Constants"
@@ -10,6 +9,8 @@ import { useMyAlert } from "../../../../assets/Hooks/useMyAlert"
 import { useUpdateExamDetails } from "../../../../assets/Hooks/useUpdateExamDetails"
 import { FormatTime } from "../../../../assets/Functions"
 import { ResultsTable } from "./ResultsTable"
+import { RootState } from "../../../../assets/store/AppStore"
+import { AdminResultTableInterface } from "../../../../assets/Interfaces"
 
 const Students = [
     {score: 65},
@@ -24,18 +25,22 @@ const Students = [
     {score: 90},
 ]
 
+export interface performanceInterface{
+    passed: number,
+    average: number,
+    failed: number
+}
+export type PerformanceType = keyof performanceInterface;
 
 export const ExamReport = () => {
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const triggerAlert = useMyAlert()
     const updateExamDetails = useUpdateExamDetails()
-    const examstate = useSelector((state) => state.examslice)  
+    const examstate = useSelector((state:RootState) => state.examslice)  
 
     const examKey = examstate.examKey
     const examTitle = examstate.examTitle
     const duration = examstate.duration
-    const status = examstate.status      
     const level = examstate.level      
     const faculty = examstate.faculty      
     const department = examstate.department   
@@ -43,15 +48,17 @@ export const ExamReport = () => {
 
     
     const cookiedExamDetails = Cookie.get('examDetails')
- 
-    const [ results, setResults ] = useState([])
+    
+    const [ results, setResults ] = useState<AdminResultTableInterface[]>([])
     const [ performance, setPerformance ] = useState({
         passed: 0,
         average: 0,
         failed: 0
     })
 
-    const UpdatePerformanceState = (type) => {
+
+
+    const UpdatePerformanceState = (type: PerformanceType) => {
         setPerformance({
             ...performance,
             [type]: performance[type] += 1
@@ -62,7 +69,7 @@ export const ExamReport = () => {
     
 
 
-    const FetchExam = async (key) => {
+    const FetchExam = async (key:string) => {
         await axios.get(`${dbLocation}/exams.php/${key}/fetch`)
         .then((res) => {
             const exam = res.data[0]
@@ -87,7 +94,7 @@ export const ExamReport = () => {
             // navigate("/exams/all-exams")            
         })
     }
-    const fetchResults = (examKey) =>{
+    const fetchResults = (examKey: string) =>{
 
 
         axios.get(`${dbLocation}/examResults.php/${examKey}`).then(function(response){
@@ -100,7 +107,7 @@ export const ExamReport = () => {
             
             // console.log(minScore, totalScore, maxScore)
 
-            response.data.forEach(s => 
+            response.data.forEach( (s : AdminResultTableInterface) => 
                 s.score >= maxScore ? UpdatePerformanceState("passed") : 
                 s.score <= minScore ? UpdatePerformanceState("failed") : 
                 s.score > minScore && s.score < maxScore ? UpdatePerformanceState("average") : ""
@@ -174,7 +181,6 @@ export const ExamReport = () => {
 
 
                 <PerformanceChart 
-                    results={results}
                     performance={performance}
                 />
                 <ResultsTable 
@@ -186,8 +192,11 @@ export const ExamReport = () => {
     )
 }
 
+interface PerformanceChartInterface{
+    performance: performanceInterface
+}
 
-const PerformanceChart = ({ performance }) => {
+const PerformanceChart = ({ performance }:PerformanceChartInterface) => {
 
  
 
@@ -232,8 +241,12 @@ const PerformanceChart = ({ performance }) => {
     )
 
 }
+interface b {
+    performance: number,
+    color: string
+}
 
-const PerformanceInfo = ({performance, color}) =>{
+const PerformanceInfo = ({performance, color} : b) =>{
     return(
         <div className={`bg-${color} h-full relative`} style={{
             width: ((performance / Students.length) * 100) + "%"

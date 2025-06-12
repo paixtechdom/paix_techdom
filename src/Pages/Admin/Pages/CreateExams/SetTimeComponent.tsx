@@ -5,16 +5,20 @@ import { useDispatch } from 'react-redux'
 import { setDuration } from '../../../../assets/store/ExamSlice'
 import axios from 'axios'
 import { useMyAlert } from '../../../../assets/Hooks/useMyAlert'
+import { AsyncVoidFunction } from './CreateExam'
 
 // to format time input in seconds to hr:min:sec format
-
-export const SetTimeComponent = ({examKey, duration}) => {    
+interface d{
+    examKey: string,
+    duration: number
+}
+export const SetTimeComponent = ({examKey, duration} : d) => {    
     const [ timeFrame, setTimeFrame ] = useState(duration)
     const [ closeTimerInout, setCloseTimerInput ] = useState(true)
     const triggerAlert = useMyAlert()
 
 
-    const addDuration = async () =>{
+    const addDuration:AsyncVoidFunction = async () =>{
         await axios.post(`${dbLocation}/exams.php/${timeFrame}/${examKey}`)
         .then((res) => {
             if(res.data.status == 1){
@@ -52,19 +56,24 @@ export const SetTimeComponent = ({examKey, duration}) => {
   )
 }
 
+interface e{
+    setTimeFrame: (timeFrame: number) => void
+    timeFrame:number, 
+    setCloseTimerInput: (closeTimerInput: boolean) => void
+    addDuration: AsyncVoidFunction
+}
 
-
-const SetNewSession = ({setTimeFrame, timeFrame, setCloseTimerInput, addDuration}) => {
-    const [ sec, setSec ] = useState(0)
-    const [ min, setMin ] = useState(0)
-    const [ hr, setHr ] = useState(0)
+const SetNewSession = ({setTimeFrame, timeFrame, setCloseTimerInput, addDuration} : e) => {
+    const [ sec, setSec ] = useState<number>(0)
+    const [ min, setMin ] = useState<number>(0)
+    const [ hr, setHr ] = useState<number>(0)
     
     const dispatch = useDispatch()
     
-    const Minutes_To_Seconds = (min) => {
+    const Minutes_To_Seconds = (min:number) => {
         return min * 60 
     }
-    const Hours_To_Seconds = (hr) => {
+    const Hours_To_Seconds = (hr:number) => {
         return hr * 60 * 60
     }
 
@@ -120,14 +129,19 @@ const SetNewSession = ({setTimeFrame, timeFrame, setCloseTimerInput, addDuration
     )
 }
 
+interface g {
+    value: number,
+    setValue: (value: number) => void,
+    title: string
+}
 
-const SetValuesComponent = ({value, setValue, title}) => {
+const SetValuesComponent = ({value, setValue, title}:g) => {
     return(
         <div className="center flex-col gap-2">
             <p className={`text-[12px] font-bold text-gray-500`}>{title}</p>
             <ControlsButton 
             func={() => {
-                setValue(prev => prev + 1)
+                setValue(value + 1)
             }}>
                 <i className='bi bi-chevron-up'></i>
             </ControlsButton>
@@ -136,15 +150,15 @@ const SetValuesComponent = ({value, setValue, title}) => {
                 type="number" 
                 value={value} 
                 className='w-12 text-center bg-transparent center outline-none'
-                // readOnly
-                onChange={(e) => {
-                setValue(value < 0 ? 0 : e.target.value) 
-            }}
+                readOnly
+            //     onChange={(e) => {
+            //     setValue(value < 0 ? 0 : e.target.value) 
+            // }}
             />
             
             <ControlsButton 
                 func={() => {
-                setValue(prev => value <= 0 ? 0 : prev - 1)
+                setValue(value <= 0 ? 0 : value - 1)
                 }} 
                 disabled={value == 0}
             >
@@ -155,8 +169,13 @@ const SetValuesComponent = ({value, setValue, title}) => {
     )
 }
 
+interface f{
+    children?: JSX.Element,
+    func: () => void,
+    disabled?: boolean
+}
 
-const ControlsButton = ({children, func, disabled}) => {
+const ControlsButton = ({children, func, disabled}: f) => {
     return(
         <button className='bg-black bg-opacity-30 rounded h-7 w-full center active:scale-90 transition-all duration-100 active:rotate-[15deg] shadow-sm shadow-blue-950 scale-90 disabled:opacity-40 disabled:cursor-not-allowed' 
         disabled={disabled}

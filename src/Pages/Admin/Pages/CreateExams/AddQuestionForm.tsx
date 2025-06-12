@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import axios from "axios"
 import { dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass } from '../../../../assets/Constants'
 import { useMyAlert } from '../../../../assets/Hooks/useMyAlert'
+import { useDispatch } from 'react-redux'
+import { FetchExamQuestion } from '../../../../assets/store/ExamSlice'
+import { AppDispatch } from '../../../../assets/store/AppStore'
 
 
-
-const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
+interface c {
+    examKey: string,
+    no: number
+}
+const AddQuestionForm:FC<c> = ({ examKey, no }) => {
     const triggerAlert = useMyAlert()
+    const dispatch = useDispatch<AppDispatch>()
     const [ answer, setAnswer ] = useState('')
     const [ points, setPoints ] = useState(1)
     const [ questionType, setQuestionType ] = useState("multiple-choice")
@@ -19,16 +26,21 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
         question: yup.string().required('This field is required'),
         optionA: yup.string().required('This field is required'),
         optionB: yup.string().required('This field is required'),
-        optionC: questionType == "multiple-choice" && yup.string().required('This field is required'),
-        optionD: questionType == "multiple-choice" && yup.string().required('This field is required'),
+        optionC: yup.string(),
+        optionD: yup.string(),
+        examKey:  yup.string(),
+        points:  yup.number(),
+        questionType:  yup.string(),
+        answer:  yup.string()
     })
     
     const { register, handleSubmit, formState: {errors}, reset, setValue } = useForm({
         resolver: yupResolver(schema)
     })
 
+    type QuestionFormData = yup.InferType<typeof schema>;
 
-    const addQuestion = async  (data) =>{
+    const addQuestion = async  (data:QuestionFormData) =>{
         setValue('examKey', examKey)
         setValue("points", points)
         setValue("questionType", questionType)
@@ -45,7 +57,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
             setValue('answer', "D")
         }
         if(questionType == "multiple-choice"){
-            if(data.optionA == 0 || data.optionB == 0 || data.optionC == 0 || data.optionD == 0){
+            if(data.optionA == "" || data.optionB == "" || data.optionC == "" || data.optionD == ""){
                 triggerAlert("error", "Options cannot be empty")
             }else{
                 if(data.optionA != data.optionB && data.optionA != data.optionC && data.optionA != data.optionD && data.optionB != data.optionC && data.optionB != data.optionD && data.optionC != data.optionD ){
@@ -56,7 +68,7 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
             }
         }
         else if(questionType == "true/false"){
-            if(data.optionA == 0 || data.optionB == 0){
+            if(data.optionA == "" || data.optionB == ""){
                 triggerAlert("error", "Options cannot be empty")
             }
             else{
@@ -69,12 +81,12 @@ const AddQuestionForm = ({ examKey, fetchQuestions, no }) => {
         }
     }
 
-    const AddAfterVerificaton = async (data) => {
+    const AddAfterVerificaton = async (data:QuestionFormData) => {
         // To ensure the options are not the same
         if(data.answer != undefined ){
          await axios.post(`${dbLocation}/examquestions.php`, data).then(function() {
             triggerAlert("success", `Question ${no} added successfully`)
-            fetchQuestions(examKey)
+            dispatch(FetchExamQuestion(examKey))
             reset({
                 question: '',
                 optionA: '',

@@ -1,11 +1,17 @@
 import { DataCard } from "../../../Components/DataCard"
 import { FC, useEffect, useState } from "react"
 import { TopLevelHeader } from "../../../assets/Constants"
+import { setShowTopNav } from "../../../assets/store/NavigationSlice"
+import { useDispatch } from "react-redux"
 // import { OrdersTable } from "../../Components/Table/Tables"
 
 
 
 const Dashboard = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(setShowTopNav(true))
+    }, [])
 
     return(
         <main className="flex w-full min-h-screen center lg:pt-[20vh] pt-[12vh] bg-gray-100">

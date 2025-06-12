@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
 // import { AppContext } from "../../App"
 
 
@@ -17,15 +15,17 @@ export const StudentRegistration = () => {
         department: yup.string().required('User Name is required'),
         level: yup.string().required('User Name is required'),
         password: yup.string().min(6).max(18).required(),
-        confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Password do not match').required()
-
+        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Password do not match').required(),
+        approvalStatus: yup.string()
     })
     
-    const { register, handleSubmit, formState: {errors}, setValue, reset } = useForm({
+    const { register, handleSubmit, formState: {errors}, setValue } = useForm({
         resolver: yupResolver(schema)
     })
 
-    const addStudent = async (data) =>{
+    type ExamFormData = yup.InferType<typeof schema>;
+
+    const addStudent = async (data: ExamFormData) =>{
         setValue('approvalStatus', 'pending')
         console.log(data)
         await axios.post('http://localhost:80/api-quiz-app/studentRegistration.php/students/save', data)
@@ -46,7 +46,7 @@ export const StudentRegistration = () => {
             <p className="error">{errors.matricNumber?.message}</p>
 
             <label htmlFor="">Falculty</label>
-            <select name="" id="" {...register('faculty')}>
+            <select id="" {...register('faculty')}>
                 <option value="Pure and Applied Science">Pure and Applied Science</option>
                 <option value="Art and Communication">Art and Communication</option>
                 <option value="Management Sciences">Management Sciences</option>
@@ -57,7 +57,7 @@ export const StudentRegistration = () => {
             <p className="error">{errors.faculty?.message}</p>
 
             <label htmlFor="">Dapartment</label>
-            <select name="" id="" {...register('department')}>
+            <select id="" {...register('department')}>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Management">Management</option>
                 <option value="ict">ICT</option>
@@ -65,7 +65,7 @@ export const StudentRegistration = () => {
             <p className="error">{errors.department?.message}</p>
 
             <label htmlFor="">Level</label>
-            <select name="" id="" {...register('level')}>
+            <select id="" {...register('level')}>
                 <option value="100">100</option>
                 <option value="200">200</option>
                 <option value="300">300</option>

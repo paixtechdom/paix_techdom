@@ -13,6 +13,8 @@ export const FormatTime = (time: number) =>{
     }
 }
 
+export const EncodeValue = (value:string) => value.replace(/\s+/g, '-')
+
 
 
 export const FormatDate = (date: Date) => {

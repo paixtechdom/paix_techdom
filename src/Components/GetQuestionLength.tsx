@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import { dbLocation } from "../assets/Constants";
 import axios from "axios";
 
-export const GetQuestionLength = (examKey) => {
-    const [ length, setLength ] = useState(0)
+interface a {
+    examKey: string
+}
 
+export const GetQuestionLength = (examKey: a) => {
+    const [ length, setLength ] = useState(0)
+    
     useEffect(() => {
         axios.get(`${dbLocation}/examquestions.php/${examKey.examKey}/noquestions`)
         .then((res) => {

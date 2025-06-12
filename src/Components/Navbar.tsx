@@ -1,24 +1,25 @@
 import Cookie from "js-cookie"
-import { useEffect, useState } from "react"
-import { Logo, PrimaryButtonCLass, SecondaryButtonCLass } from "../assets/Constants"
-import { Link, useNavigate } from "react-router-dom"
+import { FC, useEffect, useState } from "react"
+import { PrimaryButtonCLass, SecondaryButtonCLass } from "../assets/Constants"
+import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { setCurrentDropDown, setCurrentNav, setShowSideNav, setShowTopNav } from "../assets/store/NavigationSlice"
+import { setCurrentNav, setShowSideNav, setShowTopNav } from "../assets/store/NavigationSlice"
 import { useLogout } from "../assets/Hooks/useLogout"
 import { useMyConfirmBox } from "../assets/Hooks/useMyConfirmBox"
 import { setConfirmedAction } from "../assets/store/ConfirmBoxSlice"
+import { RootState } from "../assets/store/AppStore"
 
 export const Navbar = () =>{
     const [ showUserDropDown, setShowUserDropDown ] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const navigation = useSelector((state) => state.navigation)  
-    const studentslice = useSelector((state) => state.studentslice)  
+    const navigation = useSelector((state:RootState) => state.navigation)  
+    const studentslice = useSelector((state:RootState) => state.studentslice)  
 
 
     const showSideNav = navigation.showSideNav
     const currentNav = navigation.currentNav
-    const currentDropDown = navigation.currentDropDown
+    // const currentDropDown = navigation.currentDropDown
     const showTopNav = navigation.showTopNav
     
     useEffect(() => {
@@ -93,46 +94,16 @@ export const Navbar = () =>{
                         SideNav.map((nav, i) => (
                             <div key={i} className="flex flex-col transition-all duration-1000 justify-between w-full text-s  text-gray-900 border-b border-gray-200 ">
                                 <div className={`flex w-full p-5 justify-between cursor-pointer ${currentNav === i ? 'bg-primary text-white hover:bg-blue-900' : 'text-secondary hover:bg-gray-200'}`} onClick={() => {
-                                    if( nav.sublinks){
-                                        dispatch(setCurrentDropDown(currentDropDown === nav.title ? '' : nav.title))
-
-                                    }else{
-
-                                        navigate(`/${nav.link}`)
-                                        dispatch(setCurrentNav(i))
-                                        dispatch(setShowSideNav(false))
-                                    }
-                                   
+                                    navigate(`/${nav.link}`)
+                                    dispatch(setCurrentNav(i))
+                                    dispatch(setShowSideNav(false))
                                 }}>
                                     <div className="flex gap-5 ">
                                         <i className={`bi bi-${nav.icon} `}></i>
                                         <p>{nav.title}</p>
                                     </div>
 
-                                    {
-                                        nav.sublinks ?
-                                        <i className={`bi bi-chevron-${currentDropDown === nav.title ? 'up' : 'down'} cursor-pointer hover:bg-gray-400 h-6 w-6 center rounded-full`} ></i> : ''
-                                    }
-
                                 </div>
-                                {/**** NAVS WITH SUBLINKS */}
-                                {
-                                    nav.sublinks ?
-                                    <div className={`flex flex-col gap-3 w-full overflow-hidden transition-all duration-100 ${currentDropDown == nav.title ? 'flex mb-7' : 'h-0 text-[0px] mb-0'} `}>
-
-                                        {   
-                                            nav?.sublinks?.map((sublink, j) => (
-                                                <Link to={`/${nav.link}/${sublink.link}`} key={j} className="flex gap-5 py-3 hover:bg-gray-300 w-full px-8 text-sm" onClick={() => {
-                                                    dispatch(setShowSideNav(false))
-                                                    dispatch(setCurrentNav(i))
-                                                }}>
-                                                <i className={`bi bi-${sublink.icon} text-secondary`}></i>
-                                                <p className="">{sublink.title}</p>
-                                            </Link>
-                                            ))
-                                        }
-                                    </div>  : ''
-                                }
                             </div>
                         ))
                     }
@@ -179,7 +150,7 @@ export const Navbar = () =>{
             showTopNav &&
             <UserDropDown 
                 showUserDropDown={showUserDropDown} 
-                setShowUserDropDown={setCurrentDropDown}
+                setShowUserDropDown={setShowUserDropDown}
             />
         }
         
@@ -187,7 +158,13 @@ export const Navbar = () =>{
     )
 }
 
-const UserDropDown = ({showUserDropDown, setShowUserDropDown}) => {
+
+interface UserDropDownInterface {
+    showUserDropDown: boolean,
+    setShowUserDropDown: (showUserDropDown: boolean) => void
+}
+
+const UserDropDown:FC<UserDropDownInterface> = ({showUserDropDown, setShowUserDropDown}) => {
     const [ userName, setUserName ] = useState("")
     const [ goTo, setGoto ] = useState("")
     const [ logoutClicked, setLogoutClicked ] = useState(false)
@@ -196,7 +173,7 @@ const UserDropDown = ({showUserDropDown, setShowUserDropDown}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const useConfirmBox = useMyConfirmBox()
-    const confirmedAction = useSelector((state) => state.confirmBox.confirmedAction)  
+    const confirmedAction = useSelector((state: RootState) => state.confirmBox.confirmedAction)  
 
 
     useEffect(() => {

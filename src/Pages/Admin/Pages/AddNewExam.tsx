@@ -1,18 +1,15 @@
-import React from 'react'
 import axios from "axios"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { AppContext } from "../../../App"
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import Cookie from "js-cookie"
 import { availableDepartments, dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, TopLevelHeader } from "../../../assets/Constants"
-import { useDispatch } from 'react-redux'
-import { setDuration, setExamKey } from '../../../assets/store/ExamSlice'
 import { useUpdateExamDetails } from '../../../assets/Hooks/useUpdateExamDetails'
 import { useMyAlert } from '../../../assets/Hooks/useMyAlert'
+import { EncodeValue } from "../../../assets/Functions"
  
 
 
@@ -22,7 +19,6 @@ export const AddNewExam = () => {
     const Navigate = useNavigate()
     const updateExamDetails = useUpdateExamDetails()
     const triggerAlert = useMyAlert()
-    const dispatch = useDispatch()
 
     const CookiedUserDetails = Cookie.get("userDetails") 
 
@@ -42,16 +38,19 @@ export const AddNewExam = () => {
         faculty: yup.string().required('Faculty Required'),
         department: yup.string().required('Department is Required'),
         level: yup.string().required('Level is Required'),
-
+        examKey: yup.string(),
+        status: yup.string(),
+        duration: yup.number()
         })
     
-    const { register, handleSubmit, formState: {errors}, reset, setValue } = useForm({
+    const { register, handleSubmit, formState: {errors}, setValue } = useForm<ExamFormData>({
         resolver: yupResolver(schema)
     })
 
- 
+    type ExamFormData = yup.InferType<typeof schema>;
 
-    const createExam = async (data) => {
+
+    const createExam = async (data:ExamFormData) => {
         let a = new Date().getMinutes()
         let b = new Date().getFullYear()
         let d = new Date().getSeconds()
@@ -61,19 +60,19 @@ export const AddNewExam = () => {
         setValue('status', 'Inactive')
         setValue('duration', 0)
         
-        console.log(data)
+        // console.log(data)
         await axios.post(`${dbLocation}/exams.php`, data)
         .then((res) =>{
             if(res.data.status == 1){
                 triggerAlert("success", "Exam Created Successfully")
                 updateExamDetails(data)
-                console.log(res.data.message)
-                Navigate(`/exam/${data.examTitle.toLowerCase().replaceAll(" ", "-")}`)
+                // console.log(res.data.message)
+                Navigate(`/exam/${EncodeValue(data.examTitle).toLowerCase()}`)
                 // fetchExams()
                 Cookie.set('examDetails', JSON.stringify(data), {
                     expires: 1,
                     sameSite:'strict',
-                    secure: 'true'
+                    secure: true
                 })
             }else{
                 triggerAlert("error", "Error Creating New Exam")
@@ -109,7 +108,7 @@ export const AddNewExam = () => {
                         Faculty
                     </label>
 
-                    <select className={TextInputClass} name="" id="" {...register('faculty')}  onClick={(e)=> {
+                    <select className={TextInputClass} id="" {...register('faculty')}  onChange={(e)=> {
                         setSelectedFaculty(e.target.value)
                     }}>
                         <option value=""  className="valueless">Faculty--</option>
@@ -131,7 +130,7 @@ export const AddNewExam = () => {
                     </label>
 
            
-                    <select className={TextInputClass} name="" id="" {...register('department')}>
+                    <select className={TextInputClass}  id="" {...register('department')}>
                     
                         <option value="" className="valueless">{selectedFaculty == '' ? 'Select a Faculty' : 'Department--'}</option>
 
@@ -158,7 +157,7 @@ export const AddNewExam = () => {
                     </label>
 
            
-                    <select className={TextInputClass} name="" id="" {...register('level')}>
+                    <select className={TextInputClass} id="" {...register('level')}>
                     
                         <option value="" className="valueless">Level--</option>
                         <option value="100">100</option>

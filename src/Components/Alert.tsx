@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { toggleShowAlert } from "../assets/store/AlertSlice"
+import { AppDispatch, RootState } from "../assets/store/AppStore"
 
 
 // This component is used with a custom hook, useMyAlert
 
 const Alert = () => {
-    const dispatch = useDispatch()
-    const alert = useSelector((state) => state.alert)
+    const dispatch = useDispatch<AppDispatch>()
+    const alert = useSelector((state:RootState) => state.alert)
     const alertType = alert.alertType
     const alertMessage = alert.alertMessage
     const showAlert = alert.showAlert

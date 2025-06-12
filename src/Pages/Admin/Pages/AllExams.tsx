@@ -1,28 +1,21 @@
-import axios from "axios"
-import { FC, useState } from "react"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Cookie from "js-cookie"
-import { availableDepartments, DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
-import { ExamInfoInterface } from "../../../assets/Interfaces"
+import {  PrimaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
 import { useDispatch, useSelector } from "react-redux"
-import { useUpdateExamDetails } from "../../../assets/Hooks/useUpdateExamDetails"
-import { useMyConfirmBox } from "../../../assets/Hooks/useMyConfirmBox"
-import { setConfirmedAction } from "../../../assets/store/ConfirmBoxSlice"
-import { useMyAlert } from "../../../assets/Hooks/useMyAlert"
-import InfoComponent from "../../../Components/InfoComponent"
-import { GetQuestionLength } from "../../../Components/GetQuestionLength"
+import { ExamCard } from "../../../Components/ExamCard"
 import { AppDispatch, RootState } from "../../../assets/store/AppStore"
 import { FetchExams } from "../../../assets/store/AllExamsSlice"
-import { ReplaceSpace } from "../../../assets/Functions"
+import { Loader } from "../../../Components/Loader"
  
 
 export const AllExams = () =>{
     const Navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
-    const { exams, loading, error } = useSelector((state: RootState) => state.allexamsslice)
+    const { exams, loading } = useSelector((state: RootState) => state.allexamsslice)
     
     const CookiedUserDetails = Cookie.get("userDetails") 
+    
     useEffect(() =>{
         document.documentElement.scrollTop=0
         if(CookiedUserDetails !== "admin"){
@@ -44,29 +37,28 @@ export const AllExams = () =>{
                     <h1 className={TopLevelHeader}>Exams</h1>
 
                     <div className="flex items-center gap-3 w-full lg:w-fit">
-                        <Link to={'/exams/add-new'} className={PrimaryButtonCLass + " "}> Create Exam</Link>
+                        <Link to={'/exams/add-new'} className={PrimaryButtonCLass + " "}> Add New Exam</Link>
 
-                        <Link to="" className={SecondaryButtonCLass + " "}>View Reports</Link>
+                        {/* <Link to="" className={SecondaryButtonCLass + " "}>View Reports</Link> */}
                     </div>
                 </div>
-                { 
-                    loading && <p className="text-2xl font-bold">Loading</p> 
-                }
-                {
 
-                    exams.length == 0 ?
+                {exams.length == 0 ?
+                    loading ?
+                    <div className="min-h-[40vh] center w-full"><Loader /> </div> 
+                    :
                     <div className="h-[70vh] center flex-col gap-2">
                         <i className="bi bi-file-text text-5xl"></i>
                         <p>No exams added</p>
                         <Link to={'/exams/add-new'} className={PrimaryButtonCLass + "flex items-center gap-1 scale-75"}> <i className="bi bi-plus text-2xl"></i>
-                                Create Exam
+                                Add New Exam
                         </Link>
 
                     </div>
                     : 
                     <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 lg:grid-cols-2">
-                        {exams?.map((exam, key) =>(                        
-                            <AvailableExamBlock 
+                        {exams.map((exam, key) =>(                        
+                            <ExamCard 
                                 exam={exam} 
                                 key={key}
                             />
@@ -77,150 +69,3 @@ export const AllExams = () =>{
         </main>
     )
 }
-
-
-interface AvailableExamBlockInterface {
- exam: ExamInfoInterface
-}
-
-const AvailableExamBlock:FC<AvailableExamBlockInterface> = ({exam}) => {
-    
-    const updateExamDetails = useUpdateExamDetails()
-    const triggerAlert = useMyAlert()
-    const dispatch = useDispatch<AppDispatch>()
-    dispatch(FetchExams())
-
-    const [ deleteClicked, setDeleteClicked ] = useState(false)
-    const useConfirmBox = useMyConfirmBox()
-    const confirmedAction = useSelector((state: RootState) => state.confirmBox.confirmedAction)  
-
-    
-    
-    const deleteExam = async () =>{
-        await axios.delete(`${dbLocation}/exams.php/${exam.examKey}/delete`).then(function(){
-          dispatch(FetchExams())
-          triggerAlert("success", `Exam deleted successfully`)
-          
-        }).catch(() => {
-            triggerAlert("error", `Failed to delete Exam`)
-        })
-        
-      }
-
-    useEffect(() => {
-        if(confirmedAction && deleteClicked){        
-            deleteExam()    
-            dispatch(setConfirmedAction(false))
-            setDeleteClicked(false)
-        }
-    }, [confirmedAction])
-
-    const SetExamInfoGlobally = () => {
-        // to update the store and cookie
-        updateExamDetails(exam)
-        // console.table(exam)
-
-        Cookie.set('examDetails', JSON.stringify(exam), {
-            expires: 1,
-            sameSite:'strict',
-            secure: true
-        })
-    }
-    return(
-
-    <div className={`flex flex-col gap-3 rounded-xl shadow-lg p-5 relative
-        ${availableDepartments.find(fac => fac.faculty == exam.faculty)?.color} `}>
-         <span className={`absolute top-0 right-0 w-8 h-8 rounded-tr-xl rounded-bl-xl ${exam.status == "Active" ?  "bg-green-800 animate-pulse" : "bg-gray-700"}`}
-        ></span>
-
-        <Link to = {`/Exam/${ReplaceSpace(exam.examTitle)}`} 
-        className="font-bold text-lg text-gray-700 hover:underline hover:text-blue-900"
-        onClick={() => SetExamInfoGlobally()}> 
-            {exam.examTitle}
-        </Link>
-        
-        <div className="flex flex-col md:flex-row justify-between gap-3">
-            <InfoComponent 
-                title={"Faculty:"}
-                info={exam.faculty}
-            />
-
-            <div className="w-full lg:w-4/12">
-            <InfoComponent 
-                title={"Level:"}
-                info={exam.level}
-            />
-            </div>
-        </div>
-
-        <div className="flex flex-col md:flex-row justify-between gap-3">
-            
-            <InfoComponent 
-                title={"Department:"}
-                info={exam.department}
-            />
-
-            <div className="w-full lg:w-4/12">
-            
-
-            <InfoComponent 
-                title={"Questions:"}
-                info={<GetQuestionLength examKey={exam.examKey} />}
-            />
-            </div>
-        </div>
-
-        <div className="flex justify-betw een items-center w-fi gap-4 mt-4">
-
-            <Link to={`/exams/report/${ReplaceSpace(exam.examTitle)}`} className={SecondaryButtonCLass + " center w- full lg:scale-90"}  onClick={() => SetExamInfoGlobally()}>
-                Exam Report
-            </Link>
-
-            <button className={DangerButtonCLass + " w- full lg:scale-90"}  onClick={() =>{
-                 setDeleteClicked(true)
-                 useConfirmBox('Confirm to delete this exam' ,exam.examTitle)
-            }}>
-                Delete Exam
-            </button>
-        </div>
-
-    </div>
-)}
-
-
-// <div className="sortBy">
-//     <p>Sort by Level</p>
-
-//     <div>
-//         <input type="radio" name="level" id="level" value={100} onClick={(e) => {
-//             if(e.target.checked){
-//                 setFilterValue(e.target.value)
-//             }
-//         }}/>
-//         <label htmlFor="100">100</label>
-//     </div>
-//     <div>
-//         <input type="radio" name="level" id="level" value={200}  onClick={(e) => {
-//             if(e.target.checked){
-//                 setFilterValue(e.target.value)
-//             }
-//         }}/>
-//         <label htmlFor="200">200</label>
-//     </div>
-//     <div>
-//         <input type="radio" name="level" id="level" value={300}  onClick={(e) => {
-//             if(e.target.checked){
-//                 setFilterValue(e.target.value)
-//             }
-//         }}/>
-//         <label htmlFor="300">300</label>
-//     </div>
-//     <div>
-//         <input type="radio" name="level" id="level" value={'All'}  onClick={(e) => {
-//             if(e.target.checked){
-//                 setFilterValue(e.target.value)
-//             }
-//         }}/>
-//         <label htmlFor="All">All</label>
-//     </div>
-// </div>

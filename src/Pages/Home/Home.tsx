@@ -1,11 +1,9 @@
-import { useContext, useEffect } from "react"
-import { AppContext } from "../../App"
+import { useEffect } from "react"
 import Cookie from "js-cookie"
 import { Link, useNavigate } from "react-router-dom"
 import { TopLevelHeader } from "../../assets/Constants"
 
 export const Home = () =>{
-    const { setLogin } = useContext(AppContext)
     const Navigate = useNavigate()
 
     useEffect(() => {

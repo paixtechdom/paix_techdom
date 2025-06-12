@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
-import { ExamInfoInterface } from "../Interfaces";
 import { dbLocation } from "../Constants";
+import { ExamInfoInterface } from "./ExamSlice";
 
 
 
@@ -17,6 +17,7 @@ const initialState: AllExamsInterface = {
     error: null
 }
 
+// function to fetch exams for admin only
 export const FetchExams = 
 createAsyncThunk<ExamInfoInterface[], void>(
     "exams/fetchExams",
@@ -30,7 +31,7 @@ createAsyncThunk<ExamInfoInterface[], void>(
     }
 )
 
-export 
+
 
 const AllExamsSlice = createSlice({
     name: "allexamsslice",
@@ -40,13 +41,13 @@ const AllExamsSlice = createSlice({
     },
     extraReducers(builder) {
         builder
+            .addCase(FetchExams.fulfilled, (state, action) => {
+                state.exams = action.payload
+                state.loading = false
+            })
             .addCase(FetchExams.pending, state=>{
                 state.loading = true
                 state.error = null
-            })
-            .addCase(FetchExams.fulfilled, (state, action) => {
-                state.loading = false
-                state.exams = action.payload
             })
             .addCase(FetchExams.rejected, (state, action)=>{
                 state.loading = false

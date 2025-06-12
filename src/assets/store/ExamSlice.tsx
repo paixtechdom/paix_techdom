@@ -1,8 +1,31 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
-import { ExamInfoInterface } from "../Interfaces";
 import { dbLocation } from "../Constants";
 
+export interface ExamQuestionInterface{
+  question: string,
+  optionA: string,
+  optionB: string,
+  optionC: string,
+  optionD: string,
+  answer: string,
+  points: number,
+  questionType: string,
+  id?: number | string
+}
+
+export interface ExamInfoInterface {
+  examKey: string,
+  status: string,
+  examTitle: string,
+  duration: number,
+  level: string,
+  department: string,
+  faculty: string,
+  questionsLength: number,
+  totalScore: number,
+  questions:  ExamQuestionInterface[]
+}
 // Types
 interface ExamState extends ExamInfoInterface {
     loading: boolean;
@@ -13,16 +36,34 @@ interface ExamState extends ExamInfoInterface {
     examKey: "",
     status: "",
     examTitle: "",
-    duration: "",
+    duration: 0,
     level: "",
     department: "",
     faculty: "",
     questionsLength: 0,
     totalScore: 0,
     loading: false,
-    error: null
+    error: null,
+    questions :  []
   };
   
+
+
+export const FetchExamQuestion =  createAsyncThunk<ExamQuestionInterface[], string>(
+    "exams/fetchExams",
+    async(examKey, { rejectWithValue }) => {
+        try{
+            const response = await axios.get<ExamQuestionInterface[]>(`${dbLocation}/examquestions.php/${examKey}`)
+            return response.data
+        }catch(err: any){
+            return rejectWithValue(err.message)
+        }
+    }
+)
+
+
+
+
   export const AddExam = createAsyncThunk<ExamInfoInterface, void>(
     "exams/AddExam",
     async (_, { rejectWithValue }) => {
@@ -45,7 +86,7 @@ interface ExamState extends ExamInfoInterface {
       setExamStatus: (state, action: PayloadAction<string>) => {
         state.status = action.payload;
       },
-      setDuration: (state, action: PayloadAction<string>) => {
+      setDuration: (state, action: PayloadAction<number>) => {
         state.duration = action.payload;
       },
       setExamTitle: (state, action: PayloadAction<string>) => {
@@ -69,18 +110,34 @@ interface ExamState extends ExamInfoInterface {
     },
     extraReducers: (builder) => {
       builder
-        .addCase(AddExam.pending, (state) => {
+
+        .addCase(FetchExamQuestion.pending, (state) => {
           state.loading = true;
           state.error = null;
         })
-        .addCase(AddExam.fulfilled, (state, action) => {
+        .addCase(FetchExamQuestion.fulfilled, (state, action) => {
           state.loading = false;
-          Object.assign(state, action.payload);
+          state.questions = action.payload
         })
-        .addCase(AddExam.rejected, (state, action) => {
+        .addCase(FetchExamQuestion.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload as string;
-        });
+        })
+
+
+        // // this should be moved to all exams
+        // .addCase(AddExam.pending, (state) => {
+        //   state.loading = true;
+        //   state.error = null;
+        // })
+        // .addCase(AddExam.fulfilled, (state, action) => {
+        //   state.loading = false;
+        //   Object.assign(state, action.payload);
+        // })
+        // .addCase(AddExam.rejected, (state, action) => {
+        //   state.loading = false;
+        //   state.error = action.payload as string;
+        // });
     }
   });
   

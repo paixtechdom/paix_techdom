@@ -1,22 +1,30 @@
-import  DataTable  from 'react-data-table-component'
-import { useState } from 'react'
+import  DataTable, { TableColumn }  from 'react-data-table-component'
 import { FormatTime } from '../../../assets/Functions'
+import { AdminResultTableInterface } from '../../../assets/Interfaces'
 
 
-export const StudentReportTable = ({data, currentPage}) => {
 
-    const [ loading, setLoading ] = useState(false)
+interface ResultsTableProps {
+    data: AdminResultTableInterface[];
+    currentPage: number;
+    loading: boolean
+  }
+
+
+export const StudentReportTable = ({data, currentPage, loading}: ResultsTableProps) => {
+
+    
     // const navigate = useNavigate()
 
     
 
-    const columns = [
+    const columns: TableColumn<AdminResultTableInterface>[]  = [
         {
             id: '#',
             name: <p className="font-bold text-sm">#</p>,
             selector: row => row.index,
             sortable: false,
-            cell: (row, index) => <div>{(index + 1 + currentPage * 10) - 10}</div>,
+            cell: (_, index) => <div>{(index + 1 + currentPage * 10) - 10}</div>,
             width: 7+'%',
         },
         {

@@ -1,5 +1,4 @@
-import { useContext, useEffect } from "react"
-import { AppContext } from "../../App"
+import { useEffect } from "react"
 import { AvailableExams } from "./AvailabeExams"
 import { useNavigate } from "react-router"
 import InfoComponent from "../../Components/InfoComponent"
@@ -8,6 +7,7 @@ import Cookie from "js-cookie"
 import { useDispatch, useSelector } from "react-redux"
 import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
 import { setShowTopNav } from "../../assets/store/NavigationSlice"
+import { RootState } from "../../assets/store/AppStore"
 
 
 
@@ -17,10 +17,9 @@ export const Student = () =>{
     const updateStudentDetails = useUpdateStudentDetails()
 
     const cookiedStudentDetails = Cookie.get("userDetails")
-    const studentDetails = useSelector(state => state.studentslice)
+    const studentDetails = useSelector((state: RootState) => state.studentslice)
     const firstName = studentDetails.firstName
     const lastName = studentDetails.lastName
-    const middleName = studentDetails.middleName
     const department = studentDetails.department
     const matricNumber = studentDetails.matricNumber
     const level = studentDetails.level

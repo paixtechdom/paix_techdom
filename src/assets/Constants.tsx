@@ -30,7 +30,7 @@ export const availableDepartments = [
             "Botany",
             "Zoology"
         ],
-        color: "bg-blue-600 bg-opacity-[0.09]"
+        color: "bg-blue-600 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Engineering",
@@ -43,7 +43,7 @@ export const availableDepartments = [
             "Mechatronics",
             "Petroleum Engineering"
         ],
-        color: "bg-gray-800 bg-opacity-[0.09]"
+        color: "bg-gray-800 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Arts",
@@ -55,7 +55,7 @@ export const availableDepartments = [
             "Religious Studies",
             "Theatre Arts"
         ],
-        color: "bg-pink-700 bg-opacity-[0.09]"
+        color: "bg-pink-700 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Social Sciences",
@@ -67,7 +67,7 @@ export const availableDepartments = [
             "Geography",
             "Mass Communication"
         ],
-        color: "bg-yellow-600 bg-opacity-[0.09]"
+        color: "bg-yellow-600 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Management Sciences",
@@ -79,7 +79,7 @@ export const availableDepartments = [
             "Public Administration",
             "Insurance"
         ],
-        color: "bg-indigo-700 bg-opacity-[0.09]"
+        color: "bg-indigo-700 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Law",
@@ -89,7 +89,7 @@ export const availableDepartments = [
             "International Law and Jurisprudence",
             "Commercial and Industrial Law"
         ],
-        color: "bg-red-700 bg-opacity-[0.09]"
+        color: "bg-red-700 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Education",
@@ -101,7 +101,7 @@ export const availableDepartments = [
             "Educational Psychology",
             "Science Education"
         ],
-        color: "bg-teal-600 bg-opacity-[0.09]"
+        color: "bg-teal-600 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Environmental Sciences",
@@ -113,7 +113,7 @@ export const availableDepartments = [
             "Building Technology",
             "Environmental Management"
         ],
-        color: "bg-green-700 bg-opacity-[0.09]"
+        color: "bg-green-700 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Agriculture",
@@ -125,7 +125,7 @@ export const availableDepartments = [
             "Agricultural Extension",
             "Forestry and Wildlife"
         ],
-        color: "bg-lime-700 bg-opacity-[0.09]"
+        color: "bg-lime-700 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Medicine",
@@ -137,7 +137,7 @@ export const availableDepartments = [
             "Nursing",
             "Public Health"
         ],
-        color: "bg-rose-700 bg-opacity-[0.09]"
+        color: "bg-rose-700 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Pharmacy",
@@ -148,7 +148,7 @@ export const availableDepartments = [
             "Pharmaceutical Chemistry",
             "Clinical Pharmacy"
         ],
-        color: "bg-purple-700 bg-opacity-[0.09]"
+        color: "bg-purple-700 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Veterinary Medicine",
@@ -159,7 +159,7 @@ export const availableDepartments = [
             "Veterinary Pathology",
             "Veterinary Parasitology"
         ],
-        color: "bg-orange-600 bg-opacity-[0.09]"
+        color: "bg-orange-600 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Health Sciences",
@@ -170,7 +170,7 @@ export const availableDepartments = [
             "Human Nutrition",
             "Physiotherapy"
         ],
-        color: "bg-cyan-700 bg-opacity-[0.09]"
+        color: "bg-cyan-700 bg-opacity-[0.05]"
     },
     {
         faculty: "Faculty of Technology",
@@ -181,7 +181,7 @@ export const availableDepartments = [
             "Materials Science",
             "Printing Technology"
         ],
-        color: "bg-slate-700 bg-opacity-[0.09]"
+        color: "bg-slate-700 bg-opacity-[0.05]"
     }
 ];
         

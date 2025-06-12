@@ -4,7 +4,7 @@ import { useState } from "react"
 
 export const Users = () =>{
 
-    const [ users, setUsers ] = useState([])
+    const [ users, setUsers ] = useState<any[]>([])
     const [ exams, setExams ] = useState([])
 
     useEffect(() =>{
@@ -15,13 +15,13 @@ export const Users = () =>{
             setUsers(response.data)
         }) 
     }
-    const deleteUser = (userKey) => {
+    const deleteUser = (userKey:any) => {
         console.log(userKey)
-        const response = axios.get(`http://localhost:80/api-quiz-app/exams.php/${userKey}`, userKey).then(function(response){
+        axios.get(`http://localhost:80/api-quiz-app/exams.php/${userKey}`, userKey).then(function(response){
             setExams(response.data)
             
         }) 
-        exams?.forEach(exam => {
+        exams?.forEach((exam:any) => {
             console.log(exam.examKey)
             axios.delete(`http://localhost:80/api-quiz-app/exams.php/${exam.examKey}/delete`)
         })

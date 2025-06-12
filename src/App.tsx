@@ -22,8 +22,8 @@ import { dbLocation } from './assets/Constants';
 import { StudentReports } from './Pages/Student/Reports/StudentReports';
 import { ConfirmBox } from './Components/ConfirmBox';
 
-
-export const AppContext = createContext()
+const value={}
+export const AppContext = createContext(value)
 
 const Layout = () =>{
   

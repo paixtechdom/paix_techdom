@@ -1,6 +1,6 @@
 // import { useNavigate } from 'react-router'
 import  DataTable, {TableColumn}  from 'react-data-table-component'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { FormatTime } from '../../../../assets/Functions'
 import { AdminResultTableInterface } from '../../../../assets/Interfaces';
 

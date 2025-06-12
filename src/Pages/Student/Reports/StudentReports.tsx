@@ -6,8 +6,11 @@ import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { StudentReportTable } from './StudentReportTable'
 import { useNavigate } from 'react-router-dom'
+import { performanceInterface, PerformanceType } from '../../Admin/Pages/ExamReport/ExamReport'
+import { AdminResultTableInterface } from '../../../assets/Interfaces'
 
 // all exams the student has done in table format
+
 
 export const StudentReports = () => {
   const [ isLoadingExams, setIsLoadingExams ] = useState(false)
@@ -23,7 +26,7 @@ export const StudentReports = () => {
     failed: 0
 })
 
-const UpdatePerformanceState = (type) => {
+const UpdatePerformanceState = (type:PerformanceType) => {
     setPerformance({
         ...performance,
         [type]: performance[type] += 1
@@ -49,13 +52,13 @@ const UpdatePerformanceState = (type) => {
 
   }, [])
 // 
-  const FetchReports = (id) => {
+  const FetchReports = (id:number) => {
     axios.get(`${dbLocation}/examResults.php/${id}/student`)
       .then((res) => {
         setResults(res.data)
-
+        setIsLoadingExams(false)
         
-        res.data.forEach(s => {
+        res.data.forEach((s :AdminResultTableInterface) => {
           let minScore = s.totalScore/2 - s.totalScore/20
           let maxScore = s.totalScore/2 + s.totalScore/20
           
@@ -81,6 +84,7 @@ const UpdatePerformanceState = (type) => {
         <StudentReportTable 
           data={results || []}
           currentPage={1}
+          loading={isLoadingExams}
         />
 
       </div>
@@ -88,9 +92,13 @@ const UpdatePerformanceState = (type) => {
   )
 }
 
+interface h {
+  performance: performanceInterface,
+  results: AdminResultTableInterface[]
+}
 
 
-const PerformanceChart = ({ performance, results }) => {
+const PerformanceChart = ({ performance, results }: h) => {
 
 
   return(
@@ -138,7 +146,14 @@ const PerformanceChart = ({ performance, results }) => {
 
 }
 
-const PerformanceInfo = ({performance, color, results}) =>{
+interface i {
+  performance: number,
+  color: string,
+  results: AdminResultTableInterface[]
+
+}
+
+const PerformanceInfo = ({performance, color, results}: i) =>{
   return(
       <div className={`bg-${color} h-full relative h- [2vh]`} style={{
           width: ((performance / results.length) * 100) + "%"

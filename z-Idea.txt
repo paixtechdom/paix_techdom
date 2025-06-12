@@ -14,39 +14,12 @@ leaving or closing the page
 
 
 
-create async thunk for reduxtoolkit api calls
 after adding or removing a question or exam, rather than fetching again, just use push to add to the redux store and get from there to prevent expensive calls
 
+setTimeComponent = setting of values, number or e.target.value = string
+deleting questions
 
-usage
 
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchUsers } from './userSlice'
-import { RootState, AppDispatch } from './store'
-
-const UsersList = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const { users, loading, error } = useSelector((state: RootState) => state.users)
-
-  useEffect(() => {
-    dispatch(fetchUsers())
-  }, [dispatch])
-
-  return (
-    <div>
-      {loading && <p>Loading users...</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>{user.name} ({user.email})</li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-export default UsersList
 
 
 

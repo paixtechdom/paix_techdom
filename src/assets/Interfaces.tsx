@@ -4,18 +4,6 @@ export interface alertInterface {
     alertMessage: string,
 }
 
-export interface ExamInfoInterface {
-    examKey: string,
-    status: string,
-    examTitle: string,
-    duration: string,
-    level: string,
-    department: string,
-    faculty: string,
-    questionsLength: number,
-    totalScore: number
-}
-
 export interface NavigationInterface{
 
     showSideNav: boolean,
@@ -40,9 +28,13 @@ export interface studentInfoInterface {
 
 export interface AdminResultTableInterface {
     id: number; // depending on your keyField
-    index?: number;
+    index: number;
     studentName: string;
     score: number;
     timeUsed: number; // assuming it's in seconds or milliseconds
     date: string;     // or Date, depending on your data format
+    examKey:string
+    examTitle:string
+    studentId:string
+    totalScore:number
 }   

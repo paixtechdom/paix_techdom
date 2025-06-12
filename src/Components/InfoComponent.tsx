@@ -3,7 +3,8 @@ interface InfoCompnentInterface {
  title: string,
  info: string  | JSX.Element | number,
  children?: JSX.Element,
- icon?: JSX.Element
+ icon?: JSX.Element,
+ 
 }
 
 

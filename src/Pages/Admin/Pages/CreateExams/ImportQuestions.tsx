@@ -1,26 +1,26 @@
-import { useForm } from "react-hook-form"
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 import axios from "axios"
-import { useContext, useState } from "react"
-import { AppContext } from "../../../../App"
+import { FC, useRef, useState } from "react"
 import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass } from "../../../../assets/Constants"
 import { useMyAlert } from "../../../../assets/Hooks/useMyAlert"
+import { useDispatch } from "react-redux"
+import { FetchExamQuestion } from "../../../../assets/store/ExamSlice"
+import { AppDispatch } from "../../../../assets/store/AppStore"
 
-export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examStatus}) =>{
+interface a {
+    examKey: string,
+    setExamStatus: any
+}
+
+export const ImportQuestions:FC<a> = ({examKey, setExamStatus}) =>{
     const [ doc, setDoc ] = useState(null)
     const triggerAlert = useMyAlert()
-    const schema = yup.object().shape({
-
-    })
-    
-    const { register, handleSubmit, formState: {errors}, reset, setValue } = useForm({
-        resolver: yupResolver(schema)
-    })
+    const fileRef = useRef<HTMLInputElement>(null)
+    const dispatch = useDispatch<AppDispatch>()
     
   
-    const setFile = (e) =>{
+    const setFile = (e: any) =>{2
        const inputedFile = e.target.files[0]
+    //    console.log(inputedFile)
        if(inputedFile == undefined){
            e.target.value = null
            setDoc(null)
@@ -28,37 +28,43 @@ export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examSta
        }else{
         if(inputedFile.type === 'text/csv' ){
             setDoc(inputedFile)
-            
         }
         else{
-            alert('File must be in csv format')
+            triggerAlert("error", 'File must be in csv format')
             e.target.value = null
         }
        }
 
        }
         
-    const postFile = (data) =>{
-        setValue('file', doc)
-        axios.post(`${dbLocation}/examquestions.php/${examKey}/save`, data, {
-        headers: {
-                'Content-Type': "multipart/form-data"
+       const postFile = () => {
+        if (!doc) return;
+    
+        const formData = new FormData();
+        formData.append("file", doc); // "file" must match the key expected in PHP
+    
+        axios.post(`${dbLocation}/examquestions.php/${examKey}/save`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
             }
         }).then(function(response) {
-            if(response.data.status == 1){
-                fetchQuestions(examKey)
-                triggerAlert("success", 'Questions successfully imported')
-                document.querySelector('#file').value = null
-                setDoc(null)
-                axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`)
-                setExamStatus('Inactive')
-            }else{
-                triggerAlert("error", 'Failed to import questions')
+            if (response.data.status == 1) {
+                dispatch(FetchExamQuestion(examKey));
+    
+                triggerAlert("success", 'Questions successfully imported');
+    
+                setDoc(null);
+                axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`);
+                setExamStatus('Inactive');
+            } else {
+                triggerAlert("error", 'Failed to import questions');
             }
-        }).catch(() => {
-            triggerAlert("error", 'Failed to import questions')
-        })
-    }
+        }).catch((error) => {
+            console.log(error);
+            triggerAlert("error", 'Failed to import questions');
+        });
+    };
+    
 
 
 
@@ -66,6 +72,7 @@ export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examSta
         <div className="flex flex-wrap gap-5 items-center">
             <input type="file" name="file" accept=".csv"  id="file" 
             onChange={setFile}  
+            ref ={fileRef}
             className={doc != null ? `bg-gray-200 p-2 rounded-r-xl shadow-lg` : undefined }
             style={{
                 display: doc == null ? 'none' : 'block' 
@@ -75,12 +82,12 @@ export const ImportQuestions = ({fetchQuestions, examKey, setExamStatus, examSta
             <button 
             className={`${doc == null ? 'block' : 'hidden'} ${SecondaryButtonCLass}`}
              onClick={() =>{
-                document.querySelector('#file').click()
+                fileRef.current?.click()
             }}>
                 Import questions 
             </button>
 
-            <button name="file" onClick={handleSubmit(postFile)} 
+            <button name="file" onClick={() => postFile()} 
             className={`${doc == null ? 'hidden' : 'block'} ${PrimaryButtonCLass}`}
             >Import</button>
         </div>

@@ -1,58 +1,58 @@
-import { useContext, useEffect, useRef, useState } from "react"
-import { useForm } from "react-hook-form"
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import { FC, useEffect, useRef, useState } from "react"
 import axios from "axios"
-import { AppContext } from "../../../../App"
 import { useNavigate } from "react-router"
 import { EditQuestion } from "./EditQuestion"
 import Cookie from "js-cookie"
 import { ImportQuestions } from "./ImportQuestions"
 import { useDispatch, useSelector } from "react-redux"
-import { availableDepartments, DangerButtonCLass, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, SuccessButtonClass, TopLevelHeader } from "../../../../assets/Constants"
+import { availableDepartments, dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, SuccessButtonClass, TopLevelHeader } from "../../../../assets/Constants"
 import AddQuestionForm from "./AddQuestionForm"
 import { SetTimeComponent } from "./SetTimeComponent"
-import { setExamDepartment, setExamFaculty, setExamKey, setExamLevel, setExamStatus, setExamTitle, setTotalScore } from "../../../../assets/store/ExamSlice"
+import { FetchExamQuestion, setExamDepartment, setExamFaculty, setExamKey, setExamLevel, setExamStatus, setExamTitle, setTotalScore } from "../../../../assets/store/ExamSlice"
 import { useMyAlert } from "../../../../assets/Hooks/useMyAlert"
 import { useUpdateExamDetails } from "../../../../assets/Hooks/useUpdateExamDetails"
 import InfoComponent from "../../../../Components/InfoComponent"
+import { AppDispatch, RootState } from "../../../../assets/store/AppStore"
 
+export type AsyncVoidFunction = () => Promise<void>;
+
+interface newExamInfoInterface{
+    examTitle: string,
+    level: string,
+    faculty: string,
+    department: string,
+    totalScore: number
+}
 
 
 
 export const CreateExam = () =>{
-    
-    const { savedQuestions, login, fetchQuestions } = useContext(AppContext)
-
-    const titleRef = useRef()
-    const dispatch = useDispatch()
+    const titleRef = useRef<HTMLInputElement>(null)
+    const dispatch = useDispatch<AppDispatch>()
     const triggerAlert = useMyAlert()
     const updateExamDetails = useUpdateExamDetails()
-    const examstate = useSelector((state) => state.examslice)  
-
-    const examKey = examstate.examKey
-    const examTitle = examstate.examTitle
-    const duration = examstate.duration
-    const status = examstate.status      
-    const level = examstate.level      
-    const faculty = examstate.faculty      
-    const totalScore = examstate.totalScore      
-    const department = examstate.department      
+    const examstate = useSelector((state:RootState) => state.examslice)  
+    const { questions } = useSelector((state: RootState) => state.examslice)
+    const { examKey, examTitle, duration, status, level, faculty, totalScore, department } = useSelector((state:RootState) => state.examslice)   
 
 
-    const [ editPart, setEditPart ] = useState("")
-    const [ newExamInfo, setNewExamInfo ] = useState({
+    const [ editPart, setEditPart ] = useState<string>("")
+
+    const [ newExamInfo, setNewExamInfo ] = useState<newExamInfoInterface>({
         examTitle: examTitle,
         level: level,
         faculty: faculty,
-        department: department
+        department: department,
+
+        // added this here ooooooo
+        totalScore: 0
     })
 
 
 
     const navigate = useNavigate()
     
-    const FetchExam = async (key) => {
+    const FetchExam = async (key: string) => {
         await axios.get(`${dbLocation}/exams.php/${key}/fetch`)
         .then((res) => {
             const exam = res.data[0]
@@ -90,11 +90,14 @@ export const CreateExam = () =>{
 
         if(CookiedUserDetails == "admin"){
             if(CookiedExamDetails !== undefined){
-                const examDetails = JSON.parse(Cookie.get("examDetails"))
-                dispatch(setExamKey(examDetails.examKey))
-                fetchQuestions(examDetails.examKey)
-                FetchExam(examDetails.examKey)
-                updateExamDetails(examDetails)
+                const a = Cookie.get("examDetails")
+                if(a !== undefined){
+                    const examDetails = JSON.parse(a)
+                    dispatch(setExamKey(examDetails.examKey))
+                    dispatch(FetchExamQuestion(examDetails.examKey))
+                    FetchExam(examDetails.examKey)
+                    updateExamDetails(examDetails)
+                }
             }
             else{
                 navigate("/exams/all-exams")            
@@ -108,71 +111,71 @@ export const CreateExam = () =>{
 
 // to ensure the new exam info is updated with the info in the store after refreshing the page
     useEffect(() => {
-        // if(editPart !== "" || editPart !== "empty"){
-            if (CookiedExamDetails !== undefined){
-            setNewExamInfo({
-                examTitle : examTitle,
-                level: level,
-                faculty : faculty,
-                department : department
-            })
-        }
-        // }
-    
+        if (CookiedExamDetails !== undefined){
+        setNewExamInfo({
+            examTitle : examTitle,
+            level: level,
+            faculty : faculty,
+            department : department,
+            totalScore: totalScore
+        })
+    }   
     }, [examstate])
   
     
-    const updateExamStatus = async (examKey, status) =>{
+    const updateExamStatus = async (examKey:string, status:string) =>{
         // let appearance = 0
         // let i = 0
-        if(savedQuestions.length < 5 ){
-            triggerAlert("error", "You need at least 5 questions to go live")
-        }else{
-            if(duration < 60){
-                triggerAlert("error", "Time frame is too short for an exam")
+        if(questions){
+            if(questions.length < 5 ){
+                triggerAlert("error", "You need at least 5 questions to go live")
             }else{
-                if(status == 'Active'){
-                    await axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`).then(() => {
-                        triggerAlert("info", "Exam is now inactive")
-                        dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
-                    })
-                    
+                if(duration < 60){
+                    triggerAlert("error", "Time frame is too short for an exam")
                 }else{
-                    await axios.post(`${dbLocation}/exams.php/${examKey}/Active`).then(() => {
-                        triggerAlert("success", "Exam is now live")
-                        dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
-                    })
-                }
-    
-                // savedQuestions.forEach((question, index) =>{
+                    if(status == 'Active'){
+                        await axios.post(`${dbLocation}/exams.php/${examKey}/Inactive`).then(() => {
+                            triggerAlert("info", "Exam is now inactive")
+                            dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
+                        })
+                        
+                    }else{
+                        await axios.post(`${dbLocation}/exams.php/${examKey}/Active`).then(() => {
+                            triggerAlert("success", "Exam is now live")
+                            dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
+                        })
+                    }
         
-                //     if(question.answer == 'Answer not selected'){
-                //         appearance = 1
-                //         i = index + 1
-                //     }
-                //     })
-                    
-                //     if(appearance > 0){
-                //         alert('Answer Not Selected in no ' + i )
+                    // questions.forEach((question, index) =>{
+            
+                    //     if(question.answer == 'Answer not selected'){
+                    //         appearance = 1
+                    //         i = index + 1
+                    //     }
+                    //     })
                         
-                //     }
-                //     else{
-                        
-                        // if(status == "Active"){}
-                //     }
+                    //     if(appearance > 0){
+                    //         alert('Answer Not Selected in no ' + i )
+                            
+                    //     }
+                    //     else{
+                            
+                            // if(status == "Active"){}
+                    //     }
+                }
             }
         }
     }
 
     // change points, add new question or delete question
-
-    const UpdateTotalScore = async (points, index) => {
+    
+    const UpdateTotalScore = async (points = 0, index = 0)=> {
         let totalScore = 0
-        savedQuestions.forEach((q) => {
+        questions?.forEach((q) => {
             totalScore += q.points
         })
-        if(points){
-            totalScore -= savedQuestions[index].points
+        if(points && index){
+            totalScore -= questions[index].points
             totalScore += points
         }else{
         }
@@ -187,20 +190,18 @@ export const CreateExam = () =>{
     // saved question.lenth is to track if a new question has been added
     useEffect(() => {
         UpdateTotalScore()
-    }, [savedQuestions.length])
+    }, [questions.length])
+
 
     useEffect(() => {
         // to prevent calling running this code before the app state updates hereby deleting all info 
         // editPart = "" when the state is refreshed and  = "epmty" when an edit has ended from the title, dept, level and faculty
-        if(editPart !== "" || editPart !== "empty"){
-            if(faculty !== newExamInfo.faculty){
+        if(editPart !== "" && faculty !== newExamInfo.faculty){
                 setNewExamInfo({
                     ...newExamInfo,
                     department: ""
                 })
-            }
-
-
+            
             // // faculty, level, department
             // if(faculty !== newExamInfo.faculty || level !== newExamInfo.level || department !== newExamInfo.department){
             //     updateExamInfo()
@@ -212,7 +213,7 @@ export const CreateExam = () =>{
     }, [newExamInfo.faculty])
 
 
-    const updateExamInfo = async () => {
+    const updateExamInfo:AsyncVoidFunction = async () => {
         // console.table(newExamInfo)
         if(newExamInfo.department == ""){
             triggerAlert("info", "Select a department")
@@ -274,7 +275,7 @@ export const CreateExam = () =>{
                              :
 
                             <button className={SecondaryButtonCLass + " h-fit"} onClick={() => {
-                                titleRef.current.focus()
+                                titleRef.current?.focus()
                                 setEditPart("examTitle")
                             }}>Edit</button> 
                         }
@@ -290,7 +291,7 @@ export const CreateExam = () =>{
                                 editPart == "faculty" ?
                                 
                                 <i className="bi bi-x text-2xl hover:scale-110" onClick={() =>{
-                                setEditPart("empty")
+                                setEditPart("")
                                 }}>
 
                             </i>: 
@@ -300,17 +301,20 @@ export const CreateExam = () =>{
 
                             </i>    
                         }>
-                            {
+                            <EditPartDropDownComponent 
+                                data={
+                                    availableDepartments.map(d => d.faculty)
+                                }   
+                                part="faculty"
+                                setNewExamInfo={setNewExamInfo} 
+                                setEditPart={setEditPart}
+                                newExamInfoEditPart ={newExamInfo.faculty}
+                                newExamInfo={newExamInfo}
+                                editPart={editPart}
+                            /> 
+                            {/* {
                                 editPart == "faculty" && 
-                                <EditPartDropDownComponent 
-                                    data={
-                                        availableDepartments.map(d => d.faculty)
-                                    }   
-                                    part="faculty"
-                                    setNewExamInfo={setNewExamInfo} setEditPart={setEditPart}
-                                    newExamInfo={newExamInfo}
-                                />
-                            }   
+                            }    */}
                         </InfoComponent>
 
                         <InfoComponent 
@@ -320,7 +324,7 @@ export const CreateExam = () =>{
                                 editPart == "level" ?
                                 
                                 <i className="bi bi-x text-2xl hover:scale-110" onClick={() =>{
-                                setEditPart("empty")
+                                setEditPart("")
                                 }}>
 
                             </i>: 
@@ -331,16 +335,15 @@ export const CreateExam = () =>{
                             </i>    
                         }
                             >
-                            {
-                                editPart == "level" && 
                                 <EditPartDropDownComponent 
                                     data={["100", "200", "300"]}
                                     part="level"
                                     setNewExamInfo={setNewExamInfo} 
+                                    newExamInfoEditPart ={newExamInfo.level}
                                     setEditPart={setEditPart}
                                     newExamInfo={newExamInfo}
-                                />
-                            }   
+                                    editPart={editPart}
+                                /> 
                         </InfoComponent>
 
                         <InfoComponent 
@@ -349,7 +352,7 @@ export const CreateExam = () =>{
                             icon={
                                 editPart == "department" ?
                                 <i className="bi bi-x text-2xl hover:scale-110" onClick={() =>{
-                                setEditPart("empty")
+                                setEditPart("")
                                 }}>
 
                             </i>: 
@@ -360,8 +363,6 @@ export const CreateExam = () =>{
                             </i>    
                         }
                             >
-                            {
-                                editPart == "department" && 
                                 <EditPartDropDownComponent 
                                 // get departments based on the selected faculty
                                     data={availableDepartments.filter((d, i) => 
@@ -370,16 +371,18 @@ export const CreateExam = () =>{
                                         )[1].departments}
                                         
                                     part="department"
-                                    setNewExamInfo={setNewExamInfo} setEditPart={setEditPart}
+                                    setNewExamInfo={setNewExamInfo} 
+                                    setEditPart={setEditPart}
+                                    newExamInfoEditPart ={newExamInfo.department}
                                     newExamInfo={newExamInfo}
+                                    editPart={editPart}
                                 />
-                            }   
                         </InfoComponent>
                         <div className="w-full flex gap-3">
 
                             <InfoComponent
                                 title={"Questions:"}
-                                info={savedQuestions.length}
+                                info={questions.length}
                             />
                             <InfoComponent
                                 title={"Total Score:"}
@@ -392,7 +395,9 @@ export const CreateExam = () =>{
                 {/* Duration, inport questions, set live or active  */}
 
                 <div className="flex flex-wrap items-center gap-5 justify-center w-full">
-                    <ImportQuestions fetchQuestions={fetchQuestions} examKey ={examKey} setExamStatus={setExamStatus} status={status}/>
+                    <ImportQuestions 
+                        examKey ={examKey} 
+                        setExamStatus={setExamStatus} />
                     {/* <p>Duration: </p> */}
                     
                     <div className="flex gap-5 items-center">
@@ -416,26 +421,26 @@ export const CreateExam = () =>{
 
             {/* A list of all questions in an editable format*/}
             {/* {   
-                savedQuestions.length > 0 &&
+                questions.length > 0 &&
                 <> */}
-               { savedQuestions?.map((question, i) => (
+               { questions?.map((question, i) => (
                     <EditQuestion 
                         editQuestionInfo={question} 
                         UpdateTotalScore={UpdateTotalScore} 
                         key={i}
                         questionNo={i+1}
-                        noOfQuestions={savedQuestions.length}
+                        noOfQuestions={questions.length}
                         />
                 ))}
                 {/* </> */}
             {/* } */}
 
             {/* Component to add a new question */}
-            <AddQuestionForm examKey={examKey} fetchQuestions={fetchQuestions} 
-            no={savedQuestions?.length + 1}/>
+            <AddQuestionForm examKey={examKey}
+            no={questions?.length + 1}/>
 
             {
-                savedQuestions?.length < 1 ? <p style={{
+                questions?.length < 1 ? <p style={{
                     paddingLeft: 5+'%'
                 }}>No saved Question</p> :
                 ''
@@ -444,48 +449,47 @@ export const CreateExam = () =>{
         </main>
 
     )
-
-
-    // if(examKey.length < 2){
-    //     return(
-    //         <button   onClick={() =>{
-    //                 navigate('/admin')
-                    
-    //             }}
-    //         className="createExamBack">
-    //             Back
-    //         </button>
-    //     )
-    // }
-
     
 }
 
 
-const EditPartDropDownComponent = ({data, part, setNewExamInfo, setEditPart, newExamInfo}) => {
+interface EditPartDropDownComponentInterface {
+    data: string[],
+    part: string,
+    setNewExamInfo: (newExamInfo: newExamInfoInterface) => void,
+    setEditPart: (editPart: string) => void,
+    newExamInfo: newExamInfoInterface,
+    editPart: string,
+    newExamInfoEditPart: string
+}
+
+
+const EditPartDropDownComponent:FC<EditPartDropDownComponentInterface> = ({data, part, setNewExamInfo, setEditPart, newExamInfo, editPart, newExamInfoEditPart }) => {
     const newData = [...data, "All"]
     
+    if(editPart == part){
+          return(
+            <div className="absolute top-[100%] mt-2 left-0 w-full flex flex-col bg-gray-100 shadow-xl rounded-xl overflow-hidden z-20">
+                {
+                    newData.map((d, key)  => (
+                        <p key={key}
+                         className={`hover:bg-white p-3 px-5 transition-all duration-500 ease-in-out text-sm
+                        ${newExamInfoEditPart== d ? "bg-white" : ""}
+                        `}
+                        onClick={() => {
+                            setEditPart("")
+                            setNewExamInfo({
+                                ...newExamInfo,
+                                [part]: d
+                            })
+                        }}
+                        >
+                            {d}
+                        </p>
+                    ))
+                }
+            </div>
+          )   
 
-  return(
-    <div className="absolute top-[100%] mt-2 left-0 w-full flex flex-col bg-gray-100 shadow-xl rounded-xl overflow-hidden z-20">
-        {
-            newData.map((d, key)  => (
-                <p key={key}
-                 className={`hover:bg-white p-3 px-5 transition-all duration-500 ease-in-out text-sm
-                ${newExamInfo[part] == d ? "bg-white" : ""}
-                `}
-                onClick={() => {
-                    setEditPart("empty")
-                    setNewExamInfo({
-                        ...newExamInfo,
-                        [part]: d
-                    })
-                }}
-                >
-                    {d}
-                </p>
-            ))
-        }
-    </div>
-  )   
+    }
 }

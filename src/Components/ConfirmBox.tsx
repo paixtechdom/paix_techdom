@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
 import { PrimaryButtonCLass, SecondaryButtonCLass } from "../assets/Constants"
 import { setConfirmedAction, setConfirmMessage, toggleShowConfirmBox } from "../assets/store/ConfirmBoxSlice"
+import { AppDispatch, RootState } from "../assets/store/AppStore"
 
 export const ConfirmBox = () =>{
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
-    const confirmBox = useSelector((state) => state.confirmBox)
+    const confirmBox = useSelector((state:RootState) => state.confirmBox)
     const confirmMessage = confirmBox.confirmMessage
     const showConfirmBox = confirmBox.showConfirmBox
     const confirmMessageDescription = confirmBox.confirmMessageDescription
