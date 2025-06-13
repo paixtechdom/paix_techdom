@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useMyAlert } from "../../../../assets/Hooks/useMyAlert"
 import { useMyConfirmBox } from "../../../../assets/Hooks/useMyConfirmBox"
 import { setConfirmedAction } from "../../../../assets/store/ConfirmBoxSlice"
-import { ExamQuestionInterface, FetchExamQuestion, setExamStatus } from "../../../../assets/store/ExamSlice"
+import { ExamQuestionInterface, FetchExamQuestion, setExamStatus, setQuestions } from "../../../../assets/store/ExamSlice"
 import { AppDispatch, RootState } from "../../../../assets/store/AppStore"
 
 
@@ -14,17 +14,16 @@ interface EditQuestionInterface {
     editQuestionInfo: ExamQuestionInterface,
     questionNo: number,
     noOfQuestions: number,
-    UpdateTotalScore: any
-
+    UpdateTotalScore: any,
 }
 
-export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, UpdateTotalScore } :EditQuestionInterface) =>{
+export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, UpdateTotalScore} :EditQuestionInterface) =>{
 
     const dispatch = useDispatch<AppDispatch>()
     const confirmedAction = useSelector((state:RootState) => state.confirmBox.confirmedAction)  
     
-    const examstate = useSelector((state:RootState) => state.examslice)  
-    const examKey = examstate.examKey
+    const {  examKey, questions } = useSelector((state:RootState) => state.examslice)  
+    // const examKey = examstate.examKey
     const triggerAlert = useMyAlert()
     const useConfirmBox = useMyConfirmBox()
 
@@ -157,8 +156,11 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
 
     const deleteQuestion = async () => {       
         await axios.delete(`${dbLocation}/examquestions.php/${editQuestionInfo.id}/delete`)
-        .then(function() {
-            dispatch(FetchExamQuestion(examKey))
+        .then(() => {
+            dispatch(setQuestions(questions.filter((e) => e.id != editQuestionInfo.id)))
+
+            
+            // dispatch(FetchExamQuestion(examKey))
             triggerAlert("success", `Question ${questionNo} deleted successfully`)
             UpdateTotalScore()
             

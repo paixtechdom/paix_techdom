@@ -57,10 +57,10 @@ export const AllExams = () =>{
                     </div>
                     : 
                     <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 lg:grid-cols-2">
-                        {exams.map((exam, key) =>(                        
+                        {exams?.map((exam) =>(                        
                             <ExamCard 
                                 exam={exam} 
-                                key={key}
+                                key={exam.id}
                             />
                         ))}
                     </section>

@@ -15,6 +15,7 @@ export interface ExamQuestionInterface{
 }
 
 export interface ExamInfoInterface {
+  id: number,
   examKey: string,
   status: string,
   examTitle: string,
@@ -33,6 +34,7 @@ interface ExamState extends ExamInfoInterface {
   }
   
   const initialState: ExamState = {
+    id: 0,
     examKey: "",
     status: "",
     examTitle: "",
@@ -50,7 +52,7 @@ interface ExamState extends ExamInfoInterface {
 
 
 export const FetchExamQuestion =  createAsyncThunk<ExamQuestionInterface[], string>(
-    "exams/fetchExams",
+    "exams/fetchExamQuestions",
     async(examKey, { rejectWithValue }) => {
         try{
             const response = await axios.get<ExamQuestionInterface[]>(`${dbLocation}/examquestions.php/${examKey}`)
@@ -106,8 +108,13 @@ export const FetchExamQuestion =  createAsyncThunk<ExamQuestionInterface[], stri
       },
       setTotalScore: (state, action: PayloadAction<number>) => {
         state.totalScore = action.payload;
+      },
+      setQuestions: (state, action: PayloadAction<ExamQuestionInterface[]>) => {
+        state.questions = action.payload;
       }
     },
+
+
     extraReducers: (builder) => {
       builder
 
@@ -150,7 +157,8 @@ export const FetchExamQuestion =  createAsyncThunk<ExamQuestionInterface[], stri
     setExamDepartment,
     setExamFaculty,
     setQuestionsLength,
-    setTotalScore
+    setTotalScore,
+    setQuestions
   } = ExamSlice.actions;
   
   export default ExamSlice.reducer;

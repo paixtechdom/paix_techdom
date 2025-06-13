@@ -14,10 +14,10 @@ leaving or closing the page
 
 
 
-after adding or removing a question or exam, rather than fetching again, just use push to add to the redux store and get from there to prevent expensive calls
 
 setTimeComponent = setting of values, number or e.target.value = string
 deleting questions
+loading of importing
 
 
 

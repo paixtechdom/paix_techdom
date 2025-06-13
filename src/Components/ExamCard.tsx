@@ -75,7 +75,7 @@ export const ExamCard:FC<AvailableExamBlockInterface> = ({exam}) => {
             <span className={`absolute top-0 right-0 w-8 h-8 rounded-tr-xl rounded-bl-xl ${exam.status == "Active" ?  "bg-green-800 animate-pulse" : "bg-gray-700"}`}
            ></span>
    
-           <Link to = {`/Exam/${EncodeValue(exam.examTitle).toLowerCase()}`} 
+           <Link to = {`/Exam/${EncodeValue(exam?.examTitle || "").toLowerCase()}`} 
            className="font-bold text-lg text-gray-700 hover:underline hover:text-blue-900 flex items-center"
            onClick={() => SetExamInfoGlobally()}>  
                {exam.examTitle} 
@@ -119,7 +119,7 @@ export const ExamCard:FC<AvailableExamBlockInterface> = ({exam}) => {
                 isAdmin ? 
                 <div className="flex flex-wrap justify-betw een items-center mt-4 gap-3">
 
-                <Link to={`/exams/report/${EncodeValue(exam.examTitle).toLowerCase()}`} className={SecondaryButtonCLass + " center lg:scale-90"}  onClick={() => SetExamInfoGlobally()}>
+                <Link to={`/exams/report/${EncodeValue(exam?.examTitle || "").toLowerCase()}`} className={SecondaryButtonCLass + " center lg:scale-90"}  onClick={() => SetExamInfoGlobally()}>
                     Exam Report
                 </Link>
     

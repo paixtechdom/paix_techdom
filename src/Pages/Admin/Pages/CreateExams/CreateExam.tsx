@@ -32,9 +32,7 @@ export const CreateExam = () =>{
     const triggerAlert = useMyAlert()
     const updateExamDetails = useUpdateExamDetails()
     const examstate = useSelector((state:RootState) => state.examslice)  
-    const { questions } = useSelector((state: RootState) => state.examslice)
-    const { examKey, examTitle, duration, status, level, faculty, totalScore, department } = useSelector((state:RootState) => state.examslice)   
-
+    const { examKey, examTitle, duration, status, level, faculty, totalScore, department, questions } = useSelector((state:RootState) => state.examslice)   
 
     const [ editPart, setEditPart ] = useState<string>("")
 
@@ -106,6 +104,7 @@ export const CreateExam = () =>{
             navigate("/")
         }
     }, [])
+
 
 
 
@@ -427,7 +426,7 @@ export const CreateExam = () =>{
                     <EditQuestion 
                         editQuestionInfo={question} 
                         UpdateTotalScore={UpdateTotalScore} 
-                        key={i}
+                        key={question.id}
                         questionNo={i+1}
                         noOfQuestions={questions.length}
                         />

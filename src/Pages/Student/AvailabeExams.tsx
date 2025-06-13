@@ -1,17 +1,20 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { dbLocation } from "../../assets/Constants"
 import Cookie from "js-cookie"
 import { ExamCard } from "../../Components/ExamCard"
 import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
 import { studentInfoInterface } from "../../assets/Interfaces"
 import { EncodeValue } from "../../assets/Functions"
+import { AppDispatch, RootState } from "../../assets/store/AppStore"
+import { useDispatch, useSelector } from "react-redux"
+import { setExamStatus } from "../../assets/store/ExamSlice"
 
 
 export const AvailableExams = () => {
-    const [ exams, setExams ]= useState([])
     const updateStudentDetails = useUpdateStudentDetails()
-
+    const dispatch = useDispatch<AppDispatch>()
+    const { exams } = useSelector((state:RootState) => state.allexamsslice)
     const cookiedDetails  = Cookie.get("userDetails")
 
     useEffect(() =>{
@@ -28,7 +31,7 @@ export const AvailableExams = () => {
         axios.get(`${dbLocation}/exams.php/availableExams/${studentDetails.level}/${EncodeValue(studentDetails.department)}/${EncodeValue(studentDetails.faculty)}/${studentDetails.id}`)
         .then(function(res){
             const exams = res.data
-            setExams(exams)
+            dispatch(setExamStatus(exams))
         }) 
     }
 
@@ -46,10 +49,10 @@ export const AvailableExams = () => {
                 </div>
                 : 
                     <section className="w-full mt-[7vh] gap-5 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-                    {exams?.map((exam, i) => (
+                    {exams?.map((exam) => (
                         <ExamCard
-                            key={i}
-                            exam={exam}
+                        exam={exam}
+                        key={exam.id}
                         />
                     ))
                   }

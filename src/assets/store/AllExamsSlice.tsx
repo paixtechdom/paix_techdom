@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { dbLocation } from "../Constants";
 import { ExamInfoInterface } from "./ExamSlice";
@@ -37,7 +37,9 @@ const AllExamsSlice = createSlice({
     name: "allexamsslice",
     initialState,
     reducers: {
-              
+        setExams: (state, action: PayloadAction<ExamInfoInterface[]>) => {
+            state.exams = action.payload;
+          }
     },
     extraReducers(builder) {
         builder
