@@ -3,12 +3,14 @@ import { FC, useEffect, useState } from "react"
 import { TopLevelHeader } from "../../../assets/Constants"
 import { setShowTopNav } from "../../../assets/store/NavigationSlice"
 import { useDispatch } from "react-redux"
+import { AppDispatch } from "../../../assets/store/AppStore"
 // import { OrdersTable } from "../../Components/Table/Tables"
 
 
 
 const Dashboard = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
+
     useEffect(() => {
         dispatch(setShowTopNav(true))
     }, [])
@@ -16,7 +18,12 @@ const Dashboard = () => {
     return(
         <main className="flex w-full min-h-screen center lg:pt-[20vh] pt-[12vh] bg-gray-100">
             <div className="w-11/12 flex flex-col gap-5 min-h-screen">
-                <h1 className={`${TopLevelHeader} `}>Welcome Back Admin 👋🏿</h1>
+                <h1 className={`${TopLevelHeader} cursor-pointer`}
+                
+                onClick={() => {
+                    dispatch(setShowTopNav(true))
+                    console.log("Ddd")
+                    }}>Welcome Back Admin 👋🏿</h1>
 
                 {/* ******** STASTICS ************* */}
                 <div className="flex flex-col gap-9">

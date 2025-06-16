@@ -59,7 +59,7 @@ const AllExamsSlice = createSlice({
 })
 
 
-// export const {  } = AllExamsSlice.actions
+export const {  setExams  } = AllExamsSlice.actions
 
 
 

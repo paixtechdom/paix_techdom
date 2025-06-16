@@ -11,13 +11,13 @@ import { AppDispatch, RootState } from "../../../../assets/store/AppStore"
 
 
 interface EditQuestionInterface {
-    editQuestionInfo: ExamQuestionInterface,
-    questionNo: number,
-    noOfQuestions: number,
-    UpdateTotalScore: any,
+    editQuestionInfo: ExamQuestionInterface;
+    questionNo: number;
+    noOfQuestions: number;
+    UpdateTotalScore: any
 }
 
-export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, UpdateTotalScore} :EditQuestionInterface) =>{
+export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, UpdateTotalScore } :EditQuestionInterface) =>{
 
     const dispatch = useDispatch<AppDispatch>()
     const confirmedAction = useSelector((state:RootState) => state.confirmBox.confirmedAction)  
@@ -174,26 +174,9 @@ export const EditQuestion = ({ editQuestionInfo, questionNo, noOfQuestions, Upda
         
     }
 
-    const HandleDrag = () => {
-        // console.log(questionNo)
-    }   
-
-    const HandleDragOver = () => {
-    }
-    const HandleDragEnd = () => {
-
-        console.log(editQuestionInfo.question, questionNo)
-        // how to get the info of where it was dropped, chat gpt
-    }
-
     return(
 
-        <section className="flex w-11/12 mt-9 bg-gray-100 rounded-xl overflow-hidden shadow-xl h-fit" 
-            draggable
-            onDrag={HandleDrag}
-            onDragOver={HandleDragOver}
-            onDragEnd={HandleDragEnd}
-            >
+        <section className={`flex w-11/12 mt-9 bg-gray-100 rounded-xl overflow-hidden shadow-xl h-fit `}>
 
             <div className="center bg-gray-50 h- [100] w-6 cursor-grab hover:bg-gray-300 active:bg-gray-300 transition-all duration-500 ease-in-out">
                 <i className="bi bi-grid-fill"></i>

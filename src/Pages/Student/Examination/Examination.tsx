@@ -2,9 +2,8 @@ import axios from "axios"
 import Cookie from "js-cookie"
 import { useEffect } from "react"
 import { useRef } from "react"
-import { useContext, useState } from "react"
-import { useNavigate, useParams } from "react-router"
-import { AppContext } from "../../../App"
+import { useState } from "react"
+import { useNavigate, } from "react-router"
 import { ExamInterface } from "./ExamInterface"
 import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TopLevelHeader } from "../../../assets/Constants"
 import InfoComponent from "../../../Components/InfoComponent"
@@ -15,40 +14,36 @@ import { useUpdateExamDetails } from "../../../assets/Hooks/useUpdateExamDetails
 import { FormatDate, FormatTime } from "../../../assets/Functions"
 import { setShowTopNav } from "../../../assets/store/NavigationSlice"
 import { Link } from "react-router-dom"
+import { RootState } from "../../../assets/store/AppStore"
+import { setQuestions } from "../../../assets/store/ExamSlice"
 
 
 export const Examination = () => {
-    const { setExamQuestions, savedQuestions } = useContext(AppContext)
     const [ startedExam, setStartedExam ] = useState(false)
     const [ countdown, setCountdown ] = useState(0)
     const [ submittedExam, setSubmittedExam ] = useState(false)
     const [ score, setScore ] = useState(0)
     const [ showScore, setShowScore ] = useState(false)
-    const [ answers, setAnswers ] = useState([])
+    const [ answers, setAnswers ] = useState<any>([])
 
     
     
-    const timerId = useRef()
+    const timerId = useRef<any>(null)
     const dispatch = useDispatch()
-    const navigate = useNavigate('/')
+    const navigate = useNavigate()
     const updateStudentDetails = useUpdateStudentDetails()
     const updateExamDetails = useUpdateExamDetails()
 
 
-    const examDetails = useSelector(state => state.examslice)
-    const examTitle = examDetails.examTitle
-    const examKey = examDetails.examKey
-    const totalScore = examDetails.totalScore
-
-
-    const studentDetails = useSelector(state => state.studentslice)
-    const department = studentDetails.department
-    const level = studentDetails.level
-    const faculty = studentDetails.faculty
-    const matricNumber = studentDetails.matricNumber
-    const firstName = studentDetails.firstName
-    const lastName = studentDetails.lastName
+    const { examTitle, examKey, totalScore, questions } = useSelector((state:RootState) => state.examslice)
     
+    const examDetails  = useSelector((state:RootState) => state.examslice)
+
+
+    const studentDetails = useSelector((state:RootState) => state.studentslice)
+
+    const {department, level, faculty, matricNumber, firstName, lastName} = useSelector((state:RootState) => state.studentslice)
+        
     
     const cookiedStudentDetails = Cookie.get("userDetails")
     const cookiedExamDetails = Cookie.get("examDetails")
@@ -110,7 +105,7 @@ export const Examination = () => {
         let date = FormatDate(today)
         let userscore = 0
 
-        savedQuestions.forEach((question, i) =>{
+        questions.forEach((question, i) =>{
             if(question.answer == answers[i]){
                 userscore += question.points
             }    
@@ -129,7 +124,7 @@ export const Examination = () => {
 
         //   console.table(saveinfo)
           axios.post(`${dbLocation}/examResults.php/save`, saveinfo)
-          .then((response) => {
+          .then(() => {
             // console.log(response.data)
           })
     }
@@ -166,14 +161,12 @@ export const Examination = () => {
 
 
     
-    const fetchQuestions = async (examKey) =>{
-        
-        
-        await axios.get(`${dbLocation}/examquestions.php/${examKey}`, examKey).then(function(response){
+    const fetchQuestions = async (examKey:string ) =>{        
+        await axios.get(`${dbLocation}/examquestions.php/${examKey}`).then(function(response){
             const questions = response.data
             setStartedExam(true)
             const shuffledQuestions = questions.sort(() => Math.random() - 0.5)
-            setExamQuestions(shuffledQuestions)
+            dispatch(setQuestions(shuffledQuestions))
         }) 
         // startTimer()
     }
@@ -279,6 +272,8 @@ export const Examination = () => {
                 closeExam={closeExam}
                 answers={answers}
                 setAnswers={setAnswers}
+                fetchQuestions={fetchQuestions}
+                score={score}
             />
         }
 

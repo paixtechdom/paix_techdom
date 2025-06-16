@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { dbLocation, TopLevelHeader } from '../../../assets/Constants'
 import Cookie from 'js-cookie'
 import { useUpdateStudentDetails } from '../../../assets/Hooks/useUpdateStudentDetails'
-import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { StudentReportTable } from './StudentReportTable'
 import { useNavigate } from 'react-router-dom'
@@ -130,15 +129,15 @@ const PerformanceChart = ({ performance, results }: h) => {
           <div className="flex items-center text-sm gap-5">
               <div className="center gap-1">
                   <p className="h-3 w-3 bg-green-500 rounded-full"></p>
-                  Passed: {performance.passed}
+                  Passed: {((performance.passed / results.length) * 100).toFixed(1)}%
               </div>
               <div className="center gap-1">
                   <p className="h-3 w-3 bg-gray-500 rounded-full"></p>
-                  Average: {performance.average}
+                  Average: {((performance.average / results.length) * 100).toFixed(1)}%
               </div>
               <div className="center gap-1">
                   <p className="h-3 w-3 bg-red-600 rounded-full"></p>
-                  Failed: {performance.failed}
+                  Failed: {((performance.failed / results.length) * 100).toFixed(1)}%
               </div>
           </div>
       </section>

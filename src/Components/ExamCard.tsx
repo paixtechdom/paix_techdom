@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useUpdateExamDetails } from "../assets/Hooks/useUpdateExamDetails"
 import { useMyAlert } from "../assets/Hooks/useMyAlert"
 import { AppDispatch, RootState } from "../assets/store/AppStore"
-import { FetchExams } from "../assets/store/AllExamsSlice"
+import { setExams } from "../assets/store/AllExamsSlice"
 import { FC, useEffect, useState } from "react"
 import { useMyConfirmBox } from "../assets/Hooks/useMyConfirmBox"
 import axios from "axios"
@@ -33,6 +33,7 @@ export const ExamCard:FC<AvailableExamBlockInterface> = ({exam}) => {
     
     const useConfirmBox = useMyConfirmBox()
     const confirmedAction = useSelector((state: RootState) => state.confirmBox.confirmedAction)  
+    const { exams } = useSelector((state: RootState) => state.allexamsslice)  
 
     useEffect(() => {
         setIsAdmin(Cookie.get("userDetails") == "admin")
@@ -40,7 +41,9 @@ export const ExamCard:FC<AvailableExamBlockInterface> = ({exam}) => {
 
     const deleteExam = async () =>{
         await axios.delete(`${dbLocation}/exams.php/${exam.examKey}/delete`).then(function(){
-            dispatch(FetchExams())
+            
+            dispatch(setExams(exams.filter(e => e.examKey !== exam.examKey)))
+            
             triggerAlert("success", `Exam deleted successfully`)
             
         }).catch(() => {
@@ -75,7 +78,7 @@ export const ExamCard:FC<AvailableExamBlockInterface> = ({exam}) => {
             <span className={`absolute top-0 right-0 w-8 h-8 rounded-tr-xl rounded-bl-xl ${exam.status == "Active" ?  "bg-green-800 animate-pulse" : "bg-gray-700"}`}
            ></span>
    
-           <Link to = {`/Exam/${EncodeValue(exam?.examTitle || "").toLowerCase()}`} 
+           <Link to = {isAdmin ? `/Exam/${EncodeValue(exam?.examTitle || "").toLowerCase()}` : `/Examination/${EncodeValue(exam?.examTitle || "").toLowerCase()}`} 
            className="font-bold text-lg text-gray-700 hover:underline hover:text-blue-900 flex items-center"
            onClick={() => SetExamInfoGlobally()}>  
                {exam.examTitle} 
@@ -142,13 +145,13 @@ export const ExamCard:FC<AvailableExamBlockInterface> = ({exam}) => {
                     />
                 </div>
     
-                <div className={PrimaryButtonCLass + " center w-fit lg:scale-90"}  
+                <Link to={`/Examination/${EncodeValue(exam?.examTitle || "").toLowerCase()}`} className={PrimaryButtonCLass + " center w-fit lg:scale-90"}  
                     onClick={() => {
                         SetExamInfoGlobally()
                         dispatch(setQuestionsLength(length))
                     }}>
                     Start Exam
-                </div>
+                </Link>
     
               
             </div>

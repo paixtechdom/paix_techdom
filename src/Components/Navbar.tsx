@@ -7,27 +7,23 @@ import { setCurrentNav, setShowSideNav, setShowTopNav } from "../assets/store/Na
 import { useLogout } from "../assets/Hooks/useLogout"
 import { useMyConfirmBox } from "../assets/Hooks/useMyConfirmBox"
 import { setConfirmedAction } from "../assets/store/ConfirmBoxSlice"
-import { RootState } from "../assets/store/AppStore"
+import { AppDispatch, RootState } from "../assets/store/AppStore"
 
 export const Navbar = () =>{
     const [ showUserDropDown, setShowUserDropDown ] = useState(false)
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const navigation = useSelector((state:RootState) => state.navigation)  
+    const dispatch = useDispatch<AppDispatch>()
+    const { currentNav, showSideNav, showTopNav} = useSelector((state:RootState) => state.navigation)  
     const studentslice = useSelector((state:RootState) => state.studentslice)  
 
-
-    const showSideNav = navigation.showSideNav
-    const currentNav = navigation.currentNav
     // const currentDropDown = navigation.currentDropDown
-    const showTopNav = navigation.showTopNav
     
     useEffect(() => {
         const user = Cookie.get("userDetails")
         if(user == "admin"){
             dispatch(setShowTopNav(true))
         }
-    }, [])
+    }, [showTopNav])
 
 
     const SideNav =  Cookie.get("userDetails") == "admin" ? 
@@ -119,7 +115,7 @@ export const Navbar = () =>{
         {/********************  TOP NAVIGATION    ********************/}
         
         <div className={`fixed h-[8vh] md:h-[10vh] shadow bg-gray-900 top-0 w-full flex items-center justify-between z-[45]
-        ${showTopNav ? '' : "translate-y-[-20vh]"}
+        ${showTopNav ? "" : "translate-y-[-20vh]"}
         `}>
             {/* LEFT TOP NAV */}
             <div className="w-11/12 flex items-center gap-6 px-5">

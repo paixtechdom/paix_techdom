@@ -24,8 +24,7 @@ const navigationSlice = createSlice({
         },
         setShowTopNav: (state, action: PayloadAction<boolean>) => {
             state.showTopNav = action.payload
-        },
-       
+        }
     }
 })
 

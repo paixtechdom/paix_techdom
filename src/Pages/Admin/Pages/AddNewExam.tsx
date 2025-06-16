@@ -160,10 +160,14 @@ export const AddNewExam = () => {
                     <select className={TextInputClass} id="" {...register('level')}>
                     
                         <option value="" className="valueless">Level--</option>
-                        <option value="100">100</option>
-                        <option value="200">200</option>
-                        <option value="300">300</option>
-                        <option value="All">All</option>
+                        {
+                            availableDepartments.find(fac => fac.faculty === selectedFaculty)
+                            ?.levels.map((level, i) => (
+                                <option key={i} value={level}>{level}</option>
+                            ))
+                        }
+                        <option value="All" >All</option>
+
                     </select>
                     <p className={ErrorMessageTextClass}>{errors.level?.message}</p>
                 

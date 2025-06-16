@@ -10,21 +10,23 @@ import { useMyAlert } from "../../../assets/Hooks/useMyAlert"
 import { useLogout } from "../../../assets/Hooks/useLogout"
 import { useDispatch } from "react-redux"
 import { setShowTopNav } from "../../../assets/store/NavigationSlice"
+import { AppDispatch } from "../../../assets/store/AppStore"
 
 
 export const Login = () =>{
     const Navigate = useNavigate()
     const triggerAlert = useMyAlert()
     const Logout = useLogout()
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
     // to store users fetched
  
     // to store error to be displayed if there is error in the login details
     const [ showPassword, setShowPassword ] = useState<string>('password')
+    const [ loading, setLoading ] = useState(false)
     // const Navigate = useNavigate()
       
-    useEffect(() =>{
+    useEffect(() =>{false
         dispatch(setShowTopNav(false))
         document.documentElement.scrollTop=0
         Logout("login")
@@ -52,7 +54,7 @@ export const Login = () =>{
 
     const onLogin = async (data: loginDataInterface) => {
         // console.log(data)
-        
+        setLoading(true)
         await axios.get(`${dbLocation}/index.php/login/${data.userName}/${data.Password}`)
         .then((res) => {
         const user = res.data.user
@@ -75,7 +77,9 @@ export const Login = () =>{
         console.table(error)
         triggerAlert("error", "An error occured, please try again")
     }) 
-    
+    .finally(() => {
+        setLoading(false)
+    })
 }
 
 
@@ -117,7 +121,7 @@ export const Login = () =>{
                     </div>                   
 
                     <button onClick={handleSubmit(onLogin)} className={`${PrimaryButtonCLass} uppercase font-bold w-fit min-w-[200px]`}> 
-                        Login 
+                        {loading ? "Please Wait..." : "Login"}
                     </button>
                 </form>
                 
@@ -129,8 +133,7 @@ export const Login = () =>{
 
                 <button className="fixed top-5 left-5 border border-gray-400 h-[45px] w-[45px] bg-white center rounded-full transition" onClick={() =>{
                     Navigate('/')
-                }}
-                >
+                }}>
                     <i className="bi bi-arrow-left text-2xl"></i>
                 </button>
         </div>

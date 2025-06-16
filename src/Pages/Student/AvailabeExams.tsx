@@ -8,7 +8,7 @@ import { studentInfoInterface } from "../../assets/Interfaces"
 import { EncodeValue } from "../../assets/Functions"
 import { AppDispatch, RootState } from "../../assets/store/AppStore"
 import { useDispatch, useSelector } from "react-redux"
-import { setExamStatus } from "../../assets/store/ExamSlice"
+import { setExams } from "../../assets/store/AllExamsSlice"
 
 
 export const AvailableExams = () => {
@@ -31,7 +31,7 @@ export const AvailableExams = () => {
         axios.get(`${dbLocation}/exams.php/availableExams/${studentDetails.level}/${EncodeValue(studentDetails.department)}/${EncodeValue(studentDetails.faculty)}/${studentDetails.id}`)
         .then(function(res){
             const exams = res.data
-            dispatch(setExamStatus(exams))
+            dispatch(setExams(exams))
         }) 
     }
 

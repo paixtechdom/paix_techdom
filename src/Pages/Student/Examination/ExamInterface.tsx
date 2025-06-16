@@ -1,48 +1,57 @@
-import { useState, useEffect, useContext, useRef } from "react"
-import { AppContext } from "../../../App"
+import { useState, useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { dbLocation, PrimaryButtonCLass, SecondaryButtonCLass, TextInputClass } from "../../../assets/Constants"
+import { PrimaryButtonCLass, SecondaryButtonCLass } from "../../../assets/Constants"
 import { useMyConfirmBox } from "../../../assets/Hooks/useMyConfirmBox"
 import { setConfirmedAction } from "../../../assets/store/ConfirmBoxSlice"
 import { Link } from "react-router-dom"
-import axios from "axios"
-import { FormatDate } from "../../../assets/Functions"
+import { AppDispatch, RootState } from "../../../assets/store/AppStore"
+import { ExamQuestionInterface } from "../../../assets/store/ExamSlice"
 
+interface a {
+    submittedExam: boolean
+    setSubmittedExam: (submittedExam: boolean) => void
+    countdown: number
+    SaveReport: () => void
+    setScore(score: number) : void
+    closeExam: () => void
+    answers: string[]
+    setAnswers: any
+    fetchQuestions: (examKey:string) => Promise<void>
+    score: number
+}
 
-
-export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setScore, closeExam, SaveReport, answers, setAnswers }) =>{
-    const { savedQuestions, fetchQuestions } = useContext(AppContext)
-    const [ shuffledQuestions, setShuffledQuestions ] = useState([])
-    
-
-    const useConfirmBox = useMyConfirmBox()
-    const dispatch = useDispatch()
-    const sliderRef = useRef(null)
-    const ButtonRightRef = useRef(null)
-
-    const confirmBoxState = useSelector((state) => state.confirmBox)  
-    const examDetails = useSelector(state => state.examslice)
-
-    const studentDetails = useSelector(state => state.studentslice)
-    const firstName = studentDetails.firstName
-    const lastName = studentDetails.lastName
-
+export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setScore, closeExam, SaveReport, answers, setAnswers, fetchQuestions, score }: a) =>{
     const [startX, setStartX ] = useState(0)
     const [ currentQuestion, setCurrentQuestion ] = useState(0)
     const [ submitExamClicked, setSubmitExamClicked ] = useState(false)
+    
+
+    const useConfirmBox = useMyConfirmBox()
+    const dispatch = useDispatch<AppDispatch>()
+    const sliderRef = useRef<any>(null)
+    const ButtonRightRef = useRef<any>(null)
+
+    const confirmBoxState = useSelector((state:RootState) => state.confirmBox)  
+    const examDetails = useSelector((state:RootState) => state.examslice)
+    const questions = examDetails.questions
+
+    const studentDetails = useSelector((state:RootState) => state.studentslice)
+    const firstName = studentDetails.firstName
+    const lastName = studentDetails.lastName
+
 
     const NextQuestion = () => {
-        setCurrentQuestion(prev => prev < shuffledQuestions.length -1 ? prev + 1 : prev)
+        setCurrentQuestion(prev => prev < questions.length -1 ? prev + 1 : prev)
     }
     const PreviousQuestion = () =>{
         setCurrentQuestion(prev => prev == 0 ? 0 : prev - 1 )
     }
 
-    const handleTouchStart = (e) => { 
+    const handleTouchStart = (e:any) => { 
         setStartX(e.touches[0].clientX)
     }
     
-    const handleTouchEnd = (e) => {
+    const handleTouchEnd = (e:any) => {
         const deltaX = e.changedTouches[0].clientX - startX
         if(deltaX > 0){
             PreviousQuestion()
@@ -54,18 +63,16 @@ export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setSc
 
     useEffect(() =>{
         fetchQuestions(examDetails.examKey)
-        // StartTimer()
-        if(shuffledQuestions.length > 0) {
-            setAnswers(shuffledQuestions.map((s, i) => (i+1)))
+        
+        if(questions.length > 0) {
+            // set anwers to numbers, to define the length and to check if it has been solved, if solved, the number is replaced with string A, B, C, D
+            setAnswers(questions.map((_, i) => (i+1)))
         }
 
     }, [examDetails.examKey])
 
-    useEffect(() =>{
-        setShuffledQuestions(savedQuestions.sort(() => Math.random() - 0.5))
-    }, [savedQuestions])
 
-    const KeyBoardControls = (e) =>{
+    const KeyBoardControls = (e:any) =>{
         if(e.key == 'ArrowRight'){
             ButtonRightRef.current?.click()
         }
@@ -91,18 +98,19 @@ export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setSc
             // console.log("mark")
         }
     }, [countdown])
-        
-
+    
+    
     useEffect(() => {
         if(confirmBoxState.confirmedAction && submitExamClicked){ 
-          MarkExam()
+            MarkExam()
         }
+        console.log(answers)
     }, [confirmBoxState.confirmedAction])
 
     
     const HandleExamSubmit = () => {
         let a = 0
-        shuffledQuestions.forEach((question, i) => {
+        questions.forEach((_, i) => {
             if(typeof(answers[i]) != "string"){
                 a += 1
             }
@@ -114,9 +122,10 @@ export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setSc
     const MarkExam = () => {
         // console.log("marked")
         
-        shuffledQuestions.forEach((question, i) =>{
+        questions.forEach((question, i) =>{
             if(question.answer == answers[i]){
-                setScore(prev => prev + question.points)
+                console.log(answers[i])
+                setScore(score += question.points)
             }    
         })
         setSubmittedExam(true)
@@ -134,7 +143,7 @@ export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setSc
             <div className="w-full center">
                 <div className="flex flex-wrap gap-2 w-11/12">
                     {
-                        shuffledQuestions.map((q, i) => (
+                        questions.map((q, i) => (
                             <p key={i}
                             className={`
                                 ${
@@ -157,13 +166,12 @@ export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setSc
             <div className={`flex transition-all duration-500`}
             style={{
                 translate: -currentQuestion*100+"vw",
-                width: shuffledQuestions.length*100+"vw"
+                width: questions.length*100+"vw"
             }}>
                 {
-                    shuffledQuestions?.map((question, i) => (
+                    questions?.map((question, i) => (
                      <EachQuestionsComponent 
                      question={question}
-                     setAnswers={setAnswers}
                      answers={answers}
                      submittedExam={submittedExam}
                      key={i} 
@@ -206,7 +214,7 @@ export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setSc
                     onClick={() => {
                         NextQuestion()                    
                     }}
-                    disabled={currentQuestion == shuffledQuestions.length -1}
+                    disabled={currentQuestion == questions.length -1}
                     >
                         Next
                     </button>
@@ -219,7 +227,14 @@ export const ExamInterface = ({submittedExam, setSubmittedExam, countdown, setSc
 }
 
 
-const EachQuestionsComponent = ({question, i, setAnswers, answers, submittedExam}) => {
+interface f {
+    question: ExamQuestionInterface,
+    i: number,
+    submittedExam: boolean
+    answers: string[]
+}
+
+const EachQuestionsComponent = ({question, i, submittedExam, answers}: f) => {
     const [ selectedAnswer, setSelectedAnswer ] = useState("")
 
     return(
@@ -255,22 +270,22 @@ const EachQuestionsComponent = ({question, i, setAnswers, answers, submittedExam
   
                 <OptionComponent 
                     setSelectedAnswer={setSelectedAnswer}
-                    setAnswers={setAnswers}
                     submittedExam={submittedExam} 
                     question={question} 
                     selectedAnswer={selectedAnswer} 
                     option={"optionA"} 
                     value={"A"}
+                    answers={answers}
                     i={i}
-                />
+                    />
             
                 <OptionComponent 
                     setSelectedAnswer={setSelectedAnswer}
-                    setAnswers={setAnswers}
                     submittedExam={submittedExam} 
                     question={question} 
                     selectedAnswer={selectedAnswer} 
                     option={"optionB"} 
+                    answers={answers}
                     value={"B"}
                     i={i}
                 />         
@@ -282,10 +297,10 @@ const EachQuestionsComponent = ({question, i, setAnswers, answers, submittedExam
                      
                     <OptionComponent 
                         setSelectedAnswer={setSelectedAnswer}
-                        setAnswers={setAnswers}
                         submittedExam={submittedExam} 
                         question={question} 
                         selectedAnswer={selectedAnswer} 
+                        answers={answers}
                         option={"optionC"} 
                         value={"C"}
                         i={i}
@@ -294,10 +309,10 @@ const EachQuestionsComponent = ({question, i, setAnswers, answers, submittedExam
              
                     <OptionComponent 
                         setSelectedAnswer={setSelectedAnswer}
-                        setAnswers={setAnswers}
                         submittedExam={submittedExam} 
                         question={question} 
                         selectedAnswer={selectedAnswer} 
+                        answers={answers}
                         option={"optionD"} 
                         value={"D"}
                         i={i}
@@ -337,19 +352,38 @@ const EachQuestionsComponent = ({question, i, setAnswers, answers, submittedExam
         }
 */}
 
-const OptionComponent = ({setSelectedAnswer, setAnswers, submittedExam, question, selectedAnswer, option, value, i}) => {
+
+export interface optionInterface{
+    optionA: string
+    optionB: string
+    optionC: string
+    optionD: string
+}
+export type optionType = keyof optionInterface;
+
+interface g {
+    setSelectedAnswer: (selectedAnswer: string) => void 
+    submittedExam: boolean
+    question: ExamQuestionInterface
+    selectedAnswer: string
+    option: optionType 
+    value:string 
+    i:number,
+    answers: string[]
+}
+
+
+
+
+const OptionComponent = ({setSelectedAnswer, submittedExam, question, selectedAnswer, option, value, i, answers} : g) => {
     return(
-        <div className={'flex items-center w-full gap-2 lg:gap-3 cursor-pointer'}
-        disabled={submittedExam}
+        <div className={`flex items-center w-full gap-2 lg:gap-3 cursor-pointer ${submittedExam && "cursor-not-allowed"}`}
         onClick={() => {
             if(!submittedExam){
 
                 setSelectedAnswer(value)
-                setAnswers(prevAnswers => {
-                    const updatedAnswers = [...prevAnswers];
-                    updatedAnswers[i] = value; // or "B", value, etc.
-                    return updatedAnswers;
-                });
+
+                answers[i] = value
             }
             
             }}>

@@ -9,14 +9,19 @@ import { dbLocation, ErrorMessageTextClass, PrimaryButtonCLass, TextInputClass, 
 import { useMyAlert } from "../../assets/Hooks/useMyAlert"
 import { useUpdateStudentDetails } from "../../assets/Hooks/useUpdateStudentDetails"
 import { useLogout } from "../../assets/Hooks/useLogout"
+import { AppDispatch } from "../../assets/store/AppStore"
+import { useDispatch } from "react-redux"
+import { setShowTopNav } from "../../assets/store/NavigationSlice"
 
 
 
 export const StudentLogin = () => {
 
     const [ showPassword, setShowPassword ] = useState('password')
+    const [ loading, setLoading ] = useState(false)
     const Logout = useLogout()
     const Navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
     const triggerAlert = useMyAlert()
     const updateStudentDetails = useUpdateStudentDetails()
 
@@ -47,6 +52,7 @@ export const StudentLogin = () => {
 
 
     const onLogin = async (data: loginDataInterface) => {
+        setLoading(true)
         await axios.get(`${dbLocation}/studentRegistration.php/login/${data.matricNumber}/${data.Password}`)
             .then((res) => {
             const user = res.data.user
@@ -59,7 +65,7 @@ export const StudentLogin = () => {
                 })             
 
                 updateStudentDetails(user)     
-
+                dispatch(setShowTopNav(true))
                 Navigate(`/student/${user.firstName}-${user.lastName}`)
             }else{
                 triggerAlert("error", res.data.message)
@@ -69,6 +75,9 @@ export const StudentLogin = () => {
         .catch(()=> {
             triggerAlert("error", "An error occured, please try again")
         }) 
+        .finally(() => {
+            setLoading(false)
+        })
 
     }
 
@@ -100,7 +109,7 @@ export const StudentLogin = () => {
                                 />
                                 
                                 <i className={`bi bi-${showPassword == 'text' ? "eye-slash-fill" : "eye-fill"} text-xl cursor-pointer text-gray-700`} 
-                                    onClick={() =>{                                        
+                                    onClick={() =>{   
                                         setShowPassword(showPassword == 'text' ? 'password' : 'text') 
                                     }}
                                 ></i>
@@ -110,9 +119,9 @@ export const StudentLogin = () => {
                             <p className={ErrorMessageTextClass}>{errors.Password?.message}</p>
                         </div>
 
-
                         <button onClick={handleSubmit(onLogin)} className={`${PrimaryButtonCLass} uppercase font-bold w-fit min-w-[200px]`}> 
-                            Login 
+                            {loading ? "Please Wait..." : "Login"}
+                            
                         </button>
                     </form>
 

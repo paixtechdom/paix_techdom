@@ -15,9 +15,11 @@ leaving or closing the page
 
 
 
+loading
+
 setTimeComponent = setting of values, number or e.target.value = string
-deleting questions
-loading of importing
+
+
 
 
 

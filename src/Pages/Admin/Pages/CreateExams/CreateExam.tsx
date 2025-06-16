@@ -36,6 +36,7 @@ export const CreateExam = () =>{
 
     const [ editPart, setEditPart ] = useState<string>("")
 
+
     const [ newExamInfo, setNewExamInfo ] = useState<newExamInfoInterface>({
         examTitle: examTitle,
         level: level,
@@ -144,23 +145,6 @@ export const CreateExam = () =>{
                             dispatch(setExamStatus( status == 'Active'? 'Inactive' : 'Active'))
                         })
                     }
-        
-                    // questions.forEach((question, index) =>{
-            
-                    //     if(question.answer == 'Answer not selected'){
-                    //         appearance = 1
-                    //         i = index + 1
-                    //     }
-                    //     })
-                        
-                    //     if(appearance > 0){
-                    //         alert('Answer Not Selected in no ' + i )
-                            
-                    //     }
-                    //     else{
-                            
-                            // if(status == "Active"){}
-                    //     }
                 }
             }
         }
@@ -200,14 +184,6 @@ export const CreateExam = () =>{
                     ...newExamInfo,
                     department: ""
                 })
-            
-            // // faculty, level, department
-            // if(faculty !== newExamInfo.faculty || level !== newExamInfo.level || department !== newExamInfo.department){
-            //     updateExamInfo()
-            //     // console.log("updateExamInfo")
-            // }
-            // else{
-            // }
         }
     }, [newExamInfo.faculty])
 
